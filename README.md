@@ -1,5 +1,7 @@
 # XAU Mapper (PWA)
 
+**Live app:** https://agtronnote-pixel.github.io/xau-mapper/
+
 A Progressive Web App that runs a six-agent analysis team on live XAU/USD data for each stage of the trading day: Prep, Asia, London, New York and Close. It needs no Python, MT5 or installer; it runs in Edge or Chrome and installs like an app.
 
 ## What you need
