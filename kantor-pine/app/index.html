@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kantor Pine XAUUSD</title>
+<meta name="description" content="Tim agent analisis XAUUSD: proyeksi 5 menit–24 jam, rencana entry, EA MT5 & indikator TradingView.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="theme-color" content="#FAFAF9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B0B0C" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+:root{--bg:#FAFAF9;--panel:#FFF;--panel2:#F4F4F2;--line:#E9E9E6;--text:#111;--muted:#71717A;--ink:#111;--on-ink:#FFF;
+  --gold:#A87B1F;--green:#15803D;--red:#DC2626;--blue:#2563EB;--band:rgba(168,123,31,.13);--r:14px}
+@media (prefers-color-scheme:dark){:root{--bg:#0B0B0C;--panel:#151517;--panel2:#1D1D20;--line:#27272A;--text:#F4F4F5;--muted:#8E8E93;--ink:#F4F4F5;--on-ink:#0B0B0C;
+  --gold:#D4A63F;--green:#22C55E;--red:#F05252;--blue:#60A5FA;--band:rgba(212,166,63,.14)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)}
+button,input,select{font:inherit;color:inherit}
+.app{max-width:680px;margin:0 auto;padding:14px 16px calc(92px + env(safe-area-inset-bottom))}
+header{display:flex;align-items:center;gap:10px;padding:4px 0 14px}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;font-weight:700;font-size:13px}
+header h1{font-size:16px;margin:0;font-weight:650}
+header p{margin:0;font-size:12px;color:var(--muted)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--line);display:inline-block}
+.dot.on{background:var(--green)}.dot.warn{background:var(--gold)}.dot.off{background:var(--red)}
+.status{margin-left:auto;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.view{display:none}.view.active{display:block;animation:f .2s}
+@keyframes f{from{opacity:0}to{opacity:1}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.sec{font-size:12px;color:var(--muted);margin:22px 2px 8px;font-weight:550}
+.hint{font-size:12.5px;color:var(--muted)}
+.big{font-size:38px;font-weight:700;letter-spacing:-1.2px;font-variant-numeric:tabular-nums;line-height:1.1}
+.row{display:flex;align-items:center;gap:10px}
+.between{justify-content:space-between}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:999px;background:var(--panel2);font-size:12.5px;font-weight:600}
+.up{color:var(--green)}.dn{color:var(--red)}.gold{color:var(--gold)}.blue{color:var(--blue)}
+.btn{border:0;border-radius:12px;padding:13px 16px;font-weight:600;background:var(--ink);color:var(--on-ink);width:100%;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btn.sm{width:auto;padding:8px 12px;font-size:13px;border-radius:10px}
+.btn:disabled{opacity:.4}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:12px;overflow:hidden}
+.grid3>div{background:var(--panel2);padding:9px 10px;font-size:11.5px;color:var(--muted)}
+.grid3 b{display:block;color:var(--text);font-size:14px;font-variant-numeric:tabular-nums}
+.gauge{height:8px;border-radius:8px;background:linear-gradient(90deg,var(--red),var(--panel2) 50%,var(--green));position:relative;margin:10px 0 4px}
+.gauge i{position:absolute;top:-4px;width:4px;height:16px;border-radius:2px;background:var(--text);transform:translateX(-2px)}
+.bar{height:6px;border-radius:6px;background:var(--panel2);position:relative;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0}
+.plan{border-left:4px solid var(--green)}.plan.SELL{border-left-color:var(--red)}
+.state{font-size:13px;font-weight:600;padding:6px 10px;border-radius:10px;background:var(--panel2);margin-top:10px}
+.state.zone{background:color-mix(in srgb,var(--blue) 14%,transparent);color:var(--blue)}
+.state.sl{background:color-mix(in srgb,var(--red) 12%,transparent);color:var(--red)}
+.agent{display:grid;grid-template-columns:38px 1fr;gap:10px;align-items:start}
+.av{width:38px;height:38px;border-radius:50%;background:var(--panel2);display:grid;place-items:center;font-weight:700}
+.agent.chief .av{background:var(--ink);color:var(--on-ink)}
+details summary{cursor:pointer;list-style:none}details summary::-webkit-details-marker{display:none}
+ul.d{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:500;font-size:12px;padding:6px 4px;border-bottom:1px solid var(--line)}
+td{padding:8px 4px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;vertical-align:top}
+tr:last-child td{border-bottom:0}
+.act{font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--panel2);white-space:nowrap}
+.act.ENTRY{color:var(--blue)}.act.HOLD{color:var(--gold)}.act.TAKE{color:var(--green)}.act.NO{color:var(--red)}.act.WAIT{color:var(--muted)}
+label.f{display:block;font-size:13px;font-weight:550;margin:10px 0 5px}
+input[type=number],input[type=text],select{width:100%;background:var(--panel2);border:1px solid transparent;border-radius:10px;padding:11px 12px;outline:none}
+input:focus,select:focus{border-color:var(--ink)}
+.switch{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.switch:last-child{border-bottom:0}
+.tabs{display:flex;gap:4px;background:var(--panel2);padding:4px;border-radius:12px;margin-bottom:12px}
+.tabs button{flex:1;border:0;background:transparent;padding:8px;border-radius:9px;font-size:13px;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--panel);color:var(--text);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+pre{background:var(--panel2);border-radius:10px;padding:12px;overflow:auto;font-size:11.5px;max-height:260px;white-space:pre}
+nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:7px 4px calc(7px + env(safe-area-inset-bottom));z-index:10}
+nav button{background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;padding:4px 8px;cursor:pointer;font-weight:500}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{color:var(--text)}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(14px);background:var(--ink);color:var(--on-ink);padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.2s;z-index:30;pointer-events:none;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.banner{background:var(--panel2);border-radius:12px;padding:10px 12px;font-size:12.5px;color:var(--muted);margin-bottom:12px;display:none}
+.banner.show{display:block}
+.skel{color:var(--muted);text-align:center;padding:40px 0}
+.list-row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.list-row:last-child{border-bottom:0}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">Au</div>
+    <div><h1>Kantor Pine XAUUSD</h1><p>Tim agent analisis emas</p></div>
+    <div class="status"><i class="dot" id="netDot"></i><span id="netTxt">Memuat…</span></div>
+  </header>
+  <div class="banner" id="banner"></div>
+
+  <!-- BERANDA -->
+  <section class="view active" id="v-home"><div id="homeBody" class="skel">Mengumpulkan data pasar…</div></section>
+  <!-- PROYEKSI -->
+  <section class="view" id="v-proj"><div id="projBody" class="skel">Menunggu analisis…</div></section>
+  <!-- TIM -->
+  <section class="view" id="v-team"><div id="teamBody" class="skel">Menunggu analisis…</div></section>
+  <!-- RENCANA -->
+  <section class="view" id="v-plan"><div id="planBody" class="skel">Menunggu analisis…</div></section>
+  <!-- LAINNYA -->
+  <section class="view" id="v-more"><div id="moreBody"></div></section>
+</div>
+
+<nav id="nav">
+  <button data-v="home" class="on"><svg viewBox="0 0 24 24"><path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6"/></svg>Beranda</button>
+  <button data-v="proj"><svg viewBox="0 0 24 24"><path d="M4 19h16M5 15l4-4 3 3 6-7"/></svg>Proyeksi</button>
+  <button data-v="team"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M15 15c3 0 6 1.5 6 4"/></svg>Tim</button>
+  <button data-v="plan"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Rencana</button>
+  <button data-v="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Lainnya</button>
+</nav>
+<div class="toast" id="toast"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
