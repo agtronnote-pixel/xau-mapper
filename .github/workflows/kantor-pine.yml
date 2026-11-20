@@ -1,0 +1,51 @@
+# Kantor Pine XAUUSD — uji mesin analisis, lalu perbarui mapping server tiap jam.
+# Aplikasi diterbitkan oleh GitHub Pages repo ini (deploy dari branch) di /kantor-pine/app/.
+name: Kantor Pine XAUUSD
+
+on:
+  push:
+    branches: [main]
+    paths: ['kantor-pine/**', '.github/workflows/kantor-pine.yml']
+  pull_request:
+    paths: ['kantor-pine/**', '.github/workflows/kantor-pine.yml']
+  schedule:
+    - cron: '7 * * * 0-5'   # tiap jam, Minggu–Jumat (UTC)
+  workflow_dispatch:
+
+concurrency:
+  group: kantor-pine
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Uji mesin analisis & ekspor
+        run: node kantor-pine/scripts/test-engine.mjs
+
+  mapping:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Jalankan tim agent (mapping server)
+        run: node kantor-pine/scripts/run-mapping.mjs
+      - name: Simpan hasil
+        run: |
+          git config user.name "kantor-pine-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add kantor-pine/app/data kantor-pine/app/ea
+          git diff --cached --quiet || git commit -m "Mapping server $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git push
