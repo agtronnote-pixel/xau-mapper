@@ -349,6 +349,8 @@ export function mapSummary(r){
   L.push(`📊 MAPPING XAUUSD — ${day}, ${at(0)} WIB`);
   L.push(`Harga: ${p0.toFixed(2)} | Bias: ${bias}${Number.isFinite(+r.keyakinan)?` (${+r.keyakinan}%)`:''}`);
   if(r.ringkasan) L.push(String(r.ringkasan).trim());
+  if(r.gap){ const g=r.gap; L.push(''); L.push(`🔔 Gap pembukaan (tutup ${num(g.penutupan)})`);
+    g.skenario.forEach(x=>L.push(`• ${x.nama} — ${x.kondisi}: ${x.aksi}`)); }
   (r.rencana||[]).forEach(pl=>{
     L.push('');
     L.push(`🎯 ${pl.prioritas||'Rencana'}: ${pl.tipe} ${num(pl.entry_bawah)}–${num(pl.entry_atas)}`);

@@ -43,6 +43,19 @@ for (const [name, trend, seed] of [['naik', 0.6, 7], ['turun', -0.6, 11], ['data
   if (name==='naik') assert.equal(r.bias, 'BULLISH');
   if (name==='turun') assert.equal(r.bias, 'BEARISH');
 }
+// mode akhir pekan: data sampai penutupan Jumat, dianalisis hari Sabtu
+{
+  const base = synth(-0.6, 13); const fridayClose = Date.UTC(2026,10,20,21,55)/1000; const shift = fridayClose - base.points.at(-1).t;
+  base.points = base.points.map(x => ({ t: x.t + shift, p: x.p })); base.now = new Date('2026-11-21T16:00:00Z');
+  const w = analyze(base);
+  assert.ok(w.gap, 'ada analisis gap'); assert.equal(w.mode, 'akhir-pekan');
+  assert.equal(w.basis.time, '2026-11-22T23:00:00.000Z', 'proyeksi mulai saat pasar buka (Minggu 18:00 New York)');
+  assert.equal(w.jadwal[0].aksi, 'NO TRADE'); assert.ok(w.jadwal.some(j => j.aksi !== 'NO TRADE'), 'ada jendela trading setelah buka');
+  assert.ok(w.proyeksi.at(-1).atas - w.proyeksi.at(-1).bawah > 5, 'rentang 24 jam tidak datar');
+  assert.ok(w.gap.ambang_atas > w.gap.penutupan && w.gap.ambang_bawah < w.gap.penutupan);
+  console.log('\n[akhir pekan]', w.ringkasan); console.log('  gap:', w.gap.kondisi, '|', w.gap.kecenderungan);
+  console.log('  jadwal:', w.jadwal.map(j=>`${j.menit_mulai}-${j.menit_akhir} ${j.aksi}`).join(' | '));
+}
 const st = planState({tipe:'BUY',entry_bawah:10,entry_atas:12,sl:8,berlaku_menit:60}, 11, 0, 0);
 assert.equal(st.kode, 'zone');
 console.log('\nSEMUA TES LULUS');
