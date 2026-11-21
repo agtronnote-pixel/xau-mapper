@@ -1,28 +1,28 @@
-📊 MAPPING XAUUSD — Sab, 21 Nov 2026, 07.46 WIB
-Harga: 3539.00 | Bias: BEARISH (38%)
-XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3549.2–3557.74.
+📊 MAPPING XAUUSD — Sab, 21 Nov 2026, 23.23 WIB
+Harga: 3539.00 | Bias: BEARISH (36%)
+XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3547.86–3556.4.
 
-🎯 Utama: SELL 3549.20–3557.74
-SL 3576.96 | TP1 3525.00 | TP2 3502.90 | s/d 15.46 WIB
+🎯 Utama: SELL 3547.86–3556.40
+SL 3575.62 | TP1 3525.00 | TP2 3502.90 | s/d 07.23 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: BUY 3520.73–3529.27
-SL 3501.51 | TP1 3553.47 | TP2 3575.00 | s/d 15.46 WIB
+SL 3501.51 | TP1 3552.13 | TP2 3575.00 | s/d 07.23 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (08.01): 3538.85
-+1 jam (08.46): 3538.42
-+4 jam (11.46): 3536.98
-+24 jam (07.46): 3532.10
++15 mnt (23.38): 3538.87
++1 jam (00.23): 3538.49
++4 jam (03.23): 3537.26
++24 jam (23.23): 3533.03
 
 🕒 Jadwal
-07.46–07.46 NO TRADE: Pasar tutup
+23.23–23.23 NO TRADE: Pasar tutup
 
-🧱 Level: R 3699.62 · R 3638.10 · R 3604.03 · R 3595.50 · R 3575.00 · P 3553.47 · S 3525.00 · S 3518.10 · S 3502.90 · S 3468.83
-❌ Invalidasi: Candle H1 close di atas 3576.96
+🧱 Level: R 3638.10 · R 3601.37 · R 3595.50 · R 3575.00 · P 3552.13 · S 3525.00 · S 3518.10 · S 3502.90 · S 3466.17
+❌ Invalidasi: Candle H1 close di atas 3575.62
 ⚠️ Pasar sedang tutup
 
 — Kantor Pine XAUUSD · Bukan nasihat keuangan, selalu pakai SL.
