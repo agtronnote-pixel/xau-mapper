@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_Mapping_202611210121.mq5                                     |
+//| KPX_Mapping_202611210746.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 21 Nov 2026, 01.21 WIB - harga 3520.95                  |
+//| Mapping: 21 Nov 2026, 07.46 WIB - harga 3539.00                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 72%
-   Ringkasan: XAUUSD cenderung turun (3/3 analis searah). Volatilitas normal. Sesi New York berjalan. Rencana utama: SELL di 3545.46-3554.54.
-   Rencana 0: SELL 3545.46-3554.54 SL 3574.95 TP1 3512.58 TP2 3500.00
+/* Bias: BEARISH - Keyakinan 38%
+   Ringkasan: XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3549.2-3557.74.
+   Rencana 0: SELL 3549.20-3557.74 SL 3576.96 TP1 3525.00 TP2 3502.90
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3495.46-3504.54 SL 3475.05 TP1 3537.43 TP2 3550.00
+   Rencana 1: BUY 3520.73-3529.27 SL 3501.51 TP1 3553.47 TP2 3575.00
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 3574.95
+   Invalidasi: Candle H1 close di atas 3576.96
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XAUUSD 202611210121"
+#property description "Eksekusi otomatis mapping XAUUSD 202611210746"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -36,22 +36,22 @@ input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
 input double InpBEBuffer      = 0.20;  // Buffer break-even (USD)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Lainnya"
-input ulong  InpMagic         = 129919981; // Magic number
+input ulong  InpMagic         = 129920366; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {3545.46, 3495.46};
-double   P_EHI[]  = {3554.54, 3504.54};
-double   P_SL[]   = {3574.95, 3475.05};
-double   P_TP1[]  = {3512.58, 3537.43};
-double   P_TP2[]  = {3500.00, 3550.00};
-datetime P_EXP[]  = {D'2026.11.21 02:21:00', D'2026.11.21 02:21:00'};
+double   P_ELO[]  = {3549.20, 3520.73};
+double   P_EHI[]  = {3557.74, 3529.27};
+double   P_SL[]   = {3576.96, 3501.51};
+double   P_TP1[]  = {3525.00, 3553.47};
+double   P_TP2[]  = {3502.90, 3575.00};
+datetime P_EXP[]  = {D'2026.11.21 08:46:00', D'2026.11.21 08:46:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-datetime NT_START[] = {D'2026.11.20 22:21:00'};
-datetime NT_END[]   = {D'2026.11.21 18:21:00'};
-datetime MAP_START  = D'2026.11.20 18:21:00';
-datetime MAP_END    = D'2026.11.21 18:21:00';
+datetime NT_START[] = {D'2026.11.21 00:46:00'};
+datetime NT_END[]   = {D'2026.11.22 00:46:00'};
+datetime MAP_START  = D'2026.11.21 00:46:00';
+datetime MAP_END    = D'2026.11.22 00:46:00';
 
 CTrade   trade;
 string   GVP;
