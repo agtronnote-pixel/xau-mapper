@@ -1,12 +1,12 @@
 //+------------------------------------------------------------------+
-//| KPX_Mapping_202611212323.mq5                                     |
+//| KPX_Mapping_202611230600.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 21 Nov 2026, 23.23 WIB - harga 3539.00                  |
+//| Mapping: 23 Nov 2026, 06.00 WIB - harga 3539.00                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 36%
-   Ringkasan: XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3547.86-3556.4.
+/* Bias: BEARISH - Keyakinan 51%
+   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3547.86-3
    Rencana 0: SELL 3547.86-3556.40 SL 3575.62 TP1 3525.00 TP2 3502.90
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XAUUSD 202611212323"
+#property description "Eksekusi otomatis mapping XAUUSD 202611230600"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -36,7 +36,7 @@ input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
 input double InpBEBuffer      = 0.20;  // Buffer break-even (USD)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Lainnya"
-input ulong  InpMagic         = 129921303; // Magic number
+input ulong  InpMagic         = 129923140; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
@@ -46,12 +46,12 @@ double   P_EHI[]  = {3556.40, 3529.27};
 double   P_SL[]   = {3575.62, 3501.51};
 double   P_TP1[]  = {3525.00, 3552.13};
 double   P_TP2[]  = {3502.90, 3575.00};
-datetime P_EXP[]  = {D'2026.11.22 00:23:00', D'2026.11.22 00:23:00'};
+datetime P_EXP[]  = {D'2026.11.23 07:00:00', D'2026.11.23 07:00:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-datetime NT_START[] = {D'2026.11.21 16:23:00'};
-datetime NT_END[]   = {D'2026.11.22 16:23:00'};
-datetime MAP_START  = D'2026.11.21 16:23:00';
-datetime MAP_END    = D'2026.11.22 16:23:00';
+datetime NT_START[] = {D'2026.11.22 23:00:00'};
+datetime NT_END[]   = {D'2026.11.23 00:00:00'};
+datetime MAP_START  = D'2026.11.22 23:00:00';
+datetime MAP_END    = D'2026.11.23 23:00:00';
 
 CTrade   trade;
 string   GVP;

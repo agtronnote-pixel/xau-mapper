@@ -50,7 +50,8 @@ async function refresh({ remap = false } = {}) {
   try {
     const m = await fetchMarket();
     const age = S.map ? (Date.now() - Date.parse(S.map.basis.time)) / 60000 : Infinity;
-    if (remap || !S.map || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
+    const reopened = S.map && S.map.gap && marketOpen(new Date()) && Date.now() >= Date.parse(S.map.basis.time);
+    if (remap || reopened || !S.map || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
     banner(m.state && m.state.status === 'stale' ? 'Data sumber sedang tertunda (stale). Pasar mungkin tutup atau sumber terlambat.' : '');
     setNet(marketOpen(new Date()) ? 'on' : 'warn', marketOpen(new Date()) ? 'Live' : 'Pasar tutup');
   } catch (e) {
@@ -92,7 +93,9 @@ async function notify(title, body) {
 function chart(r, points, live, H = 230) {
   const W = 360, L = 6, R = 54, T = 10, B = 26, split = 0.3;
   const p0 = r.basis.price, t0 = Date.parse(r.basis.time) / 1000;
-  const past = (points || []).filter(x => x.t >= t0 - 12 * 3600 && x.t <= t0);
+  const lastT = (points && points.length) ? points[points.length - 1].t : t0;
+  const tEnd = Math.min(t0, lastT);   // akhir pekan: data berhenti di penutupan Jumat
+  const past = (points || []).filter(x => x.t >= tEnd - 12 * 3600 && x.t <= tEnd);
   const fut = [{ m: 0, h: p0, lo: p0, hi: p0 }, ...r.proyeksi.map(p => ({ m: p.menit, h: p.harga, lo: p.bawah, hi: p.atas }))];
   const plans = r.rencana || [], lv = (r.level || []);
   let vals = [...past.map(x => x.p), ...fut.flatMap(f => [f.lo, f.hi])];
@@ -102,7 +105,7 @@ function chart(r, points, live, H = 230) {
   lv.forEach(l => { if (l.harga > lo - (hi - lo) * .3 && l.harga < hi + (hi - lo) * .3) { lo = Math.min(lo, l.harga); hi = Math.max(hi, l.harga); } });
   const pad = (hi - lo) * .08 || 1; lo -= pad; hi += pad;
   const X0 = L + (W - L - R) * split, Y = v => T + (hi - v) * (H - T - B) / (hi - lo);
-  const Xp = t => L + (t - (t0 - 12 * 3600)) / (12 * 3600) * (X0 - L);
+  const Xp = t => L + (t - (tEnd - 12 * 3600)) / (12 * 3600) * (X0 - L);
   const Xf = i => X0 + i * (W - R - X0) / (fut.length - 1);
   const Xm = m => { for (let i = 1; i < fut.length; i++) if (m <= fut[i].m) return Xf(i - 1) + (m - fut[i - 1].m) / (fut[i].m - fut[i - 1].m) * (Xf(i) - Xf(i - 1)); return Xf(fut.length - 1); };
   let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block" role="img" aria-label="Grafik proyeksi XAUUSD">`;
@@ -116,8 +119,8 @@ function chart(r, points, live, H = 230) {
   s += `<polyline points="${fut.map((f, i) => `${Xf(i)},${Y(f.h)}`).join(' ')}" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linejoin="round"/>`;
   s += `<line x1="${X0}" x2="${X0}" y1="${T}" y2="${H - B}" stroke="var(--gold)" stroke-dasharray="2 3"/>`;
   fut.forEach((f, i) => { s += `<circle cx="${Xf(i)}" cy="${Y(f.h)}" r="${i ? 2.2 : 3.5}" fill="${i ? 'var(--text)' : 'var(--gold)'}"/>`; });
-  [[-12, '-12j'], [-6, '-6j']].forEach(([h, t]) => { s += `<text x="${Xp(t0 + h * 3600)}" y="${H - 9}" font-size="8.5" fill="var(--muted)" text-anchor="${h === -12 ? 'start' : 'middle'}">${t}</text>`; });
-  fut.forEach((f, i) => { if (i === 0 || [60, 240, 720, 1440].includes(f.m)) s += `<text x="${Xf(i)}" y="${H - 9}" font-size="8.5" fill="${i ? 'var(--muted)' : 'var(--gold)'}" text-anchor="middle">${i ? '+' + (f.m / 60) + 'j' : 'Mapping'}</text>`; });
+  [[-12, '-12j'], [-6, '-6j']].forEach(([h, t]) => { s += `<text x="${Xp(tEnd + h * 3600)}" y="${H - 9}" font-size="8.5" fill="var(--muted)" text-anchor="${h === -12 ? 'start' : 'middle'}">${t}</text>`; });
+  fut.forEach((f, i) => { if (i === 0 || [60, 240, 720, 1440].includes(f.m)) s += `<text x="${Xf(i)}" y="${H - 9}" font-size="8.5" fill="${i ? 'var(--muted)' : 'var(--gold)'}" text-anchor="middle">${i ? '+' + (f.m / 60) + 'j' : (r.gap ? 'Buka' : 'Mapping')}</text>`; });
   s += `<text x="${W - R + 3}" y="${Y(p0) + 3}" font-size="8.5" fill="var(--gold)" font-weight="700">${p0.toFixed(2)}</text>`;
   if (live && Number.isFinite(live.price)) {
     const em = (live.at / 1000 - t0) / 60;
@@ -141,10 +144,11 @@ function renderHome() {
   <div class="card">
     <div class="row between"><span class="hint">XAUUSD · spot</span><span class="hint">${S.spotAt ? 'diperbarui ' + wib(new Date(S.spotAt)) + ' WIB' : ''}</span></div>
     <div class="row between" style="margin-top:4px"><div class="big">${p.toFixed(2)}</div><span class="pill ${biasCls(r.bias)}">${biasText(r.bias)}</span></div>
-    <div class="row between" style="margin-top:2px"><span class="${d >= 0 ? 'up' : 'dn'}" style="font-size:13px;font-weight:600">${d >= 0 ? '+' : ''}${d.toFixed(2)} sejak mapping ${wib(new Date(t0))}</span><span class="hint">${marketOpen(new Date()) ? (sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi') : 'Pasar tutup'}</span></div>
+    <div class="row between" style="margin-top:2px">${r.gap && Date.now() < t0 ? `<span class="hint" style="font-weight:600">Harga penutupan Jumat</span>` : `<span class="${d >= 0 ? 'up' : 'dn'}" style="font-size:13px;font-weight:600">${d >= 0 ? '+' : ''}${d.toFixed(2)} sejak mapping ${wib(new Date(t0))}</span>`}<span class="hint">${marketOpen(new Date()) ? (sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi') : 'Pasar tutup'}</span></div>
     <div class="gauge"><i style="left:${((r.skor + 1) / 2 * 100).toFixed(1)}%"></i></div>
     <div class="row between hint"><span>Jual</span><span>Konsensus ${r.skor >= 0 ? '+' : ''}${r.skor.toFixed(2)} · keyakinan ${r.keyakinan}%</span><span>Beli</span></div>
   </div>
+  ${r.gap ? gapCard(r) : ''}
   <div class="card"><div style="font-size:14px">${esc(r.ringkasan)}</div>
     <div style="margin-top:12px">${chart(r, S.market?.points, { price: p, at: S.spotAt || Date.now() }, 200)}</div>
     <div class="hint" style="margin-top:4px">Abu-abu = harga 12 jam terakhir · hitam = proyeksi · titik biru = harga kini</div></div>
@@ -157,6 +161,20 @@ function renderHome() {
   ${ev.length ? `<div class="sec">Rilis data berikutnya</div><div class="card">${ev.map(e => `<div class="list-row"><span>${esc(e.nama)}</span><span class="hint">${wib(new Date(e.t))} WIB</span></div>`).join('')}<div class="hint" style="margin-top:6px">Perkiraan pola rutin — cek kalender ekonomi resmi.</div></div>` : ''}
   <div class="grid2" style="margin-top:4px"><button class="btn" onclick="kpx.remap()">Mapping baru</button><button class="btn ghost" onclick="kpx.shareImage()">Bagikan gambar</button></div>
   <div class="hint" style="text-align:center;margin-top:10px">Mapping ${wib(new Date(t0))} WIB · sumber ${esc(r.sumber_harga || S.source || '-')}</div>`;
+}
+
+function gapCard(r) {
+  const g = r.gap, open = Date.parse(g.buka), ms = open - Date.now();
+  const sisa = ms > 0 ? `${Math.floor(ms / 3600e3)} jam ${Math.floor(ms % 3600e3 / 60e3)} menit lagi` : 'sudah buka — buat mapping baru';
+  const hari = new Date(open).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', weekday: 'long', hour: '2-digit', minute: '2-digit' });
+  return `<div class="card">
+    <div class="row between"><b>Proyeksi pembukaan</b><span class="pill gold">${esc(hari)} WIB</span></div>
+    <div class="hint" style="margin-top:2px">Pasar buka ${sisa}</div>
+    <div class="grid3" style="margin-top:10px"><div>Penutupan<b>${num(g.penutupan)}</b></div><div>Range terakhir<b>${num(g.range_hari_terakhir.low)}–${num(g.range_hari_terakhir.high)}</b></div><div>Minggu ini<b class="${(g.perubahan_mingguan_pct ?? 0) >= 0 ? 'up' : 'dn'}">${g.perubahan_mingguan_pct == null ? '-' : (g.perubahan_mingguan_pct >= 0 ? '+' : '') + g.perubahan_mingguan_pct.toFixed(2) + '%'}</b></div></div>
+    <div style="font-size:13.5px;margin-top:10px">Harga ${esc(g.kondisi)}. ${esc(g.kecenderungan)}</div>
+    ${g.skenario.map(x => `<div class="list-row" style="display:block"><b>${esc(x.nama)}</b> <span class="hint">· ${esc(x.kondisi)}</span><div style="font-size:13px;margin-top:2px">${esc(x.aksi)}</div></div>`).join('')}
+    <div class="hint" style="margin-top:8px">${esc(g.catatan)}</div>
+  </div>`;
 }
 
 // ---------- render: proyeksi ----------
