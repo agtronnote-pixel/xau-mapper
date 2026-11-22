@@ -61,6 +61,7 @@ input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
 input double InpZoneTolerance = ${gold?'1.00':dv(atrH*0.1)};  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
+input int    InpMinPeluang    = 50;    // Peluang backtest minimal (%) — sama dengan aturan keputusan di aplikasi
 input int    InpMinStrength   = ${r.keunggulan&&r.keunggulan.ada===false?101:55};    // Kekuatan sinyal minimal (%) untuk entry${r.keunggulan&&r.keunggulan.ada===false?' (101 = tidak entry: backtest aset ini belum menguntungkan)':''}
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
@@ -83,6 +84,7 @@ double   P_TP2[]  = {${arr(pl=>f2(pl.tp2))}};
 datetime P_EXP[]  = {${arr(pl=>mqDate(T(Number.isFinite(+pl.berlaku_menit)?Math.min(+pl.berlaku_menit,1440):1440)))}};
 string   P_NAME[] = {${arr(pl=>`"${mqStr(pl.tipe+' '+(pl.prioritas||''))}"`)}};
 int      P_STR[]  = {${arr(pl=>String(Number.isFinite(+pl.kekuatan)?Math.round(+pl.kekuatan):50))}};   // kekuatan sinyal %
+int      P_PEL[]  = {${arr(pl=>String(pl.peluang!=null&&pl.peluang_sampel>=30?Math.round(+pl.peluang*100):-1))}};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = ${mqDate(new Date(b.data_time||b.time))};   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = ${(Number.isFinite(+b.data_price)?+b.data_price:+b.price).toFixed(DG)};
 double   OFFSET_MAX = ${gold?'30':dv(px*0.01)};
@@ -312,6 +314,7 @@ void OnTick()
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
       if(Flag(DoneKey(i))) s = "sudah entry";
       else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
+      else if(P_PEL[i] >= 0 && P_PEL[i] < InpMinPeluang) s = "dilewati (peluang backtest " + IntegerToString(P_PEL[i]) + "% < " + IntegerToString(InpMinPeluang) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";
       else
