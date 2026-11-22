@@ -62,6 +62,7 @@ input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
 input double InpZoneTolerance = ${gold?'1.00':dv(atrH*0.1)};  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
+input bool   InpSemuaSinyal   = false; // true = jalankan SEMUA rencana: abaikan filter kekuatan, peluang, keunggulan aset & batas risiko lot (untuk akun demo)
 input int    InpMinPeluang    = 50;    // Peluang backtest minimal (%) — sama dengan aturan keputusan di aplikasi
 input int    InpMinStrength   = ${r.keunggulan&&r.keunggulan.ada===false?101:55};    // Kekuatan sinyal minimal (%) untuk entry${r.keunggulan&&r.keunggulan.ada===false?' (101 = tidak entry: backtest aset ini belum menguntungkan)':''}
 input group "Manajemen posisi"
@@ -168,7 +169,7 @@ void OpenPlan(const int i, const double price, double sl, double tp2)
    sl  = NormalizeDouble(sl, d);
    tp2 = NormalizeDouble(tp2, d);
    double lots = CalcLots(P_TYPE[i], price, sl);
-   if(InpRiskPercent > 0)
+   if(InpRiskPercent > 0 && !InpSemuaSinyal)
    {
       double pl = 0; ENUM_ORDER_TYPE ot = (P_TYPE[i] == 0) ? ORDER_TYPE_BUY : ORDER_TYPE_SELL;
       double want = AccountInfoDouble(ACCOUNT_BALANCE) * InpRiskPercent / 100.0;
@@ -321,15 +322,15 @@ void OnTick()
    else if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal) why = "akun riil (aktifkan InpAllowReal)";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
-   string st = "Kantor Pine ${SYM} - Auto Trade Mapping\\nSelisih harga: " + gOffsetNote + "\\n";
+   string st = "Kantor Pine ${SYM} - Auto Trade Mapping" + (InpSemuaSinyal ? "  [MODE SEMUA SINYAL]" : "") + "\\nSelisih harga: " + gOffsetNote + "\\n";
    for(int i = 0; i < ArraySize(P_TYPE); i++)
    {
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
       if(Flag(DoneKey(i))) s = "sudah entry";
       else if(Flag(SkipKey(i))) s = "dilewati (modal terlalu kecil untuk SL ini - lihat tab Experts)";
-      else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
-      else if(P_PEL[i] >= 0 && P_PEL[i] < InpMinPeluang) s = "dilewati (peluang backtest " + IntegerToString(P_PEL[i]) + "% < " + IntegerToString(InpMinPeluang) + "%)";
+      else if(!InpSemuaSinyal && P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
+      else if(!InpSemuaSinyal && P_PEL[i] >= 0 && P_PEL[i] < InpMinPeluang) s = "dilewati (peluang backtest " + IntegerToString(P_PEL[i]) + "% < " + IntegerToString(InpMinPeluang) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";
       else
