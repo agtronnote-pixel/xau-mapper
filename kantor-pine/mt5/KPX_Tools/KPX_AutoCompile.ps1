@@ -1,14 +1,14 @@
 ﻿# ==================================================================
-#  Kantor Pine XAUUSD - Compile otomatis EA hasil mapping (MT5)
+#  Kantor Pine - Compile otomatis EA hasil mapping (MT5)
 #  Mengawasi folder Experts. Setiap file KPX_*.mq5 yang baru/berubah
 #  langsung di-compile dengan MetaEditor menjadi .ex5.
 #  Hasil compile ditulis ke <nama>.log di folder yang sama.
 # ==================================================================
 $ErrorActionPreference = 'Continue'
-$TerminalId = 'D0E8209F77C8CF37AD8BF550E51FF075'
-$DataDir    = Join-Path $env:APPDATA "MetaQuotes\Terminal\$TerminalId"
-$Mql5Dir    = Join-Path $DataDir 'MQL5'
-$Experts    = Join-Path $Mql5Dir 'Experts'
+# Lokasi dibaca dari tempat file ini: ...\MQL5\Experts\KPX_Tools → berlaku di PC mana pun
+$Experts    = Split-Path -Parent $PSScriptRoot
+$Mql5Dir    = Split-Path -Parent $Experts
+$DataDir    = Split-Path -Parent $Mql5Dir
 $StatusFile = Join-Path $Experts 'KPX_AutoCompile_status.txt'
 
 # Satu instance saja

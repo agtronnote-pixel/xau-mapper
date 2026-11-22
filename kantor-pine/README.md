@@ -43,10 +43,12 @@ kantor-pine/
 2. Workflow *Kantor Pine XAUUSD* menguji mesin di setiap push/PR, dan tiap jam (Minggu–Jumat) menjalankan mapping server lalu meng-commit `app/data/latest.json` dan `app/ea/KPX_Mapping_latest.*`.
 3. Uji lokal: `node kantor-pine/scripts/test-engine.mjs` dan `python3 -m http.server -d kantor-pine/app`.
 
-## MT5 (opsional)
-Salin folder `mt5/KPX_Tools` ke `MQL5/Experts/` lalu jalankan:
-- `KPX_Setup_AutoCompile.bat` — compile otomatis setiap `KPX_*.mq5`.
-- `KPX_Setup_Agent.bat` — isi alamat aplikasi (`https://agtronnote-pixel.github.io/xau-mapper/kantor-pine/app/`); EA `KPX_Mapping_latest` diunduh tiap 5 menit. Pasang EA itu sekali di chart XAUUSD; setiap mapping baru, MT5 memuat ulang otomatis.
+## MT5 — eksekusi otomatis
+1. Di MT5 desktop (Windows): **File → Open Data Folder → MQL5 → Experts**, salin folder `mt5/KPX_Tools` ke situ.
+2. Klik dua kali **`KPX_Pasang_Semua.bat`**: memasang compile otomatis + pengunduh EA (ikut menyala saat Windows hidup), menunggu EA terbaru, lalu membuka MT5 dengan chart emas M15, EA `KPX_Mapping_latest` terpasang, dan Algo Trading menyala.
+3. Aset lain: tulis di prompt installer (mis. `XAUUSD,BTCUSD`), lalu seret EA `KPX_<ASET>_latest` ke chart simbolnya sekali; MT5 mengingatnya.
+- EA **hanya trading di akun demo** kecuali `InpAllowReal = true`. Filter kekuatan minimal 55%, selisih harga broker otomatis, berhenti saat spread lebar / rilis berita besar.
+- MT5 di HP tidak bisa menjalankan EA; gunakan PC/VPS yang menyala.
 
 ## Sumber data (semua gratis, tanpa key)
 - **Spot live**: xaus.com (di HP, tiap menit). Indikatif mid-market — cocokkan dengan MT5.
