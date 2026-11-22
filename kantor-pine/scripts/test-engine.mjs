@@ -58,6 +58,18 @@ for (const [name, trend, seed] of [['naik', 0.6, 7], ['turun', -0.6, 11], ['data
 }
 const st = planState({tipe:'BUY',entry_bawah:10,entry_atas:12,sl:8,berlaku_menit:60}, 11, 0, 0);
 assert.equal(st.kode, 'zone');
+// kekuatan sinyal
+for (const [tr, sd] of [[0.6, 3], [-0.6, 5], [0, 9]]) {
+  const r = analyze(synth(tr, sd));
+  for (const pl of r.rencana) {
+    assert.ok(Number.isInteger(pl.kekuatan) && pl.kekuatan >= 5 && pl.kekuatan <= 95, 'kekuatan 5..95');
+    assert.equal(pl.kekuatan_label, pl.kekuatan >= 70 ? 'Kuat' : pl.kekuatan >= 50 ? 'Sedang' : 'Lemah');
+  }
+  const u = r.rencana.find(p => p.prioritas === 'Utama'), a = r.rencana.find(p => p.prioritas === 'Alternatif');
+  if (u && a) assert.ok(u.kekuatan > a.kekuatan, 'rencana searah trend lebih kuat dari alternatif');
+  assert.equal(r.kekuatan_sinyal, r.rencana[0]?.kekuatan ?? null);
+  console.log('kekuatan', tr, r.bias, r.rencana.map(p => `${p.tipe} ${p.prioritas} ${p.kekuatan}% ${p.kekuatan_label}`).join(' | '));
+}
 console.log('\nSEMUA TES LULUS');
 
 // ekspor
@@ -67,6 +79,7 @@ const ea = buildEA(res); assert.ok(ea.includes('int      P_TYPE[]') && ea.includ
 assert.ok(![...ea].some(c => c.charCodeAt(0) > 127), 'EA ASCII');
 const pine = buildPine(res); assert.ok(pine.code.startsWith('//@version=6') && pine.code.includes('alertcondition'));
 assert.ok(mapSummary(res).includes('MAPPING XAUUSD'));
+if (res.rencana.length) assert.ok(mapSummary(res).includes('Kekuatan sinyal') && pine.code.includes('%"') && ea.includes('Kekuatan sinyal'), 'kekuatan di ekspor');
 const z = makeZip([{name:'a.txt', text:'hi'}]); assert.ok(z.size > 40);
 const fs = await import('node:fs');
 fs.writeFileSync('/tmp/kpx_sample.pine', pine.code); fs.writeFileSync('/tmp/kpx_sample.mq5', ea);

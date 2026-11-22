@@ -42,7 +42,7 @@ function runMapping(m) {
   const r = analyze({ points: m.points, daily: m.daily, spot: m.spot, now: new Date() });
   r.sumber_harga = `${m.source}${m.state && m.state.status ? ' · ' + m.state.status : ''}`;
   S.map = r; S.states = {}; store.set('kpx_map_active', r);
-  S.history.unshift({ time: r.basis.time, price: r.basis.price, bias: r.bias, conf: r.keyakinan, proyeksi: r.proyeksi.map(p => ({ m: p.menit, h: p.harga })), plans: r.rencana.map(p => `${p.tipe} ${num(p.entry_bawah)}–${num(p.entry_atas)}`) });
+  S.history.unshift({ time: r.basis.time, price: r.basis.price, bias: r.bias, conf: r.keyakinan, proyeksi: r.proyeksi.map(p => ({ m: p.menit, h: p.harga })), plans: r.rencana.map(p => `${p.tipe} ${num(p.entry_bawah)}–${num(p.entry_atas)}${Number.isFinite(p.kekuatan) ? ` (${p.kekuatan}%)` : ''}`) });
   S.history = S.history.slice(0, 60); store.set('kpx_history', S.history);
   return r;
 }
@@ -180,7 +180,7 @@ function renderHome() {
     <div class="row between" style="margin-top:4px"><div class="big">${p.toFixed(2)}</div><span class="pill ${biasCls(r.bias)}">${biasText(r.bias)}</span></div>
     <div class="row between" style="margin-top:2px">${r.gap && Date.now() < t0 ? `<span class="hint" style="font-weight:600">Harga penutupan Jumat</span>` : `<span class="${d >= 0 ? 'up' : 'dn'}" style="font-size:13px;font-weight:600">${d >= 0 ? '+' : ''}${d.toFixed(2)} sejak mapping ${wib(new Date(t0))}</span>`}<span class="hint">${marketOpen(new Date()) ? (sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi') : 'Pasar tutup'}</span></div>
     <div class="gauge"><i style="left:${((r.skor + 1) / 2 * 100).toFixed(1)}%"></i></div>
-    <div class="row between hint"><span>Jual</span><span>Konsensus ${r.skor >= 0 ? '+' : ''}${r.skor.toFixed(2)} · keyakinan ${r.keyakinan}%</span><span>Beli</span></div>
+    <div class="row between hint"><span>Jual</span><span>Konsensus ${r.skor >= 0 ? '+' : ''}${r.skor.toFixed(2)} · keyakinan ${r.keyakinan}%${Number.isFinite(r.kekuatan_sinyal) ? ` · sinyal ${r.kekuatan_sinyal}%` : ''}</span><span>Beli</span></div>
   </div>
   ${r.gap ? gapCard(r) : ''}
   <div class="card"><div style="font-size:14px">${esc(r.ringkasan)}</div>
@@ -190,6 +190,7 @@ function renderHome() {
   <div class="card plan ${main.tipe}">
     <div class="row between"><b class="${main.tipe === 'SELL' ? 'dn' : 'up'}">${main.tipe} · ${esc(main.prioritas)}</b><span class="hint">RR 1:${main.rr}</span></div>
     <div class="grid3" style="margin-top:10px"><div>Entry<b>${num(main.entry_bawah)}–${num(main.entry_atas)}</b></div><div>Stop loss<b class="dn">${num(main.sl)}</b></div><div>TP1 / TP2<b class="up">${num(main.tp1)} / ${num(main.tp2)}</b></div></div>
+    ${strength(main)}
     <div class="state ${st.kode}">${esc(st.teks)}</div>
   </div>` : `<div class="card hint">Belum ada rencana entry yang layak. Tim menyarankan menunggu.</div>`}
   ${newsCard()}
@@ -243,6 +244,13 @@ function renderTeam() {
 }
 
 // ---------- render: rencana ----------
+function strength(pl) {
+  if (!Number.isFinite(pl?.kekuatan)) return '';
+  const c = pl.kekuatan >= 70 ? 'var(--green)' : pl.kekuatan >= 50 ? 'var(--gold)' : 'var(--red)';
+  return `<div class="row between" style="margin-top:10px;font-size:12.5px"><span class="hint">Kekuatan sinyal</span><b style="color:${c}">${pl.kekuatan}% · ${esc(pl.kekuatan_label || '')}</b></div>
+    <div class="bar" style="margin-top:4px"><i style="left:0;width:${pl.kekuatan}%;background:${c}"></i></div>`;
+}
+
 function renderPlan() {
   const r = S.map, el = $('planBody'); el.classList.remove('skel'); if (!r) return;
   const pls = r.rencana;
@@ -250,7 +258,8 @@ function renderPlan() {
   <div class="card plan ${pl.tipe}">
     <div class="row between"><b class="${pl.tipe === 'SELL' ? 'dn' : 'up'}">${pl.tipe} · ${esc(pl.prioritas)}</b><span class="hint">berlaku s/d ${wib(new Date(Date.parse(r.basis.time) + pl.berlaku_menit * 60000))} WIB</span></div>
     <div class="grid3" style="margin-top:10px"><div>Entry<b>${num(pl.entry_bawah)}–${num(pl.entry_atas)}</b></div><div>Stop loss<b class="dn">${num(pl.sl)}</b></div><div>TP1 / TP2<b class="up">${num(pl.tp1)} / ${num(pl.tp2)}</b></div></div>
-    <div style="font-size:13px;margin-top:10px"><b>Alasan:</b> ${esc(pl.alasan)}<br><b>Konfirmasi:</b> ${esc(pl.trigger)}<br><b>Manajemen:</b> ${esc(pl.manajemen)}</div>
+    ${strength(pl)}
+    <div style="font-size:13px;margin-top:10px"><b>RR:</b> 1:${pl.rr} · <b>Alasan:</b> ${esc(pl.alasan)}<br><b>Konfirmasi:</b> ${esc(pl.trigger)}<br><b>Manajemen:</b> ${esc(pl.manajemen)}</div>
     <div class="state" id="pst${i}"></div>
   </div>`).join('') : `<div class="card hint">Belum ada rencana entry yang layak.</div>`) + `
   <div class="sec">Kalkulator lot</div>
