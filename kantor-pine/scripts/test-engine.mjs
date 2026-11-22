@@ -77,6 +77,7 @@ const { scoreHeadline, parseFeed, aggregateNews } = await import('./news.js');
 assert.ok(scoreHeadline('Gold Slides To $3,558 As Fed Hike Bets Drive Worst Week Since March').skor < -1, 'berita negatif');
 assert.ok(scoreHeadline('Gold Soars Toward Record High as Rate-Cut Bets and Dollar Weakness Drive Demand').skor > 1, 'berita positif');
 assert.equal(scoreHeadline('Fed Chair Warsh speaks on labor market').skor, 0, '"Warsh" bukan "war"');
+assert.ok(scoreHeadline('Gold price drops below Tk 195,000 per bhari').skor < 0 && scoreHeadline('Reasons for gold prices plummeting').skor < 0);
 const now = Date.parse('2026-11-20T18:00:00Z');
 const rss = `<rss><channel>
 <item><title><![CDATA[Gold falls toward $3,500 as hawkish Fed bets build]]></title><link>https://a.example/1</link><pubDate>Fri, 20 Nov 2026 16:00:00 GMT</pubDate></item>

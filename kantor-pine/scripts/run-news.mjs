@@ -8,7 +8,6 @@ import { parseFeed, aggregateNews } from './news.js';
 const FEEDS = [
   ['Google News', 'https://news.google.com/rss/search?q=gold+price+OR+XAUUSD+when:1d&hl=en-US&gl=US&ceid=US:en'],
   ['Google News', 'https://news.google.com/rss/search?q=Fed+dollar+treasury+yields+when:1d&hl=en-US&gl=US&ceid=US:en'],
-  ['FXStreet', 'https://www.fxstreet.com/rss/news'],
   ['Yahoo Finance', 'https://feeds.finance.yahoo.com/rss/2.0/headline?s=GC=F&region=US&lang=en-US'],
 ];
 

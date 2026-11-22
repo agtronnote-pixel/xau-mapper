@@ -23,8 +23,8 @@ export const LEXICON = [
   [/inflation (cools|eases|slows)|cpi (cools|eases|lower)|jobs? (miss|weak)|unemployment (rises|jumps)|recession/i, 0.6],
   [/inflation (hot|jumps|accelerat|rises)|strong jobs|jobs (beat|surge)|payrolls (beat|surge)|robust (growth|economy)/i, -0.6],
   // arah harga yang disebut langsung
-  [/gold (rises|gains|jumps|climbs|rall|surges|soars|rebounds|hits record)/i, 0.5],
-  [/gold (falls|drops|slides|slumps|declines|tumbles|plunges|sinks|retreats)/i, -0.5],
+  [/gold( prices?)? (rises?|gains?|jumps?|climbs?|rall\w*|surges?|soars?|rebounds?|hits record|skyrocket\w*)/i, 0.5],
+  [/gold( prices?)? (falls?|drops?|slides?|slumps?|declines?|tumbles?|plunges?|plummet\w*|sinks?|retreats?|crash\w*)|prices plummet\w*|price crash/i, -0.5],
   [/worst week|lowest (level|since)|sell-?off|liquidation/i, -0.4],
 ];
 
