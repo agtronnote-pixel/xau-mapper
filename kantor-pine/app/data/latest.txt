@@ -2,35 +2,35 @@
 Harga: 3539.00 | Bias: BEARISH (54%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Pasar buka Senin, 23 Nov, 06.00 WIB. Sinyal sedang (69%). Pantau zona SELL 3544.42–3555.58, jangan paksa entry.
+Pasar buka Senin, 23 Nov, 06.00 WIB. Sinyal sedang (69%). Pantau zona SELL 3547.82–3558.74, jangan paksa entry.
 💪 Kekuatan 69% (Sedang) · Peluang TP1 duluan 43% (62 sampel backtest)
 ✓ struktur lower high/lower low
 ✓ trend H1 & harian turun
 ✓ berita cenderung negatif untuk emas
-❌ Batal bila candle H1 close di atas 3580.68.
+❌ Batal bila candle H1 close di atas 3583.29.
 
 🔔 Gap pembukaan (tutup 3539.00)
-• Gap naik — Harga buka di atas 3552.95: Jangan kejar. Bila harga kembali turun di bawah 3552.95 di sesi Asia → peluang SELL menutup gap ke 3539. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.
-• Tanpa gap / gap kecil — Harga buka di 3525.05–3552.95: Ikuti rencana utama setelah 60 menit pertama.
-• Gap turun — Harga buka di bawah 3525.05: Jangan kejar. Bila harga kembali naik di atas 3525.05 di sesi Asia → peluang BUY menutup gap ke 3539. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
+• Gap naik — Harga buka di atas 3552.64: Jangan kejar. Bila harga kembali turun di bawah 3552.64 di sesi Asia → peluang SELL menutup gap ke 3539. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.
+• Tanpa gap / gap kecil — Harga buka di 3525.36–3552.64: Ikuti rencana utama setelah 60 menit pertama.
+• Gap turun — Harga buka di bawah 3525.36: Jangan kejar. Bila harga kembali naik di atas 3525.36 di sesi Asia → peluang BUY menutup gap ke 3539. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
 
-🎯 Utama: SELL 3544.42–3555.58
-💪 Kekuatan sinyal: 69% (Sedang) · peluang 43% | RR 1:1.1
-SL 3580.68 | TP1 3516.10 | TP2 3479.03 | s/d 14.00 WIB
+🎯 Utama: SELL 3547.82–3558.74
+💪 Kekuatan sinyal: 69% (Sedang) · peluang 43% | RR 1:1.24
+SL 3583.29 | TP1 3516.05 | TP2 3467.32 | s/d 14.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 3519.42–3530.58
-💪 Kekuatan sinyal: 20% (Lemah) · peluang 46% | RR 1:1.11
-SL 3494.32 | TP1 3559.17 | TP2 3575.00 | s/d 14.00 WIB
+🎯 Alternatif: BUY 3519.54–3530.46
+💪 Kekuatan sinyal: 23% (Lemah) · peluang 46% | RR 1:1.67
+SL 3494.99 | TP1 3575.00 | TP2 3602.52 | s/d 14.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (06.15): 3538.58
-+1 jam (07.00): 3537.74
-+4 jam (10.00): 3532.73
-+24 jam (06.00): 3511.35
++15 mnt (06.15): 3538.60
++1 jam (07.00): 3537.81
++4 jam (10.00): 3533.06
++24 jam (06.00): 3512.81
 
 🕒 Jadwal
 06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
@@ -41,8 +41,8 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 00.00–05.00 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
 05.00–06.00 WAIT: Likuiditas rendah
 
-🧱 Level: R 3695.70 · R 3639.30 · R 3614.23 · R 3597.90 · R 3588.20 · R 3575.00 · P 3559.17 · R 3550.00 · S 3525.00 · S 3516.10 · S 3504.10 · S 3479.03
-❌ Invalidasi: Candle H1 close di atas 3580.68
+🧱 Level: R 3695.65 · R 3639.25 · R 3602.52 · R 3588.15 · R 3575.00 · P 3553.28 · S 3525.00 · S 3516.05 · S 3504.05 · S 3467.32
+❌ Invalidasi: Candle H1 close di atas 3583.29
 ⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan · Agent tanpa data cukup: Clara
 
 — Kantor Pine · XAUUSD · Bukan nasihat keuangan, selalu pakai SL.

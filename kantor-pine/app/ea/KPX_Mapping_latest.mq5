@@ -6,14 +6,14 @@
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
 /* Bias: BEARISH - Keyakinan 54%
-   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 3544.42-3555.5
-   Rencana 0: SELL 3544.42-3555.58 SL 3580.68 TP1 3516.10 TP2 3479.03 - Kekuatan sinyal 69% (Sedang)
+   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 3547.82-3558.7
+   Rencana 0: SELL 3547.82-3558.74 SL 3583.29 TP1 3516.05 TP2 3467.32 - Kekuatan sinyal 69% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3519.42-3530.58 SL 3494.32 TP1 3559.17 TP2 3575.00 - Kekuatan sinyal 20% (Lemah)
+   Rencana 1: BUY 3519.54-3530.46 SL 3494.99 TP1 3575.00 TP2 3602.52 - Kekuatan sinyal 23% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 3580.68
+   Invalidasi: Candle H1 close di atas 3583.29
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
@@ -48,17 +48,17 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {3544.42, 3519.42};
-double   P_EHI[]  = {3555.58, 3530.58};
-double   P_SL[]   = {3580.68, 3494.32};
-double   P_TP1[]  = {3516.10, 3559.17};
-double   P_TP2[]  = {3479.03, 3575.00};
+double   P_ELO[]  = {3547.82, 3519.54};
+double   P_EHI[]  = {3558.74, 3530.46};
+double   P_SL[]   = {3583.29, 3494.99};
+double   P_TP1[]  = {3516.05, 3575.00};
+double   P_TP2[]  = {3467.32, 3602.52};
 datetime P_EXP[]  = {D'2026.11.23 07:00:00', D'2026.11.23 07:00:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {69, 20};   // kekuatan sinyal %
+int      P_STR[]  = {69, 23};   // kekuatan sinyal %
 int      P_PEL[]  = {43, 46};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.20 22:00:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 3534.10;
+datetime REF_TIME   = D'2026.11.22 22:05:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 3539.00;
 double   OFFSET_MAX = 30;
 datetime NT_START[] = {D'2026.11.22 23:00:00'};
 datetime NT_END[]   = {D'2026.11.23 00:00:00'};
