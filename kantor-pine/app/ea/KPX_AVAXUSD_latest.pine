@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping AVAXUSD 202611221617", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-22T09:17:49.393Z (harga 6.5950).
+indicator("KPX Mapping AVAXUSD 202611221714", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-22T10:14:16.744Z (harga 6.6800).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -15,12 +15,13 @@ if barstate.islast and not drawn
     drawn := true
     if showLevels
         drawLine(6.8637, color.red, "R R1 harian", false)
+        drawLine(6.7500, color.red, "R Angka bulat", false)
         drawLine(6.7150, color.red, "R High kemarin (PDH)", false)
-        drawLine(6.6660, color.red, "R Swing high H1", false)
-        drawLine(6.6500, color.red, "R Angka bulat", false)
-        drawLine(6.6190, color.red, "R Swing high H1", false)
+        drawLine(6.7000, color.red, "R Angka bulat", false)
+        drawLine(6.6660, color.green, "S Swing high H1", false)
+        drawLine(6.6500, color.green, "S Angka bulat", false)
+        drawLine(6.6190, color.green, "S Swing high H1", false)
         drawLine(6.5870, color.green, "S Swing low H1", false)
-        drawLine(6.5500, color.green, "S Angka bulat", false)
         drawLine(6.5310, color.green, "S Swing low H1", false)
         drawLine(6.4780, color.green, "S Swing low H1", false)
         drawLine(6.4393, color.gray, "P Pivot harian", false)
@@ -28,17 +29,17 @@ if barstate.islast and not drawn
         drawLine(6.1637, color.green, "S S1 harian", false)
         drawLine(6.0150, color.green, "S Low kemarin (PDL)", false)
     if showPlans
-        box.new(bar_index - 20, 6.6296 + offset, bar_index + 40, 6.6084 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 66%", text_color=color.red, text_size=size.small)
-        drawLine(6.6772, color.red, "SL SELL", true)
-        drawLine(6.5500, color.blue, "TP1 SELL", true)
-        drawLine(6.4780, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 6.5606 + offset, bar_index + 40, 6.5394 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 33%", text_color=color.green, text_size=size.small)
-        drawLine(6.4918, color.red, "SL BUY", true)
-        drawLine(6.6190, color.blue, "TP1 BUY", true)
-        drawLine(6.6500, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 6.7118 + offset, bar_index + 40, 6.6882 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 59%", text_color=color.red, text_size=size.small)
+        drawLine(6.7651, color.red, "SL SELL", true)
+        drawLine(6.6190, color.blue, "TP1 SELL", true)
+        drawLine(6.5310, color.blue, "TP2 SELL", true)
+        box.new(bar_index - 20, 6.6778 + offset, bar_index + 40, 6.6542 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 41%", text_color=color.green, text_size=size.small)
+        drawLine(6.6009, color.red, "SL BUY", true)
+        drawLine(6.7500, color.blue, "TP1 BUY", true)
+        drawLine(6.8637, color.blue, "TP2 BUY", true)
 
-inZone0 = close >= 6.6084 + offset and close <= 6.6296 + offset
-alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "AVAXUSD masuk zona SELL {{close}} - tunggu konfirmasi")
-inZone1 = close >= 6.5394 + offset and close <= 6.5606 + offset
-alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "AVAXUSD masuk zona BUY {{close}} - tunggu konfirmasi")
+inZone0 = close >= 6.6882 + offset and close <= 6.7118 + offset
+alertcondition(inZone0 and not inZone0[1], "KPX SELL Range: masuk zona", "AVAXUSD masuk zona SELL {{close}} - tunggu konfirmasi")
+inZone1 = close >= 6.6542 + offset and close <= 6.6778 + offset
+alertcondition(inZone1 and not inZone1[1], "KPX BUY Range: masuk zona", "AVAXUSD masuk zona BUY {{close}} - tunggu konfirmasi")
 plot(na, "KPX")

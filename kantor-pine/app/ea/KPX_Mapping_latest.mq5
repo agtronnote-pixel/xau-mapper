@@ -1,16 +1,16 @@
 //+------------------------------------------------------------------+
 //| KPX_Mapping_202611230600.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 23 Nov 2026, 06.00 WIB - harga 3539.00                  |
+//| Mapping: 23 Nov 2026, 06.00 WIB - XAUUSD 3539.00                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 53%
+/* Bias: BEARISH - Keyakinan 54%
    Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 3544.41-3555.5
-   Rencana 0: SELL 3544.41-3555.59 SL 3580.74 TP1 3514.97 TP2 3478.66 - Kekuatan sinyal 69% (Sedang)
+   Rencana 0: SELL 3544.41-3555.59 SL 3580.74 TP1 3515.07 TP2 3478.69 - Kekuatan sinyal 69% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3519.41-3530.59 SL 3494.26 TP1 3558.41 TP2 3575.00 - Kekuatan sinyal 21% (Lemah)
+   Rencana 1: BUY 3519.41-3530.59 SL 3494.26 TP1 3558.48 TP2 3575.00 - Kekuatan sinyal 21% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
    Invalidasi: Candle H1 close di atas 3580.74
@@ -23,19 +23,19 @@
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
-input double InpMaxSpread     = 0.50;  // Spread maksimal (USD)
+input double InpMaxSpread     = 0.50;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 1.00;  // Toleransi di luar zona entry (USD)
+input double InpZoneTolerance = 1.00;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
-input double InpBEBuffer      = 0.20;  // Buffer break-even (USD)
+input double InpBEBuffer      = 0.20;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Lainnya"
 input ulong  InpMagic         = 129923140; // Magic number
@@ -46,13 +46,14 @@ int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
 double   P_ELO[]  = {3544.41, 3519.41};
 double   P_EHI[]  = {3555.59, 3530.59};
 double   P_SL[]   = {3580.74, 3494.26};
-double   P_TP1[]  = {3514.97, 3558.41};
-double   P_TP2[]  = {3478.66, 3575.00};
+double   P_TP1[]  = {3515.07, 3558.48};
+double   P_TP2[]  = {3478.69, 3575.00};
 datetime P_EXP[]  = {D'2026.11.23 07:00:00', D'2026.11.23 07:00:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
 int      P_STR[]  = {69, 21};   // kekuatan sinyal %
 datetime REF_TIME   = D'2026.11.20 22:00:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 3534.10;
+double   OFFSET_MAX = 30;
 datetime NT_START[] = {D'2026.11.22 23:00:00'};
 datetime NT_END[]   = {D'2026.11.23 00:00:00'};
 datetime MAP_START  = D'2026.11.22 23:00:00';
@@ -227,8 +228,8 @@ void ComputeOffset()
    double c = iClose(_Symbol, PERIOD_M5, sh);
    if(c <= 0 || MathAbs((double)(bt - ts)) > 900) { gOffsetNote += " (candle acuan tidak ditemukan)"; return; }
    double o = c - REF_PRICE;
-   if(MathAbs(o) > 30) { gOffsetNote += " (selisih " + DoubleToString(o, 2) + " terlalu besar, diabaikan)"; return; }
-   gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, 2);
+   if(MathAbs(o) > OFFSET_MAX) { gOffsetNote += " (selisih " + DoubleToString(o, _Digits) + " terlalu besar, diabaikan)"; return; }
+   gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, _Digits);
    PrintFormat("KPX selisih harga broker vs mapping: %.2f", o);
 }
 

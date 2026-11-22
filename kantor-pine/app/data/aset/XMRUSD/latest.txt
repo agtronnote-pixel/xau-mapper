@@ -1,41 +1,39 @@
-📊 MAPPING XMRUSD — Min, 22 Nov 2026, 16.40 WIB
-Harga: 478.79 | Bias: BEARISH (40%)
+📊 MAPPING XMRUSD — Min, 22 Nov 2026, 17.15 WIB
+Harga: 484.20 | Bias: SIDEWAYS (33%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (58%). Pantau zona SELL 479.39–481.03, jangan paksa entry.
-💪 Kekuatan 58% (Sedang) · Peluang TP1 duluan 45% (135 sampel backtest)
-✓ momentum jual (RSI H1 49)
+Sinyal sedang (50%). Pantau zona BUY 481.63–483.37, jangan paksa entry.
+💪 Kekuatan 50% (Sedang) · Peluang TP1 duluan 45% (132 sampel backtest)
 ✓ dolar & yield riil menguat
 ✓ berita cenderung negatif untuk emas
-✕ Penghambat: trend belum jelas
-❌ Batal bila candle H1 close di atas 484.72.
+❌ Batal bila candle H1 close di bawah 477.71.
 
-🎯 Utama: SELL 479.39–481.03
-💪 Kekuatan sinyal: 58% (Sedang) · peluang 45% | RR 1:1.5
-SL 484.72 | TP1 473.44 | TP2 469.96 | s/d 00.40 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
-Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-
-🎯 Alternatif: BUY 476.68–478.32
-💪 Kekuatan sinyal: 42% (Lemah) · peluang 46% | RR 1:1.11
-SL 472.99 | TP1 482.50 | TP2 485.68 | s/d 00.40 WIB
+🎯 Range: BUY 481.63–483.37
+💪 Kekuatan sinyal: 50% (Sedang) · peluang 45% | RR 1:1.04
+SL 477.71 | TP1 487.50 | TP2 493.05 | s/d 01.15 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
+🎯 Range: SELL 484.81–486.55
+💪 Kekuatan sinyal: 48% (Lemah) · peluang 46% | RR 1:1.14
+SL 490.47 | TP1 480.21 | TP2 469.96 | s/d 01.15 WIB
+Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+
 📈 Proyeksi
-+15 mnt (16.55): 478.75
-+1 jam (17.40): 478.84
-+4 jam (20.40): 479.06
-+24 jam (16.40): 479.09
++15 mnt (17.30): 484.18
++1 jam (18.15): 484.22
++4 jam (21.15): 484.30
++24 jam (17.15): 484.31
 
 🕒 Jadwal
-16.40–06.10 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 42%
-06.10–07.10 WAIT: Likuiditas rendah
-07.10–15.10 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 49%
-15.10–16.40 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi · backtest TP1 duluan 47%
+17.15–06.15 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 42%
+06.15–07.15 WAIT: Likuiditas rendah
+07.15–15.15 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 49%
+15.15–17.15 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi · backtest TP1 duluan 46%
 
-🧱 Level: R 515.23 · R 504.43 · R 494.51 · R 493.05 · R 485.68 · R 482.50 · R 480.21 · S 477.50 · P 469.96 · S 460.62 · S 458.91 · S 446.88 · S 441.87 · S 424.70
-❌ Invalidasi: Candle H1 close di atas 484.72
+🧱 Level: R 515.23 · R 494.51 · R 493.05 · R 487.50 · R 485.68 · S 482.50 · S 480.21 · P 469.96 · S 460.62 · S 458.91 · S 446.88 · S 441.87 · S 424.70
+❌ Invalidasi: Candle H1 close di bawah 477.71
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · XMRUSD · Bukan nasihat keuangan, selalu pakai SL.

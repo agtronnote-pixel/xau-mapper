@@ -1,41 +1,42 @@
-📊 MAPPING DOTUSD — Min, 22 Nov 2026, 16.17 WIB
-Harga: 0.65500 | Bias: BEARISH (43%)
+📊 MAPPING DOTUSD — Min, 22 Nov 2026, 17.14 WIB
+Harga: 0.66300 | Bias: SIDEWAYS (38%)
 
-➡️ KEPUTUSAN: SELL
-SELL di 0.65977–0.66223 setelah ada candle konfirmasi.
-💪 Kekuatan 62% (Sedang)
+➡️ KEPUTUSAN: TUNGGU
+Sinyal sedang (52%). Pantau zona SELL 0.6647–0.6673, jangan paksa entry.
+💪 Kekuatan 52% (Sedang)
 ✓ trend H1 & harian turun
 ✓ berita cenderung negatif untuk emas
 ✓ dolar & yield riil menguat
-✕ Penghambat: momentum beli (RSI H1 52)
-❌ Batal bila candle H1 close di atas 0.66776.
+✕ Penghambat: momentum beli (RSI H1 58)
+✕ Penghambat: struktur range
+❌ Batal bila candle H1 close di atas 0.67315.
 
-🎯 Utama: SELL 0.65977–0.66223
-💪 Kekuatan sinyal: 62% (Sedang) | RR 1:1.33
-SL 0.66776 | TP1 0.65200 | TP2 0.64733 | s/d 00.17 WIB
+🎯 Range: SELL 0.66470–0.66730
+💪 Kekuatan sinyal: 52% (Sedang) | RR 1:1.4
+SL 0.67315 | TP1 0.65600 | TP2 0.65200 | s/d 01.14 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 0.65077–0.65323
-💪 Kekuatan sinyal: 39% (Lemah) · peluang 40% | RR 1:1.33
-SL 0.64524 | TP1 0.66100 | TP2 0.66600 | s/d 00.17 WIB
+🎯 Range: BUY 0.65970–0.66230
+💪 Kekuatan sinyal: 48% (Lemah) | RR 1:1.12
+SL 0.65385 | TP1 0.66900 | TP2 0.67667 | s/d 01.14 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (16.32): 0.65496
-+1 jam (17.17): 0.65502
-+4 jam (20.17): 0.65507
-+24 jam (16.17): 0.65442
++15 mnt (17.29): 0.66299
++1 jam (18.14): 0.66300
++4 jam (21.14): 0.66301
++24 jam (17.14): 0.66291
 
 🕒 Jadwal
-16.17–06.17 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
-06.17–07.17 WAIT: Likuiditas rendah
-07.17–15.17 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
-15.17–16.17 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi
+17.14–06.14 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
+06.14–07.14 WAIT: Likuiditas rendah
+07.14–15.14 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
+15.14–17.14 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi
 
-🧱 Level: R 0.67667 · R 0.66900 · R 0.66600 · R 0.66100 · R 0.65600 · S 0.65200 · S 0.65000 · P 0.64733 · S 0.64300 · S 0.64100 · S 0.62567 · S 0.61800
-❌ Invalidasi: Candle H1 close di atas 0.66776
+🧱 Level: R 0.67667 · R 0.66900 · R 0.66600 · S 0.66100 · S 0.65600 · S 0.65200 · P 0.64733 · S 0.64300 · S 0.64100 · S 0.62567 · S 0.61800
+❌ Invalidasi: Candle H1 close di atas 0.67315
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · DOTUSD · Bukan nasihat keuangan, selalu pakai SL.
