@@ -429,7 +429,12 @@ Object.assign(window.kpx, {
 function renderAll() { setAsset(S.map); renderHome(); renderProj(); renderTeam(); renderPlan(); renderMore(); checkStates(); }
 
 // ---------- mulai ----------
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then(reg => reg.update()).catch(() => {});
+  // saat service worker versi baru aktif, muat ulang sekali agar tampilan baru langsung dipakai
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => { if (reloaded || !navigator.serviceWorker.controller) return; reloaded = true; location.reload(); });
+}
 if (/^#(home|proj|team|plan|more)$/.test(location.hash)) go(location.hash.slice(1));
 { const k = `kpx_srv_${S.asset}_`; S.srv = { market: store.get(k + 'market', null), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) }; }
 renderAssetBar(); loadAssets();
