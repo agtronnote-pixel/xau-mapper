@@ -1,63 +1,65 @@
 //+------------------------------------------------------------------+
-//| KPX_BTCUSD_202611221806.mq5                                      |
+//| KPX_BTCUSD_202611222001.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 18.06 WIB - BTCUSD 60905.64                |
+//| Mapping: 22 Nov 2026, 20.01 WIB - BTCUSD 60850.34                |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 43%
-   Ringkasan: BTCUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Range di 61253.19-61477.29 (kekuatan sinyal 57% - Sedang).
-   Rencana 0: SELL 61253.19-61477.29 SL 61981.51 TP1 60568.01 TP2 59988.00 - Kekuatan sinyal 57% (Sedang)
+/* Bias: BEARISH - Keyakinan 47%
+   Ringkasan: BTCUSD cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 60870.63-61121.37 (kekuatan sinyal 61% - Sedang).
+   Rencana 0: SELL 60870.63-61121.37 SL 61685.55 TP1 59988.00 TP2 58804.62 - Kekuatan sinyal 61% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 60455.96-60680.06 SL 59951.74 TP1 61365.24 TP2 62479.25 - Kekuatan sinyal 43% (Lemah)
+   Rencana 1: BUY 60442.64-60693.38 SL 59878.46 TP1 61365.24 TP2 62479.25 - Kekuatan sinyal 39% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 61981.51
+   Invalidasi: Candle H1 close di atas 61685.55
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping BTCUSD 202611221806"
+#property description "Eksekusi otomatis mapping BTCUSD 202611222001"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
-input double InpMaxSpread     = 91.36;  // Spread maksimal (harga)
+input double InpMaxSpread     = 91.28;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 56.03;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 62.69;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
-input double InpBEBuffer      = 11.21;  // Buffer break-even (harga)
+input double InpBEBuffer      = 12.54;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
+input group "Keamanan"
+input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
 input group "Lainnya"
-input ulong  InpMagic         = 129922426; // Magic number
+input ulong  InpMagic         = 129922541; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {61253.19, 60455.96};
-double   P_EHI[]  = {61477.29, 60680.06};
-double   P_SL[]   = {61981.51, 59951.74};
-double   P_TP1[]  = {60568.01, 61365.24};
-double   P_TP2[]  = {59988.00, 62479.25};
-datetime P_EXP[]  = {D'2026.11.22 19:06:00', D'2026.11.22 19:06:00'};
-string   P_NAME[] = {"SELL Range", "BUY Range"};
-int      P_STR[]  = {57, 43};   // kekuatan sinyal %
-datetime REF_TIME   = D'2026.11.22 11:06:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 60906.77;
-double   OFFSET_MAX = 609.06;
+double   P_ELO[]  = {60870.63, 60442.64};
+double   P_EHI[]  = {61121.37, 60693.38};
+double   P_SL[]   = {61685.55, 59878.46};
+double   P_TP1[]  = {59988.00, 61365.24};
+double   P_TP2[]  = {58804.62, 62479.25};
+datetime P_EXP[]  = {D'2026.11.22 21:01:00', D'2026.11.22 21:01:00'};
+string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
+int      P_STR[]  = {61, 39};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.22 13:00:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 60850.35;
+double   OFFSET_MAX = 608.50;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 11:06:00';
-datetime MAP_END    = D'2026.11.23 11:06:00';
+datetime MAP_START  = D'2026.11.22 13:01:00';
+datetime MAP_END    = D'2026.11.23 13:01:00';
 
 CTrade   trade;
 string   GVP;
@@ -244,6 +246,8 @@ int OnInit()
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
    if(StringFind(_Symbol, "BTC") < 0) Alert("KPX: EA ini dibuat untuk BTCUSD. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal)
+      Alert("KPX: Akun ini akun RIIL. EA hanya memantau, tidak entry. Uji di akun demo dulu; untuk riil aktifkan InpAllowReal.");
    ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
@@ -268,6 +272,7 @@ void OnTick()
    else if(InNoTrade(g)) why = "jam NO TRADE";
    else if(ask - bid > InpMaxSpread) why = "spread terlalu lebar";
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
+   else if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal) why = "akun riil (aktifkan InpAllowReal)";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
    string st = "Kantor Pine BTCUSD - Auto Trade Mapping\nSelisih harga: " + gOffsetNote + "\n";

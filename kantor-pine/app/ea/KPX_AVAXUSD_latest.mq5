@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_AVAXUSD_202611221805.mq5                                     |
+//| KPX_AVAXUSD_202611221959.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 18.05 WIB - AVAXUSD 6.6820                 |
+//| Mapping: 22 Nov 2026, 19.59 WIB - AVAXUSD 6.6850                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 36%
-   Ringkasan: AVAXUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Range di 6.7029-6.7271 (kekuatan sinyal 57% - Sedang).
-   Rencana 0: SELL 6.7029-6.7271 SL 6.7817 TP1 6.5870 TP2 6.5310 - Kekuatan sinyal 57% (Sedang)
+/* Bias: BEARISH - Keyakinan 43%
+   Ringkasan: AVAXUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 6.7029-6.7271 (kekuatan sinyal 64% - Sedang).
+   Rencana 0: SELL 6.7029-6.7271 SL 6.7816 TP1 6.6190 TP2 6.5310 - Kekuatan sinyal 64% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 6.6539-6.6781 SL 6.5993 TP1 6.7500 TP2 6.8637 - Kekuatan sinyal 45% (Lemah)
+   Rencana 1: BUY 6.6539-6.6781 SL 6.5995 TP1 6.7500 TP2 6.8637 - Kekuatan sinyal 36% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 6.7817
+   Invalidasi: Candle H1 close di atas 6.7816
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping AVAXUSD 202611221805"
+#property description "Eksekusi otomatis mapping AVAXUSD 202611221959"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -28,7 +28,7 @@ input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.0061;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.0060;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input int    InpMinStrength   = 101;    // Kekuatan sinyal minimal (%) untuk entry (101 = tidak entry: backtest aset ini belum menguntungkan)
@@ -37,27 +37,29 @@ input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
 input double InpBEBuffer      = 0.0012;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
+input group "Keamanan"
+input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
 input group "Lainnya"
-input ulong  InpMagic         = 129922425; // Magic number
+input ulong  InpMagic         = 129922539; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
 double   P_ELO[]  = {6.7029, 6.6539};
 double   P_EHI[]  = {6.7271, 6.6781};
-double   P_SL[]   = {6.7817, 6.5993};
-double   P_TP1[]  = {6.5870, 6.7500};
+double   P_SL[]   = {6.7816, 6.5995};
+double   P_TP1[]  = {6.6190, 6.7500};
 double   P_TP2[]  = {6.5310, 6.8637};
-datetime P_EXP[]  = {D'2026.11.22 19:05:00', D'2026.11.22 19:05:00'};
-string   P_NAME[] = {"SELL Range", "BUY Range"};
-int      P_STR[]  = {57, 45};   // kekuatan sinyal %
-datetime REF_TIME   = D'2026.11.22 11:05:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 6.6810;
+datetime P_EXP[]  = {D'2026.11.22 20:59:00', D'2026.11.22 20:59:00'};
+string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
+int      P_STR[]  = {64, 36};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.22 12:59:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 6.6850;
 double   OFFSET_MAX = 0.0668;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 11:05:00';
-datetime MAP_END    = D'2026.11.23 11:05:00';
+datetime MAP_START  = D'2026.11.22 12:59:00';
+datetime MAP_END    = D'2026.11.23 12:59:00';
 
 CTrade   trade;
 string   GVP;
@@ -244,6 +246,8 @@ int OnInit()
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
    if(StringFind(_Symbol, "AVAX") < 0) Alert("KPX: EA ini dibuat untuk AVAXUSD. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal)
+      Alert("KPX: Akun ini akun RIIL. EA hanya memantau, tidak entry. Uji di akun demo dulu; untuk riil aktifkan InpAllowReal.");
    ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
@@ -268,6 +272,7 @@ void OnTick()
    else if(InNoTrade(g)) why = "jam NO TRADE";
    else if(ask - bid > InpMaxSpread) why = "spread terlalu lebar";
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
+   else if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal) why = "akun riil (aktifkan InpAllowReal)";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
    string st = "Kantor Pine AVAXUSD - Auto Trade Mapping\nSelisih harga: " + gOffsetNote + "\n";

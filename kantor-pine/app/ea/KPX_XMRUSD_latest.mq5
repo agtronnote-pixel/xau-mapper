@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_XMRUSD_202611221806.mq5                                      |
+//| KPX_XMRUSD_202611222001.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 18.06 WIB - XMRUSD 487.60                  |
+//| Mapping: 22 Nov 2026, 20.01 WIB - XMRUSD 485.46                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 35%
-   Ringkasan: XMRUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 484.8-486.56 (kekuatan sinyal 55% - Sedang).
-   Rencana 0: BUY 484.80-486.56 SL 480.84 TP1 493.05 TP2 504.43 - Kekuatan sinyal 55% (Sedang)
-     Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
-     Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 489.12-490.88 SL 494.84 TP1 482.74 TP2 480.21 - Kekuatan sinyal 46% (Lemah)
+/* Bias: BEARISH - Keyakinan 44%
+   Ringkasan: XMRUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 486.57-488.43 (kekuatan sinyal 69% - Sedang).
+   Rencana 0: SELL 486.57-488.43 SL 492.63 TP1 480.21 TP2 477.03 - Kekuatan sinyal 69% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 480.84
+   Rencana 1: BUY 481.57-483.43 SL 477.37 TP1 489.92 TP2 493.05 - Kekuatan sinyal 31% (Lemah)
+     Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
+     Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+   Invalidasi: Candle H1 close di atas 492.63
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XMRUSD 202611221806"
+#property description "Eksekusi otomatis mapping XMRUSD 202611222001"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -28,7 +28,7 @@ input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.44;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.47;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
@@ -37,27 +37,29 @@ input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
 input double InpBEBuffer      = 0.09;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
+input group "Keamanan"
+input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
 input group "Lainnya"
-input ulong  InpMagic         = 129922426; // Magic number
+input ulong  InpMagic         = 129922541; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
-int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {484.80, 489.12};
-double   P_EHI[]  = {486.56, 490.88};
-double   P_SL[]   = {480.84, 494.84};
-double   P_TP1[]  = {493.05, 482.74};
-double   P_TP2[]  = {504.43, 480.21};
-datetime P_EXP[]  = {D'2026.11.22 19:06:00', D'2026.11.22 19:06:00'};
-string   P_NAME[] = {"BUY Range", "SELL Range"};
-int      P_STR[]  = {55, 46};   // kekuatan sinyal %
-datetime REF_TIME   = D'2026.11.22 11:06:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 487.84;
-double   OFFSET_MAX = 4.88;
+int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
+double   P_ELO[]  = {486.57, 481.57};
+double   P_EHI[]  = {488.43, 483.43};
+double   P_SL[]   = {492.63, 477.37};
+double   P_TP1[]  = {480.21, 489.92};
+double   P_TP2[]  = {477.03, 493.05};
+datetime P_EXP[]  = {D'2026.11.22 21:01:00', D'2026.11.22 21:01:00'};
+string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
+int      P_STR[]  = {69, 31};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.22 13:00:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 485.46;
+double   OFFSET_MAX = 4.85;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 11:06:00';
-datetime MAP_END    = D'2026.11.23 11:06:00';
+datetime MAP_START  = D'2026.11.22 13:01:00';
+datetime MAP_END    = D'2026.11.23 13:01:00';
 
 CTrade   trade;
 string   GVP;
@@ -244,6 +246,8 @@ int OnInit()
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
    if(StringFind(_Symbol, "XMR") < 0) Alert("KPX: EA ini dibuat untuk XMRUSD. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal)
+      Alert("KPX: Akun ini akun RIIL. EA hanya memantau, tidak entry. Uji di akun demo dulu; untuk riil aktifkan InpAllowReal.");
    ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
@@ -268,6 +272,7 @@ void OnTick()
    else if(InNoTrade(g)) why = "jam NO TRADE";
    else if(ask - bid > InpMaxSpread) why = "spread terlalu lebar";
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
+   else if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal) why = "akun riil (aktifkan InpAllowReal)";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
    string st = "Kantor Pine XMRUSD - Auto Trade Mapping\nSelisih harga: " + gOffsetNote + "\n";

@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_ADAUSD_202611221805.mq5                                      |
+//| KPX_ADAUSD_202611222000.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 18.05 WIB - ADAUSD 0.14580                 |
+//| Mapping: 22 Nov 2026, 20.00 WIB - ADAUSD 0.14550                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 38%
-   Ringkasan: ADAUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Range di 0.14592-0.14648 (kekuatan sinyal 57% - Sedang).
-   Rencana 0: SELL 0.14592-0.14648 SL 0.14772 TP1 0.14390 TP2 0.14137 - Kekuatan sinyal 57% (Sedang)
+/* Bias: BEARISH - Keyakinan 42%
+   Ringkasan: ADAUSD cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 0.1459-0.1465 (kekuatan sinyal 62% - Sedang).
+   Rencana 0: SELL 0.14590-0.14650 SL 0.14786 TP1 0.14390 TP2 0.14137 - Kekuatan sinyal 62% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 0.14502-0.14558 SL 0.14378 TP1 0.14758 TP2 0.14943 - Kekuatan sinyal 45% (Lemah)
+   Rencana 1: BUY 0.14360-0.14420 SL 0.14224 TP1 0.14620 TP2 0.14943 - Kekuatan sinyal 40% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 0.14772
+   Invalidasi: Candle H1 close di atas 0.14786
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping ADAUSD 202611221805"
+#property description "Eksekusi otomatis mapping ADAUSD 202611222000"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -28,7 +28,7 @@ input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.00014;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.00015;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
@@ -37,27 +37,29 @@ input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
 input double InpBEBuffer      = 0.00003;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
+input group "Keamanan"
+input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
 input group "Lainnya"
-input ulong  InpMagic         = 129922425; // Magic number
+input ulong  InpMagic         = 129922540; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {0.14592, 0.14502};
-double   P_EHI[]  = {0.14648, 0.14558};
-double   P_SL[]   = {0.14772, 0.14378};
-double   P_TP1[]  = {0.14390, 0.14758};
+double   P_ELO[]  = {0.14590, 0.14360};
+double   P_EHI[]  = {0.14650, 0.14420};
+double   P_SL[]   = {0.14786, 0.14224};
+double   P_TP1[]  = {0.14390, 0.14620};
 double   P_TP2[]  = {0.14137, 0.14943};
-datetime P_EXP[]  = {D'2026.11.22 19:05:00', D'2026.11.22 19:05:00'};
-string   P_NAME[] = {"SELL Range", "BUY Range"};
-int      P_STR[]  = {57, 45};   // kekuatan sinyal %
-datetime REF_TIME   = D'2026.11.22 11:05:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 0.14590;
-double   OFFSET_MAX = 0.00146;
+datetime P_EXP[]  = {D'2026.11.22 21:00:00', D'2026.11.22 21:00:00'};
+string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
+int      P_STR[]  = {62, 40};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.22 13:00:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 0.14550;
+double   OFFSET_MAX = 0.00145;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 11:05:00';
-datetime MAP_END    = D'2026.11.23 11:05:00';
+datetime MAP_START  = D'2026.11.22 13:00:00';
+datetime MAP_END    = D'2026.11.23 13:00:00';
 
 CTrade   trade;
 string   GVP;
@@ -244,6 +246,8 @@ int OnInit()
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
    if(StringFind(_Symbol, "ADA") < 0) Alert("KPX: EA ini dibuat untuk ADAUSD. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal)
+      Alert("KPX: Akun ini akun RIIL. EA hanya memantau, tidak entry. Uji di akun demo dulu; untuk riil aktifkan InpAllowReal.");
    ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
@@ -268,6 +272,7 @@ void OnTick()
    else if(InNoTrade(g)) why = "jam NO TRADE";
    else if(ask - bid > InpMaxSpread) why = "spread terlalu lebar";
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
+   else if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal) why = "akun riil (aktifkan InpAllowReal)";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
    string st = "Kantor Pine ADAUSD - Auto Trade Mapping\nSelisih harga: " + gOffsetNote + "\n";

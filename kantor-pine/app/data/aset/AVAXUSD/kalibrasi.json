@@ -1,14 +1,14 @@
 {
  "versi": 3,
  "aset": "AVAXUSD",
- "dibuat": "2026-11-22T11:05:26.762Z",
+ "dibuat": "2026-11-22T12:59:50.347Z",
  "periode": "2026-09-28 – 2026-11-21",
  "sampel_jam": 1296,
  "bobot": {
-  "trend": 0.187,
-  "momentum": 0.219,
-  "structure": 0.24,
-  "macro": 0.167,
+  "trend": 0.186,
+  "momentum": 0.22,
+  "structure": 0.239,
+  "macro": 0.166,
   "news": 0.094,
   "claude": 0.094
  },
@@ -26,7 +26,7 @@
    "n": 777
   },
   "macro": {
-   "ic": -0.065,
+   "ic": -0.066,
    "n": 777
   }
  },
@@ -34,23 +34,23 @@
   {
    "dari": 5,
    "sampai": 40,
-   "n": 40,
-   "peluang": 0.46,
-   "ekspektasi_R": 0.056
+   "n": 39,
+   "peluang": 0.469,
+   "ekspektasi_R": 0.084
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 28,
-   "peluang": 0.368,
-   "ekspektasi_R": -0.28
+   "n": 27,
+   "peluang": 0.378,
+   "ekspektasi_R": -0.253
   },
   {
    "dari": 50,
    "sampai": 60,
-   "n": 20,
-   "peluang": 0.4,
-   "ekspektasi_R": -0.227
+   "n": 21,
+   "peluang": 0.387,
+   "ekspektasi_R": -0.264
   },
   {
    "dari": 60,
@@ -63,8 +63,8 @@
    "dari": 70,
    "sampai": 96,
    "n": 28,
-   "peluang": 0.447,
-   "ekspektasi_R": -0.064
+   "peluang": 0.421,
+   "ekspektasi_R": -0.121
   }
  ],
  "sesi": {
@@ -79,13 +79,13 @@
    "ekspektasi_R": 0.338
   },
   "overlap": {
-   "n": 15,
-   "peluang": 0.32,
-   "ekspektasi_R": -0.6
+   "n": 13,
+   "peluang": 0.304,
+   "ekspektasi_R": -0.66
   },
   "ny": {
-   "n": 5,
-   "peluang": 0.333,
+   "n": 6,
+   "peluang": 0.313,
    "ekspektasi_R": -1
   },
   "sepi": {
@@ -101,65 +101,65 @@
  },
  "proyeksi": {
   "15": {
-   "k": 0.028,
+   "k": 0.029,
    "q80": 0.262,
    "n": 1296
   },
   "30": {
-   "k": 0.002,
+   "k": 0.001,
    "q80": 0.352,
    "n": 1296
   },
   "60": {
-   "k": -0.044,
-   "q80": 0.75,
+   "k": -0.046,
+   "q80": 0.751,
    "n": 1296
   },
   "120": {
-   "k": -0.121,
+   "k": -0.127,
    "q80": 1.06,
    "n": 1296
   },
   "240": {
-   "k": -0.34,
-   "q80": 1.609,
+   "k": -0.344,
+   "q80": 1.61,
    "n": 1296
   },
   "480": {
-   "k": -0.797,
-   "q80": 2.354,
+   "k": -0.803,
+   "q80": 2.355,
    "n": 1296
   },
   "720": {
-   "k": -0.938,
-   "q80": 2.801,
+   "k": -0.94,
+   "q80": 2.794,
    "n": 1296
   },
   "1440": {
-   "k": -1.836,
-   "q80": 3.898,
+   "k": -1.83,
+   "q80": 3.899,
    "n": 1296
   }
  },
  "arah": {
   "h1": 0.477,
-  "h4": 0.445,
-  "n": 898
+  "h4": 0.444,
+  "n": 900
  },
  "rencana": {
-  "rencana": 167,
-  "tersentuh": 139,
-  "tp1": 55,
+  "rencana": 166,
+  "tersentuh": 138,
+  "tp1": 54,
   "sl": 84,
-  "winrate": 0.396,
-  "ekspektasi_R": -0.093,
+  "winrate": 0.391,
+  "ekspektasi_R": -0.098,
   "oos": {
-   "rencana": 68,
-   "tersentuh": 59,
+   "rencana": 67,
+   "tersentuh": 58,
    "tp1": 24,
-   "sl": 35,
-   "winrate": 0.407,
-   "ekspektasi_R": -0.078
+   "sl": 34,
+   "winrate": 0.414,
+   "ekspektasi_R": -0.063
   }
  },
  "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."
