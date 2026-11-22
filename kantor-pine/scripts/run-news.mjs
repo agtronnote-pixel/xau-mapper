@@ -4,14 +4,20 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parseFeed, aggregateNews, LEXICON_CRYPTO } from './news.js';
+import { parseFeed, aggregateNews, LEXICON_CRYPTO, LEXICON_GBPUSD, LEXICON_EQUITY } from './news.js';
+import { YAHOO } from './instruments.js';
 
 const arg = k => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
 const aset = arg('--aset'), nama = arg('--nama') || aset;
 const gn = q => `https://news.google.com/rss/search?q=${encodeURIComponent(q)}+when:1d&hl=en-US&gl=US&ceid=US:en`;
 const base = join(dirname(fileURLToPath(import.meta.url)), '..', 'app', 'data');
 let FEEDS, out, opt = {};
-if (aset) {
+if (aset && YAHOO[aset]) {
+  FEEDS = YAHOO[aset].berita.map(q => ['Google News', gn(q)]);
+  out = join(base, 'aset', aset);
+  opt = aset === 'GBPUSD' ? { lex: LEXICON_GBPUSD, nama: 'GBPUSD', relevan: /pound|sterling|gbp|cable|boe|bank of england|uk |britain|dollar|fed\b/i }
+      : { lex: LEXICON_EQUITY, nama, relevan: /nasdaq|s&p|stocks?|wall street|equit|dow|earnings|fed\b|tech|nvidia|apple|microsoft/i };
+} else if (aset) {
   const koin = aset.replace(/USD$/, '');
   FEEDS = [['Google News', gn(`${nama} price OR ${koin} crypto`)], ['Google News', gn(`crypto market bitcoin ETF`)]];
   out = join(base, 'aset', aset);

@@ -46,8 +46,8 @@ const shift = (arr, d) => arr.map(c => ({ t: c.t, o: +(c.o + d).toFixed(2), h: +
 
 export function parseCalendar(arr) {
   const map = { High: 'tinggi', Medium: 'sedang' };
-  return (arr || []).filter(e => e.country === 'USD' && map[e.impact]).map(e => ({
-    t: new Date(e.date).toISOString(), nama: e.title, dampak: map[e.impact], perkiraan_nilai: e.forecast || null, sebelumnya: e.previous || null,
+  return (arr || []).filter(e => ['USD', 'GBP'].includes(e.country) && map[e.impact]).map(e => ({
+    t: new Date(e.date).toISOString(), nama: e.title, negara: e.country, dampak: map[e.impact], perkiraan_nilai: e.forecast || null, sebelumnya: e.previous || null,
   })).filter(e => !e.t.startsWith('Invalid')).sort((a, b) => a.t.localeCompare(b.t));
 }
 
