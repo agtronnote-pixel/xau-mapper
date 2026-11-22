@@ -40,6 +40,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Agent Kabar (berita RSS + skor sentimen)
+        continue-on-error: true
+        run: node kantor-pine/scripts/run-news.mjs
       - name: Jalankan tim agent (mapping server)
         run: node kantor-pine/scripts/run-mapping.mjs
       - name: Simpan hasil

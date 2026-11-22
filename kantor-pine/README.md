@@ -10,12 +10,13 @@ Tim agent analisis emas (XAUUSD) yang berjalan **sepenuhnya di perangkat trader*
 - **Ekspor**: gambar ringkasan, teks, EA MT5 (.zip), indikator Pine v6 untuk TradingView.
 - **Riwayat & ketepatan**: setiap mapping disimpan dan dinilai otomatis terhadap harga aktual.
 - **Offline**: aplikasi tetap terbuka tanpa internet dengan mapping terakhir.
+- **Agent berita dari server**: *Kabar* (judul berita RSS + skor kata kunci, tiap jam di GitHub Actions, tanpa AI & tanpa key) dan *Clara — Analis Claude* (tugas terjadwal Claude 3x sehari menulis `app/data/analisis-claude.json`). Keduanya tampil di Beranda & Tim, belum ikut menentukan konsensus.
 
 ## Struktur
 ```
 kantor-pine/
   app/        Aplikasi PWA (index.html, app.js, engine.js, data.js, exporters.js, sw.js)
-  scripts/    test-engine.mjs (uji), run-mapping.mjs (mapping server di GitHub Actions)
+  scripts/    test-engine.mjs (uji), run-mapping.mjs (mapping server), run-news.mjs + news.js (agent Kabar)
   mt5/        KPX_Tools: compile otomatis + KPX_Agent (unduh EA terbaru ke MT5)
   docs/       ARSITEKTUR.md
 .github/workflows/kantor-pine.yml   Uji → mapping server tiap jam (commit hasil)

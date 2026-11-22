@@ -71,3 +71,21 @@ const z = makeZip([{name:'a.txt', text:'hi'}]); assert.ok(z.size > 40);
 const fs = await import('node:fs');
 fs.writeFileSync('/tmp/kpx_sample.pine', pine.code); fs.writeFileSync('/tmp/kpx_sample.mq5', ea);
 console.log('EKSPOR LULUS');
+
+// agent Kabar (RSS + kata kunci)
+const { scoreHeadline, parseFeed, aggregateNews } = await import('./news.js');
+assert.ok(scoreHeadline('Gold Slides To $3,558 As Fed Hike Bets Drive Worst Week Since March').skor < -1, 'berita negatif');
+assert.ok(scoreHeadline('Gold Soars Toward Record High as Rate-Cut Bets and Dollar Weakness Drive Demand').skor > 1, 'berita positif');
+assert.equal(scoreHeadline('Fed Chair Warsh speaks on labor market').skor, 0, '"Warsh" bukan "war"');
+const now = Date.parse('2026-11-20T18:00:00Z');
+const rss = `<rss><channel>
+<item><title><![CDATA[Gold falls toward $3,500 as hawkish Fed bets build]]></title><link>https://a.example/1</link><pubDate>Fri, 20 Nov 2026 16:00:00 GMT</pubDate></item>
+<item><title>Gold falls toward $3,500 as hawkish Fed bets build</title><link>https://b.example/dup</link><pubDate>Fri, 20 Nov 2026 16:05:00 GMT</pubDate></item>
+<item><title>Safe-haven demand lifts bullion as Middle East tensions escalate</title><link>https://a.example/2</link><pubDate>Fri, 20 Nov 2026 10:00:00 GMT</pubDate></item>
+<item><title>Bitcoin hits new high</title><link>https://a.example/3</link><pubDate>Fri, 20 Nov 2026 17:00:00 GMT</pubDate></item>
+</channel></rss>`;
+const items = parseFeed(rss, 'Tes'); assert.equal(items.length, 4);
+const agg = aggregateNews(items, now);
+assert.equal(agg.jumlah, 2, 'duplikat & berita tak relevan dibuang');
+assert.ok(agg.skor < 0, 'berita terbaru (negatif) lebih berbobot');
+console.log('KABAR LULUS', agg.skor, agg.label);
