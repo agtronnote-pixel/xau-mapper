@@ -70,6 +70,7 @@ function runMapping(m) {
   const r = analyze({ points: m?.points || [], spot: m?.spot, daily: mk.daily?.length ? mk.daily : (m?.daily || []), h1: mk.h1, m15: mk.m15,
     macro: mk.macro, calendar: mk.calendar, news: srv.news, claude: isGold() ? srv.claude : null, calib: srv.calib, kinerja: srv.kinerja, profil: mk.profil || undefined, now: new Date() });
   r.sumber_harga = m ? `${m.source} + candle server` : 'candle server GitHub (harga live tidak terjangkau)';
+  r._sumber = 'lokal';
   S.map = r; S.states = {}; store.set(mapKey(S.asset), r);
   S.history.unshift({ aset: S.asset, time: r.basis.dibuat, price: r.basis.price, bias: r.bias, conf: r.keyakinan, aksi: r.narasi?.aksi, k: r.kekuatan_sinyal });
   S.history = S.history.slice(0, 60); store.set('kpx_history', S.history);
@@ -79,17 +80,26 @@ async function refresh({ remap = false } = {}) {
   const id = S.asset, c = cfg(id);
   setNet('warn', 'Memperbarui…');
   const srvP = loadServer({ base: c.base, key: id }).then(v => { if (S.asset === id) S.srv = v; }).catch(() => {});
+  // mapping server = perintah yang sama persis dengan EA di MT5 (?t= melewati cache GitHub Pages)
+  const latestP = fetch(`${c.base}latest.json?t=${Date.now()}`, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
   let m = null;
   if (c.provider !== 'server') {
     try { m = await loadMarket({ provider: c.provider, symbol: c.symbol, fallback: c.fallback }); if (S.asset !== id) return; S.market = m; S.source = m.source; S.spot = m.spot; S.spotAt = m.spotAt; }
     catch (e) { console.warn(e); }
   } else { S.market = null; S.spot = null; }
-  await srvP; if (S.asset !== id) return;
+  await srvP; const srvMap = await latestP; if (S.asset !== id) return;
   try {
-    const age = S.map ? (Date.now() - Date.parse(S.map.basis.dibuat || S.map.basis.time)) / 60000 : Infinity;
-    const reopened = S.map && S.map.gap && marketOpen(new Date(), prof()) && Date.now() >= Date.parse(S.map.basis.time);
-    const old = S.map && S.map.engine !== undefined && !/^3\.[1-9]/.test(String(S.map.engine));
-    if (remap || reopened || old || !S.map || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
+    const srvAge = srvMap?.basis?.dibuat ? (Date.now() - Date.parse(srvMap.basis.dibuat)) / 60000 : Infinity;
+    const srvFresh = srvMap?.narasi && /^3\.[1-9]/.test(String(srvMap.engine)) && (srvAge <= 75 || (srvMap.mode === 'akhir-pekan' && srvAge <= 8 * 60));
+    if (!remap && srvFresh) {
+      // tampilkan perintah yang sedang dijalankan EA; harga live tetap memperbarui status zona tiap menit
+      if (!S.map || S.map._sumber !== 'server' || S.map.basis.dibuat !== srvMap.basis.dibuat) { srvMap._sumber = 'server'; S.map = srvMap; S.states = {}; store.set(mapKey(S.asset), srvMap); }
+    } else {
+      const age = S.map ? (Date.now() - Date.parse(S.map.basis.dibuat || S.map.basis.time)) / 60000 : Infinity;
+      const reopened = S.map && S.map.gap && marketOpen(new Date(), prof()) && Date.now() >= Date.parse(S.map.basis.time);
+      const old = S.map && S.map.engine !== undefined && !/^3\.[1-9]/.test(String(S.map.engine));
+      if (remap || reopened || old || !S.map || S.map._sumber === 'server' || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
+    }
     banner(c.provider === 'server' ? 'Indeks tidak punya sumber harga live gratis — data dari server GitHub, diperbarui tiap jam. Cocokkan dengan harga MT5 sebelum entry.' : m ? '' : 'Harga live tidak terjangkau — analisis memakai candle server GitHub (diperbarui tiap jam).');
     setNet(m ? (marketOpen(new Date(), prof()) ? 'on' : 'warn') : 'warn', m ? (marketOpen(new Date(), prof()) ? 'Live' : 'Pasar tutup') : 'Data server');
   } catch (e) {
@@ -191,7 +201,7 @@ function heroCard(r, p) {
   const n = r.narasi || {}, main = r.rencana[0], t0 = Date.parse(r.basis.time), st = main ? planState(main, p, Date.now(), t0) : null;
   const k = main?.kekuatan, pk = main?.peluang;
   return `<div class="card hero ${n.warna || ''}">
-    <div class="row between"><span class="hint">Keputusan tim sekarang</span><span class="hint">${r.gap ? 'untuk pembukaan' : 'berlaku s/d ' + (main ? wib(new Date(t0 + main.berlaku_menit * 60000)) + ' WIB' : '-')}</span></div>
+    <div class="row between"><span class="hint">${r._sumber === 'lokal' ? '<b class="gold">Pratinjau lokal</b> · EA memakai mapping server' : `Perintah ke EA MT5 · mapping ${wib(new Date(r.basis.dibuat || r.basis.time))} WIB`}</span><span class="hint">${r.gap ? 'untuk pembukaan' : 'berlaku s/d ' + (main ? wib(new Date(t0 + main.berlaku_menit * 60000)) + ' WIB' : '-')}</span></div>
     <div class="act-big ${n.warna || ''}" style="margin-top:8px">${esc(n.aksi || r.bias)}</div>
     <div class="lead">${esc(n.judul || r.ringkasan)}</div>
     ${main ? `<div class="meter">
@@ -276,7 +286,7 @@ function renderHome() {
   ${eventsCard(r)}
   ${trackCard(true)}
   ${newsCard()}
-  <div class="grid2" style="margin-top:14px"><button class="btn" onclick="kpx.remap()">Mapping baru</button><button class="btn ghost" onclick="kpx.shareImage()">Bagikan gambar</button></div>
+  <div class="grid2" style="margin-top:14px"><button class="btn" onclick="kpx.remap()">Pratinjau sekarang</button><button class="btn ghost" onclick="kpx.shareImage()">Bagikan gambar</button></div>
   <div class="hint" style="text-align:center;margin-top:10px">Mapping ${wib(new Date(t0))} WIB · mesin v${esc(r.engine)} · bukan nasihat keuangan</div>`;
 }
 
@@ -431,7 +441,7 @@ Object.assign(window.kpx, {
     renderAssetBar(); renderAll(); window.scrollTo({ top: 0 }); refresh();
   },
   refresh: () => refresh(),
-  remap: async () => { await refresh({ remap: true }); toast('Mapping baru selesai'); },
+  remap: async () => { await refresh({ remap: true }); toast('Pratinjau lokal dibuat — EA tetap memakai mapping server jam ini'); },
   async shareImage() { if (!S.map) return; toast('Membuat gambar…'); const b = await makeMapImage(S.map, { past: pastSeries() }); setAsset(S.map); await shareFile(b, `mapping-${S.asset.toLowerCase()}-${Date.now()}.png`, `Mapping ${S.asset}`); },
   async shareText() { if (!S.map) return; const t = mapSummary(S.map); if (navigator.share) { try { await navigator.share({ text: t }); return; } catch (e) { if (e.name === 'AbortError') return; } } try { await navigator.clipboard.writeText(t); toast('Ringkasan disalin'); } catch { toast('Tidak bisa menyalin'); } },
   downloadEA() { if (!S.map) return; const code = buildEA(S.map); if (!code) return toast('Rencana belum lengkap untuk EA'); const name = lastEAName; downloadBlob(makeZip([{ name, text: code }, { name: 'CARA_PASANG.txt', text: EA_README }]), name.replace('.mq5', '.zip')); },

@@ -333,7 +333,7 @@ void OnTick()
             else s = "harga di zona, tunggu konfirmasi candle";
          }
       }
-      st += P_NAME[i] + ": " + s + "\\n";
+      st += P_NAME[i] + " (kekuatan " + IntegerToString(P_STR[i]) + "%" + (P_PEL[i] >= 0 ? ", peluang " + IntegerToString(P_PEL[i]) + "%" : "") + "): " + s + "\\n";
    }
    long left = (long)(MAP_END - g);
    if(left > 0) st += "Sisa masa mapping: " + IntegerToString(left / 3600) + " jam " + IntegerToString((left % 3600) / 60) + " mnt\\n";
