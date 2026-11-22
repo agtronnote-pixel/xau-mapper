@@ -20,14 +20,15 @@ const GOLD_ID = 'XAUUSD';
 const mapKey = id => id === GOLD_ID ? 'kpx_map_active' : `kpx_map_${id}`;
 const S = {
   settings: store.get('kpx_settings', { balance: 1000, riskPct: 1, notif: false, remap: 60 }),
-  asset: (new URLSearchParams(location.search).get('aset') || '').toUpperCase().replace(/[^A-Z]/g, '') || store.get('kpx_asset', GOLD_ID), assets: store.get('kpx_assets', null),
+  asset: (new URLSearchParams(location.search).get('aset') || '').toUpperCase().replace(/[^A-Z0-9]/g, '') || store.get('kpx_asset', GOLD_ID), assets: store.get('kpx_assets', null),
   market: null, srv: {}, map: null, spot: null, spotAt: 0,
   history: store.get('kpx_history', []), states: {}, source: '',
 };
 S.map = store.get(mapKey(S.asset), null);
 const cfg = id => {
   if (id === GOLD_ID) return { provider: 'xaus', base: 'data/' };
-  const live = (S.assets?.daftar || []).find(a => a.id === id)?.live || S.srv?.market?.live;
+  const KNOWN = { USA100: { provider: 'server' }, SNP500: { provider: 'server' }, GBPUSD: { provider: 'kraken', symbol: 'GBPUSD' }, XMRUSD: { provider: 'htx', symbol: 'xmrusdt' } };
+  const live = (S.assets?.daftar || []).find(a => a.id === id)?.live || S.srv?.market?.live || KNOWN[id];
   const fb = id === 'XMRUSD' ? 'XMRUSD' : undefined;
   return { provider: live?.provider || 'binance', symbol: live?.symbol || id.replace(/USD$/, 'USDT'), fallback: fb, base: `data/aset/${id}/` };
 };
@@ -45,6 +46,7 @@ function renderAssetBar() {
   const ord = a => a.id === GOLD_ID ? 0 : a.tetap ? (a.kelas === 'kripto' || !a.kelas ? 1 : a.kelas === 'forex' ? 2 : 3) : 4;
   list.sort((a, b) => ord(a) - ord(b));
   $('assetBar').innerHTML = list.map(a => `<button class="achip ${a.id === S.asset ? 'on' : ''}" onclick="kpx.pick('${a.id}')"><b>${a.id.replace(/USD$/, '')}</b><span>${a.id === GOLD_ID ? 'emas' : `${a.tetap ? '★ ' : ''}${a.kelas === 'forex' ? 'forex' : a.kelas === 'indeks' ? 'indeks' : a.vol30 ? `vol ${Math.round(a.vol30)}%` : '24/7'}`}</span></button>`).join('');
+  try { $('assetBar').querySelector('.on')?.scrollIntoView({ inline: 'center', block: 'nearest' }); } catch {}
 }
 const saveSettings = () => store.set('kpx_settings', S.settings);
 
