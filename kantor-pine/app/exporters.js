@@ -33,7 +33,7 @@ export function buildEA(r){
 //+------------------------------------------------------------------+
 /* Bias: ${mqCmt(r.bias)} · Keyakinan ${mqCmt(r.keyakinan)}%
    Ringkasan: ${mqCmt(r.ringkasan)}
-${plans.map((pl,i)=>`   Rencana ${i}: ${pl.tipe} ${f2(pl.entry_bawah)}-${f2(pl.entry_atas)} SL ${f2(pl.sl)} TP1 ${f2(pl.tp1)} TP2 ${f2(pl.tp2)}
+${plans.map((pl,i)=>`   Rencana ${i}: ${pl.tipe} ${f2(pl.entry_bawah)}-${f2(pl.entry_atas)} SL ${f2(pl.sl)} TP1 ${f2(pl.tp1)} TP2 ${f2(pl.tp2)}${kk(pl)?' · Kekuatan sinyal '+mqCmt(kk(pl)):''}
      Trigger: ${mqCmt(pl.trigger)}
      Manajemen: ${mqCmt(pl.manajemen)}`).join('\n')}
    Invalidasi: ${mqCmt(r.invalidasi)}
@@ -340,6 +340,8 @@ PENTING
 - Bukan nasihat keuangan. Trading berisiko kehilangan modal.
 `;
 
+const kk=pl=>Number.isFinite(+pl?.kekuatan)?`${+pl.kekuatan}% (${pl.kekuatan_label||''})`:'';
+const kcol=(k,C)=>k>=70?C.green:k>=50?C.gold:C.red;
 export function mapSummary(r){
   const b=r.basis, t0=new Date(b.time), p0=b.price;
   const at=m=>wib(new Date(t0.getTime()+m*60000));
@@ -354,6 +356,7 @@ export function mapSummary(r){
   (r.rencana||[]).forEach(pl=>{
     L.push('');
     L.push(`🎯 ${pl.prioritas||'Rencana'}: ${pl.tipe} ${num(pl.entry_bawah)}–${num(pl.entry_atas)}`);
+    if(kk(pl)) L.push(`💪 Kekuatan sinyal: ${kk(pl)} | RR 1:${pl.rr}`);
     L.push(`SL ${num(pl.sl)} | TP1 ${num(pl.tp1)} | TP2 ${num(pl.tp2)}${Number.isFinite(+pl.berlaku_menit)?` | s/d ${at(+pl.berlaku_menit)} WIB`:''}`);
     if(pl.trigger) L.push(`Trigger: ${pl.trigger}`);
     if(pl.manajemen) L.push(`Manajemen: ${pl.manajemen}`);
@@ -504,7 +507,9 @@ export async function makeMapImage(r){
     const bh=24+44+20+110+18+(trig.length+man.length)*34+20;
     RR(P,y,IW,bh,20,null,C.line); x.fillStyle=pc; x.beginPath(); x.roundRect(P,y,10,bh,[20,0,0,20]); x.fill();
     let yy=y+24+34;
-    T((main.tipe==='SELL'?'▼ SELL':'▲ BUY')+(main.prioritas?' · '+main.prioritas:''),P+36,yy,F(700,34),pc);
+    const mt=(main.tipe==='SELL'?'▼ SELL':'▲ BUY')+(main.prioritas?' · '+main.prioritas:'');
+    T(mt,P+36,yy,F(700,34),pc);
+    if(Number.isFinite(+main.kekuatan)) T('Sinyal '+kk(main),P+36+M(mt,F(700,34))+22,yy,F(700,24),kcol(+main.kekuatan,C));
     if(Number.isFinite(+main.berlaku_menit)) T('berlaku s/d '+at(+main.berlaku_menit)+' WIB',W-P-28,yy,F(500,22),C.muted,'right');
     yy+=30;
     const cells=[['ENTRY',num(main.entry_bawah)+'–'+num(main.entry_atas),C.text],['STOP LOSS',num(main.sl),C.red],['TP1',num(main.tp1),C.green],['TP2',num(main.tp2),C.green]];
@@ -518,7 +523,9 @@ export async function makeMapImage(r){
     plans.slice(1,3).forEach(pl=>{
       const ac=pl.tipe==='SELL'?C.red:C.green;
       RR(P,y,IW,84,16,C.soft);
-      T((pl.tipe==='SELL'?'▼ SELL':'▲ BUY')+' · '+(pl.prioritas||'Alternatif'),P+24,y+34,F(700,24),ac);
+      const at2=(pl.tipe==='SELL'?'▼ SELL':'▲ BUY')+' · '+(pl.prioritas||'Alternatif');
+      T(at2,P+24,y+34,F(700,24),ac);
+      if(Number.isFinite(+pl.kekuatan)) T('Sinyal '+kk(pl),P+24+M(at2,F(700,24))+18,y+34,F(600,20),kcol(+pl.kekuatan,C));
       T(`Entry ${num(pl.entry_bawah)}–${num(pl.entry_atas)}  ·  SL ${num(pl.sl)}  ·  TP ${num(pl.tp1)} / ${num(pl.tp2)}`,P+24,y+66,F(500,22),C.text);
       y+=100; });
     y+=36;
@@ -603,7 +610,7 @@ export function buildPine(r){
   lv.forEach(l=>{ const c=l.jenis==='Resistance'?'color.red':l.jenis==='Support'?'color.green':'color.gray'; L.push(`        drawLine(${f(l.harga)}, ${c}, "${q((l.jenis||'')[0]+' '+(l.catatan||''))}", false)`); });
   if(plans.length) L.push('    if showPlans');
   plans.forEach(pl=>{ const buy=pl.tipe==='BUY', c=buy?'color.green':'color.red';
-    L.push(`        box.new(bar_index - 20, ${f(Math.max(pl.entry_bawah,pl.entry_atas))} + offset, bar_index + 40, ${f(Math.min(pl.entry_bawah,pl.entry_atas))} + offset, border_color=${c}, bgcolor=color.new(${c}, 85), text="${pl.tipe} ${q(pl.prioritas)}", text_color=${c}, text_size=size.small)`);
+    L.push(`        box.new(bar_index - 20, ${f(Math.max(pl.entry_bawah,pl.entry_atas))} + offset, bar_index + 40, ${f(Math.min(pl.entry_bawah,pl.entry_atas))} + offset, border_color=${c}, bgcolor=color.new(${c}, 85), text="${pl.tipe} ${q(pl.prioritas)}${Number.isFinite(+pl.kekuatan)?' '+(+pl.kekuatan)+'%':''}", text_color=${c}, text_size=size.small)`);
     L.push(`        drawLine(${f(pl.sl)}, color.red, "SL ${pl.tipe}", true)`);
     L.push(`        drawLine(${f(pl.tp1)}, color.blue, "TP1 ${pl.tipe}", true)`);
     L.push(`        drawLine(${f(pl.tp2)}, color.blue, "TP2 ${pl.tipe}", true)`); });

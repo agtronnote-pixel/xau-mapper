@@ -4,7 +4,7 @@
 //  Berjalan di browser (aplikasi PWA) dan di Node (GitHub Actions).
 // =====================================================================
 
-export const ENGINE_VERSION = '2.2.0';
+export const ENGINE_VERSION = '2.3.0';
 export const HZ = [5, 15, 30, 60, 120, 240, 480, 720, 1440];
 
 // ---------- util ----------
@@ -292,6 +292,22 @@ function buildPlans(ctx, S, levels) {
   return plans.filter(pl => pl.rr >= 1);
 }
 
+// ---------- kekuatan sinyal per rencana (0–100%) ----------
+// Keselarasan arah rencana dengan konsensus + jumlah analis searah + RR, dipotong oleh risiko berita/volatilitas/gap.
+export function strengthLabel(k) { return k >= 70 ? 'Kuat' : k >= 50 ? 'Sedang' : 'Lemah'; }
+function signalStrength(pl, S, by, closed) {
+  const dir = pl.tipe === 'SELL' ? -1 : 1;
+  const pro = ['trend', 'momentum', 'structure'].filter(id => Math.sign(by[id].skor) === dir && Math.abs(by[id].skor) > 0.1).length;
+  const con = ['trend', 'momentum', 'structure'].filter(id => Math.sign(by[id].skor) === -dir && Math.abs(by[id].skor) > 0.1).length;
+  let k = 50 + S * dir * 35 + (pro - con) * 4 + (Math.min(pl.rr, 3) - 1) * 4;
+  if (by.calendar.keyakinan < 0.5) k *= 0.9;
+  if (by.volatility.data.rezim === 'ekspansi') k *= 0.92;
+  if (by.validator.data.akurasi) k *= clamp(by.validator.data.akurasi / 0.55, 0.8, 1.08);
+  if (closed) k *= 0.9;
+  const kekuatan = Math.round(clamp(k, 5, 95));
+  return { kekuatan, kekuatan_label: strengthLabel(kekuatan), analis_searah: pro };
+}
+
 // ---------- jadwal aksi 24 jam ----------
 function schedule(ctx, events) {
   const blocks = []; let cur = null;
@@ -374,7 +390,7 @@ export function analyze({ points, daily, spot, now = new Date() }) {
   const bias = S > 0.15 ? 'BULLISH' : S < -0.15 ? 'BEARISH' : 'SIDEWAYS';
 
   const levels = keyLevels(ctx);
-  const rencana = buildPlans(ctx, S, levels);
+  const rencana = buildPlans(ctx, S, levels).map(pl => ({ ...pl, ...signalStrength(pl, S, by, closed) }));
   const proyeksi = project(ctxA, S);
   const events = by.calendar.data.events;
   const jadwal = schedule(ctxA, events);
@@ -393,10 +409,11 @@ export function analyze({ points, daily, spot, now = new Date() }) {
 
   const tren = bias === 'BULLISH' ? 'cenderung naik' : bias === 'BEARISH' ? 'cenderung turun' : 'bergerak dalam range';
   const pre = closed ? `Pasar tutup — proyeksi untuk pembukaan ${fmtWIB(anchor)} dari harga penutupan ${gap.penutupan}. ` : '';
-  const ringkasan = `${pre}XAUUSD ${tren} (${agree}/3 analis searah). ${by.volatility.ringkasan}. ${by.session.ringkasan}. ${rencana[0] ? `Rencana utama: ${rencana[0].tipe} di ${rencana[0].entry_bawah}–${rencana[0].entry_atas}.` : 'Belum ada rencana entry yang layak — tunggu.'}`;
+  const ringkasan = `${pre}XAUUSD ${tren} (${agree}/3 analis searah). ${by.volatility.ringkasan}. ${by.session.ringkasan}. ${rencana[0] ? `Rencana utama: ${rencana[0].tipe} di ${rencana[0].entry_bawah}–${rencana[0].entry_atas} (kekuatan sinyal ${rencana[0].kekuatan}% · ${rencana[0].kekuatan_label}).` : 'Belum ada rencana entry yang layak — tunggu.'}`;
   const main = rencana[0];
   return {
     engine: ENGINE_VERSION, harga_sekarang: round2(price), bias, keyakinan: Math.round(conf * 100), skor: round2(S), ringkasan,
+    kekuatan_sinyal: main ? main.kekuatan : null,
     agents: [chief, ...agents, risk, exec, pine],
     level: levels, proyeksi, rencana, jadwal, gap, mode: closed ? 'akhir-pekan' : 'live',
     invalidasi: main ? `Candle H1 close ${main.tipe === 'BUY' ? 'di bawah' : 'di atas'} ${main.sl}` : 'Tidak ada skenario aktif',
