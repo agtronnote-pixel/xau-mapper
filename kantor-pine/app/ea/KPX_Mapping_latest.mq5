@@ -5,15 +5,15 @@
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 51%
-   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3547.86-3
-   Rencana 0: SELL 3547.86-3556.40 SL 3575.62 TP1 3525.00 TP2 3502.90
-     Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
-     Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3520.73-3529.27 SL 3501.51 TP1 3552.13 TP2 3575.00
+/* Bias: SIDEWAYS - Keyakinan 34%
+   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD bergerak dalam range (1/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: BUY di 3520.
+   Rencana 0: BUY 3520.73-3529.27 SL 3501.51 TP1 3552.13 TP2 3575.00
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 3575.62
+   Rencana 1: SELL 3547.86-3556.40 SL 3575.62 TP1 3525.00 TP2 3502.90
+     Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
+     Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+   Invalidasi: Candle H1 close di bawah 3501.51
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
@@ -40,14 +40,14 @@ input ulong  InpMagic         = 129923140; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
-int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {3547.86, 3520.73};
-double   P_EHI[]  = {3556.40, 3529.27};
-double   P_SL[]   = {3575.62, 3501.51};
-double   P_TP1[]  = {3525.00, 3552.13};
-double   P_TP2[]  = {3502.90, 3575.00};
+int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
+double   P_ELO[]  = {3520.73, 3547.86};
+double   P_EHI[]  = {3529.27, 3556.40};
+double   P_SL[]   = {3501.51, 3575.62};
+double   P_TP1[]  = {3552.13, 3525.00};
+double   P_TP2[]  = {3575.00, 3502.90};
 datetime P_EXP[]  = {D'2026.11.23 07:00:00', D'2026.11.23 07:00:00'};
-string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
+string   P_NAME[] = {"BUY Range", "SELL Range"};
 datetime NT_START[] = {D'2026.11.22 23:00:00'};
 datetime NT_END[]   = {D'2026.11.23 00:00:00'};
 datetime MAP_START  = D'2026.11.22 23:00:00';

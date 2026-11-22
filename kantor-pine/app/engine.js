@@ -4,7 +4,7 @@
 //  Berjalan di browser (aplikasi PWA) dan di Node (GitHub Actions).
 // =====================================================================
 
-export const ENGINE_VERSION = '2.1.0';
+export const ENGINE_VERSION = '2.2.0';
 export const HZ = [5, 15, 30, 60, 120, 240, 480, 720, 1440];
 
 // ---------- util ----------

@@ -15,6 +15,7 @@ const S = {
   settings: store.get('kpx_settings', { balance: 1000, riskPct: 1, notif: false, remap: 60 }),
   market: null, map: store.get('kpx_map_active', null), spot: null, spotAt: 0,
   history: store.get('kpx_history', []), states: {}, source: '', planIdx: 0, projTab: 'chart',
+  news: store.get('kpx_news', null), claude: store.get('kpx_claude', null),
 };
 const saveSettings = () => store.set('kpx_settings', S.settings);
 
@@ -45,8 +46,41 @@ function runMapping(m) {
   S.history = S.history.slice(0, 60); store.set('kpx_history', S.history);
   return r;
 }
+// Data pendukung dari GitHub: agent Kabar (RSS) & Analis Claude (tugas terjadwal).
+async function loadExtras() {
+  const get = async f => { try { const r = await fetch(`data/${f}`, { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch { return null; } };
+  const [n, c] = await Promise.all([get('berita.json'), get('analisis-claude.json')]);
+  if (n && n.dibuat) { S.news = n; store.set('kpx_news', n); }
+  if (c && c.dibuat) { S.claude = c; store.set('kpx_claude', c); }
+}
+const ageH = iso => (Date.now() - Date.parse(iso)) / 3600e3;
+const agoTxt = iso => { const h = ageH(iso); return h < 1 ? `${Math.max(1, Math.round(h * 60))} menit lalu` : h < 48 ? `${Math.round(h)} jam lalu` : `${Math.round(h / 24)} hari lalu`; };
+function extraAgents() {
+  const out = [];
+  if (S.news) out.push({ id: 'news', nama: 'Kabar', peran: 'Sentimen Berita (RSS)', skor: S.news.skor, keyakinan: Math.min(0.6, 0.2 + S.news.bermakna * 0.04),
+    ringkasan: `${S.news.label} · ${S.news.bermakna} berita bermakna · ${agoTxt(S.news.dibuat)}`, detail: [...S.news.berita.slice(0, 6).map(b => `${b.skor > 0 ? '▲' : b.skor < 0 ? '▼' : '•'} ${b.judul} (${b.sumber})`), S.news.catatan] });
+  if (S.claude) out.push({ id: 'claude', nama: 'Clara', peran: 'Analis Berita (Claude)', skor: S.claude.skor ?? 0, keyakinan: ageH(S.claude.dibuat) < 14 ? 0.7 : 0.3,
+    ringkasan: `${S.claude.sentimen} · ${S.claude.ringkasan}`, detail: [...(S.claude.poin || []), ...(S.claude.risiko || []).map(r => '⚠ ' + r), `Dibuat ${agoTxt(S.claude.dibuat)}${ageH(S.claude.dibuat) >= 14 ? ' (sudah lama — tunggu analisis berikutnya)' : ''}`] });
+  return out;
+}
+function newsCard() {
+  if (!S.news && !S.claude) return '';
+  const c = S.claude && ageH(S.claude.dibuat) < 24 ? S.claude : null, n = S.news;
+  const cls = v => v > 0.2 ? 'up' : v < -0.2 ? 'dn' : 'gold';
+  return `<div class="sec">Kabar & sentimen</div><div class="card">
+    ${c ? `<div class="row between"><b>Analisis Claude</b><span class="pill ${cls(c.skor ?? 0)}">${esc(c.sentimen)}</span></div>
+      <div style="font-size:13.5px;margin-top:6px">${esc(c.ringkasan)}</div>
+      ${(c.poin || []).slice(0, 3).map(x => `<div class="hint" style="margin-top:4px">• ${esc(x)}</div>`).join('')}
+      <div class="hint" style="margin-top:6px">${esc(c.sesi || '')} · ${agoTxt(c.dibuat)}</div>` : ''}
+    ${n ? `<div class="row between" style="${c ? 'margin-top:12px;padding-top:10px;border-top:1px solid var(--line)' : ''}"><b>Berita terkini</b><span class="pill ${cls(n.skor)}">${esc(n.label)}</span></div>
+      ${n.berita.slice(0, 3).map(b => `<div class="list-row"><a href="${esc(b.link)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${esc(b.judul)}</a><span class="${b.skor > 0 ? 'up' : b.skor < 0 ? 'dn' : 'hint'}" style="white-space:nowrap">${b.skor > 0 ? '▲' : b.skor < 0 ? '▼' : '•'}</span></div>`).join('')}
+      <div class="hint" style="margin-top:4px">Skor kata kunci (tanpa AI) · ${agoTxt(n.dibuat)}</div>` : ''}
+  </div>`;
+}
+
 async function refresh({ remap = false } = {}) {
   setNet('warn', 'Memperbarui…');
+  loadExtras().then(() => { renderHome(); renderTeam(); });
   try {
     const m = await fetchMarket();
     const age = S.map ? (Date.now() - Date.parse(S.map.basis.time)) / 60000 : Infinity;
@@ -158,6 +192,7 @@ function renderHome() {
     <div class="grid3" style="margin-top:10px"><div>Entry<b>${num(main.entry_bawah)}–${num(main.entry_atas)}</b></div><div>Stop loss<b class="dn">${num(main.sl)}</b></div><div>TP1 / TP2<b class="up">${num(main.tp1)} / ${num(main.tp2)}</b></div></div>
     <div class="state ${st.kode}">${esc(st.teks)}</div>
   </div>` : `<div class="card hint">Belum ada rencana entry yang layak. Tim menyarankan menunggu.</div>`}
+  ${newsCard()}
   ${ev.length ? `<div class="sec">Rilis data berikutnya</div><div class="card">${ev.map(e => `<div class="list-row"><span>${esc(e.nama)}</span><span class="hint">${wib(new Date(e.t))} WIB</span></div>`).join('')}<div class="hint" style="margin-top:6px">Perkiraan pola rutin — cek kalender ekonomi resmi.</div></div>` : ''}
   <div class="grid2" style="margin-top:4px"><button class="btn" onclick="kpx.remap()">Mapping baru</button><button class="btn ghost" onclick="kpx.shareImage()">Bagikan gambar</button></div>
   <div class="hint" style="text-align:center;margin-top:10px">Mapping ${wib(new Date(t0))} WIB · sumber ${esc(r.sumber_harga || S.source || '-')}</div>`;
@@ -197,9 +232,9 @@ function renderProj() {
 // ---------- render: tim agent ----------
 function renderTeam() {
   const r = S.map, el = $('teamBody'); el.classList.remove('skel'); if (!r) return;
-  const dir = new Set(['chief', 'trend', 'momentum', 'structure']);
-  el.innerHTML = `<div class="hint" style="margin:0 2px 10px">${r.agents.length} agent bekerja otomatis di perangkat Anda. Ketuk agent untuk melihat alasannya.</div>` +
-  r.agents.map(a => `<details class="card agent-card"><summary><div class="agent ${a.id === 'chief' ? 'chief' : ''}"><div class="av">${esc(a.nama[0])}</div><div>
+  const dir = new Set(['chief', 'trend', 'momentum', 'structure', 'news', 'claude']);
+  el.innerHTML = `<div class="hint" style="margin:0 2px 10px">${r.agents.length} agent bekerja di perangkat Anda${extraAgents().length ? ` + ${extraAgents().length} agent berita dari server` : ''}. Ketuk agent untuk melihat alasannya.</div>` +
+  [...r.agents, ...extraAgents()].map(a => `<details class="card agent-card"><summary><div class="agent ${a.id === 'chief' ? 'chief' : ''}"><div class="av">${esc(a.nama[0])}</div><div>
     <div class="row between"><b>${esc(a.nama)}</b><span class="hint">${Math.round(a.keyakinan * 100)}% yakin</span></div>
     <div class="hint" style="margin-top:-2px">${esc(a.peran)}</div>
     <div style="font-size:13.5px;margin-top:6px">${esc(a.ringkasan)}</div>
