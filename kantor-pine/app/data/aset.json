@@ -1,0 +1,141 @@
+{
+ "dibuat": "2026-11-22T09:13:59.624Z",
+ "diperingkat": "2026-11-22T09:13:59.624Z",
+ "metode": "Volatilitas terealisasi 30 hari (tahunan) dari candle harian, dari 12 koin likuid yang umum tersedia di broker MT5. Diperbarui sekali sehari; aset lama bertahan selama volatilitasnya ≥ 90% aset ke-5.",
+ "daftar": [
+  {
+   "id": "AVAXUSD",
+   "nama": "Avalanche",
+   "vol30": 80.7,
+   "atr_pct": 8.87,
+   "harga": 6.595,
+   "digit": 4
+  },
+  {
+   "id": "DOTUSD",
+   "nama": "Polkadot",
+   "vol30": 75.6,
+   "atr_pct": 7.5,
+   "harga": 0.655,
+   "digit": 5
+  },
+  {
+   "id": "LINKUSD",
+   "nama": "Chainlink",
+   "vol30": 73.8,
+   "atr_pct": 6.98,
+   "harga": 8.636,
+   "digit": 4
+  },
+  {
+   "id": "ADAUSD",
+   "nama": "Cardano",
+   "vol30": 70.3,
+   "atr_pct": 7.31,
+   "harga": 0.1439,
+   "digit": 5
+  },
+  {
+   "id": "BCHUSD",
+   "nama": "Bitcoin Cash",
+   "vol30": 65,
+   "atr_pct": 6.5,
+   "harga": 196.8,
+   "digit": 2
+  }
+ ],
+ "peringkat": [
+  {
+   "id": "AVAXUSD",
+   "nama": "Avalanche",
+   "harga": 6.595,
+   "vol30": 80.7,
+   "atr_pct": 8.87
+  },
+  {
+   "id": "DOTUSD",
+   "nama": "Polkadot",
+   "harga": 0.655,
+   "vol30": 75.6,
+   "atr_pct": 7.5
+  },
+  {
+   "id": "LINKUSD",
+   "nama": "Chainlink",
+   "harga": 8.636,
+   "vol30": 73.8,
+   "atr_pct": 6.98
+  },
+  {
+   "id": "ADAUSD",
+   "nama": "Cardano",
+   "harga": 0.1439,
+   "vol30": 70.3,
+   "atr_pct": 7.31
+  },
+  {
+   "id": "BCHUSD",
+   "nama": "Bitcoin Cash",
+   "harga": 196.8,
+   "vol30": 65,
+   "atr_pct": 6.5
+  },
+  {
+   "id": "ETHUSD",
+   "nama": "Ethereum",
+   "harga": 1684.76,
+   "vol30": 63.8,
+   "atr_pct": 6.74
+  },
+  {
+   "id": "DOGEUSD",
+   "nama": "Dogecoin",
+   "harga": 0.05476,
+   "vol30": 63.8,
+   "atr_pct": 6.96
+  },
+  {
+   "id": "XRPUSD",
+   "nama": "XRP",
+   "harga": 0.9261,
+   "vol30": 63.5,
+   "atr_pct": 6.37
+  },
+  {
+   "id": "LTCUSD",
+   "nama": "Litecoin",
+   "harga": 39.36,
+   "vol30": 63.2,
+   "atr_pct": 6.81
+  },
+  {
+   "id": "SOLUSD",
+   "nama": "Solana",
+   "harga": 69.76,
+   "vol30": 62.2,
+   "atr_pct": 6.76
+  },
+  {
+   "id": "BNBUSD",
+   "nama": "BNB",
+   "harga": 546.36,
+   "vol30": 54.5,
+   "atr_pct": 5.33
+  },
+  {
+   "id": "BTCUSD",
+   "nama": "Bitcoin",
+   "harga": 59752.24,
+   "vol30": 45,
+   "atr_pct": 5.3
+  }
+ ],
+ "gagal": [],
+ "aktif": [
+  "AVAXUSD",
+  "DOTUSD",
+  "LINKUSD",
+  "ADAUSD",
+  "BCHUSD"
+ ]
+}

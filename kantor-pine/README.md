@@ -12,6 +12,14 @@ Tim agent analisis emas (XAUUSD) yang berjalan **sepenuhnya di perangkat trader*
 - **EA MT5**: filter kekuatan minimal (default 55%), selisih harga broker dihitung otomatis dari candle M5 broker.
 - Ekspor gambar/teks (dibuka dengan keputusan), EA (.zip), indikator Pine v6. Offline, notifikasi zona.
 
+## Kripto 24/7 (v3.1)
+- **5 aset kripto paling volatil** dipilih otomatis setiap hari dari 12 koin likuid yang umum ada di broker MT5 (volatilitas terealisasi 30 hari, dengan histeresis). Daftar & peringkat: `app/data/aset.json`.
+- Data per aset di `app/data/aset/<ID>/` (market, kalibrasi, kinerja, latest, berita, arsip). EA: `app/ea/KPX_<ID>_latest.mq5`.
+- Harga live di HP: Binance data-api (USDT, CORS terbuka); server: Binance, cadangan Coinbase. Tanpa key.
+- Mesin memakai profil aset: jam 24/7 (tanpa mode akhir pekan; sesi "akhir pekan" berlikuiditas tipis), presisi harga per aset, angka bulat ±1% harga, candle harian 00:00 UTC, kamus berita kripto.
+- **Aset tanpa keunggulan teruji** (rata-rata R negatif di uji luar sampel) → keputusan TUNGGU dan EA tidak entry (`InpMinStrength = 101`).
+- Tautan langsung per aset: `.../kantor-pine/app/?aset=BTCUSD`.
+
 ## Struktur
 ```
 kantor-pine/

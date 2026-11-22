@@ -89,7 +89,7 @@ export async function fetchServerMarket(prev = null) {
 // Versi ringkas untuk aplikasi (dimuat di HP): 30 hari H1, 4 hari M15.
 export function appMarket(full) {
   return {
-    dibuat: full.dibuat, status: full.status, offset: full.offset, offset_sampel: full.offset_sampel,
+    dibuat: full.dibuat, status: full.status, offset: full.offset, offset_sampel: full.offset_sampel, profil: full.profil || null,
     h1: full.h1.slice(-400), m15: full.m15.slice(-300), daily: full.daily,
     macro: { dxy: full.macro.dxy.slice(-120), ry: full.macro.ry.slice(-120), y10: full.macro.y10.slice(-120) },
     calendar: full.calendar,

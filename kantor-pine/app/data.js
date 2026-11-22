@@ -8,6 +8,25 @@
 // =====================================================================
 
 export const PROVIDERS = {
+  // Kripto 24/7: Binance data-api publik (CORS terbuka, tanpa key). Simbol: BTCUSDT, dst.
+  binance: {
+    nama: 'Binance',
+    base: 'https://data-api.binance.vision/api/v3',
+    async spot(f = fetch, symbol) {
+      const r = await f(`${this.base}/ticker/price?symbol=${symbol}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error(`spot HTTP ${r.status}`);
+      const j = await r.json(), price = +j.price;
+      if (!Number.isFinite(price)) throw new Error('spot tidak tersedia');
+      return { price, at: Date.now(), state: {} };
+    },
+    async intraday(f = fetch, symbol) {
+      const r = await f(`${this.base}/klines?symbol=${symbol}&interval=5m&limit=168`, { cache: 'no-store' });
+      if (!r.ok) throw new Error(`intraday HTTP ${r.status}`);
+      const j = await r.json();
+      return { points: j.map(k => ({ t: Math.floor(k[0] / 1000) + 300, p: +k[4] })).filter(x => x.t <= Date.now() / 1000 + 60), state: {} };
+    },
+    async history() { return { daily: [], stats: {} }; },   // histori harian dari server
+  },
   xaus: {
     nama: 'xaus.com',
     base: 'https://xaus.com/api/v1',
@@ -40,8 +59,12 @@ const store = {
 };
 
 // Ambil semua data yang dibutuhkan mesin analisis. Histori harian di-cache 6 jam.
-export async function loadMarket({ provider = 'xaus', f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null), useCache = typeof localStorage !== 'undefined' } = {}) {
+export async function loadMarket({ provider = 'xaus', symbol, f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null), useCache = typeof localStorage !== 'undefined' } = {}) {
   const P = PROVIDERS[provider];
+  if (provider !== 'xaus') {
+    const [spot, intra] = await Promise.all([P.spot(f, symbol), P.intraday(f, symbol)]);
+    return { source: P.nama, spot: spot.price, spotAt: spot.at, state: {}, points: intra.points, daily: [], stats: {} };
+  }
   let hist = useCache ? store.get('kpx_hist') : null;
   const histFresh = hist && Date.now() - hist.at < 6 * 3600e3;
   const [spot, intra, h] = await Promise.all([
@@ -53,13 +76,13 @@ export async function loadMarket({ provider = 'xaus', f = (typeof fetch !== 'und
 // Data pendukung dari server GitHub (diperbarui tiap jam oleh Actions), satu origin dengan aplikasi:
 // candle H1/M15 asli, makro, kalender, kalibrasi backtest, kinerja live, berita, analisis Claude.
 export const SERVER_FILES = { market: 'market.json', calib: 'kalibrasi.json', kinerja: 'kinerja.json', news: 'berita.json', claude: 'analisis-claude.json' };
-export async function loadServer({ base = 'data/', f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null) } = {}) {
+export async function loadServer({ base = 'data/', key = 'XAUUSD', f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null) } = {}) {
   const get = async name => { try { const r = await f(base + name, { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch { return null; } };
   const ent = await Promise.all(Object.entries(SERVER_FILES).map(async ([k, n]) => [k, await get(n)]));
   const out = Object.fromEntries(ent);
-  for (const [k, v] of ent) { if (v) store.set('kpx_srv_' + k, v); else out[k] = store.get('kpx_srv_' + k); }
+  for (const [k, v] of ent) { const sk = `kpx_srv_${key}_${k}`; if (v) store.set(sk, v); else out[k] = store.get(sk); }
   return out;
 }
-export async function loadSpot({ provider = 'xaus', f = fetch.bind(globalThis) } = {}) {
-  return PROVIDERS[provider].spot(f);
+export async function loadSpot({ provider = 'xaus', symbol, f = fetch.bind(globalThis) } = {}) {
+  return PROVIDERS[provider].spot(f, symbol);
 }

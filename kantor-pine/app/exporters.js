@@ -4,7 +4,10 @@
 // =====================================================================
 export let lastEAName = 'KPX_Mapping.mq5';
 export const wib = d => d.toLocaleTimeString('id-ID',{timeZone:'Asia/Jakarta',hour:'2-digit',minute:'2-digit'});
-export const num = v => Number.isFinite(+v) && v!==null && v!=='' ? (+v).toFixed(2) : '-';
+// presisi harga mengikuti aset aktif (emas 2 desimal, DOGE 6 desimal, dst.)
+let DG = 2, SYM = 'XAUUSD';
+export function setAsset(r){ DG = Number.isInteger(r?.aset?.digit) ? r.aset.digit : 2; SYM = r?.aset?.id || 'XAUUSD'; }
+export const num = v => Number.isFinite(+v) && v!==null && v!=='' ? (+v).toFixed(DG) : '-';
 export const hzLabel = m => m<60 ? m+' mnt' : (m/60)+' jam';
 
 export function mqDate(d){ const p=n=>String(n).padStart(2,'0'); return `D'${d.getUTCFullYear()}.${p(d.getUTCMonth()+1)}.${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}:00'`; }
@@ -15,19 +18,20 @@ export function eaPlans(r){
     .filter(pl=> pl.tipe==='BUY' ? (+pl.sl < Math.min(+pl.entry_bawah,+pl.entry_atas) && +pl.tp1 > Math.max(+pl.entry_bawah,+pl.entry_atas)) : (+pl.sl > Math.max(+pl.entry_bawah,+pl.entry_atas) && +pl.tp1 < Math.min(+pl.entry_bawah,+pl.entry_atas)));
 }
 export function buildEA(r){
+  setAsset(r); const gold=SYM==='XAUUSD', atrH=+r.statistik?.atrH1||1, px=+r.basis.price||1, dv=v=>(+v).toFixed(DG);
   const b=r.basis, t0=new Date(b.time), plans=eaPlans(r);
   if(!plans.length) return '';
   const T=m=>new Date(t0.getTime()+m*60000);
   const nt=(r.jadwal||[]).filter(j=>/^NO/i.test(String(j.aksi||'')) && Number.isFinite(+j.menit_mulai) && Number.isFinite(+j.menit_akhir) && +j.menit_akhir>+j.menit_mulai);
   const stamp=t0.toLocaleString('sv-SE',{timeZone:'Asia/Jakarta'}).replace(/[-: ]/g,'').slice(0,12);
   const magic=String(Math.floor(t0.getTime()/60000)%900000000+100000000);
-  lastEAName=`KPX_Mapping_${stamp}.mq5`;
-  const f2=v=>(+v).toFixed(2);
+  lastEAName=gold?`KPX_Mapping_${stamp}.mq5`:`KPX_${SYM}_${stamp}.mq5`;
+  const f2=v=>(+v).toFixed(DG);
   const arr=(fn)=>plans.map(fn).join(', ');
   return `//+------------------------------------------------------------------+
 //| ${lastEAName.padEnd(65)}|
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: ${(t0.toLocaleString('id-ID',{timeZone:'Asia/Jakarta',dateStyle:'medium',timeStyle:'short'})+' WIB · harga '+b.price.toFixed(2)).padEnd(56)}|
+//| Mapping: ${(t0.toLocaleString('id-ID',{timeZone:'Asia/Jakarta',dateStyle:'medium',timeStyle:'short'})+' WIB · '+SYM+' '+b.price.toFixed(DG)).padEnd(56)}|
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -40,25 +44,25 @@ ${plans.map((pl,i)=>`   Rencana ${i}: ${pl.tipe} ${f2(pl.entry_bawah)}-${f2(pl.e
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XAUUSD ${stamp}"
+#property description "Eksekusi otomatis mapping ${SYM} ${stamp}"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
-input double InpMaxSpread     = 0.50;  // Spread maksimal (USD)
+input double InpMaxSpread     = ${gold?'0.50':dv(px*0.0015)};  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 1.00;  // Toleransi di luar zona entry (USD)
+input double InpZoneTolerance = ${gold?'1.00':dv(atrH*0.1)};  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
-input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
+input int    InpMinStrength   = ${r.keunggulan&&r.keunggulan.ada===false?101:55};    // Kekuatan sinyal minimal (%) untuk entry${r.keunggulan&&r.keunggulan.ada===false?' (101 = tidak entry: backtest aset ini belum menguntungkan)':''}
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
-input double InpBEBuffer      = 0.20;  // Buffer break-even (USD)
+input double InpBEBuffer      = ${gold?'0.20':dv(atrH*0.02)};  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Lainnya"
 input ulong  InpMagic         = ${magic}; // Magic number
@@ -75,7 +79,8 @@ datetime P_EXP[]  = {${arr(pl=>mqDate(T(Number.isFinite(+pl.berlaku_menit)?Math.
 string   P_NAME[] = {${arr(pl=>`"${mqStr(pl.tipe+' '+(pl.prioritas||''))}"`)}};
 int      P_STR[]  = {${arr(pl=>String(Number.isFinite(+pl.kekuatan)?Math.round(+pl.kekuatan):50))}};   // kekuatan sinyal %
 datetime REF_TIME   = ${mqDate(new Date(b.data_time||b.time))};   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = ${(Number.isFinite(+b.data_price)?+b.data_price:+b.price).toFixed(2)};
+double   REF_PRICE  = ${(Number.isFinite(+b.data_price)?+b.data_price:+b.price).toFixed(DG)};
+double   OFFSET_MAX = ${gold?'30':dv(px*0.01)};
 datetime NT_START[] = {${nt.length?nt.map(j=>mqDate(T(+j.menit_mulai))).join(', '):"D'1970.01.01 00:00:00'"}};
 datetime NT_END[]   = {${nt.length?nt.map(j=>mqDate(T(+j.menit_akhir))).join(', '):"D'1970.01.01 00:00:00'"}};
 datetime MAP_START  = ${mqDate(t0)};
@@ -250,8 +255,8 @@ void ComputeOffset()
    double c = iClose(_Symbol, PERIOD_M5, sh);
    if(c <= 0 || MathAbs((double)(bt - ts)) > 900) { gOffsetNote += " (candle acuan tidak ditemukan)"; return; }
    double o = c - REF_PRICE;
-   if(MathAbs(o) > 30) { gOffsetNote += " (selisih " + DoubleToString(o, 2) + " terlalu besar, diabaikan)"; return; }
-   gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, 2);
+   if(MathAbs(o) > OFFSET_MAX) { gOffsetNote += " (selisih " + DoubleToString(o, _Digits) + " terlalu besar, diabaikan)"; return; }
+   gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, _Digits);
    PrintFormat("KPX selisih harga broker vs mapping: %.2f", o);
 }
 
@@ -264,7 +269,7 @@ int OnInit()
    vDigits = (step > 0) ? (int)MathMax(0, MathCeil(-MathLog10(step) - 1e-9)) : 2;
    ArrayResize(lastTry, ArraySize(P_TYPE));
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
-   if(StringFind(_Symbol, "XAU") < 0) Alert("KPX: EA ini dibuat untuk XAUUSD. Simbol chart sekarang: ", _Symbol);
+   if(StringFind(_Symbol, "${SYM.replace(/USD$/,'')}") < 0) Alert("KPX: EA ini dibuat untuk ${SYM}. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
    ComputeOffset();
    if(InpDrawLevels) DrawLevels();
@@ -292,7 +297,7 @@ void OnTick()
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
-   string st = "Kantor Pine XAUUSD - Auto Trade Mapping\\nSelisih harga: " + gOffsetNote + "\\n";
+   string st = "Kantor Pine ${SYM} - Auto Trade Mapping\\nSelisih harga: " + gOffsetNote + "\\n";
    for(int i = 0; i < ArraySize(P_TYPE); i++)
    {
       string s;
@@ -354,7 +359,7 @@ export const EA_README = `CARA PASANG EA (MT5 desktop / VPS)
 1. Buka MT5 > File > Open Data Folder > MQL5 > Experts.
 2. Salin file .mq5 ke folder itu.
 3. Buka MetaEditor (F4), buka file .mq5, tekan Compile (F7).
-4. Di MT5, buka chart XAUUSD, seret EA dari Navigator ke chart.
+4. Di MT5, buka chart simbol yang sesuai nama file (XAUUSD, BTCUSD, dst.), seret EA ke chart.
 5. Centang "Allow Algo Trading", lalu aktifkan tombol Algo Trading.
 6. Atur risiko di tab Inputs. Selisih harga broker dihitung otomatis dari candle M5 broker
    pada waktu mapping (lihat baris "Selisih harga" di pojok chart). Matikan bila ingin isi manual.
@@ -370,13 +375,14 @@ PENTING
 const kk=pl=>Number.isFinite(+pl?.kekuatan)?`${+pl.kekuatan}% (${pl.kekuatan_label||''})`:'';
 const kcol=(k,C)=>k>=70?C.green:k>=50?C.gold:C.red;
 export function mapSummary(r){
+  setAsset(r);
   const b=r.basis, t0=new Date(b.time), p0=b.price;
   const at=m=>wib(new Date(t0.getTime()+m*60000));
   const day=t0.toLocaleDateString('id-ID',{timeZone:'Asia/Jakarta',weekday:'short',day:'numeric',month:'short',year:'numeric'});
   const bias=['BULLISH','BEARISH','SIDEWAYS'].includes(r.bias)?r.bias:'SIDEWAYS';
   const L=[];
-  L.push(`📊 MAPPING XAUUSD — ${day}, ${at(0)} WIB`);
-  L.push(`Harga: ${p0.toFixed(2)} | Bias: ${bias}${Number.isFinite(+r.keyakinan)?` (${+r.keyakinan}%)`:''}`);
+  L.push(`📊 MAPPING ${SYM} — ${day}, ${at(0)} WIB`);
+  L.push(`Harga: ${p0.toFixed(DG)} | Bias: ${bias}${Number.isFinite(+r.keyakinan)?` (${+r.keyakinan}%)`:''}`);
   const n=r.narasi;
   if(n){ L.push(''); L.push(`➡️ KEPUTUSAN: ${n.aksi}`); L.push(n.judul);
     const m=(r.rencana||[])[0]; if(m) L.push(`💪 Kekuatan ${kk(m)}${m.peluang!=null?` · Peluang TP1 duluan ${Math.round(m.peluang*100)}% (${m.peluang_sampel} sampel backtest)`:''}`);
@@ -400,11 +406,12 @@ export function mapSummary(r){
   if(lv.length){ L.push(''); L.push('🧱 Level: '+lv.map(l=>`${(l.jenis||'')[0]||'·'} ${num(l.harga)}`).join(' · ')); }
   if(r.invalidasi) L.push(`❌ Invalidasi: ${r.invalidasi}`);
   if(r.peringatan) L.push(`⚠️ ${r.peringatan}`);
-  L.push(''); L.push('— Kantor Pine XAUUSD · Bukan nasihat keuangan, selalu pakai SL.');
+  L.push(''); L.push(`— Kantor Pine · ${SYM} · Bukan nasihat keuangan, selalu pakai SL.`);
   return L.join('\n');
 }
 
 export async function makeMapImage(r, opt={}){
+  setAsset(r);
   try{ await Promise.all([document.fonts.load('700 48px Inter'), document.fonts.load('500 24px Inter'), document.fonts.load('400 24px Inter')]); }catch(e){}
   const W=1080, P=64, IW=W-2*P;
   const c=document.createElement('canvas'); c.width=W; c.height=3600;
@@ -430,15 +437,16 @@ export async function makeMapImage(r, opt={}){
 
   // header
   RR(P,y,60,60,16,C.text); T('Au',P+30,y+39,F(700,24),'#fff','center');
-  T('Kantor Pine XAUUSD',P+80,y+26,F(700,26),C.text); T('Mapping strategi harian',P+80,y+56,F(400,22),C.muted);
+  T('Kantor Pine · '+SYM,P+80,y+26,F(700,26),C.text); T('Mapping strategi harian',P+80,y+56,F(400,22),C.muted);
   const day=t0.toLocaleDateString('id-ID',{timeZone:'Asia/Jakarta',weekday:'short',day:'numeric',month:'short',year:'numeric'});
   T(day,W-P,y+26,F(400,22),C.muted,'right'); T(at(0)+' WIB',W-P,y+56,F(700,26),C.text,'right');
   y+=60+56;
 
   // price + bias
-  T('XAUUSD',P,y,F(500,24),C.muted); y+=118;
-  T(p0.toFixed(2),P,y,F(700,116),C.text);
-  const pw=M(p0.toFixed(2),F(700,116));
+  T(SYM,P,y,F(500,24),C.muted); y+=118;
+  const pTxt=p0.toFixed(DG); let pf=116; while(M(pTxt,F(700,pf))>IW*0.55 && pf>60) pf-=4;
+  T(pTxt,P,y,F(700,pf),C.text);
+  const pw=M(pTxt,F(700,pf));
   const bl=(bias==='BULLISH'?'▲ ':bias==='BEARISH'?'▼ ':'— ')+bias, blw=M(bl,F(700,28))+40;
   RR(P+pw+32,y-80,blw,52,26,bs); T(bl,P+pw+32+blw/2,y-44,F(700,28),bc,'center');
   if(Number.isFinite(+r.keyakinan)) T(`Keyakinan ${+r.keyakinan}%`,P+pw+32,y-4,F(500,22),C.muted);
@@ -524,10 +532,10 @@ export async function makeMapImage(r, opt={}){
   // horizontal lines with collision-free right labels
   const tags=[];
   levels.forEach(l=>{ const v=+l.harga; if(v<lo||v>hi) return; const col=l.jenis==='Resistance'?C.red:l.jenis==='Support'?C.green:C.muted;
-    line(L0,Y(v),R0,Y(v),col,1.5,[10,8]); tags.push({y:Y(v),t:`${(l.jenis||'L')[0]} ${v.toFixed(2)}`,c:col}); });
+    line(L0,Y(v),R0,Y(v),col,1.5,[10,8]); tags.push({y:Y(v),t:`${(l.jenis||'L')[0]} ${v.toFixed(DG)}`,c:col}); });
   if(main0){ [['SL',main0.sl,C.red,[6,5]],['TP1',main0.tp1,C.green,[2,5]],['TP2',main0.tp2,C.green,[2,5]]].forEach(([n,v,col,d])=>{ v=+v; if(!Number.isFinite(v)||v<lo||v>hi) return;
-    line(L0,Y(v),R0,Y(v),col,3,d); tags.push({y:Y(v),t:`${n} ${v.toFixed(2)}`,c:col,b:true}); }); }
-  tags.push({y:Y(p0),t:`Kini ${p0.toFixed(2)}`,c:C.gold,b:true});
+    line(L0,Y(v),R0,Y(v),col,3,d); tags.push({y:Y(v),t:`${n} ${v.toFixed(DG)}`,c:col,b:true}); }); }
+  tags.push({y:Y(p0),t:`Kini ${p0.toFixed(DG)}`,c:C.gold,b:true});
   tags.sort((a,b)=>a.y-b.y); for(let i=1;i<tags.length;i++) if(tags[i].y-tags[i-1].y<24) tags[i].y=tags[i-1].y+24;
   tags.forEach(tg=>{ T(tg.t,R0+12,tg.y+6,F(tg.b?700:500,17),tg.c); });
   // band + path + points
@@ -538,7 +546,7 @@ export async function makeMapImage(r, opt={}){
   x.beginPath(); pts.forEach((p,i)=>i?x.lineTo(X(i),Y(p.h)):x.moveTo(X(i),Y(p.h))); x.strokeStyle=C.text; x.lineWidth=4; x.lineJoin='round'; x.stroke();
   pts.forEach((p,i)=>{ x.beginPath(); x.arc(X(i),Y(p.h),i?7:11,0,7); x.fillStyle=i?C.text:C.gold; x.fill();
     if(i){ x.beginPath(); x.arc(X(i),Y(p.h),3,0,7); x.fillStyle=C.soft; x.fill(); }
-    if([15,60,240,1440].includes(p.m)){ const s=p.h.toFixed(2), w=M(s,F(700,16))+16, up=p.h>=p0;
+    if([15,60,240,1440].includes(p.m)){ const s=p.h.toFixed(DG), w=M(s,F(700,16))+16, up=p.h>=p0;
       const ty=Math.max(T0+2,Y(p.h)-42), tx=Math.min(Math.max(X(i)-w/2,L0),R0-w);
       RR(tx,ty,w,26,13,'#fff',up?C.green:C.red); T(s,tx+w/2,ty+18,F(700,16),up?C.green:C.red,'center'); } });
   y+=ch+48;
@@ -583,7 +591,7 @@ export async function makeMapImage(r, opt={}){
     const w4=(IW-(PJ.length-1)*14)/PJ.length;
     PJ.forEach((p,i)=>{ const X0=P+i*(w4+14), d=+p.harga-p0, col=d>=0?C.green:C.red;
       RR(X0,y,w4,128,16,C.soft); T('+'+hzLabel(+p.menit),X0+18,y+36,F(600,20),C.text); T(at(+p.menit)+' WIB',X0+w4-18,y+36,F(400,18),C.muted,'right');
-      T(num(p.harga),X0+18,y+82,F(700,32),C.text); T((d>=0?'▲ +':'▼ ')+d.toFixed(2),X0+18,y+112,F(600,20),col); });
+      T(num(p.harga),X0+18,y+82,F(700,32),C.text); T((d>=0?'▲ +':'▼ ')+d.toFixed(DG),X0+18,y+112,F(600,20),col); });
     y+=128+44;
   }
 
@@ -618,7 +626,7 @@ export async function makeMapImage(r, opt={}){
 
   // footer
   x.fillStyle=C.line; x.fillRect(P,y,IW,2); y+=44;
-  T('Kantor Pine XAUUSD',P,y,F(700,22),C.text); T('Bukan nasihat keuangan · selalu gunakan SL',W-P,y,F(400,20),C.muted,'right');
+  T('Kantor Pine · '+SYM,P,y,F(700,22),C.text); T('Bukan nasihat keuangan · selalu gunakan SL',W-P,y,F(400,20),C.muted,'right');
   y+=P-8;
 
   const out=document.createElement('canvas'); out.width=W; out.height=Math.ceil(y);
@@ -630,14 +638,14 @@ export async function makeMapImage(r, opt={}){
 export function buildPine(r){
   const b=r.basis, t0=new Date(b.time);
   const stamp=t0.toLocaleString('sv-SE',{timeZone:'Asia/Jakarta'}).replace(/[-: ]/g,'').slice(0,12);
-  const f=v=>(+v).toFixed(2);
+  setAsset(r); const f=v=>(+v).toFixed(DG);
   const q=s=>String(s||'').replace(/["\\\r\n]/g,' ').slice(0,60);
   const lv=(r.level||[]).filter(l=>Number.isFinite(+l.harga));
   const plans=(r.rencana||[]).filter(pl=>[pl.entry_bawah,pl.entry_atas,pl.sl,pl.tp1,pl.tp2].every(v=>Number.isFinite(+v)));
   const L=[];
   L.push('//@version=6');
-  L.push(`indicator("KPX Mapping XAUUSD ${stamp}", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)`);
-  L.push(`// Dibuat otomatis oleh Kantor Pine XAUUSD dari mapping ${t0.toISOString()} (harga ${f(b.price)}).`);
+  L.push(`indicator("KPX Mapping ${SYM} ${stamp}", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)`);
+  L.push(`// Dibuat otomatis oleh Kantor Pine (${SYM}) dari mapping ${t0.toISOString()} (harga ${f(b.price)}).`);
   L.push('// Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.');
   L.push('offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")');
   L.push('showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")');
@@ -662,7 +670,7 @@ export function buildPine(r){
   L.push('');
   plans.forEach((pl,i)=>{ const lo=f(Math.min(pl.entry_bawah,pl.entry_atas)), hi=f(Math.max(pl.entry_bawah,pl.entry_atas));
     L.push(`inZone${i} = close >= ${lo} + offset and close <= ${hi} + offset`);
-    L.push(`alertcondition(inZone${i} and not inZone${i}[1], "KPX ${pl.tipe} ${q(pl.prioritas)}: masuk zona", "XAUUSD masuk zona ${pl.tipe} {{close}} - tunggu konfirmasi")`); });
+    L.push(`alertcondition(inZone${i} and not inZone${i}[1], "KPX ${pl.tipe} ${q(pl.prioritas)}: masuk zona", "${SYM} masuk zona ${pl.tipe} {{close}} - tunggu konfirmasi")`); });
   L.push('plot(na, "KPX")');
   return { name:`KPX_Mapping_${stamp}.pine`, code: L.join('\n')+'\n' };
 }

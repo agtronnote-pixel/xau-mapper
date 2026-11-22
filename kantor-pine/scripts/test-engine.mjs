@@ -126,6 +126,35 @@ for (const [name, trend, seed] of [['naik', 0.6, 7], ['turun', -0.6, 11], ['data
   assert.ok(runs.every(r => Object.keys(r.agents).length === 6));
   console.log('backtest sintetis:', runs.length, 'jam');
 }
+// KRIPTO 24/7: profil, presisi harga kecil (DOGE), tanpa mode akhir pekan
+{
+  const { cryptoProfile } = await import('../app/engine.js');
+  const pd = cryptoProfile('DOGEUSD', 'Dogecoin', 0.0547), pb = cryptoProfile('BTCUSD', 'Bitcoin', 59700);
+  assert.equal(pd.digit, 6); assert.equal(pb.digit, 2); assert.equal(pb.langkah, 500); assert.equal(pd.langkah, 0.0005);
+  assert.equal(marketOpen(new Date('2026-11-21T12:00:00Z'), pd), true, 'kripto buka hari Sabtu');
+  const sc = 0.0547 / 4000;   // skala data sintetis ke harga DOGE
+  const s = synth(-0.6, 17, { nowUTC: Date.UTC(2026,10,21,12,0) });   // Sabtu
+  const k = c => ({ t: c.t, o: c.o*sc, h: c.h*sc, l: c.l*sc, c: c.c*sc });
+  const r = analyze({ ...s, h1: s.h1.map(k), m15: s.m15.map(k), points: s.points.map(x => ({ t: x.t, p: x.p*sc })), spot: s.spot*sc,
+    daily: s.daily.map(d => ({ d: d.d, c: d.c*sc, h: d.h*sc, l: d.l*sc })), profil: pd });
+  assert.equal(r.mode, 'live'); assert.equal(r.gap, null); assert.equal(r.aset.id, 'DOGEUSD'); assert.equal(r.kualitas.basi, 0);
+  assert.ok(r.rencana.length, 'ada rencana untuk DOGE');
+  r.rencana.forEach(p => { assert.ok(p.entry_bawah < p.entry_atas, 'zona tidak runtuh oleh pembulatan'); assert.ok((String(p.sl).split('.')[1] || '').length > 2, 'presisi > 2 desimal');
+    if (p.tipe === 'BUY') assert.ok(p.sl < p.entry_bawah && p.tp1 > p.entry_atas); else assert.ok(p.sl > p.entry_atas && p.tp1 < p.entry_bawah); });
+  assert.ok(r.jadwal.some(j => j.detail.includes('Akhir pekan')), 'sesi akhir pekan kripto');
+  assert.ok(!r.jadwal.some(j => j.detail === 'Pasar tutup'));
+  const { buildEA, mapSummary } = await import('../app/exporters.js');
+  const ea = buildEA(r); assert.ok(ea.includes('StringFind(_Symbol, "DOGE")') && ea.includes('KPX_DOGEUSD_'.slice(0,4)) && !/InpMaxSpread\s+= 0\.50/.test(ea), 'EA disesuaikan untuk DOGE');
+  assert.ok(mapSummary(r).includes('MAPPING DOGEUSD'));
+  console.log('[DOGE]', r.narasi.aksi, '—', r.narasi.judul);
+  const { pickTop, realizedVol } = await import('./crypto.js');
+  const R = [['A',90],['B',85],['C',80],['D',75],['E',70],['F',66],['G',50]].map(([id, vol30]) => ({ id, vol30 }));
+  assert.deepEqual(pickTop(R, []).map(x => x.id), ['A','B','C','D','E']);
+  assert.ok(pickTop(R, ['F']).map(x => x.id).includes('F'), 'aset lama bertahan bila vol ≥ 90% aset ke-5');
+  assert.ok(!pickTop(R, ['G']).map(x => x.id).includes('G'), 'aset lama keluar bila jauh lebih tenang');
+  const dly = Array.from({ length: 40 }, (_, i) => ({ c: 100 * (1 + (i % 2 ? 0.02 : -0.02)), h: 103, l: 97 }));
+  assert.ok(realizedVol(dly).vol30 > 30);
+}
 const st = planState({tipe:'BUY',entry_bawah:10,entry_atas:12,sl:8,berlaku_menit:60}, 11, 0, 0);
 assert.equal(st.kode, 'zone');
 console.log('\nSEMUA TES LULUS');

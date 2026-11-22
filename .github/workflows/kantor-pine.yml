@@ -9,7 +9,7 @@ on:
   pull_request:
     paths: ['kantor-pine/**', '.github/workflows/kantor-pine.yml']
   schedule:
-    - cron: '7 * * * 0-5'   # tiap jam, Minggu–Jumat (UTC)
+    - cron: '7 * * * *'     # tiap jam, 7 hari (kripto buka 24/7; emas tetap dipetakan untuk pembukaan)
   workflow_dispatch:
 
 concurrency:
@@ -53,6 +53,22 @@ jobs:
       - name: Nilai mapping yang diarsipkan (rekam jejak live)
         continue-on-error: true
         run: node kantor-pine/scripts/score-archive.mjs
+      - name: Kripto 24/7 — peringkat volatilitas harian & data 5 aset teratas
+        continue-on-error: true
+        run: node kantor-pine/scripts/build-crypto.mjs
+      - name: Kripto 24/7 — berita, kalibrasi, mapping, penilaian per aset
+        continue-on-error: true
+        run: |
+          F=kantor-pine/app/data/aset.json
+          [ -f "$F" ] || exit 0
+          FORCE="${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}"
+          for id in $(node -e "console.log(require('./$F').aktif.join(' '))"); do
+            nama=$(node -e "console.log(require('./$F').daftar.find(a=>a.id==='$id').nama)")
+            node kantor-pine/scripts/run-news.mjs --aset "$id" --nama "$nama" || true
+            node kantor-pine/scripts/calibrate.mjs --aset "$id" $FORCE || true
+            node kantor-pine/scripts/run-mapping.mjs --aset "$id" || true
+            node kantor-pine/scripts/score-archive.mjs --aset "$id" || true
+          done
       - name: Simpan hasil
         run: |
           git config user.name "kantor-pine-bot"
