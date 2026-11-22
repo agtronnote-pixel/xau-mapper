@@ -13,13 +13,13 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyze, evaluatePlan, marketOpen, sessionOf, HZ, PRIOR_WEIGHTS, DIR_AGENTS } from '../app/engine.js';
-import { mean, quantile, corr, dedupe, summarize } from './lib-stats.js';
+import { mean, quantile, corr, dedupe, summarize, asetCtx } from './lib-stats.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const out = join(root, 'app', 'data', 'kalibrasi.json');
+const A = asetCtx(root), out = join(A.out, 'kalibrasi.json');
 
 export function backtest(M, { bobot = null, step = 3600, maxRuns = Infinity } = {}) {
-  const { h1, m15 } = M; if (h1.length < 150) throw new Error('Candle H1 kurang untuk backtest');
+  const { h1, m15 } = M, prof = M.profil || undefined; if (h1.length < 150) throw new Error('Candle H1 kurang untuk backtest');
   const m15Start = m15.length ? m15[0].t : Infinity;
   const closeAt = t => { // harga close terakhir pada waktu t
     const src = t >= m15Start + 900 ? m15 : h1, size = src === m15 ? 900 : 3600;
@@ -32,7 +32,7 @@ export function backtest(M, { bobot = null, step = 3600, maxRuns = Infinity } = 
   let i0 = 0, j0 = 0;
   for (let T = Math.ceil(start / step) * step; T <= end && runs.length < maxRuns; T += step) {
     const now = new Date(T * 1000);
-    if (!marketOpen(now) || !marketOpen(new Date((T - 3600) * 1000))) continue;
+    if (!marketOpen(now, prof) || !marketOpen(new Date((T - 3600) * 1000), prof)) continue;
     while (i0 < h1.length && h1[i0].t + 3600 <= T) i0++;
     while (j0 < m15.length && m15[j0].t + 900 <= T) j0++;
     const H = h1.slice(Math.max(0, i0 - 300), i0), Q = m15.slice(Math.max(0, j0 - 200), j0);
@@ -41,7 +41,7 @@ export function backtest(M, { bobot = null, step = 3600, maxRuns = Infinity } = 
     const day = now.toISOString().slice(0, 10);
     let r; try {
       r = analyze({ h1: H, m15: Q, points: [], spot: price, now, daily: M.daily.filter(x => x.d < day), macro: M.macro,
-        calib: bobot ? { bobot } : null });
+        calib: bobot ? { bobot } : null, profil: prof });
     } catch { continue; }
     const atrH = r.statistik.atrH1, fwd = {};
     for (const h of HZ.filter(h => h >= 15)) { const c = closeAt(T + h * 60); if (c != null && T + h * 60 <= h1[h1.length - 1].t + 3600) fwd[h] = (c - price) / atrH; }
@@ -70,7 +70,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   let fresh = false;
   try { const old = JSON.parse(readFileSync(out, 'utf8')); fresh = old.versi === 3 && Date.now() - Date.parse(old.dibuat) < 20 * 3600e3; } catch {}
   if (fresh && !process.argv.includes('--force')) { console.log('Kalibrasi masih baru (< 20 jam), dilewati.'); process.exit(0); }
-  const M = JSON.parse(readFileSync(join(root, '.cache', 'market-full.json'), 'utf8'));
+  const M = JSON.parse(readFileSync(A.cache, 'utf8'));
   const t0 = Date.now();
   const all1 = backtest(M);
   if (all1.length < 120) { console.log(`Sampel backtest terlalu sedikit (${all1.length}), kalibrasi dilewati.`); process.exit(0); }
@@ -86,8 +86,8 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     kekuatan.push({ dari: edges[i], sampai: edges[i + 1], n: s.tersentuh, peluang: +((s.tp1 + 5) / (s.tersentuh + 10)).toFixed(3), ekspektasi_R: s.ekspektasi_R });
   }
   const sesi = {};
-  for (const id of ['asia', 'london', 'overlap', 'ny', 'sepi']) {
-    const g = plans.filter(p => p.ev?.t_entry && sessionOf(new Date(p.ev.t_entry * 1000)) === id), s = summarize(g);
+  for (const id of ['asia', 'london', 'overlap', 'ny', 'sepi', 'akhir-pekan']) {
+    const g = plans.filter(p => p.ev?.t_entry && sessionOf(new Date(p.ev.t_entry * 1000), M.profil || undefined) === id), s = summarize(g);
     if (s.tersentuh) sesi[id] = { n: s.tersentuh, peluang: +((s.tp1 + 5) / (s.tersentuh + 10)).toFixed(3), ekspektasi_R: s.ekspektasi_R };
   }
   const proyeksi = {};
@@ -101,14 +101,14 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const a1 = arahOf(60), a4 = arahOf(240);
   const dt = s => new Date(s * 1000).toISOString().slice(0, 10);
   const res = {
-    versi: 3, dibuat: new Date().toISOString(), periode: `${dt(runs[0].T)} – ${dt(runs[runs.length - 1].T)}`, sampel_jam: runs.length,
+    versi: 3, aset: A.id, dibuat: new Date().toISOString(), periode: `${dt(runs[0].T)} – ${dt(runs[runs.length - 1].T)}`, sampel_jam: runs.length,
     bobot: w, ic, kekuatan, sesi, proyeksi,
     arah: { h1: +(a1.hit ?? 0).toFixed(3), h4: +(a4.hit ?? 0).toFixed(3), n: a4.n },
     rencana: { ...summarize(plans), oos: summarize(oos) },
     catatan: 'Bobot dipelajari dari 60% data awal; angka "oos" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL.',
   };
   writeFileSync(out, JSON.stringify(res, null, 1));
-  console.log(`Backtest ${runs.length} jam, ${plans.length} rencana unik, ${((Date.now() - t0) / 1000).toFixed(1)} dtk`);
+  console.log(`[${A.id}] Backtest ${runs.length} jam, ${plans.length} rencana unik, ${((Date.now() - t0) / 1000).toFixed(1)} dtk`);
   console.log('bobot:', w, 'ic:', ic);
   console.log('rencana:', res.rencana);
   console.log('kekuatan:', kekuatan);

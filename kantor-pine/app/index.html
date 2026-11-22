@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kantor Pine XAUUSD</title>
+<title>Kantor Pine — XAUUSD & Kripto</title>
 <meta name="description" content="Tim agent analisis XAUUSD: proyeksi 5 menit–24 jam, rencana entry, EA MT5 & indikator TradingView.">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
@@ -115,6 +115,10 @@ nav button.on{color:var(--text)}
 .contrib .track{height:8px;background:var(--panel2);border-radius:4px;position:relative}
 .contrib .track i{position:absolute;top:0;bottom:0;border-radius:4px}
 .contrib .track:after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--line)}
+.assetbar{margin:-4px 0 12px}
+.achip{flex:0 0 auto;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:6px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:0;cursor:pointer;line-height:1.2}
+.achip b{font-size:13.5px}.achip span{font-size:10.5px;color:var(--muted)}
+.achip.on{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}.achip.on span{color:color-mix(in srgb,var(--on-ink) 70%,transparent)}
 .badge{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--panel2);color:var(--muted)}
 </style>
 </head>
@@ -122,9 +126,10 @@ nav button.on{color:var(--text)}
 <div class="app">
   <header>
     <div class="logo">Au</div>
-    <div><h1>Kantor Pine XAUUSD</h1><p>Tim agent analisis emas</p></div>
+    <div><h1>Kantor Pine</h1><p>Tim agent analisis · emas & kripto 24/7</p></div>
     <div class="status"><i class="dot" id="netDot"></i><span id="netTxt">Memuat…</span></div>
   </header>
+  <div class="chips assetbar" id="assetBar"></div>
   <div class="banner" id="banner"></div>
 
   <!-- BERANDA -->

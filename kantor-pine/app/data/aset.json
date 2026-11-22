@@ -1,0 +1,187 @@
+{
+ "dibuat": "2026-11-22T09:38:48.242Z",
+ "diperingkat": "2026-11-22T09:38:48.242Z",
+ "metode": "5 teratas menurut volatilitas terealisasi 30 hari (tahunan) dari 12 koin likuid yang umum tersedia di broker MT5, diperbarui sekali sehari (aset lama bertahan selama volatilitasnya ≥ 90% aset ke-5). Ditambah aset yang selalu dipantau: XMRUSD.",
+ "daftar": [
+  {
+   "id": "AVAXUSD",
+   "nama": "Avalanche",
+   "vol30": 80.7,
+   "atr_pct": 8.85,
+   "tetap": false,
+   "live": {
+    "provider": "binance",
+    "symbol": "AVAXUSDT"
+   },
+   "harga": 6.609,
+   "digit": 4
+  },
+  {
+   "id": "DOTUSD",
+   "nama": "Polkadot",
+   "vol30": 75.6,
+   "atr_pct": 7.53,
+   "tetap": false,
+   "live": {
+    "provider": "binance",
+    "symbol": "DOTUSDT"
+   },
+   "harga": 0.653,
+   "digit": 5
+  },
+  {
+   "id": "LINKUSD",
+   "nama": "Chainlink",
+   "vol30": 73.9,
+   "atr_pct": 6.97,
+   "tetap": false,
+   "live": {
+    "provider": "binance",
+    "symbol": "LINKUSDT"
+   },
+   "harga": 8.655,
+   "digit": 4
+  },
+  {
+   "id": "ADAUSD",
+   "nama": "Cardano",
+   "vol30": 70.4,
+   "atr_pct": 7.3,
+   "tetap": false,
+   "live": {
+    "provider": "binance",
+    "symbol": "ADAUSDT"
+   },
+   "harga": 0.1441,
+   "digit": 5
+  },
+  {
+   "id": "BCHUSD",
+   "nama": "Bitcoin Cash",
+   "vol30": 65,
+   "atr_pct": 6.48,
+   "tetap": false,
+   "live": {
+    "provider": "binance",
+    "symbol": "BCHUSDT"
+   },
+   "harga": 197.3,
+   "digit": 2
+  },
+  {
+   "id": "XMRUSD",
+   "nama": "Monero",
+   "vol30": 67.6,
+   "atr_pct": 8.16,
+   "tetap": true,
+   "live": {
+    "provider": "htx",
+    "symbol": "xmrusdt"
+   },
+   "harga": 478.79,
+   "digit": 2
+  }
+ ],
+ "peringkat": [
+  {
+   "id": "AVAXUSD",
+   "nama": "Avalanche",
+   "harga": 6.609,
+   "vol30": 80.7,
+   "atr_pct": 8.85
+  },
+  {
+   "id": "DOTUSD",
+   "nama": "Polkadot",
+   "harga": 0.653,
+   "vol30": 75.6,
+   "atr_pct": 7.53
+  },
+  {
+   "id": "LINKUSD",
+   "nama": "Chainlink",
+   "harga": 8.655,
+   "vol30": 73.9,
+   "atr_pct": 6.97
+  },
+  {
+   "id": "ADAUSD",
+   "nama": "Cardano",
+   "harga": 0.1441,
+   "vol30": 70.4,
+   "atr_pct": 7.3
+  },
+  {
+   "id": "XMRUSD",
+   "nama": "Monero",
+   "harga": 478.79,
+   "vol30": 67.6,
+   "atr_pct": 8.16
+  },
+  {
+   "id": "BCHUSD",
+   "nama": "Bitcoin Cash",
+   "harga": 197.2,
+   "vol30": 65,
+   "atr_pct": 6.48
+  },
+  {
+   "id": "ETHUSD",
+   "nama": "Ethereum",
+   "harga": 1690.1,
+   "vol30": 63.9,
+   "atr_pct": 6.72
+  },
+  {
+   "id": "DOGEUSD",
+   "nama": "Dogecoin",
+   "harga": 0.05484,
+   "vol30": 63.8,
+   "atr_pct": 6.95
+  },
+  {
+   "id": "XRPUSD",
+   "nama": "XRP",
+   "harga": 0.925,
+   "vol30": 63.5,
+   "atr_pct": 6.38
+  },
+  {
+   "id": "LTCUSD",
+   "nama": "Litecoin",
+   "harga": 39.39,
+   "vol30": 63.2,
+   "atr_pct": 6.8
+  },
+  {
+   "id": "SOLUSD",
+   "nama": "Solana",
+   "harga": 69.9,
+   "vol30": 62.2,
+   "atr_pct": 6.75
+  },
+  {
+   "id": "BNBUSD",
+   "nama": "BNB",
+   "harga": 548.11,
+   "vol30": 54.5,
+   "atr_pct": 5.32
+  },
+  {
+   "id": "BTCUSD",
+   "nama": "Bitcoin",
+   "harga": 60096.01,
+   "vol30": 45.1,
+   "atr_pct": 5.27
+  }
+ ],
+ "gagal": [],
+ "aktif": [
+  "AVAXUSD",
+  "DOTUSD",
+  "LINKUSD",
+  "ADAUSD",
+  "BCHUSD",
+  "XMRUSD"
+ ]
+}

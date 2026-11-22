@@ -28,9 +28,20 @@ export const LEXICON = [
   [/worst week|lowest (level|since)|sell-?off|liquidation/i, -0.4],
 ];
 
-export function scoreHeadline(title) {
+// Kamus kripto: positif = cenderung mendukung kenaikan harga koin.
+export const LEXICON_CRYPTO = [
+  [/rate[- ]cuts?|cut (bets|odds)|dovish|easing|lower rates/i, 0.7],
+  [/rate hikes?|hike (bets|odds)|hawkish|tighten(ing)?|higher for longer/i, -0.7],
+  [/etf (inflows?|approv\w*|launch\w*)|approv(al|ed)|institutional (buy\w*|demand|adoption)|adoption|treasury (buy|purchas)\w*|accumulat\w*|partnership|upgrade|listing/i, 0.8],
+  [/etf outflows?|hack\w*|exploit\w*|stolen|breach|\bban(s|ned)?\b|crackdown|lawsuit|\bsues?\b|charges?|delist\w*|insolven\w*|bankrupt\w*|fraud|probe/i, -0.9],
+  [/all[- ]time high|record high|breakout|bull (run|market)|short squeeze/i, 0.6],
+  [/bear market|liquidat\w*|capitulat\w*|sell-?off|lowest (level|since)|worst (week|month|day)/i, -0.6],
+  [/\b(rall\w*|surg\w*|soar\w*|jump\w*|climb\w*|rebound\w*|gain\w*|spik\w*|rises?)\b/i, 0.5],
+  [/\b(fall\w*|drop\w*|slid\w*|slump\w*|plung\w*|tumbl\w*|crash\w*|sink\w*|declin\w*|retreat\w*)\b/i, -0.5],
+];
+export function scoreHeadline(title, lex = LEXICON) {
   let s = 0; const hits = [];
-  for (const [re, w] of LEXICON) { const m = title.match(re); if (m) { s += w; hits.push(m[0].toLowerCase()); } }
+  for (const [re, w] of lex) { const m = title.match(re); if (m) { s += w; hits.push(m[0].toLowerCase()); } }
   return { skor: Math.max(-1.5, Math.min(1.5, s)), kata: hits };
 }
 
@@ -50,15 +61,16 @@ export function parseFeed(xml, sumber) {
 }
 
 // Gabungkan berita: buang duplikat, hanya yang relevan dengan emas, beri bobot kebaruan.
-export function aggregateNews(items, now = Date.now(), jamMaks = 36) {
+export function aggregateNews(items, now = Date.now(), jamMaks = 36, opt = {}) {
+  const lex = opt.lex || LEXICON, relevan = opt.relevan || /gold|xau|bullion|precious metal|fed|dollar|treasur|yield|inflation|cpi|payroll|geopolit/i, nama = opt.nama || 'emas';
   const seen = new Set(), out = [];
   for (const it of items) {
     const key = it.judul.toLowerCase().replace(/[^a-z0-9 ]/g, '').slice(0, 80);
     if (seen.has(key)) continue; seen.add(key);
-    if (!/gold|xau|bullion|precious metal|fed|dollar|treasur|yield|inflation|cpi|payroll|geopolit/i.test(it.judul)) continue;
+    if (!relevan.test(it.judul)) continue;
     const umurJam = it.waktu ? (now - it.waktu) / 3600e3 : 12;
     if (umurJam > jamMaks || umurJam < -2) continue;
-    const sc = scoreHeadline(it.judul);
+    const sc = scoreHeadline(it.judul, lex);
     out.push({ ...it, ...sc, umurJam: Math.round(umurJam * 10) / 10, bobot: Math.exp(-Math.max(umurJam, 0) / 12) });
   }
   out.sort((a, b) => (a.umurJam - b.umurJam));
@@ -68,7 +80,7 @@ export function aggregateNews(items, now = Date.now(), jamMaks = 36) {
   const s = Math.max(-1, Math.min(1, skor));
   return {
     dibuat: new Date(now).toISOString(), skor: Math.round(s * 100) / 100,
-    label: s > 0.2 ? 'POSITIF untuk emas' : s < -0.2 ? 'NEGATIF untuk emas' : 'NETRAL',
+    label: s > 0.2 ? `POSITIF untuk ${nama}` : s < -0.2 ? `NEGATIF untuk ${nama}` : 'NETRAL',
     jumlah: out.length, bermakna: bermakna.length,
     berita: out.slice(0, 12).map(({ judul, link, sumber, umurJam, skor, kata }) => ({ judul, link, sumber, umurJam, skor, kata })),
     catatan: 'Skor dari kata kunci judul berita (tanpa AI). Penanda arah kasar; bisa salah membaca konteks.',

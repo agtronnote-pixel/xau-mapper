@@ -1,0 +1,40 @@
+📊 MAPPING ADAUSD — Min, 22 Nov 2026, 16.17 WIB
+Harga: 0.14390 | Bias: BEARISH (51%)
+
+➡️ KEPUTUSAN: SELL
+SELL di 0.14506–0.14554 setelah ada candle konfirmasi.
+💪 Kekuatan 73% (Kuat) · Peluang TP1 duluan 46% (18 sampel backtest)
+✓ trend H1 & harian turun
+✓ struktur lower high/lower low
+✓ dolar & yield riil menguat
+❌ Batal bila candle H1 close di atas 0.14663.
+
+🎯 Utama: SELL 0.14506–0.14554
+💪 Kekuatan sinyal: 73% (Kuat) · peluang 46% | RR 1:1.73
+SL 0.14663 | TP1 0.14300 | TP2 0.14137 | s/d 00.17 WIB
+Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+
+🎯 Alternatif: BUY 0.14276–0.14324
+💪 Kekuatan sinyal: 31% (Lemah) · peluang 55% | RR 1:1.73
+SL 0.14167 | TP1 0.14530 | TP2 0.14620 | s/d 00.17 WIB
+Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+
+📈 Proyeksi
++15 mnt (16.32): 0.14388
++1 jam (17.17): 0.14390
++4 jam (20.17): 0.14391
++24 jam (16.17): 0.14410
+
+🕒 Jadwal
+16.17–06.17 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
+06.17–07.17 WAIT: Likuiditas rendah
+07.17–15.17 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
+15.17–16.17 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi
+
+🧱 Level: R 0.14943 · R 0.14620 · R 0.14530 · S 0.14380 · S 0.14300 · P 0.14137 · S 0.14090 · S 0.13790 · S 0.13653 · S 0.13330
+❌ Invalidasi: Candle H1 close di atas 0.14663
+⚠️ Agent tanpa data cukup: Clara
+
+— Kantor Pine · ADAUSD · Bukan nasihat keuangan, selalu pakai SL.

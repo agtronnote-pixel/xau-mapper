@@ -19,3 +19,10 @@ export function summarize(res) {
   return { rencana: res.length, tersentuh: done.length, tp1: win, sl: done.filter(x => x.ev.hasil === 'SL').length,
     winrate: done.length ? +(win / done.length).toFixed(3) : 0, ekspektasi_R: done.length ? +mean(done.map(x => x.ev.R)).toFixed(3) : 0 };
 }
+// Lokasi file per aset. Tanpa --aset = emas (lokasi lama, tetap kompatibel).
+import { join } from 'node:path';
+export function asetCtx(root, argv = process.argv) {
+  const i = argv.indexOf('--aset'), id = i > 0 ? argv[i + 1] : null;
+  return id ? { id, cache: join(root, '.cache', `${id}-full.json`), out: join(root, 'app', 'data', 'aset', id), ea: `KPX_${id}_latest` }
+            : { id: 'XAUUSD', cache: join(root, '.cache', 'market-full.json'), out: join(root, 'app', 'data'), ea: 'KPX_Mapping_latest' };
+}

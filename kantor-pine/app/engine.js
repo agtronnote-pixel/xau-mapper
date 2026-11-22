@@ -13,7 +13,7 @@
 //   calib   : kalibrasi.json hasil backtest (bobot, peluang, rentang proyeksi)
 // =====================================================================
 
-export const ENGINE_VERSION = '3.0.0';
+export const ENGINE_VERSION = '3.1.0';
 export const HZ = [5, 15, 30, 60, 120, 240, 480, 720, 1440];
 
 // ---------- util ----------
@@ -23,6 +23,16 @@ const round2 = v => Math.round(v * 100) / 100;
 const mean = a => a.reduce((s, x) => s + x, 0) / (a.length || 1);
 const std = a => { const m = mean(a); return Math.sqrt(mean(a.map(x => (x - m) ** 2))); };
 export const fmtWIB = d => new Date(d).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', weekday: 'long', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) + ' WIB';
+// ---------- profil instrumen ----------
+// Emas: tutup akhir pekan, harian broker 17:00 NY. Kripto: buka 24/7, harian 00:00 UTC.
+export const GOLD = { id: 'XAUUSD', nama: 'Emas', kelas: 'emas', jam: 'emas', digit: 2, langkah: 25, kontrak: 100, harianUTC: false };
+const nice = v => { const m = 10 ** Math.floor(Math.log10(v)), r = v / m; return (r >= 5 ? 5 : r >= 2.5 ? 2.5 : r >= 2 ? 2 : 1) * m; };
+export function cryptoProfile(id, nama, harga) {
+  const digit = harga >= 100 ? 2 : harga >= 10 ? 3 : harga >= 1 ? 4 : harga >= 0.1 ? 5 : 6;
+  return { id, nama, kelas: 'kripto', jam: '24/7', digit, langkah: +nice(harga * 0.01).toPrecision(2), kontrak: 1, harianUTC: true };
+}
+let P = GOLD;   // profil aktif selama satu panggilan analyze (sinkron)
+const rp = v => { const f = 10 ** P.digit; return Math.round(v * f) / f; };
 const jamWIB = d => new Date(d).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit' });
 
 // ---------- indikator ----------
@@ -112,38 +122,45 @@ function localParts(date, tz) {
   return { h: +g('hour'), m: +g('minute'), wd: g('weekday'), d: +g('day') };
 }
 // Emas spot tutup dari Jumat 17:00 sampai Minggu 18:00 waktu New York.
-export function marketOpen(date) {
+export function marketOpen(date, prof = GOLD) {
+  if (prof.jam === '24/7') return true;
   const { h, wd } = localParts(date, 'America/New_York');
   if (wd === 'Sat') return false;
   if (wd === 'Fri' && h >= 17) return false;
   if (wd === 'Sun' && h < 18) return false;
   return true;
 }
-export function activeSessions(date) {
-  if (!marketOpen(date)) return [];
+const WEEKEND = { id: 'weekend', nama: 'Akhir pekan', vol: 0.6 };
+export function activeSessions(date, prof = GOLD) {
+  if (!marketOpen(date, prof)) return [];
+  if (prof.jam === '24/7' && !marketOpen(date, GOLD)) return [WEEKEND];   // kripto akhir pekan: likuiditas tipis
   return SESSIONS.filter(s => { const { h } = localParts(date, s.tz); return h >= s.h1 && h < s.h2; });
 }
-export function sessionOf(date) {
-  const a = activeSessions(date).map(s => s.id);
-  if (!a.length) return marketOpen(date) ? 'sepi' : 'tutup';
+export function sessionOf(date, prof = GOLD) {
+  const a = activeSessions(date, prof).map(s => s.id);
+  if (a.includes('weekend')) return 'akhir-pekan';
+  if (!a.length) return marketOpen(date, prof) ? 'sepi' : 'tutup';
   if (a.includes('london') && a.includes('ny')) return 'overlap';
   return a.includes('ny') ? 'ny' : a.includes('london') ? 'london' : 'asia';
 }
 // Waktu buka pasar berikutnya (resolusi 1 menit). Bila pasar sedang buka, kembalikan `date`.
-export function nextOpen(date) {
-  if (marketOpen(date)) return date;
+export function nextOpen(date, prof = GOLD) {
+  if (marketOpen(date, prof)) return date;
   let t = Math.ceil(date.getTime() / 60000) * 60000;
-  for (let i = 0; i < 4 * 24 * 60; i++, t += 60000) if (marketOpen(new Date(t))) return new Date(t);
+  for (let i = 0; i < 4 * 24 * 60; i++, t += 60000) if (marketOpen(new Date(t), prof)) return new Date(t);
   return date;
 }
-export function volFactor(date) {
-  const a = activeSessions(date);
-  if (!marketOpen(date)) return 0;
+export function volFactor(date, prof = GOLD) {
+  const a = activeSessions(date, prof);
+  if (!marketOpen(date, prof)) return 0;
   if (!a.length) return 0.55;
   const f = Math.max(...a.map(s => s.vol));
   return a.length > 1 ? f + 0.25 : f;
 }
 export { SESSIONS };
+// pembungkus dengan profil aktif (dipakai di dalam mesin)
+const isOpen = d => marketOpen(d, P), sessNow = d => activeSessions(d, P), sessOf = d => sessionOf(d, P), vf = d => volFactor(d, P), nOpen = d => nextOpen(d, P);
+const dayKeyOf = t => P.harianUTC ? new Date(t * 1000).toISOString().slice(0, 10) : nyDayKey(t);
 
 // ---------- candle harian versi broker (berganti 17:00 New York) ----------
 const nyKeyFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -153,10 +170,10 @@ export function nyDayKey(tSec) {
   if (!nyKeyCache.has(h)) { nyKeyCache.set(h, nyKeyFmt.format(new Date((h * 3600 + 7 * 3600) * 1000))); if (nyKeyCache.size > 50000) nyKeyCache.clear(); }
   return nyKeyCache.get(h);
 }
-export function nyDaily(h1) {
+export function nyDaily(h1, keyFn = nyDayKey) {
   const out = [];
   for (const c of h1) {
-    const k = nyDayKey(c.t), d = last(out);
+    const k = keyFn(c.t), d = last(out);
     if (!d || d.d !== k) out.push({ d: k, o: c.o, h: c.h, l: c.l, c: c.c, n: 1 });
     else { d.h = Math.max(d.h, c.h); d.l = Math.min(d.l, c.l); d.c = c.c; d.n++; }
   }
@@ -230,9 +247,9 @@ function agentStructure(ctx) {
   else if (dn) { s -= 0.45; d.push('Lower high & lower low (struktur turun)'); }
   else d.push('Struktur campuran (range)');
   const lastH = last(highs), lastL = last(lows);
-  if (p > lastH.p) { s += 0.35; d.push(`Break of Structure naik di atas ${lastH.p.toFixed(2)}`); }
-  if (p < lastL.p) { s -= 0.35; d.push(`Break of Structure turun di bawah ${lastL.p.toFixed(2)}`); }
-  d.push(`Swing high terakhir ${lastH.p.toFixed(2)} · swing low terakhir ${lastL.p.toFixed(2)}`);
+  if (p > lastH.p) { s += 0.35; d.push(`Break of Structure naik di atas ${lastH.p.toFixed(P.digit)}`); }
+  if (p < lastL.p) { s -= 0.35; d.push(`Break of Structure turun di bawah ${lastL.p.toFixed(P.digit)}`); }
+  d.push(`Swing high terakhir ${lastH.p.toFixed(P.digit)} · swing low terakhir ${lastL.p.toFixed(P.digit)}`);
   s = clamp(s, -1, 1);
   return { id: 'structure', nama: 'Sena', peran: 'Analis Struktur (SMC)', skor: s, keyakinan: 0.5 + Math.abs(s) * 0.35, cukup: true,
     ringkasan: s > 0.3 ? 'Struktur bullish' : s < -0.3 ? 'Struktur bearish' : 'Struktur range', detail: d, data: { highs: highs.slice(-3), lows: lows.slice(-3) },
@@ -280,7 +297,7 @@ function agentClaude(ctx) {
 function agentVolatility(ctx) {
   const b = bollinger(ctx.h1.map(x => x.c)); const d = [];
   const ratio = ctx.atrH / (ctx.atrD / Math.sqrt(24));
-  d.push(`ATR H1 ≈ ${ctx.atrH.toFixed(2)} | ATR harian ≈ ${ctx.atrD.toFixed(2)}`);
+  d.push(`ATR H1 ≈ ${ctx.atrH.toFixed(P.digit)} | ATR harian ≈ ${ctx.atrD.toFixed(P.digit)}`);
   let rezim = 'normal';
   if (b) { d.push(`Lebar Bollinger H1 ${(b.width * 100).toFixed(2)}%`); if (b.width < 0.004) rezim = 'squeeze'; }
   if (ratio > 1.4) rezim = 'ekspansi';
@@ -289,11 +306,12 @@ function agentVolatility(ctx) {
     data: { rezim, rangeHarian: ctx.atrD, ratio } };
 }
 function agentSession(ctx) {
-  const a = activeSessions(ctx.now), open = marketOpen(ctx.now), d = [];
+  const a = sessNow(ctx.now), open = isOpen(ctx.now), d = [];
   const names = a.map(s => s.nama);
-  if (!open) d.push(`Pasar emas TUTUP, buka lagi ${fmtWIB(ctx.anchor)}`);
+  if (!open) d.push(`Pasar ${P.nama} TUTUP, buka lagi ${fmtWIB(ctx.anchor)}`);
+  else if (P.jam === '24/7') d.push('Pasar buka 24 jam, 7 hari');
   else d.push(names.length ? `Sesi aktif: ${names.join(' + ')}` : 'Di antara sesi (likuiditas rendah)');
-  const f = volFactor(ctx.now); d.push(`Faktor volatilitas sesi: ${f.toFixed(2)}×`);
+  const f = vf(ctx.now); d.push(`Faktor volatilitas sesi: ${f.toFixed(2)}×`);
   const ss = ctx.calib?.sesi; if (ss) Object.entries(ss).forEach(([k, v]) => v.n >= 10 && d.push(`Backtest sesi ${k}: TP1 duluan ${Math.round(v.peluang * 100)}% (${v.n} rencana)`));
   return { id: 'session', nama: 'Tara', peran: 'Analis Sesi', skor: 0, keyakinan: open ? (f >= 1 ? 0.8 : 0.55) : 0.2,
     ringkasan: !open ? 'Pasar tutup' : names.length ? `Sesi ${names.join(' + ')} berjalan` : 'Sesi sepi', detail: d, data: { open, names, factor: f } };
@@ -341,7 +359,7 @@ function agentValidator(ctx) {
 // ---------- level kunci ----------
 function keyLevels(ctx) {
   const L = [], p = ctx.price, tol = ctx.atrH * 0.25;
-  const add = (harga, jenis, catatan) => { if (!Number.isFinite(harga)) return; if (L.some(x => Math.abs(x.harga - harga) < tol)) return; L.push({ harga: round2(harga), jenis, catatan }); };
+  const add = (harga, jenis, catatan) => { if (!Number.isFinite(harga)) return; if (L.some(x => Math.abs(x.harga - harga) < tol)) return; L.push({ harga: rp(harga), jenis, catatan }); };
   const pd = ctx.prevDay;
   if (pd) {
     const P = (pd.h + pd.l + pd.c) / 3;
@@ -351,7 +369,7 @@ function keyLevels(ctx) {
   const { highs, lows } = swings(ctx.h1, 2);
   highs.slice(-4).forEach(h => add(h.p, h.p > p ? 'Resistance' : 'Support', 'Swing high H1'));
   lows.slice(-4).forEach(l => add(l.p, l.p < p ? 'Support' : 'Resistance', 'Swing low H1'));
-  const step = p > 1000 ? 25 : 5; const r = Math.round(p / step) * step;
+  const step = P.langkah; const r = Math.round(p / step) * step;
   [r - step, r, r + step].forEach(x => add(x, x > p ? 'Resistance' : 'Support', 'Angka bulat'));
   L.forEach(l => { if (l.jenis !== 'Pivot') l.jenis = l.harga > p ? 'Resistance' : 'Support'; });
   return L.filter(l => Math.abs(l.harga - p) < ctx.atrD * 1.6).sort((a, b) => b.harga - a.harga);
@@ -366,18 +384,18 @@ function project(ctx, S) {
   for (const m of HZ) {
     while (t < m) {
       t += 5; const h = t / 60;
-      const f = clamp(volFactor(new Date(ctx.now.getTime() + t * 60000)), 0.15, 1.6);
+      const f = clamp(vf(new Date(ctx.now.getTime() + t * 60000)), 0.15, 1.6);
       varSum += (ctx.atrH * f) ** 2 * dt;
       drift += S * 0.35 * ctx.atrH * f * dt / (1 + h / 8);
     }
     let mid = drift, half = Math.max(0.9 * Math.sqrt(varSum), ctx.atrH * 0.15), kal = false;
     const c = cp && cp[m];
     if (c && c.n >= 60 && Number.isFinite(c.k) && Number.isFinite(c.q80)) { mid = c.k * S * ctx.atrH; half = Math.max(c.q80 * ctx.atrH, ctx.atrH * 0.15); kal = true; }
-    out.push({ menit: m, harga: round2(p0 + mid), bawah: round2(p0 + mid - half), atas: round2(p0 + mid + half), kalibrasi: kal });
+    out.push({ menit: m, harga: rp(p0 + mid), bawah: rp(p0 + mid - half), atas: rp(p0 + mid + half), kalibrasi: kal });
   }
   for (let i = 1; i < out.length; i++) {   // rentang tidak boleh menyempit seiring waktu
     const pw = out[i - 1].atas - out[i - 1].bawah, w = out[i].atas - out[i].bawah;
-    if (w < pw) { const mid = (out[i].atas + out[i].bawah) / 2; out[i].bawah = round2(mid - pw / 2); out[i].atas = round2(mid + pw / 2); }
+    if (w < pw) { const mid = (out[i].atas + out[i].bawah) / 2; out[i].bawah = rp(mid - pw / 2); out[i].atas = rp(mid + pw / 2); }
   }
   return out;
 }
@@ -389,14 +407,14 @@ function buildPlans(ctx, S, levels) {
   const res = levels.filter(l => l.harga > p + a * 0.2).sort((x, y) => x.harga - y.harga);
   const mk = (tipe, level, prioritas, why) => {
     const buy = tipe === 'BUY', w = a * 0.2;
-    const eb = round2(level - w), ea = round2(level + w), mid = (eb + ea) / 2;
-    const sl = round2(buy ? eb - a * 0.9 : ea + a * 0.9);
+    const eb = rp(level - w), ea = rp(level + w), mid = (eb + ea) / 2;
+    const sl = rp(buy ? eb - a * 0.9 : ea + a * 0.9);
     const risk = Math.abs(mid - sl);
     const dir = buy ? 1 : -1, dist = x => (x - mid) * dir;
     const targets = (buy ? res : sup).map(l => l.harga).filter(x => dist(x) >= risk).sort((x, y) => dist(x) - dist(y));
     const t1 = targets.find(x => dist(x) <= risk * 2) ?? mid + dir * risk * 1.5;
     const t2 = targets.find(x => dist(x) > dist(t1) + risk * 0.5) ?? mid + dir * Math.max(risk * 3, dist(t1) + risk);
-    const tp1 = round2(t1), tp2 = round2(t2);
+    const tp1 = rp(t1), tp2 = rp(t2);
     return { tipe, prioritas, entry_bawah: eb, entry_atas: ea, sl, tp1, tp2, rr: round2(Math.abs(tp1 - mid) / risk),
       trigger: buy ? 'Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40' : 'Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60',
       manajemen: 'Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.',
@@ -443,15 +461,16 @@ function schedule(ctx, events) {
     const d = new Date(ctx.now.getTime() + m * 60000);
     let aksi, detail;
     const near = events.find(e => Math.abs(e.t - d) <= 45 * 60000 && e.dampak === 'tinggi');
-    if (!marketOpen(d)) { aksi = 'NO TRADE'; detail = 'Pasar tutup'; }
-    else if (!marketOpen(new Date(d.getTime() - 60 * 60000))) { aksi = 'NO TRADE'; detail = 'Pembukaan pasar: spread melebar & gap awal, tunggu stabil'; }
+    if (!isOpen(d)) { aksi = 'NO TRADE'; detail = 'Pasar tutup'; }
+    else if (!isOpen(new Date(d.getTime() - 60 * 60000))) { aksi = 'NO TRADE'; detail = 'Pembukaan pasar: spread melebar & gap awal, tunggu stabil'; }
     else if (near) { aksi = 'NO TRADE'; detail = `Sekitar rilis ${near.nama} (${jamWIB(near.t)} WIB)`; }
     else {
-      const s = sessionOf(d), ny = localParts(d, 'America/New_York');
+      const s = sessOf(d), ny = localParts(d, 'America/New_York');
       if (s === 'overlap' && ny.h < 10) { aksi = 'ENTRY'; detail = 'Pembukaan New York: gerakan terbesar hari ini — entry hanya dengan konfirmasi candle' + note('overlap'); }
       else if (s === 'overlap') { aksi = 'HOLD'; detail = 'Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai' + note('overlap'); }
       else if (s === 'london') { aksi = 'ENTRY'; detail = 'Sesi London: entry bila zona tersentuh + konfirmasi' + note('london'); }
       else if (s === 'ny') { aksi = 'TAKE PROFIT'; detail = 'Akhir sesi NY: amankan profit, kurangi posisi' + note('ny'); }
+      else if (s === 'akhir-pekan') { aksi = (ss['akhir-pekan'] && ss['akhir-pekan'].n >= 20 && ss['akhir-pekan'].peluang >= 0.55) ? 'ENTRY' : 'WAIT'; detail = 'Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot' + note('akhir-pekan'); }
       else if (s === 'asia') { aksi = (ss.asia && ss.asia.n >= 20 && ss.asia.peluang >= 0.55) ? 'ENTRY' : 'WAIT'; detail = 'Sesi Asia: gerakan relatif kecil, pantau level' + note('asia'); }
       else { aksi = 'WAIT'; detail = 'Likuiditas rendah'; }
     }
@@ -467,20 +486,20 @@ function gapAnalysis(ctx, S, anchor) {
   const day = ctx.h1.filter(x => x.t >= lastT - 24 * 3600);
   const hi = Math.max(...day.map(x => x.h)), lo = Math.min(...day.map(x => x.l)), loc = hi > lo ? (c - lo) / (hi - lo) : 0.5;
   const dc = ctx.dailyCloses, wk = dc.length > 6 ? (c - dc[dc.length - 6]) / dc[dc.length - 6] * 100 : null;
-  const up = round2(c + a * 0.5), dn = round2(c - a * 0.5);
+  const up = rp(c + a * 0.5), dn = rp(c - a * 0.5);
   const kondisiClose = loc < 0.25 ? 'ditutup dekat LOW harian (tekanan jual kuat sampai akhir)' : loc > 0.75 ? 'ditutup dekat HIGH harian (tekanan beli kuat sampai akhir)' : 'ditutup di tengah range harian';
   const lean = S < -0.15 && loc < 0.3 ? 'Risiko lanjutan turun saat pembukaan lebih besar, tapi setelah penurunan tajam waspadai pantulan short-covering.'
     : S > 0.15 && loc > 0.7 ? 'Risiko lanjutan naik saat pembukaan lebih besar, waspadai aksi ambil untung.'
     : 'Tidak ada kecenderungan gap yang jelas dari data teknikal.';
   return {
-    penutupan: round2(c), waktu_tutup: new Date(lastT * 1000).toISOString(), buka: anchor.toISOString(),
-    range_hari_terakhir: { high: round2(hi), low: round2(lo), posisi_close: round2(loc) },
+    penutupan: rp(c), waktu_tutup: new Date(lastT * 1000).toISOString(), buka: anchor.toISOString(),
+    range_hari_terakhir: { high: rp(hi), low: rp(lo), posisi_close: round2(loc) },
     perubahan_mingguan_pct: wk == null ? null : round2(wk), ambang_atas: up, ambang_bawah: dn,
     kondisi: kondisiClose, kecenderungan: lean,
     skenario: [
-      { nama: 'Gap naik', kondisi: `Harga buka di atas ${up}`, aksi: `Jangan kejar. Bila harga kembali turun di bawah ${up} di sesi Asia → peluang SELL menutup gap ke ${round2(c)}. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.` },
+      { nama: 'Gap naik', kondisi: `Harga buka di atas ${up}`, aksi: `Jangan kejar. Bila harga kembali turun di bawah ${up} di sesi Asia → peluang SELL menutup gap ke ${rp(c)}. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.` },
       { nama: 'Tanpa gap / gap kecil', kondisi: `Harga buka di ${dn}–${up}`, aksi: 'Ikuti rencana utama setelah 60 menit pertama.' },
-      { nama: 'Gap turun', kondisi: `Harga buka di bawah ${dn}`, aksi: `Jangan kejar. Bila harga kembali naik di atas ${dn} di sesi Asia → peluang BUY menutup gap ke ${round2(c)}. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.` },
+      { nama: 'Gap turun', kondisi: `Harga buka di bawah ${dn}`, aksi: `Jangan kejar. Bila harga kembali naik di atas ${dn} di sesi Asia → peluang BUY menutup gap ke ${rp(c)}. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.` },
     ],
     catatan: 'Berita akhir pekan tidak terbaca oleh mesin teknikal. Cek kabar geopolitik & pernyataan bank sentral sebelum pasar buka. Spread biasanya melebar di menit-menit awal.',
   };
@@ -488,7 +507,8 @@ function gapAnalysis(ctx, S, anchor) {
 
 // ---------- KONSENSUS (Rina, Chief Strategist) ----------
 export const PRIOR_WEIGHTS = { trend: 0.28, momentum: 0.2, structure: 0.3, macro: 0.12, news: 0.05, claude: 0.05 };
-export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h1In, m15: m15In, macro, calendar, news, claude, calib, kinerja } = {}) {
+export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h1In, m15: m15In, macro, calendar, news, claude, calib, kinerja, profil } = {}) {
+  P = profil || GOLD;
   const nowD = new Date(now), nowMs = nowD.getTime(), nowS = nowMs / 1000;
   const pts = (points || []).filter(x => Number.isFinite(x.p) && Number.isFinite(x.t) && x.t <= nowS + 60).sort((a, b) => a.t - b.t);
   const cut = arr => (arr || []).filter(c => c.t <= nowS);
@@ -501,17 +521,17 @@ export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h
   const price = Number.isFinite(spot) ? spot : pts.length ? last(pts).p : (m15.length ? last(m15) : last(h1)).c;
 
   // candle harian versi broker (17:00 NY) untuk PDH/PDL/pivot & ATR harian
-  const dNY = nyDaily(h1), todayKey = nyDayKey(nowS);
+  const dNY = nyDaily(h1, dayKeyOf), todayKey = dayKeyOf(nowS);
   const dailyC = (daily || []).filter(x => Number.isFinite(x.c)).map(x => ({ h: x.h ?? x.c, l: x.l ?? x.c, c: x.c, d: x.d }));
   const doneNY = dNY.filter(d => d.d < todayKey && d.n >= 12);
   const prevDay = doneNY.length ? last(doneNY) : ([...dailyC].reverse().find(x => x.d && x.d < nowD.toISOString().slice(0, 10)) || null);
   const dailyCloses = dailyC.length > 50 ? dailyC.map(x => x.c) : doneNY.map(x => x.c);
   const atrD = (doneNY.length >= 10 ? atr(doneNY.slice(-21)) : atr(dailyC.slice(-30))) || (Math.max(...h1.map(x => x.h)) - Math.min(...h1.map(x => x.l)));
-  const hDone = h1.filter(c => c.t + 3600 <= nowS || !marketOpen(nowD));
+  const hDone = h1.filter(c => c.t + 3600 <= nowS || !isOpen(nowD));
   const atrH = atr((hDone.length > 15 ? hDone : h1).slice(-30)) || atrD / Math.sqrt(24);
 
-  const closed = !marketOpen(nowD);
-  const anchor = closed ? nextOpen(nowD) : nowD;
+  const closed = !isOpen(nowD);
+  const anchor = closed ? nOpen(nowD) : nowD;
   // kualitas data
   const umur = (nowS - lastDataT) / 60;
   const basi = closed ? (umur > 60 * 60 ? 1 : 0) : (umur > 120 ? 2 : umur > 20 ? 1 : 0);
@@ -563,7 +583,7 @@ export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h
 
   const risk = { id: 'risk', nama: 'Maya', peran: 'Risk Manager', skor: 0, keyakinan: 0.7,
     ringkasan: by.volatility.data.rezim === 'ekspansi' ? 'Risiko maks 0,5% per transaksi' : 'Risiko maks 1% per transaksi',
-    detail: [`SL ≈ ${(ctx.atrH * 0.9).toFixed(2)} dari tepi zona (0,9× ATR H1 asli)`, 'Jangan entry 45 menit sebelum/sesudah rilis data berdampak tinggi', 'Selalu uji di akun demo sebelum akun riil'], data: { maxRisk: by.volatility.data.rezim === 'ekspansi' ? 0.5 : 1 } };
+    detail: [`SL ≈ ${(ctx.atrH * 0.9).toFixed(P.digit)} dari tepi zona (0,9× ATR H1 asli)`, 'Jangan entry 45 menit sebelum/sesudah rilis data berdampak tinggi', 'Selalu uji di akun demo sebelum akun riil'], data: { maxRisk: by.volatility.data.rezim === 'ekspansi' ? 0.5 : 1 } };
   const exec = { id: 'execution', nama: 'Dimas', peran: 'Eksekusi (EA MQL5)', skor: 0, keyakinan: rencana.length ? 0.7 : 0.3,
     ringkasan: rencana.length ? `${rencana.length} rencana siap jadi EA MT5` : 'Belum ada rencana layak', detail: ['EA: entry di zona + konfirmasi M15, TP parsial, SL ke BE, filter kekuatan minimal, selisih harga broker dihitung otomatis'], data: {} };
   const pine = { id: 'pine', nama: 'Pina', peran: 'Pine Coder (TradingView)', skor: 0, keyakinan: 0.7,
@@ -574,30 +594,32 @@ export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h
     detail: [`Skor konsensus ${S >= 0 ? '+' : ''}${S.toFixed(2)} (bobot ${calib?.bobot ? 'hasil kalibrasi backtest' : 'awal'})`,
       ...dirAgents.map(a => `${a.nama} (${a.peran}): ${a.cukup ? `${a.skor >= 0 ? '+' : ''}${a.skor.toFixed(2)} × bobot ${(W[a.id] || 0).toFixed(2)}` : 'tidak ikut — ' + a.ringkasan.replace('Data belum cukup — ', '')}`)], data: { agree, voters: voters.length, bobot: W, cakupan } };
 
-  const kualitas = { basi, umur_menit: Math.round(umur), candle_h1: h1.length, candle_m15: m15.length, titik_live: pts.length, konsisten, selisih_harga: round2(selisih),
+  const kualitas = { basi, umur_menit: Math.round(umur), candle_h1: h1.length, candle_m15: m15.length, titik_live: pts.length, konsisten, selisih_harga: rp(selisih),
     agent_kurang: kurangList, cakupan: round2(cakupan), kalender_asli: by.calendar.data.asli, terkalibrasi: !!calib?.rencana };
   const peringatan = [
     basi === 2 ? `Data harga basi (${Math.round(umur)} menit tanpa pembaruan) — tidak ada rencana entry` : basi === 1 ? `Data harga tertunda ${Math.round(umur)} menit` : null,
-    !konsisten ? `Harga spot & candle berbeda ${selisih.toFixed(2)} — cek sumber data` : null,
+    !konsisten ? `Harga spot & candle berbeda ${selisih.toFixed(P.digit)} — cek sumber data` : null,
     highSoon.length ? `Rilis berdampak tinggi: ${highSoon.slice(0, 2).map(e => `${e.nama} ${jamWIB(e.t)} WIB`).join(', ')}` : null,
     by.volatility.data.rezim === 'ekspansi' ? 'Volatilitas tinggi' : null,
     closed ? 'Pasar tutup: waspadai gap & spread lebar saat pembukaan' : null,
     kurangList.length ? `Agent tanpa data cukup: ${kurangList.join(', ')}` : null,
   ].filter(Boolean);
 
+  const oosR = calib?.rencana?.oos;
+  const keunggulan = oosR && oosR.tersentuh >= 30 ? { ada: oosR.ekspektasi_R >= 0, R: oosR.ekspektasi_R, n: oosR.tersentuh } : null;
   const narasi = buildNarrative({ bias, S, conf, main, rencana, by, dirAgents, W, highSoon, closed, anchor, basi, gap, price, calib });
   const tren = bias === 'BULLISH' ? 'cenderung naik' : bias === 'BEARISH' ? 'cenderung turun' : 'bergerak dalam range';
   const pre = closed ? `Pasar tutup — proyeksi untuk pembukaan ${fmtWIB(anchor)} dari harga penutupan ${gap.penutupan}. ` : '';
-  const ringkasan = `${pre}XAUUSD ${tren} (${agree}/${voters.length} analis searah). ${by.volatility.ringkasan}. ${main ? `Rencana terkuat: ${main.tipe} ${main.prioritas} di ${main.entry_bawah}–${main.entry_atas} (kekuatan sinyal ${main.kekuatan}% · ${main.kekuatan_label}).` : 'Belum ada rencana entry yang layak — tunggu.'}`;
+  const ringkasan = `${pre}${P.id} ${tren} (${agree}/${voters.length} analis searah). ${by.volatility.ringkasan}. ${main ? `Rencana terkuat: ${main.tipe} ${main.prioritas} di ${main.entry_bawah}–${main.entry_atas} (kekuatan sinyal ${main.kekuatan}% · ${main.kekuatan_label}).` : 'Belum ada rencana entry yang layak — tunggu.'}`;
   return {
-    engine: ENGINE_VERSION, harga_sekarang: round2(price), bias, keyakinan: Math.round(conf * 100), skor: round2(S), ringkasan, narasi,
-    kekuatan_sinyal: main ? main.kekuatan : null, peluang_sinyal: main ? main.peluang : null,
+    engine: ENGINE_VERSION, aset: { id: P.id, nama: P.nama, kelas: P.kelas, digit: P.digit, kontrak: P.kontrak, jam: P.jam }, harga_sekarang: rp(price), bias, keyakinan: Math.round(conf * 100), skor: round2(S), ringkasan, narasi,
+    kekuatan_sinyal: main ? main.kekuatan : null, peluang_sinyal: main ? main.peluang : null, keunggulan,
     agents: [chief, ...agents, risk, exec, pine],
     level: levels, proyeksi, rencana, jadwal, gap, mode: closed ? 'akhir-pekan' : 'live', kualitas,
     invalidasi: main ? `Candle H1 close ${main.tipe === 'BUY' ? 'di bawah' : 'di atas'} ${main.sl}` : 'Tidak ada skenario aktif',
     peringatan: peringatan.join(' · ') || 'Tidak ada peringatan khusus', peringatan_list: peringatan,
-    statistik: { atrH1: round2(ctx.atrH), atrD1: round2(atrD), rentangHarian: round2(atrD) },
-    basis: { price: round2(price), time: anchor.toISOString(), dibuat: nowD.toISOString(), live: !closed, data_time: new Date(lastDataT * 1000).toISOString(), data_price: round2(lastClose) },
+    statistik: { atrH1: rp(ctx.atrH), atrD1: rp(atrD), rentangHarian: rp(atrD) },
+    basis: { price: rp(price), time: anchor.toISOString(), dibuat: nowD.toISOString(), live: !closed, data_time: new Date(lastDataT * 1000).toISOString(), data_price: rp(lastClose) },
   };
 }
 
@@ -611,8 +633,10 @@ function buildNarrative({ bias, S, conf, main, rencana, by, dirAgents, W, highSo
   let aksi, judul, warna;
   const pk = main && main.peluang != null && main.peluang_sampel >= 30 ? main.peluang : null;
   const layak = main && main.kekuatan >= 55 && (pk == null || pk >= 0.5);
+  const oos = calib?.rencana?.oos, tanpaEdge = oos && oos.tersentuh >= 30 && oos.ekspektasi_R < 0;
   if (basi === 2) { aksi = 'JANGAN TRADING'; warna = 'red'; judul = 'Data harga basi — tunggu sampai data kembali normal.'; }
   else if (!main) { aksi = 'TUNGGU'; warna = 'gold'; judul = 'Belum ada zona entry yang layak. Biarkan harga mendekati level kunci.'; }
+  else if (tanpaEdge) { aksi = 'TUNGGU'; warna = 'gold'; judul = `Sistem belum punya keunggulan teruji di ${P.id} (uji backtest ${oos.ekspektasi_R.toFixed(2)}R per trade). Pakai sebagai peta level saja — zona ${main.tipe} ${main.entry_bawah}–${main.entry_atas}.`; }
   else if (!layak) { aksi = 'TUNGGU'; warna = 'gold'; judul = `Sinyal ${main.kekuatan_label.toLowerCase()} (${main.kekuatan}%). Pantau zona ${main.tipe} ${main.entry_bawah}–${main.entry_atas}, jangan paksa entry.`; }
   else { aksi = main.tipe; warna = main.tipe === 'BUY' ? 'green' : 'red'; judul = `${main.tipe} di ${main.entry_bawah}–${main.entry_atas} setelah ada candle konfirmasi.`; }
   if (closed && basi !== 2) judul = `Pasar buka ${fmtWIB(anchor)}. ` + judul;
@@ -623,9 +647,9 @@ function buildNarrative({ bias, S, conf, main, rencana, by, dirAgents, W, highSo
     penghambat: con,
     batal: main ? `Batal bila candle H1 close ${main.tipe === 'BUY' ? 'di bawah' : 'di atas'} ${main.sl}.` : null,
     target: main ? `TP1 ${main.tp1} (amankan 50%), TP2 ${main.tp2}. RR 1:${main.rr}.` : null,
-    jarak: main && jarak > 0 ? `Harga ${jarak.toFixed(2)} dari zona — tunggu harga datang.` : main ? 'Harga sudah di/dekat zona — tunggu konfirmasi candle M15.' : null,
+    jarak: main && jarak > 0 ? `Harga ${jarak.toFixed(P.digit)} dari zona — tunggu harga datang.` : main ? 'Harga sudah di/dekat zona — tunggu konfirmasi candle M15.' : null,
     waspada: highSoon.length ? `Hindari entry ±45 menit di sekitar ${highSoon.slice(0, 2).map(e => `${e.nama} (${jamWIB(e.t)} WIB)`).join(' dan ')}.` : null,
-    keandalan: pk != null ? `Dalam backtest, sinyal sekuat ini mencapai TP1 sebelum SL ${Math.round(pk * 100)}% dari ${main.peluang_sampel} kali.`
+    keandalan: tanpaEdge ? `Uji backtest aset ini rata-rata ${oos.ekspektasi_R.toFixed(2)}R dari ${oos.tersentuh} trade — EA tidak akan entry.` : pk != null ? `Dalam backtest, sinyal sekuat ini mencapai TP1 sebelum SL ${Math.round(pk * 100)}% dari ${main.peluang_sampel} kali.`
       : calib?.rencana ? 'Sampel backtest untuk kekuatan ini belum cukup — perlakukan sebagai indikasi.' : 'Belum terkalibrasi dengan backtest — perlakukan sebagai indikasi.',
   };
 }
@@ -635,8 +659,9 @@ export function planState(pl, p, nowMs, t0Ms) {
   const lo = Math.min(pl.entry_bawah, pl.entry_atas), hi = Math.max(pl.entry_bawah, pl.entry_atas), buy = pl.tipe !== 'SELL';
   if (nowMs > t0Ms + (pl.berlaku_menit ?? 1440) * 60000) return { kode: 'exp', teks: 'Kedaluwarsa' };
   if (buy ? p <= pl.sl : p >= pl.sl) return { kode: 'sl', teks: `${buy ? 'Di bawah' : 'Di atas'} SL — skenario batal` };
+  const dg = Math.max(2, ...[pl.entry_bawah, pl.sl].map(v => (String(v).split('.')[1] || '').length));
   if (p >= lo && p <= hi) return { kode: 'zone', teks: `DI ZONA ${buy ? 'BUY' : 'SELL'} — tunggu konfirmasi` };
-  return { kode: 'wait', teks: p > hi ? `Menunggu turun ${(p - hi).toFixed(2)} ke zona` : `Menunggu naik ${(lo - p).toFixed(2)} ke zona` };
+  return { kode: 'wait', teks: p > hi ? `Menunggu turun ${(p - hi).toFixed(dg)} ke zona` : `Menunggu naik ${(lo - p).toFixed(dg)} ke zona` };
 }
 // ---------- evaluasi hasil rencana dengan candle sesudahnya (backtest & arsip live) ----------
 // Konservatif: bila SL dan TP tersentuh di candle yang sama, dianggap SL.
@@ -672,5 +697,5 @@ export function evaluatePlan(pl, bars, t0, menit = pl.berlaku_menit || 480) {
 export function positionSize({ balance, riskPct, entry, sl, contract = 100 }) {
   const dist = Math.abs(entry - sl); if (!(dist > 0) || !(balance > 0)) return null;
   const riskMoney = balance * riskPct / 100; const lot = riskMoney / (dist * contract);
-  return { riskMoney: round2(riskMoney), lot: Math.max(0.01, Math.floor(lot * 100) / 100), dist: round2(dist) };
+  return { riskMoney: round2(riskMoney), lot: Math.max(0.01, Math.floor(lot * 100) / 100), dist: +dist.toPrecision(4) };
 }
