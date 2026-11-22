@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping BTCUSD 202611230004", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (BTCUSD) dari mapping 2026-11-22T17:04:51.111Z (harga 61098.69).
+indicator("KPX Mapping BTCUSD 202611230007", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (BTCUSD) dari mapping 2026-11-22T17:07:28.927Z (harga 60956.68).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -17,17 +17,17 @@ if barstate.islast and not drawn
         drawLine(62431.18, color.red, "R R1 harian", false)
         drawLine(61669.99, color.red, "R Swing high H1", false)
         drawLine(61365.24, color.red, "R Swing high H1", false)
-        drawLine(60996.00, color.green, "S High kemarin (PDH)", false)
+        drawLine(60996.00, color.red, "R High kemarin (PDH)", false)
         drawLine(60568.01, color.green, "S Swing high H1", false)
         drawLine(59988.00, color.green, "S Swing low H1", false)
         drawLine(58780.59, color.gray, "P Pivot harian", false)
         drawLine(56565.18, color.green, "S S1 harian", false)
     if showPlans
-        box.new(bar_index - 20, 60695.38 + offset, bar_index + 40, 60440.64 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 65%", text_color=color.green, text_size=size.small)
+        box.new(bar_index - 20, 60695.38 + offset, bar_index + 40, 60440.64 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 64%", text_color=color.green, text_size=size.small)
         drawLine(59867.46, color.red, "SL BUY", true)
         drawLine(61365.24, color.blue, "TP1 BUY", true)
         drawLine(62431.18, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 61492.61 + offset, bar_index + 40, 61237.87 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 34%", text_color=color.red, text_size=size.small)
+        box.new(bar_index - 20, 61492.61 + offset, bar_index + 40, 61237.87 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 35%", text_color=color.red, text_size=size.small)
         drawLine(62065.79, color.red, "SL SELL", true)
         drawLine(60568.01, color.blue, "TP1 SELL", true)
         drawLine(59988.00, color.blue, "TP2 SELL", true)
