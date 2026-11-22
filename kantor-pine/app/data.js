@@ -50,6 +50,16 @@ export async function loadMarket({ provider = 'xaus', f = (typeof fetch !== 'und
   if (h) { hist = { at: Date.now(), ...h }; if (useCache) store.set('kpx_hist', hist); }
   return { source: P.nama, spot: spot.price, spotAt: spot.at, state: spot.state, points: intra.points, daily: hist ? hist.daily : [], stats: hist ? hist.stats : {} };
 }
+// Data pendukung dari server GitHub (diperbarui tiap jam oleh Actions), satu origin dengan aplikasi:
+// candle H1/M15 asli, makro, kalender, kalibrasi backtest, kinerja live, berita, analisis Claude.
+export const SERVER_FILES = { market: 'market.json', calib: 'kalibrasi.json', kinerja: 'kinerja.json', news: 'berita.json', claude: 'analisis-claude.json' };
+export async function loadServer({ base = 'data/', f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null) } = {}) {
+  const get = async name => { try { const r = await f(base + name, { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch { return null; } };
+  const ent = await Promise.all(Object.entries(SERVER_FILES).map(async ([k, n]) => [k, await get(n)]));
+  const out = Object.fromEntries(ent);
+  for (const [k, v] of ent) { if (v) store.set('kpx_srv_' + k, v); else out[k] = store.get('kpx_srv_' + k); }
+  return out;
+}
 export async function loadSpot({ provider = 'xaus', f = fetch.bind(globalThis) } = {}) {
   return PROVIDERS[provider].spot(f);
 }
