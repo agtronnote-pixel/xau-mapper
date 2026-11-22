@@ -5,15 +5,15 @@
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 52%
-   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3547.86-3
-   Rencana 0: SELL 3547.86-3556.40 SL 3575.62 TP1 3525.00 TP2 3502.90
+/* Bias: BEARISH - Keyakinan 53%
+   Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 3544.41-3555.5
+   Rencana 0: SELL 3544.41-3555.59 SL 3580.74 TP1 3514.97 TP2 3478.66 - Kekuatan sinyal 69% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3520.73-3529.27 SL 3501.51 TP1 3552.13 TP2 3575.00
+   Rencana 1: BUY 3519.41-3530.59 SL 3494.26 TP1 3558.41 TP2 3575.00 - Kekuatan sinyal 21% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 3575.62
+   Invalidasi: Candle H1 close di atas 3580.74
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
@@ -29,7 +29,9 @@ input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
 input double InpZoneTolerance = 1.00;  // Toleransi di luar zona entry (USD)
-input double InpPriceOffset   = 0.00;  // Selisih harga broker - harga mapping (USD)
+input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
+input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
+input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
@@ -41,13 +43,16 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {3547.86, 3520.73};
-double   P_EHI[]  = {3556.40, 3529.27};
-double   P_SL[]   = {3575.62, 3501.51};
-double   P_TP1[]  = {3525.00, 3552.13};
-double   P_TP2[]  = {3502.90, 3575.00};
+double   P_ELO[]  = {3544.41, 3519.41};
+double   P_EHI[]  = {3555.59, 3530.59};
+double   P_SL[]   = {3580.74, 3494.26};
+double   P_TP1[]  = {3514.97, 3558.41};
+double   P_TP2[]  = {3478.66, 3575.00};
 datetime P_EXP[]  = {D'2026.11.23 07:00:00', D'2026.11.23 07:00:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
+int      P_STR[]  = {69, 21};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.20 22:00:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 3534.10;
 datetime NT_START[] = {D'2026.11.22 23:00:00'};
 datetime NT_END[]   = {D'2026.11.23 00:00:00'};
 datetime MAP_START  = D'2026.11.22 23:00:00';
@@ -58,7 +63,9 @@ string   GVP;
 datetime lastTry[];
 int      vDigits = 2;
 
-double Lv(const double v){ return v + InpPriceOffset; }
+double   gOffset = 0;
+string   gOffsetNote = "";
+double Lv(const double v){ return v + gOffset; }
 bool   Flag(const string k){ return GlobalVariableCheck(GVP + k); }
 void   SetFlag(const string k){ GlobalVariableSet(GVP + k, 1); }
 datetime ToServer(const datetime g){ return g + (TimeTradeServer() - TimeGMT()); }
@@ -209,6 +216,22 @@ void DrawLevels()
    ChartRedraw();
 }
 
+void ComputeOffset()
+{
+   gOffset = InpPriceOffset; gOffsetNote = "manual " + DoubleToString(gOffset, 2);
+   if(!InpAutoOffset) return;
+   datetime ts = REF_TIME + (TimeTradeServer() - TimeGMT());
+   int sh = iBarShift(_Symbol, PERIOD_M5, ts, false);
+   if(sh < 0) { gOffsetNote += " (data M5 broker tidak tersedia)"; return; }
+   datetime bt = iTime(_Symbol, PERIOD_M5, sh);
+   double c = iClose(_Symbol, PERIOD_M5, sh);
+   if(c <= 0 || MathAbs((double)(bt - ts)) > 900) { gOffsetNote += " (candle acuan tidak ditemukan)"; return; }
+   double o = c - REF_PRICE;
+   if(MathAbs(o) > 30) { gOffsetNote += " (selisih " + DoubleToString(o, 2) + " terlalu besar, diabaikan)"; return; }
+   gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, 2);
+   PrintFormat("KPX selisih harga broker vs mapping: %.2f", o);
+}
+
 int OnInit()
 {
    trade.SetExpertMagicNumber(InpMagic);
@@ -220,6 +243,7 @@ int OnInit()
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
    if(StringFind(_Symbol, "XAU") < 0) Alert("KPX: EA ini dibuat untuk XAUUSD. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
 }
@@ -245,12 +269,13 @@ void OnTick()
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
-   string st = "Kantor Pine XAUUSD - Auto Trade Mapping\n";
+   string st = "Kantor Pine XAUUSD - Auto Trade Mapping\nSelisih harga: " + gOffsetNote + "\n";
    for(int i = 0; i < ArraySize(P_TYPE); i++)
    {
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
       if(Flag("done" + IntegerToString(i))) s = "sudah entry";
+      else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";
       else
