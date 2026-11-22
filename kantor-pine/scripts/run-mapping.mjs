@@ -16,6 +16,11 @@ const extra = { news: read(join(D, 'berita.json')), claude: A.id === 'XAUUSD' ? 
 const r = analyze({ points: M.points, spot: M.spot ?? undefined, h1: M.h1, m15: M.m15, daily: M.daily, macro: M.macro, calendar: M.calendar, now: new Date(), ...extra });
 r.sumber_harga = A.id === 'XAUUSD' ? `${M.spot != null ? 'xaus.com' : 'Yahoo GC=F (disesuaikan ke spot)'} · server GitHub` : `${M.sumber || 'binance'} · server GitHub`;
 r.basis.live = false;
+// pasar tutup & data sama dengan mapping sebelumnya → tidak perlu ditulis ulang (hemat commit), kecuali sudah > 6 jam
+const prevMap = read(join(D, 'latest.json'));
+if (r.mode !== 'live' && prevMap?.basis?.data_time === r.basis.data_time && prevMap.engine === r.engine && Date.now() - Date.parse(prevMap.basis.dibuat) < 6 * 3600e3) {
+  console.log(`[${A.id}] pasar tutup & data tidak berubah — mapping tidak ditulis ulang`); process.exit(0);
+}
 mkdirSync(join(D, 'arsip'), { recursive: true }); mkdirSync(join(app, 'ea'), { recursive: true });
 writeFileSync(join(D, 'latest.json'), JSON.stringify(r));
 const ea = buildEA(r); if (ea) writeFileSync(join(app, 'ea', `${A.ea}.mq5`), ea);

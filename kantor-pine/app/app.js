@@ -3,7 +3,7 @@
 //  Beranda = keputusan dulu: aksi, kekuatan, peluang historis, kapan batal.
 // =====================================================================
 import { analyze, planState, positionSize, activeSessions, marketOpen, mergeCandles, aggregate, PRIOR_WEIGHTS } from './engine.js';
-import { loadMarket, loadSpot, loadServer } from './data.js';
+import { loadMarket, loadSpot, loadServer, expandMarket } from './data.js';
 import { buildEA, buildPine, mapSummary, makeMapImage, makeZip, EA_README, lastEAName, wib, num, hzLabel, setAsset } from './exporters.js';
 
 const $ = id => document.getElementById(id);
@@ -39,7 +39,8 @@ const px = v => Number.isFinite(+v) ? (+v).toFixed(dg()) : '-';
 const pxShort = v => Math.abs(v) >= 100 ? v.toFixed(0) : v.toFixed(Math.min(dg(), Math.abs(v) < 10 ? dg() : 2));
 async function loadAssets() {
   try { const r = await fetch('data/aset.json', { cache: 'no-store' }); if (r.ok) { const j = await r.json(); S.assets = j; store.set('kpx_assets', j); } } catch {}
-  renderAssetBar();
+  try { const r = await fetch('data/status.json', { cache: 'no-store' }); if (r.ok) S.status = await r.json(); } catch {}
+  renderAssetBar(); if (S.status) { renderMore(); renderHome(); }
 }
 function renderAssetBar() {
   const list = [{ id: GOLD_ID, nama: 'Emas' }, ...((S.assets?.daftar || []).filter(a => (S.assets.aktif || []).includes(a.id)))];
@@ -265,6 +266,7 @@ function renderHome() {
       <div class="hint">${marketOpen(new Date(), prof()) ? `${r.aset?.jam === '24/7' ? 'Buka 24/7 · ' : ''}${sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi'}` : 'Pasar tutup'}</div>
       <div class="hint"><span class="qdot" style="background:${q.c}"></span>${q.t}</div></div>
   </div>
+  ${(() => { const st = S.status?.aset?.find(x => x.id === S.asset); return st && !st.ok ? `<div class="note warn" style="margin:-4px 0 12px">⚠ Server: data ${esc(S.asset)} terakhir diperbarui ${st.mapping_umur_menit ?? '?'} menit lalu${st.sumber_gagal.length ? ` · sumber gagal: ${esc(st.sumber_gagal.join(', '))}` : ''}. Hasil bisa tertinggal.</div>` : ''; })()}
   ${heroCard(r, p)}
   ${r.gap ? gapCard(r) : ''}
   <div class="sec">Peta 24 jam</div>
@@ -379,6 +381,9 @@ function renderMore() {
   ${S.assets?.peringkat?.length ? `<div class="sec">Aset 24/7 paling volatil (30 hari)</div><div class="card" style="padding:6px 12px"><table><tr><th>Aset</th><th>Volatilitas</th><th>ATR harian</th><th></th></tr>
     ${S.assets.peringkat.map(a => `<tr><td><b>${esc(a.id.replace(/USD$/, ''))}</b> <span class="hint">${esc(a.nama)}</span></td><td>${a.vol30}%</td><td>${a.atr_pct}%</td><td>${(S.assets.aktif || []).includes(a.id) ? `<span class="badge">${(S.assets.daftar || []).find(d => d.id === a.id)?.tetap ? '★ tetap' : 'dipantau'}</span>` : ''}</td></tr>`).join('')}</table>
     <div class="hint" style="padding:6px 0">${esc(S.assets.metode)}</div></div>` : ''}
+  ${S.status?.aset ? `<div class="sec">Kesehatan sistem server</div><div class="card" style="padding:6px 12px"><table><tr><th>Aset</th><th>Mapping</th><th>Keputusan</th><th></th></tr>
+    ${S.status.aset.map(a => `<tr><td><b>${esc(a.id.replace(/USD$/, ''))}</b></td><td class="hint">${a.mapping_umur_menit ?? '–'} mnt${a.mode === 'akhir-pekan' ? ' · tutup' : ''}</td><td>${esc(a.keputusan || '–')}</td><td>${a.ok ? '✅' : '⚠️'}</td></tr>`).join('')}</table>
+    <div class="hint" style="padding:6px 0">Diperbarui ${esc(agoTxt(S.status.dibuat))} oleh GitHub Actions (tiap jam).</div></div>` : ''}
   <div class="sec">Kualitas data</div>
   <div class="card">
     <div class="list-row"><span>Umur data harga</span><span class="${q.basi ? 'dn' : 'hint'}">${q.umur_menit ?? '–'} menit</span></div>
@@ -422,7 +427,7 @@ Object.assign(window.kpx, {
     if (id === S.asset) return;
     S.asset = id; store.set('kpx_asset', id);
     S.map = store.get(mapKey(id), null); S.market = null; S.spot = null; S.spotAt = 0; S.states = {};
-    const k = `kpx_srv_${id}_`; S.srv = { market: store.get(k + 'market', null), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) };
+    const k = `kpx_srv_${id}_`; S.srv = { market: expandMarket(store.get(k + 'market', null)), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) };
     renderAssetBar(); renderAll(); window.scrollTo({ top: 0 }); refresh();
   },
   refresh: () => refresh(),
@@ -443,7 +448,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (reloaded || !hadController) return; reloaded = true; location.reload(); });
 }
 if (/^#(home|proj|team|plan|more)$/.test(location.hash)) go(location.hash.slice(1));
-{ const k = `kpx_srv_${S.asset}_`; S.srv = { market: store.get(k + 'market', null), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) }; }
+{ const k = `kpx_srv_${S.asset}_`; S.srv = { market: expandMarket(store.get(k + 'market', null)), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) }; }
 renderAssetBar(); loadAssets();
 renderAll();
 refresh();

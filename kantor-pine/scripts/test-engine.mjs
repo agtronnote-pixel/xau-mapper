@@ -181,6 +181,16 @@ for (const [name, trend, seed] of [['naik', 0.6, 7], ['turun', -0.6, 11], ['data
   s2.now = new Date(s2.now.getTime() + 60 * 60e3); assert.equal(analyze({ ...s2, points: pts, profil: N }).kualitas.basi, 1);
   console.log('[GBPUSD]', r.narasi.aksi, '—', r.narasi.judul);
 }
+// format data ringkas (market.json v2): bolak-balik tanpa kehilangan, hasil analisis sama
+{
+  const { appMarket, sameCandles, expandMarket } = await import('./market.js');
+  const s = synth(0.6, 7), full = { dibuat: 'x', status: {}, h1: s.h1, m15: s.m15, daily: s.daily, macro: { ...s.macro, y10: [] }, calendar: [], profil: null };
+  const a = appMarket(full), e = expandMarket(JSON.parse(JSON.stringify(a)));
+  assert.equal(a.format, 2); assert.ok(Array.isArray(a.h1[0])); assert.equal(e.h1.length, Math.min(300, s.h1.length)); assert.deepEqual(Object.keys(e.h1[0]), ['t','o','h','l','c']);
+  assert.ok(sameCandles(a, JSON.parse(JSON.stringify(a)))); assert.ok(!sameCandles(a, { ...a, h1: a.h1.slice(0, -1) }));
+  const r1 = analyze({ ...s, h1: e.h1, m15: e.m15, daily: e.daily, macro: e.macro }), r0 = analyze({ ...s, h1: s.h1.slice(-300), m15: s.m15.slice(-200), daily: s.daily.slice(-120) });
+  assert.equal(r1.bias, r0.bias); assert.ok(Math.abs(r1.skor - r0.skor) < 0.02, 'pembulatan tidak mengubah hasil');
+}
 const st = planState({tipe:'BUY',entry_bawah:10,entry_atas:12,sl:8,berlaku_menit:60}, 11, 0, 0);
 assert.equal(st.kode, 'zone');
 console.log('\nSEMUA TES LULUS');

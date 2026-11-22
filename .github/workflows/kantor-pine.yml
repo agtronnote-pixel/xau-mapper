@@ -1,13 +1,13 @@
-# Kantor Pine XAUUSD — uji mesin analisis, lalu perbarui mapping server tiap jam.
+# Kantor Pine — uji mesin analisis (push/PR), lalu perbarui data & mapping semua aset tiap jam.
 # Aplikasi diterbitkan oleh GitHub Pages repo ini (deploy dari branch) di /kantor-pine/app/.
-name: Kantor Pine XAUUSD
+name: Kantor Pine
 
 on:
   push:
     branches: [main]
-    paths: ['kantor-pine/**', '.github/workflows/kantor-pine.yml']
+    paths: ['kantor-pine/app/*.js', 'kantor-pine/scripts/**', 'lama/**', '.github/workflows/kantor-pine.yml']
   pull_request:
-    paths: ['kantor-pine/**', '.github/workflows/kantor-pine.yml']
+    paths: ['kantor-pine/**', 'lama/**', '.github/workflows/kantor-pine.yml']
   schedule:
     - cron: '7 * * * *'     # tiap jam, 7 hari (kripto buka 24/7; emas tetap dipetakan untuk pembukaan)
   workflow_dispatch:
@@ -18,6 +18,7 @@ concurrency:
 
 jobs:
   test:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -28,10 +29,12 @@ jobs:
           node-version: 22
       - name: Uji mesin analisis & ekspor
         run: node kantor-pine/scripts/test-engine.mjs
+      - name: Uji aplikasi lama (/lama)
+        run: node lama/test/test_app.js
 
   mapping:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
-    needs: test
+    timeout-minutes: 25
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -40,7 +43,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Data pasar (candle H1/M15 asli, DXY, yield riil, kalender)
+      - name: Data pasar emas (candle H1/M15 asli, DXY, yield riil, kalender)
+        continue-on-error: true
         run: node kantor-pine/scripts/build-market.mjs
       - name: Agent Kabar (berita RSS + skor sentimen)
         continue-on-error: true
@@ -48,15 +52,16 @@ jobs:
       - name: Backtest & kalibrasi (sekali sehari, otomatis dilewati bila masih baru)
         continue-on-error: true
         run: node kantor-pine/scripts/calibrate.mjs ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
-      - name: Jalankan tim agent (mapping server + arsip)
+      - name: Jalankan tim agent emas (mapping server + arsip)
+        continue-on-error: true
         run: node kantor-pine/scripts/run-mapping.mjs
       - name: Nilai mapping yang diarsipkan (rekam jejak live)
         continue-on-error: true
         run: node kantor-pine/scripts/score-archive.mjs
-      - name: Kripto 24/7 — peringkat volatilitas harian & data 5 aset teratas
+      - name: Aset lain — peringkat volatilitas kripto harian & data semua aset (kripto, forex, indeks)
         continue-on-error: true
         run: node kantor-pine/scripts/build-crypto.mjs
-      - name: Kripto 24/7 — berita, kalibrasi, mapping, penilaian per aset
+      - name: Aset lain — berita, kalibrasi, mapping, penilaian per aset
         continue-on-error: true
         run: |
           F=kantor-pine/app/data/aset.json
@@ -69,7 +74,11 @@ jobs:
             node kantor-pine/scripts/run-mapping.mjs --aset "$id" || true
             node kantor-pine/scripts/score-archive.mjs --aset "$id" || true
           done
+      - name: Kesehatan sistem (status.json + ringkasan run)
+        if: always()
+        run: node kantor-pine/scripts/status.mjs
       - name: Simpan hasil
+        if: always()
         run: |
           git config user.name "kantor-pine-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

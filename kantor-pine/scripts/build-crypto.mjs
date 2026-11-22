@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { rankUniverse, fetchCryptoMarket, UNIVERSE, TETAP, liveSource } from './crypto.js';
-import { appMarket } from './market.js';
+import { appMarket, sameCandles } from './market.js';
 import { YAHOO, fetchYahooInstrument } from './instruments.js';
 import { PRESETS } from '../app/engine.js';
 
@@ -31,7 +31,8 @@ for (const a of daftar) {
     if (full.h1.length < 200) throw new Error(`H1 hanya ${full.h1.length}`);
     writeFileSync(join(root, '.cache', `${a.id}-full.json`), JSON.stringify(full));
     mkdirSync(join(data, 'aset', a.id), { recursive: true });
-    writeFileSync(join(data, 'aset', a.id, 'market.json'), JSON.stringify(appMarket(full)));
+    const am = appMarket(full), f = join(data, 'aset', a.id, 'market.json');
+    if (!sameCandles(am, read(f))) writeFileSync(f, JSON.stringify(am));
     a.harga = full.spot; a.digit = full.profil.digit; ok.push(a.id);
     console.log(`${a.id}: H1 ${full.h1.length} · M15 ${full.m15.length} · harian ${full.daily.length} · spot ${full.spot} · sumber`, full.status);
   } catch (e) { console.log(`${a.id}: gagal — ${e.message}`); }
