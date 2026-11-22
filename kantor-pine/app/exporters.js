@@ -57,7 +57,7 @@ input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko 
 input double InpMaxSpread     = ${spreadMax};  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
-input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
+input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
 input double InpZoneTolerance = ${gold?'1.00':dv(atrH*0.1)};  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
@@ -708,7 +708,7 @@ export function buildPine(r){
   L.push('');
   plans.forEach((pl,i)=>{ const lo=f(Math.min(pl.entry_bawah,pl.entry_atas)), hi=f(Math.max(pl.entry_bawah,pl.entry_atas));
     L.push(`inZone${i} = close >= ${lo} + offset and close <= ${hi} + offset`);
-    L.push(`alertcondition(inZone${i} and not inZone${i}[1], "KPX ${pl.tipe} ${q(pl.prioritas)}: masuk zona", "${SYM} masuk zona ${pl.tipe} {{close}} - tunggu konfirmasi")`); });
+    L.push(`alertcondition(inZone${i} and not inZone${i}[1], "KPX ${pl.tipe} ${q(pl.prioritas)}: masuk zona", "${SYM} masuk zona ${pl.tipe} {{close}} - EA entry")`); });
   L.push('plot(na, "KPX")');
   return { name:`KPX_Mapping_${stamp}.pine`, code: L.join('\n')+'\n' };
 }
