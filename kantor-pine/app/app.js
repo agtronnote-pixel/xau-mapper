@@ -25,7 +25,12 @@ const S = {
   history: store.get('kpx_history', []), states: {}, source: '',
 };
 S.map = store.get(mapKey(S.asset), null);
-const cfg = id => id === GOLD_ID ? { provider: 'xaus', base: 'data/' } : { provider: 'binance', symbol: id.replace(/USD$/, 'USDT'), base: `data/aset/${id}/` };
+const cfg = id => {
+  if (id === GOLD_ID) return { provider: 'xaus', base: 'data/' };
+  const live = (S.assets?.daftar || []).find(a => a.id === id)?.live || S.srv?.market?.live;
+  const fb = id === 'XMRUSD' ? 'XMRUSD' : undefined;
+  return { provider: live?.provider || 'binance', symbol: live?.symbol || id.replace(/USD$/, 'USDT'), fallback: fb, base: `data/aset/${id}/` };
+};
 const prof = () => S.srv?.market?.profil || (S.map?.aset?.jam ? S.map.aset : undefined);
 const isGold = () => S.asset === GOLD_ID;
 const dg = () => S.map?.aset?.digit ?? 2;
@@ -37,7 +42,7 @@ async function loadAssets() {
 }
 function renderAssetBar() {
   const list = [{ id: GOLD_ID, nama: 'Emas' }, ...((S.assets?.daftar || []).filter(a => (S.assets.aktif || []).includes(a.id)))];
-  $('assetBar').innerHTML = list.map(a => `<button class="achip ${a.id === S.asset ? 'on' : ''}" onclick="kpx.pick('${a.id}')"><b>${a.id.replace(/USD$/, '')}</b><span>${a.id === GOLD_ID ? 'emas' : a.vol30 ? `vol ${Math.round(a.vol30)}%` : '24/7'}</span></button>`).join('');
+  $('assetBar').innerHTML = list.map(a => `<button class="achip ${a.id === S.asset ? 'on' : ''}" onclick="kpx.pick('${a.id}')"><b>${a.id.replace(/USD$/, '')}</b><span>${a.id === GOLD_ID ? 'emas' : `${a.tetap ? '★ ' : ''}${a.vol30 ? `vol ${Math.round(a.vol30)}%` : '24/7'}`}</span></button>`).join('');
 }
 const saveSettings = () => store.set('kpx_settings', S.settings);
 
@@ -70,7 +75,7 @@ async function refresh({ remap = false } = {}) {
   setNet('warn', 'Memperbarui…');
   const srvP = loadServer({ base: c.base, key: id }).then(v => { if (S.asset === id) S.srv = v; }).catch(() => {});
   let m = null;
-  try { m = await loadMarket({ provider: c.provider, symbol: c.symbol }); if (S.asset !== id) return; S.market = m; S.source = m.source; S.spot = m.spot; S.spotAt = m.spotAt; }
+  try { m = await loadMarket({ provider: c.provider, symbol: c.symbol, fallback: c.fallback }); if (S.asset !== id) return; S.market = m; S.source = m.source; S.spot = m.spot; S.spotAt = m.spotAt; }
   catch (e) { console.warn(e); }
   await srvP; if (S.asset !== id) return;
   try {
@@ -92,7 +97,7 @@ async function refresh({ remap = false } = {}) {
 async function spotTick() {
   if (document.hidden) return;
   const id = S.asset, c = cfg(id);
-  try { const s = await loadSpot({ provider: c.provider, symbol: c.symbol }); if (S.asset !== id) return; S.spot = s.price; S.spotAt = s.at; setNet(marketOpen(new Date(), prof()) ? 'on' : 'warn', marketOpen(new Date(), prof()) ? 'Live' : 'Pasar tutup'); checkStates(); renderHome(); renderPlanLive(); }
+  try { const s = await loadSpot({ provider: c.provider, symbol: c.symbol, fallback: c.fallback }); if (S.asset !== id) return; S.spot = s.price; S.spotAt = s.at; setNet(marketOpen(new Date(), prof()) ? 'on' : 'warn', marketOpen(new Date(), prof()) ? 'Live' : 'Pasar tutup'); checkStates(); renderHome(); renderPlanLive(); }
   catch { setNet('off', 'Offline'); }
 }
 
@@ -365,7 +370,7 @@ function renderMore() {
     <div class="hint" style="padding:6px 0">${esc(c.catatan)}</div></div>` : ''}
   ${k?.terakhir?.length ? `<div class="sec">Trade live terakhir (dinilai otomatis)</div><div class="card">${k.terakhir.map(x => `<div class="list-row"><span>${new Date(x.t).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })} · ${x.tipe} ${esc(x.entry)}</span><span class="${x.R > 0 ? 'up' : x.R < 0 ? 'dn' : 'hint'}">${x.hasil} ${sgn(x.R)}R</span></div>`).join('')}</div>` : ''}
   ${S.assets?.peringkat?.length ? `<div class="sec">Aset 24/7 paling volatil (30 hari)</div><div class="card" style="padding:6px 12px"><table><tr><th>Aset</th><th>Volatilitas</th><th>ATR harian</th><th></th></tr>
-    ${S.assets.peringkat.map(a => `<tr><td><b>${esc(a.id.replace(/USD$/, ''))}</b> <span class="hint">${esc(a.nama)}</span></td><td>${a.vol30}%</td><td>${a.atr_pct}%</td><td>${(S.assets.aktif || []).includes(a.id) ? '<span class="badge">dipantau</span>' : ''}</td></tr>`).join('')}</table>
+    ${S.assets.peringkat.map(a => `<tr><td><b>${esc(a.id.replace(/USD$/, ''))}</b> <span class="hint">${esc(a.nama)}</span></td><td>${a.vol30}%</td><td>${a.atr_pct}%</td><td>${(S.assets.aktif || []).includes(a.id) ? `<span class="badge">${(S.assets.daftar || []).find(d => d.id === a.id)?.tetap ? '★ tetap' : 'dipantau'}</span>` : ''}</td></tr>`).join('')}</table>
     <div class="hint" style="padding:6px 0">${esc(S.assets.metode)}</div></div>` : ''}
   <div class="sec">Kualitas data</div>
   <div class="card">
@@ -376,7 +381,7 @@ function renderMore() {
     <div class="list-row"><span>Kalender</span><span class="hint">${q.kalender_asli ? 'ForexFactory' : 'perkiraan pola'}</span></div>
     <div class="list-row"><span>Data server</span><span class="hint">${mk?.dibuat ? agoTxt(mk.dibuat) : 'belum dimuat'}</span></div>
     ${mk && isGold() ? `<div class="list-row"><span>Selisih futures → spot</span><span class="hint">${mk.offset} (${mk.offset_sampel} sampel)</span></div>` : ''}
-    <div class="hint" style="margin-top:6px">${isGold() ? 'Harga: xaus.com (spot, live) + candle Yahoo GC=F (disesuaikan ke spot).' : 'Harga: Binance (pasangan USDT, live tiap menit), cadangan Coinbase.'} Makro: Yahoo DXY & FRED. Harga indikatif, cocokkan dengan MT5 Anda — EA menyesuaikan selisih harga otomatis.</div>
+    <div class="hint" style="margin-top:6px">${isGold() ? 'Harga: xaus.com (spot, live) + candle Yahoo GC=F (disesuaikan ke spot).' : S.asset === 'XMRUSD' ? 'Harga: HTX (XMR/USDT, live tiap menit), cadangan Kraken.' : 'Harga: Binance (pasangan USDT, live tiap menit), cadangan Coinbase.'} Makro: Yahoo DXY & FRED. Harga indikatif, cocokkan dengan MT5 Anda — EA menyesuaikan selisih harga otomatis.</div>
   </div>
   <div class="sec">Pengaturan</div>
   <div class="card">

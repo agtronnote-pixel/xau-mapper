@@ -27,6 +27,35 @@ export const PROVIDERS = {
     },
     async history() { return { daily: [], stats: {} }; },   // histori harian dari server
   },
+  // Aset di luar Binance (mis. Monero): HTX utama, Kraken cadangan — keduanya CORS terbuka, tanpa key.
+  htx: {
+    nama: 'HTX',
+    async spot(f = fetch, symbol) {
+      const j = await (await f(`https://api.huobi.pro/market/detail/merged?symbol=${symbol}`, { cache: 'no-store' })).json();
+      const price = +j?.tick?.close; if (!Number.isFinite(price)) throw new Error('spot tidak tersedia');
+      return { price, at: j.ts || Date.now(), state: {} };
+    },
+    async intraday(f = fetch, symbol) {
+      const j = await (await f(`https://api.huobi.pro/market/history/kline?symbol=${symbol}&period=5min&size=168`, { cache: 'no-store' })).json();
+      if (j.status !== 'ok') throw new Error('intraday HTX gagal');
+      return { points: j.data.map(k => ({ t: k.id + 300, p: k.close })).filter(x => x.t <= Date.now() / 1000 + 60).sort((a, b) => a.t - b.t), state: {} };
+    },
+    async history() { return { daily: [], stats: {} }; },
+  },
+  kraken: {
+    nama: 'Kraken',
+    async spot(f = fetch, symbol) {
+      const j = await (await f(`https://api.kraken.com/0/public/Ticker?pair=${symbol}`, { cache: 'no-store' })).json();
+      const price = +Object.values(j.result || {})[0]?.c?.[0]; if (!Number.isFinite(price)) throw new Error('spot tidak tersedia');
+      return { price, at: Date.now(), state: {} };
+    },
+    async intraday(f = fetch, symbol) {
+      const j = await (await f(`https://api.kraken.com/0/public/OHLC?pair=${symbol}&interval=5`, { cache: 'no-store' })).json();
+      const a = Object.values(j.result || {}).find(Array.isArray) || [];
+      return { points: a.slice(-168).map(k => ({ t: k[0] + 300, p: +k[4] })).filter(x => x.t <= Date.now() / 1000 + 60), state: {} };
+    },
+    async history() { return { daily: [], stats: {} }; },
+  },
   xaus: {
     nama: 'xaus.com',
     base: 'https://xaus.com/api/v1',
@@ -59,10 +88,12 @@ const store = {
 };
 
 // Ambil semua data yang dibutuhkan mesin analisis. Histori harian di-cache 6 jam.
-export async function loadMarket({ provider = 'xaus', symbol, f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null), useCache = typeof localStorage !== 'undefined' } = {}) {
+export async function loadMarket({ provider = 'xaus', symbol, fallback, f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null), useCache = typeof localStorage !== 'undefined' } = {}) {
   const P = PROVIDERS[provider];
   if (provider !== 'xaus') {
-    const [spot, intra] = await Promise.all([P.spot(f, symbol), P.intraday(f, symbol)]);
+    let spot, intra;
+    try { [spot, intra] = await Promise.all([P.spot(f, symbol), P.intraday(f, symbol)]); }
+    catch (e) { if (provider !== 'htx' || !fallback) throw e; return loadMarket({ provider: 'kraken', symbol: fallback, f, useCache }); }
     return { source: P.nama, spot: spot.price, spotAt: spot.at, state: {}, points: intra.points, daily: [], stats: {} };
   }
   let hist = useCache ? store.get('kpx_hist') : null;
@@ -83,6 +114,7 @@ export async function loadServer({ base = 'data/', key = 'XAUUSD', f = (typeof f
   for (const [k, v] of ent) { const sk = `kpx_srv_${key}_${k}`; if (v) store.set(sk, v); else out[k] = store.get(sk); }
   return out;
 }
-export async function loadSpot({ provider = 'xaus', symbol, f = fetch.bind(globalThis) } = {}) {
-  return PROVIDERS[provider].spot(f, symbol);
+export async function loadSpot({ provider = 'xaus', symbol, fallback, f = fetch.bind(globalThis) } = {}) {
+  try { return await PROVIDERS[provider].spot(f, symbol); }
+  catch (e) { if (provider === 'htx' && fallback) return PROVIDERS.kraken.spot(f, fallback); throw e; }
 }

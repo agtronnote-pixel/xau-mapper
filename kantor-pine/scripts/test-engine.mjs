@@ -152,6 +152,9 @@ for (const [name, trend, seed] of [['naik', 0.6, 7], ['turun', -0.6, 11], ['data
   assert.deepEqual(pickTop(R, []).map(x => x.id), ['A','B','C','D','E']);
   assert.ok(pickTop(R, ['F']).map(x => x.id).includes('F'), 'aset lama bertahan bila vol ≥ 90% aset ke-5');
   assert.ok(!pickTop(R, ['G']).map(x => x.id).includes('G'), 'aset lama keluar bila jauh lebih tenang');
+  const { UNIVERSE, TETAP, liveSource } = await import('./crypto.js');
+  assert.ok(TETAP.includes('XMRUSD')); const xmr = UNIVERSE.find(u => u[0] === 'XMRUSD');
+  assert.deepEqual(liveSource(xmr), { provider: 'htx', symbol: 'xmrusdt' }); assert.equal(liveSource(UNIVERSE[0]).provider, 'binance');
   const dly = Array.from({ length: 40 }, (_, i) => ({ c: 100 * (1 + (i % 2 ? 0.02 : -0.02)), h: 103, l: 97 }));
   assert.ok(realizedVol(dly).vol30 > 30);
 }

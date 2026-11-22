@@ -12,7 +12,13 @@ export const UNIVERSE = [
   ['XRPUSD', 'XRP', 'XRPUSDT', 'XRP-USD'], ['DOGEUSD', 'Dogecoin', 'DOGEUSDT', 'DOGE-USD'], ['ADAUSD', 'Cardano', 'ADAUSDT', 'ADA-USD'],
   ['AVAXUSD', 'Avalanche', 'AVAXUSDT', 'AVAX-USD'], ['LINKUSD', 'Chainlink', 'LINKUSDT', 'LINK-USD'], ['LTCUSD', 'Litecoin', 'LTCUSDT', 'LTC-USD'],
   ['BNBUSD', 'BNB', 'BNBUSDT', null], ['DOTUSD', 'Polkadot', 'DOTUSDT', 'DOT-USD'], ['BCHUSD', 'Bitcoin Cash', 'BCHUSDT', 'BCH-USD'],
+  // tidak ada di Binance/Coinbase: HTX (utama) & Kraken (cadangan)
+  ['XMRUSD', 'Monero', null, null, { htx: 'xmrusdt', kraken: 'XMRUSD' }],
 ];
+// Aset permintaan pengguna: selalu dipantau di samping 5 teratas.
+export const TETAP = ['XMRUSD'];
+// Sumber harga live untuk aplikasi di HP (semua CORS terbuka, tanpa key).
+export const liveSource = u => u[2] ? { provider: 'binance', symbol: u[2] } : u[4]?.htx ? { provider: 'htx', symbol: u[4].htx } : { provider: 'kraken', symbol: u[4].kraken };
 const UA = { 'User-Agent': 'Mozilla/5.0 (KantorPine; +https://github.com/agtronnote-pixel/xau-mapper)' };
 const BN = 'https://data-api.binance.vision/api/v3';
 const IV = { '5m': 300, '15m': 900, '1h': 3600, '1d': 86400 };
@@ -43,8 +49,24 @@ export async function coinbaseCandles(product, interval, bars) {
   }
   return dedupe(out).slice(-bars);
 }
+const HTX_IV = { '5m': '5min', '15m': '15min', '1h': '60min', '1d': '1day' };
+export async function htxCandles(symbol, interval, bars) {
+  const j = await getJSON(`https://api.huobi.pro/market/history/kline?symbol=${symbol}&period=${HTX_IV[interval]}&size=${Math.min(2000, bars)}`);
+  if (j.status !== 'ok' || !Array.isArray(j.data)) throw new Error(j['err-msg'] || 'HTX gagal');
+  return dedupe(j.data.map(k => ({ t: k.id, o: k.open, h: k.high, l: k.low, c: k.close })));
+}
+export async function krakenCandles(pair, interval, bars) {
+  const j = await getJSON(`https://api.kraken.com/0/public/OHLC?pair=${pair}&interval=${IV[interval] / 60}`);
+  if (j.error?.length) throw new Error(j.error.join(','));
+  const a = Object.values(j.result).find(Array.isArray) || [];
+  return dedupe(a.map(k => ({ t: k[0], o: +k[1], h: +k[2], l: +k[3], c: +k[4] }))).slice(-bars);
+}
 const dedupe = a => { const m = new Map(); a.forEach(c => { if ([c.o, c.h, c.l, c.c].every(Number.isFinite) && c.h >= c.l) m.set(c.t, c); }); return [...m.values()].sort((x, y) => x.t - y.t); };
 async function candles(u, interval, bars) {
+  if (u[4]) {   // aset di luar Binance/Coinbase
+    try { const c = await htxCandles(u[4].htx, interval, bars); if (c.length) return { c, src: 'htx' }; } catch {}
+    return { c: await krakenCandles(u[4].kraken, interval, bars), src: 'kraken' };
+  }
   try { const c = await binanceKlines(u[2], interval, bars); if (c.length) return { c, src: 'binance' }; } catch (e) { if (!u[3]) throw e; }
   if (!u[3]) throw new Error('tidak ada sumber cadangan');
   return { c: await coinbaseCandles(u[3], interval === '5m' ? '5m' : interval, bars), src: 'coinbase' };
@@ -78,7 +100,8 @@ export async function rankUniverse(prevIds = []) {
     await sleep(120);
   }
   ranked.sort((a, b) => b.vol30 - a.vol30);
-  return { ranked, top: pickTop(ranked, prevIds), gagal };
+  const tetap = ranked.filter(x => TETAP.includes(x.id));
+  return { ranked, top: [...pickTop(ranked.filter(x => !TETAP.includes(x.id)), prevIds), ...tetap.map(x => ({ ...x, tetap: true }))], gagal };
 }
 // Data lengkap satu aset (H1 60 hari, M15 30 hari, harian 400 hari, titik 5 menit 14 jam, harga terkini).
 export async function fetchCryptoMarket(id, shared = {}) {
@@ -87,10 +110,14 @@ export async function fetchCryptoMarket(id, shared = {}) {
   const get = async (k, iv, n) => { try { const r = await candles(u, iv, n); status[k] = r.src; return r.c; } catch (e) { status[k] = 'gagal: ' + e.message; return []; } };
   const h1 = await get('h1', '1h', 1440), m15 = await get('m15', '15m', 2880), daily = await get('d1', '1d', 400), m5 = await get('m5', '5m', 168);
   let spot = null;
-  try { spot = +(await getJSON(`${BN}/ticker/price?symbol=${u[2]}`)).price; status.spot = 'binance'; } catch { spot = m5.length ? m5[m5.length - 1].c : null; status.spot = 'dari candle'; }
+  try {
+    if (u[2]) { spot = +(await getJSON(`${BN}/ticker/price?symbol=${u[2]}`)).price; status.spot = 'binance'; }
+    else { spot = +(await getJSON(`https://api.huobi.pro/market/detail/merged?symbol=${u[4].htx}`)).tick.close; status.spot = 'htx'; }
+    if (!Number.isFinite(spot)) throw new Error('spot');
+  } catch { spot = m5.length ? m5[m5.length - 1].c : null; status.spot = 'dari candle'; }
   const ref = spot || h1[h1.length - 1]?.c || 1;
   return {
-    dibuat: new Date().toISOString(), status, profil: cryptoProfile(id, u[1], ref), sumber: status.h1,
+    dibuat: new Date().toISOString(), status, profil: cryptoProfile(id, u[1], ref), sumber: status.h1, live: liveSource(u),
     h1, m15, daily: daily.map(c => ({ d: new Date(c.t * 1000).toISOString().slice(0, 10), c: c.c, h: c.h, l: c.l })),
     points: m5.map(c => ({ t: c.t + 300, p: c.c })), spot,
     macro: shared.macro || { dxy: [], ry: [], y10: [] }, calendar: shared.calendar || [], offset: 0, offset_sampel: 0,
