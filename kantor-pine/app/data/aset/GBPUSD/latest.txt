@@ -2,7 +2,7 @@
 Harga: 1.30869 | Bias: BEARISH (51%)
 
 ➡️ KEPUTUSAN: SELL
-Pasar buka Senin, 23 Nov, 05.00 WIB. SELL di 1.30943–1.30993 setelah ada candle konfirmasi.
+Pasar buka Senin, 23 Nov, 05.00 WIB. SELL di 1.30943–1.30993 saat harga menyentuh zona.
 💪 Kekuatan 63% (Sedang)
 ✓ momentum jual (RSI H1 37)
 ✓ trend H1 & harian turun
@@ -17,27 +17,27 @@ Pasar buka Senin, 23 Nov, 05.00 WIB. SELL di 1.30943–1.30993 setelah ada candl
 🎯 Utama: SELL 1.30943–1.30993
 💪 Kekuatan sinyal: 63% (Sedang) | RR 1:1.08
 SL 1.31105 | TP1 1.30820 | TP2 1.30655 | s/d 13.00 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
+Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: BUY 1.30795–1.30845
 💪 Kekuatan sinyal: 26% (Lemah) · peluang 50% | RR 1:1.08
 SL 1.30683 | TP1 1.30968 | TP2 1.31056 | s/d 13.00 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
+Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (05.15): 1.30870
++15 mnt (05.15): 1.30869
 +1 jam (06.00): 1.30867
 +4 jam (09.00): 1.30857
-+24 jam (05.00): 1.30856
++24 jam (05.00): 1.30855
 
 🕒 Jadwal
 05.00–06.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
 06.00–07.00 WAIT: Likuiditas rendah
-07.00–15.00 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 54%
-15.00–20.00 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi
-20.00–22.00 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry hanya dengan konfirmasi candle
+07.00–15.00 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
+15.00–20.00 ENTRY: Sesi London: entry saat zona tersentuh
+20.00–22.00 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.00–00.00 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.00–05.00 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 

@@ -34,7 +34,7 @@ if barstate.islast and not drawn
         drawLine(26161.17, color.blue, "TP2 BUY", true)
 
 inZone0 = close >= 25142.82 + offset and close <= 25257.18 + offset
-alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "USA100 masuk zona SELL {{close}} - tunggu konfirmasi")
+alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "USA100 masuk zona SELL {{close}} - EA entry")
 inZone1 = close >= 24919.32 + offset and close <= 25033.68 + offset
-alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "USA100 masuk zona BUY {{close}} - tunggu konfirmasi")
+alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "USA100 masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")

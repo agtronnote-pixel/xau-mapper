@@ -18,27 +18,27 @@ Pasar buka Senin, 23 Nov, 06.00 WIB. Sinyal kuat (82%). Pantau zona SELL 25142.8
 🎯 Utama: SELL 25142.82–25257.18
 💪 Kekuatan sinyal: 82% (Kuat) · peluang 47% | RR 1:1.5
 SL 25514.48 | TP1 24728.28 | TP2 24534.17 | s/d 14.00 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
+Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: BUY 24919.32–25033.68
-💪 Kekuatan sinyal: 12% (Lemah) · peluang 48% | RR 1:1.88
+💪 Kekuatan sinyal: 12% (Lemah) · peluang 47% | RR 1:1.88
 SL 24662.02 | TP1 25568.83 | TP2 26161.17 | s/d 14.00 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
+Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (06.15): 25122.52
-+1 jam (07.00): 25110.00
-+4 jam (10.00): 25076.21
-+24 jam (06.00): 25234.05
++15 mnt (06.15): 25122.32
++1 jam (07.00): 25109.58
++4 jam (10.00): 25072.35
++24 jam (06.00): 25218.47
 
 🕒 Jadwal
 06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
 07.00–15.00 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
-15.00–20.00 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi · backtest TP1 duluan 43%
-20.00–22.00 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry hanya dengan konfirmasi candle · backtest TP1 duluan 55%
-22.00–00.00 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 55%
+15.00–20.00 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 43%
+20.00–22.00 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 54%
+22.00–00.00 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 54%
 00.00–05.00 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
 05.00–06.00 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
 
