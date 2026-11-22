@@ -1,27 +1,27 @@
 📊 MAPPING XAUUSD — Sen, 23 Nov 2026, 06.00 WIB
-Harga: 3539.00 | Bias: SIDEWAYS (34%)
-Pasar tutup — proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD bergerak dalam range (1/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: BUY di 3520.73–3529.27.
+Harga: 3539.00 | Bias: BEARISH (52%)
+Pasar tutup — proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (2/3 analis searah). Volatilitas normal. Pasar tutup. Rencana utama: SELL di 3547.86–3556.4.
 
 🔔 Gap pembukaan (tutup 3539.00)
 • Gap naik — Harga buka di atas 3549.68: Jangan kejar. Bila harga kembali turun di bawah 3549.68 di sesi Asia → peluang SELL menutup gap ke 3539. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.
 • Tanpa gap / gap kecil — Harga buka di 3528.32–3549.68: Ikuti rencana utama di bawah setelah 60 menit pertama.
 • Gap turun — Harga buka di bawah 3528.32: Jangan kejar. Bila harga kembali naik di atas 3528.32 di sesi Asia → peluang BUY menutup gap ke 3539. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
 
-🎯 Range: BUY 3520.73–3529.27
-SL 3501.51 | TP1 3552.13 | TP2 3575.00 | s/d 14.00 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
-Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-
-🎯 Range: SELL 3547.86–3556.40
+🎯 Utama: SELL 3547.86–3556.40
 SL 3575.62 | TP1 3525.00 | TP2 3502.90 | s/d 14.00 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
+🎯 Alternatif: BUY 3520.73–3529.27
+SL 3501.51 | TP1 3552.13 | TP2 3575.00 | s/d 14.00 WIB
+Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+
 📈 Proyeksi
-+15 mnt (06.15): 3538.96
-+1 jam (07.00): 3538.86
-+4 jam (10.00): 3538.42
-+24 jam (06.00): 3536.11
++15 mnt (06.15): 3538.51
++1 jam (07.00): 3537.09
++4 jam (10.00): 3531.26
++24 jam (06.00): 3500.49
 
 🕒 Jadwal
 06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
@@ -31,8 +31,8 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 00.00–05.00 TAKE PROFIT: Akhir NY: amankan profit, kurangi posisi
 05.00–06.00 WAIT: Likuiditas rendah
 
-🧱 Level: R 3638.10 · R 3601.37 · R 3595.50 · R 3575.00 · P 3552.13 · S 3525.00 · S 3518.10 · S 3502.90 · S 3466.17
-❌ Invalidasi: Candle H1 close di bawah 3501.51
+🧱 Level: R 3638.10 · R 3601.37 · R 3595.50 · R 3575.00 · P 3552.13 · S 3525.00 · S 3502.90 · S 3466.17
+❌ Invalidasi: Candle H1 close di atas 3575.62
 ⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan
 
 — Kantor Pine XAUUSD · Bukan nasihat keuangan, selalu pakai SL.
