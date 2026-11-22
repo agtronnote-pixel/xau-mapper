@@ -291,6 +291,7 @@ int OnInit()
    vDigits = (step > 0) ? (int)MathMax(0, MathCeil(-MathLog10(step) - 1e-9)) : 2;
    ArrayResize(lastTry, ArraySize(P_TYPE));
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
+   for(int i = 0; i < ArraySize(P_TYPE); i++) GlobalVariableDel(GVP + SkipKey(i));   // input bisa berubah: nilai ulang batas risiko
    if(StringFind(_Symbol, "${SYM.replace(/USD$/,'')}") < 0) Alert("KPX: EA ini dibuat untuk ${SYM}. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
    if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal)
