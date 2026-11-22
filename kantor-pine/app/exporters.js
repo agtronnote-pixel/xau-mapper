@@ -52,7 +52,9 @@ input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
 input double InpZoneTolerance = 1.00;  // Toleransi di luar zona entry (USD)
-input double InpPriceOffset   = 0.00;  // Selisih harga broker - harga mapping (USD)
+input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
+input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
+input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entry
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
@@ -71,6 +73,9 @@ double   P_TP1[]  = {${arr(pl=>f2(pl.tp1))}};
 double   P_TP2[]  = {${arr(pl=>f2(pl.tp2))}};
 datetime P_EXP[]  = {${arr(pl=>mqDate(T(Number.isFinite(+pl.berlaku_menit)?Math.min(+pl.berlaku_menit,1440):1440)))}};
 string   P_NAME[] = {${arr(pl=>`"${mqStr(pl.tipe+' '+(pl.prioritas||''))}"`)}};
+int      P_STR[]  = {${arr(pl=>String(Number.isFinite(+pl.kekuatan)?Math.round(+pl.kekuatan):50))}};   // kekuatan sinyal %
+datetime REF_TIME   = ${mqDate(new Date(b.data_time||b.time))};   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = ${(Number.isFinite(+b.data_price)?+b.data_price:+b.price).toFixed(2)};
 datetime NT_START[] = {${nt.length?nt.map(j=>mqDate(T(+j.menit_mulai))).join(', '):"D'1970.01.01 00:00:00'"}};
 datetime NT_END[]   = {${nt.length?nt.map(j=>mqDate(T(+j.menit_akhir))).join(', '):"D'1970.01.01 00:00:00'"}};
 datetime MAP_START  = ${mqDate(t0)};
@@ -81,7 +86,9 @@ string   GVP;
 datetime lastTry[];
 int      vDigits = 2;
 
-double Lv(const double v){ return v + InpPriceOffset; }
+double   gOffset = 0;
+string   gOffsetNote = "";
+double Lv(const double v){ return v + gOffset; }
 bool   Flag(const string k){ return GlobalVariableCheck(GVP + k); }
 void   SetFlag(const string k){ GlobalVariableSet(GVP + k, 1); }
 datetime ToServer(const datetime g){ return g + (TimeTradeServer() - TimeGMT()); }
@@ -232,6 +239,22 @@ void DrawLevels()
    ChartRedraw();
 }
 
+void ComputeOffset()
+{
+   gOffset = InpPriceOffset; gOffsetNote = "manual " + DoubleToString(gOffset, 2);
+   if(!InpAutoOffset) return;
+   datetime ts = REF_TIME + (TimeTradeServer() - TimeGMT());
+   int sh = iBarShift(_Symbol, PERIOD_M5, ts, false);
+   if(sh < 0) { gOffsetNote += " (data M5 broker tidak tersedia)"; return; }
+   datetime bt = iTime(_Symbol, PERIOD_M5, sh);
+   double c = iClose(_Symbol, PERIOD_M5, sh);
+   if(c <= 0 || MathAbs((double)(bt - ts)) > 900) { gOffsetNote += " (candle acuan tidak ditemukan)"; return; }
+   double o = c - REF_PRICE;
+   if(MathAbs(o) > 30) { gOffsetNote += " (selisih " + DoubleToString(o, 2) + " terlalu besar, diabaikan)"; return; }
+   gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, 2);
+   PrintFormat("KPX selisih harga broker vs mapping: %.2f", o);
+}
+
 int OnInit()
 {
    trade.SetExpertMagicNumber(InpMagic);
@@ -243,6 +266,7 @@ int OnInit()
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
    if(StringFind(_Symbol, "XAU") < 0) Alert("KPX: EA ini dibuat untuk XAUUSD. Simbol chart sekarang: ", _Symbol);
    if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
 }
@@ -268,12 +292,13 @@ void OnTick()
    else if(!TerminalInfoInteger(TERMINAL_TRADE_ALLOWED) || !MQLInfoInteger(MQL_TRADE_ALLOWED)) why = "Algo Trading mati";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
-   string st = "Kantor Pine XAUUSD - Auto Trade Mapping\\n";
+   string st = "Kantor Pine XAUUSD - Auto Trade Mapping\\nSelisih harga: " + gOffsetNote + "\\n";
    for(int i = 0; i < ArraySize(P_TYPE); i++)
    {
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
       if(Flag("done" + IntegerToString(i))) s = "sudah entry";
+      else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";
       else
@@ -331,7 +356,9 @@ export const EA_README = `CARA PASANG EA (MT5 desktop / VPS)
 3. Buka MetaEditor (F4), buka file .mq5, tekan Compile (F7).
 4. Di MT5, buka chart XAUUSD, seret EA dari Navigator ke chart.
 5. Centang "Allow Algo Trading", lalu aktifkan tombol Algo Trading.
-6. Atur risiko di tab Inputs. Jika harga broker berbeda dari harga mapping, isi Selisih harga.
+6. Atur risiko di tab Inputs. Selisih harga broker dihitung otomatis dari candle M5 broker
+   pada waktu mapping (lihat baris "Selisih harga" di pojok chart). Matikan bila ingin isi manual.
+7. Kekuatan sinyal minimal (default 55%): rencana di bawah angka ini tidak dieksekusi.
 
 PENTING
 - Uji di akun DEMO dulu.
@@ -350,13 +377,18 @@ export function mapSummary(r){
   const L=[];
   L.push(`📊 MAPPING XAUUSD — ${day}, ${at(0)} WIB`);
   L.push(`Harga: ${p0.toFixed(2)} | Bias: ${bias}${Number.isFinite(+r.keyakinan)?` (${+r.keyakinan}%)`:''}`);
-  if(r.ringkasan) L.push(String(r.ringkasan).trim());
+  const n=r.narasi;
+  if(n){ L.push(''); L.push(`➡️ KEPUTUSAN: ${n.aksi}`); L.push(n.judul);
+    const m=(r.rencana||[])[0]; if(m) L.push(`💪 Kekuatan ${kk(m)}${m.peluang!=null?` · Peluang TP1 duluan ${Math.round(m.peluang*100)}% (${m.peluang_sampel} sampel backtest)`:''}`);
+    (n.kenapa||[]).forEach(x=>L.push(`✓ ${x}`)); (n.penghambat||[]).forEach(x=>L.push(`✕ Penghambat: ${x}`));
+    if(n.batal) L.push(`❌ ${n.batal}`); if(n.waspada) L.push(`⚠️ ${n.waspada}`); }
+  else if(r.ringkasan) L.push(String(r.ringkasan).trim());
   if(r.gap){ const g=r.gap; L.push(''); L.push(`🔔 Gap pembukaan (tutup ${num(g.penutupan)})`);
     g.skenario.forEach(x=>L.push(`• ${x.nama} — ${x.kondisi}: ${x.aksi}`)); }
   (r.rencana||[]).forEach(pl=>{
     L.push('');
     L.push(`🎯 ${pl.prioritas||'Rencana'}: ${pl.tipe} ${num(pl.entry_bawah)}–${num(pl.entry_atas)}`);
-    if(kk(pl)) L.push(`💪 Kekuatan sinyal: ${kk(pl)} | RR 1:${pl.rr}`);
+    if(kk(pl)) L.push(`💪 Kekuatan sinyal: ${kk(pl)}${pl.peluang!=null?` · peluang ${Math.round(pl.peluang*100)}%`:''} | RR 1:${pl.rr}`);
     L.push(`SL ${num(pl.sl)} | TP1 ${num(pl.tp1)} | TP2 ${num(pl.tp2)}${Number.isFinite(+pl.berlaku_menit)?` | s/d ${at(+pl.berlaku_menit)} WIB`:''}`);
     if(pl.trigger) L.push(`Trigger: ${pl.trigger}`);
     if(pl.manajemen) L.push(`Manajemen: ${pl.manajemen}`);
@@ -372,7 +404,7 @@ export function mapSummary(r){
   return L.join('\n');
 }
 
-export async function makeMapImage(r){
+export async function makeMapImage(r, opt={}){
   try{ await Promise.all([document.fonts.load('700 48px Inter'), document.fonts.load('500 24px Inter'), document.fonts.load('400 24px Inter')]); }catch(e){}
   const W=1080, P=64, IW=W-2*P;
   const c=document.createElement('canvas'); c.width=W; c.height=3600;
@@ -414,8 +446,21 @@ export async function makeMapImage(r){
   const src=b.manual?'harga manual':(r.sumber_harga||'pencarian online');
   wrap('Sumber harga: '+src,F(400,22),IW,1).forEach(l=>{ T(l,P,y,F(400,22),C.muted); });
   y+=50;
-  wrap(r.ringkasan||'',F(400,30),IW,3).forEach(l=>{ T(l,P,y,F(400,30),C.text); y+=44; });
-  y+=16;
+  const n=r.narasi, m0=(r.rencana||[])[0];
+  if(n){
+    const nc=n.warna==='green'?C.green:n.warna==='red'?C.red:C.gold, ns=n.warna==='green'?C.gS:n.warna==='red'?C.rS:C.oS;
+    const jl=wrap(n.judul,F(600,30),IW-56,3), why=(n.kenapa||[]).slice(0,3);
+    const bh=40+64+jl.length*42+(m0?96:0)+why.length*38+(n.batal?44:0)+28;
+    RR(P,y,IW,bh,24,ns); let yy=y+40+44;
+    T('KEPUTUSAN',P+28,y+40,F(600,20),C.muted); T(n.aksi,P+28,yy+10,F(800,60),nc); yy+=58;
+    jl.forEach(l=>{ T(l,P+28,yy,F(600,30),C.text); yy+=42; });
+    if(m0){ yy+=14; const k=+m0.kekuatan;
+      T('Kekuatan sinyal',P+28,yy,F(500,20),C.muted); T(`${k}% · ${m0.kekuatan_label}`,P+28,yy+38,F(700,32),kcol(k,C));
+      T('Peluang TP1 duluan',P+IW/2,yy,F(500,20),C.muted); T(m0.peluang!=null?`${Math.round(m0.peluang*100)}% · ${m0.peluang_sampel} sampel`:'belum terkalibrasi',P+IW/2,yy+38,F(700,32),C.text); yy+=82; }
+    why.forEach(w=>{ T('✓ '+w,P+28,yy,F(400,26),C.text); yy+=38; });
+    if(n.batal){ T(n.batal,P+28,yy+4,F(600,24),C.red); }
+    y+=bh+28;
+  } else { wrap(r.ringkasan||'',F(400,30),IW,3).forEach(l=>{ T(l,P,y,F(400,30),C.text); y+=44; }); y+=16; }
 
   // chart (detail)
   y=sec('Grafik proyeksi 24 jam',y)+14;

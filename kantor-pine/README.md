@@ -2,24 +2,25 @@
 
 Tim agent analisis emas (XAUUSD) yang berjalan **sepenuhnya di perangkat trader** — tanpa akun, tanpa API key, tanpa server berbayar. Dibangun di GitHub, diterbitkan sebagai aplikasi mobile (PWA) yang bisa di-install di Android & iPhone.
 
-## Fitur
-- **11 agent** — Rina (Chief Strategist), Arka (Trend), Mira (Momentum), Sena (Struktur/SMC), Vega (Volatilitas), Tara (Sesi), Nadi (Kalender), Lukas (Validator/backtest), Maya (Risk), Dimas (EA MQL5), Pina (Pine v6).
-- **Proyeksi 5 menit – 24 jam** dengan rentang kemungkinan yang menyesuaikan volatilitas tiap sesi (Asia/London/New York, otomatis mengikuti DST).
-- **Rencana entry** (BUY/SELL, zona, SL, TP1/TP2, RR, konfirmasi, manajemen) + **status live tiap menit** dan notifikasi saat harga masuk zona atau melewati SL.
-- **Jadwal aksi 24 jam**, level kunci (pivot, PDH/PDL, swing, angka bulat), kalkulator lot.
-- **Ekspor**: gambar ringkasan, teks, EA MT5 (.zip), indikator Pine v6 untuk TradingView.
-- **Riwayat & ketepatan**: setiap mapping disimpan dan dinilai otomatis terhadap harga aktual.
-- **Offline**: aplikasi tetap terbuka tanpa internet dengan mapping terakhir.
-- **Agent berita dari server**: *Kabar* (judul berita RSS + skor kata kunci, tiap jam di GitHub Actions, tanpa AI & tanpa key) dan *Clara — Analis Claude* (tugas terjadwal Claude 3x sehari menulis `app/data/analisis-claude.json`). Keduanya tampil di Beranda & Tim, belum ikut menentukan konsensus.
+## Fitur (v3)
+- **Beranda = keputusan**: BUY / SELL / TUNGGU / JANGAN TRADING, kalimat aksi, kekuatan sinyal, **peluang historis TP1 sebelum SL**, alasan & penghambat, kapan batal, rilis data yang harus dihindari.
+- **14 agent**. Arah: Arka (trend), Mira (momentum), Sena (struktur), **Ravi (makro: DXY & yield riil)**, Kabar (berita RSS), Clara (analisis Claude). Pendukung: Vega, Tara, Nadi (kalender ForexFactory asli), Lukas (backtest & live), Maya, Dimas, Pina. Konsensus oleh Rina.
+- **Agent tanpa data cukup tidak ikut konsensus** (tidak lagi dihitung "netral"), dan tercantum di peringatan.
+- **Data asli**: candle H1 60 hari & M15 30 hari dengan high/low sungguhan (bukan sampel 5 menit), candle harian versi broker (17.00 NY), cek data basi (> 20 menit tertunda / > 2 jam = tidak ada rencana) dan konsistensi harga.
+- **Kalibrasi harian dari backtest walk-forward 60 hari**: bobot agent, peluang per rentang kekuatan, rentang proyeksi 80%, statistik per sesi. Uji jujur di 40% data yang tidak dipakai kalibrasi.
+- **Rekam jejak live**: setiap mapping per jam diarsipkan (`app/data/arsip/`) dan dinilai otomatis (TP1/TP2/SL) → `app/data/kinerja.json`.
+- **EA MT5**: filter kekuatan minimal (default 55%), selisih harga broker dihitung otomatis dari candle M5 broker.
+- Ekspor gambar/teks (dibuka dengan keputusan), EA (.zip), indikator Pine v6. Offline, notifikasi zona.
 
 ## Struktur
 ```
 kantor-pine/
-  app/        Aplikasi PWA (index.html, app.js, engine.js, data.js, exporters.js, sw.js)
-  scripts/    test-engine.mjs (uji), run-mapping.mjs (mapping server), run-news.mjs + news.js (agent Kabar)
-  mt5/        KPX_Tools: compile otomatis + KPX_Agent (unduh EA terbaru ke MT5)
-  docs/       ARSITEKTUR.md
-.github/workflows/kantor-pine.yml   Uji → mapping server tiap jam (commit hasil)
+  app/        PWA: index.html, app.js, engine.js (mesin v3), data.js, exporters.js, sw.js
+  app/data/   market.json, kalibrasi.json, kinerja.json, latest.json, berita.json, analisis-claude.json, arsip/
+  scripts/    build-market.mjs + market.js (data server), calibrate.mjs (backtest), run-mapping.mjs,
+              score-archive.mjs, run-news.mjs + news.js, lib-stats.js, test-engine.mjs
+  mt5/        KPX_Tools: compile otomatis + KPX_Agent
+.github/workflows/kantor-pine.yml   Uji → tiap jam: data → berita → kalibrasi (harian) → mapping → penilaian → commit
 ```
 
 ## Menjalankan
@@ -34,8 +35,17 @@ Salin folder `mt5/KPX_Tools` ke `MQL5/Experts/` lalu jalankan:
 - `KPX_Setup_AutoCompile.bat` — compile otomatis setiap `KPX_*.mq5`.
 - `KPX_Setup_Agent.bat` — isi alamat aplikasi (`https://agtronnote-pixel.github.io/xau-mapper/kantor-pine/app/`); EA `KPX_Mapping_latest` diunduh tiap 5 menit. Pasang EA itu sekali di chart XAUUSD; setiap mapping baru, MT5 memuat ulang otomatis.
 
-## Sumber data
-Harga dari **xaus.com** (gratis, tanpa key, CORS terbuka): spot (cache 60 detik), intraday tiap 5 menit (48 jam), histori harian. Harga bersifat indikatif mid-market, bukan kuotasi broker — selalu cocokkan dengan MT5. Pemakaian di atas 10.000 permintaan/hari perlu izin penyedia; lapisan `data.js` dirancang agar sumber lain mudah ditambahkan.
+## Sumber data (semua gratis, tanpa key)
+- **Spot live**: xaus.com (di HP, tiap menit). Indikatif mid-market — cocokkan dengan MT5.
+- **Candle H1/M15**: Yahoo Finance GC=F, digeser ke basis spot dengan selisih median di periode tumpang tindih (server, tiap jam).
+- **Makro**: DXY (Yahoo DX-Y.NYB), yield riil 10 thn DFII10 & 10 thn DGS10 (FRED).
+- **Kalender**: ForexFactory minggu berjalan (USD, dampak sedang/tinggi). Cadangan: pola rutin.
+- **Berita**: Google News & Yahoo Finance RSS (agent Kabar), analisis Claude (tugas terjadwal).
+
+## Batas yang tersisa (jujur)
+- Backtest 60 hari = satu rezim pasar; angka peluang bisa berubah saat rezim berganti (karena itu dikalibrasi ulang tiap hari dan dicek dengan rekam jejak live).
+- Backtest menganggap entry saat harga menyentuh zona, tanpa spread & tanpa syarat candle konfirmasi.
+- Bobot Kabar & Clara tetap kecil sampai arsip cukup untuk mengukurnya.
 
 ## Disclaimer
 Semua proyeksi adalah skenario probabilitas, **bukan kepastian dan bukan nasihat keuangan**. Trading emas berisiko tinggi. Gunakan stop loss dan uji di akun demo. Bila aplikasi dibagikan ke trader lain sebagai layanan sinyal, periksa aturan otoritas setempat.

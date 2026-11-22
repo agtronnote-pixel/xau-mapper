@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Uji mesin analisis & ekspor
         run: node kantor-pine/scripts/test-engine.mjs
 
@@ -39,16 +39,25 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+      - name: Data pasar (candle H1/M15 asli, DXY, yield riil, kalender)
+        run: node kantor-pine/scripts/build-market.mjs
       - name: Agent Kabar (berita RSS + skor sentimen)
         continue-on-error: true
         run: node kantor-pine/scripts/run-news.mjs
-      - name: Jalankan tim agent (mapping server)
+      - name: Backtest & kalibrasi (sekali sehari, otomatis dilewati bila masih baru)
+        continue-on-error: true
+        run: node kantor-pine/scripts/calibrate.mjs ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+      - name: Jalankan tim agent (mapping server + arsip)
         run: node kantor-pine/scripts/run-mapping.mjs
+      - name: Nilai mapping yang diarsipkan (rekam jejak live)
+        continue-on-error: true
+        run: node kantor-pine/scripts/score-archive.mjs
       - name: Simpan hasil
         run: |
           git config user.name "kantor-pine-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add kantor-pine/app/data kantor-pine/app/ea
-          git diff --cached --quiet || git commit -m "Mapping server $(date -u +'%Y-%m-%d %H:%M') UTC"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "Mapping server $(date -u +'%Y-%m-%d %H:%M') UTC"
+          git push || (git pull --rebase origin main && git push)

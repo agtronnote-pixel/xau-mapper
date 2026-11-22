@@ -86,6 +86,36 @@ nav button.on{color:var(--text)}
 .skel{color:var(--muted);text-align:center;padding:40px 0}
 .list-row{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px}
 .list-row:last-child{border-bottom:0}
+/* v3: kartu keputusan */
+.hero{padding:18px 16px 16px;border-width:1.5px}
+.hero.green{border-color:color-mix(in srgb,var(--green) 55%,var(--line))}.hero.red{border-color:color-mix(in srgb,var(--red) 55%,var(--line))}.hero.gold{border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.act-big{font-size:30px;font-weight:800;letter-spacing:-.8px;line-height:1}
+.act-big.green{color:var(--green)}.act-big.red{color:var(--red)}.act-big.gold{color:var(--gold)}
+.lead{font-size:15px;font-weight:550;margin-top:8px;line-height:1.4}
+.meter{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.meter>div{background:var(--panel2);border-radius:12px;padding:10px 12px}
+.meter .k{font-size:11.5px;color:var(--muted)}.meter .v{font-size:20px;font-weight:750;font-variant-numeric:tabular-nums;line-height:1.2}
+.meter .s{font-size:11.5px;color:var(--muted)}
+.segbar{display:flex;gap:3px;margin-top:6px}.segbar i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.why{margin:12px 0 0;padding:0;list-style:none;font-size:13.5px}
+.why li{display:flex;gap:8px;padding:3px 0}.why li b{flex:0 0 auto;width:16px;text-align:center}
+.note{font-size:12.5px;padding:8px 10px;border-radius:10px;background:var(--panel2);margin-top:8px}
+.note.warn{background:color-mix(in srgb,var(--gold) 13%,transparent)}.note.bad{background:color-mix(in srgb,var(--red) 11%,transparent);color:var(--red)}
+.votes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.vote{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 9px;border-radius:999px;background:var(--panel2);font-weight:600}
+.vote.up{color:var(--green)}.vote.dn{color:var(--red)}.vote.off{color:var(--muted);font-weight:500;opacity:.7}
+.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat3>div{background:var(--panel2);border-radius:12px;padding:10px;text-align:center}
+.stat3 b{display:block;font-size:18px;font-variant-numeric:tabular-nums}.stat3 span{font-size:11px;color:var(--muted)}
+.qdot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font-size:12px;padding:6px 10px;border-radius:10px;background:var(--panel2);white-space:nowrap}
+.chip.hi{background:color-mix(in srgb,var(--red) 12%,transparent);color:var(--red);font-weight:600}
+.contrib{display:grid;grid-template-columns:64px 1fr 44px;gap:8px;align-items:center;font-size:12.5px;padding:3px 0}
+.contrib .track{height:8px;background:var(--panel2);border-radius:4px;position:relative}
+.contrib .track i{position:absolute;top:0;bottom:0;border-radius:4px}
+.contrib .track:after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:var(--line)}
+.badge{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--panel2);color:var(--muted)}
 </style>
 </head>
 <body>

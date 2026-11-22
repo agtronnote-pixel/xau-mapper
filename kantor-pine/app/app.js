@@ -1,21 +1,25 @@
 // =====================================================================
-//  Kantor Pine XAUUSD — Aplikasi (PWA)
+//  Kantor Pine XAUUSD — Aplikasi (PWA) v3
+//  Beranda = keputusan dulu: aksi, kekuatan, peluang historis, kapan batal.
 // =====================================================================
-import { analyze, planState, positionSize, activeSessions, marketOpen, HZ } from './engine.js';
-import { loadMarket, loadSpot } from './data.js';
+import { analyze, planState, positionSize, activeSessions, marketOpen, mergeCandles, aggregate, PRIOR_WEIGHTS } from './engine.js';
+import { loadMarket, loadSpot, loadServer } from './data.js';
 import { buildEA, buildPine, mapSummary, makeMapImage, makeZip, EA_README, lastEAName, wib, num, hzLabel } from './exporters.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const store = { get: (k, d) => { try { const v = JSON.parse(localStorage.getItem(k)); return v ?? d; } catch { return d; } }, set: (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} } };
 function toast(m) { const t = $('toast'); t.textContent = m; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2600); }
+const pct = v => v == null ? '–' : Math.round(v * 100) + '%';
+const sgn = v => (v >= 0 ? '+' : '') + v.toFixed(2);
+const COL = { green: 'var(--green)', red: 'var(--red)', gold: 'var(--gold)' };
+const kCol = k => k >= 70 ? 'var(--green)' : k >= 50 ? 'var(--gold)' : 'var(--red)';
 
 // ---------- state ----------
 const S = {
   settings: store.get('kpx_settings', { balance: 1000, riskPct: 1, notif: false, remap: 60 }),
-  market: null, map: store.get('kpx_map_active', null), spot: null, spotAt: 0,
-  history: store.get('kpx_history', []), states: {}, source: '', planIdx: 0, projTab: 'chart',
-  news: store.get('kpx_news', null), claude: store.get('kpx_claude', null),
+  market: null, srv: {}, map: store.get('kpx_map_active', null), spot: null, spotAt: 0,
+  history: store.get('kpx_history', []), states: {}, source: '',
 };
 const saveSettings = () => store.set('kpx_settings', S.settings);
 
@@ -27,73 +31,40 @@ function go(v) {
 }
 $('nav').onclick = e => { const b = e.target.closest('button'); if (b) go(b.dataset.v); };
 window.kpx = { go };
-
 function setNet(cls, txt) { $('netDot').className = 'dot ' + cls; $('netTxt').textContent = txt; }
 function banner(msg) { const b = $('banner'); b.innerHTML = msg || ''; b.classList.toggle('show', !!msg); }
 
 // ---------- data & analisis ----------
-async function fetchMarket() {
-  const m = await loadMarket();
-  S.market = m; S.source = m.source; S.spot = m.spot; S.spotAt = m.spotAt;
-  store.set('kpx_market', { points: m.points.slice(-600), daily: [], spot: m.spot, spotAt: m.spotAt, source: m.source, state: m.state });
-  return m;
-}
+const ageH = iso => (Date.now() - Date.parse(iso)) / 3600e3;
+const agoTxt = iso => { const h = ageH(iso); return h < 1 ? `${Math.max(1, Math.round(h * 60))} menit lalu` : h < 48 ? `${Math.round(h)} jam lalu` : `${Math.round(h / 24)} hari lalu`; };
 function runMapping(m) {
-  const r = analyze({ points: m.points, daily: m.daily, spot: m.spot, now: new Date() });
-  r.sumber_harga = `${m.source}${m.state && m.state.status ? ' · ' + m.state.status : ''}`;
+  const srv = S.srv || {}, mk = srv.market || {};
+  const r = analyze({ points: m?.points || [], spot: m?.spot, daily: mk.daily?.length ? mk.daily : (m?.daily || []), h1: mk.h1, m15: mk.m15,
+    macro: mk.macro, calendar: mk.calendar, news: srv.news, claude: srv.claude, calib: srv.calib, kinerja: srv.kinerja, now: new Date() });
+  r.sumber_harga = m ? `${m.source} + candle server` : 'candle server GitHub (harga live tidak terjangkau)';
   S.map = r; S.states = {}; store.set('kpx_map_active', r);
-  S.history.unshift({ time: r.basis.time, price: r.basis.price, bias: r.bias, conf: r.keyakinan, proyeksi: r.proyeksi.map(p => ({ m: p.menit, h: p.harga })), plans: r.rencana.map(p => `${p.tipe} ${num(p.entry_bawah)}–${num(p.entry_atas)}${Number.isFinite(p.kekuatan) ? ` (${p.kekuatan}%)` : ''}`) });
+  S.history.unshift({ time: r.basis.dibuat, price: r.basis.price, bias: r.bias, conf: r.keyakinan, aksi: r.narasi?.aksi, k: r.kekuatan_sinyal });
   S.history = S.history.slice(0, 60); store.set('kpx_history', S.history);
   return r;
 }
-// Data pendukung dari GitHub: agent Kabar (RSS) & Analis Claude (tugas terjadwal).
-async function loadExtras() {
-  const get = async f => { try { const r = await fetch(`data/${f}`, { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch { return null; } };
-  const [n, c] = await Promise.all([get('berita.json'), get('analisis-claude.json')]);
-  if (n && n.dibuat) { S.news = n; store.set('kpx_news', n); }
-  if (c && c.dibuat) { S.claude = c; store.set('kpx_claude', c); }
-}
-const ageH = iso => (Date.now() - Date.parse(iso)) / 3600e3;
-const agoTxt = iso => { const h = ageH(iso); return h < 1 ? `${Math.max(1, Math.round(h * 60))} menit lalu` : h < 48 ? `${Math.round(h)} jam lalu` : `${Math.round(h / 24)} hari lalu`; };
-function extraAgents() {
-  const out = [];
-  if (S.news) out.push({ id: 'news', nama: 'Kabar', peran: 'Sentimen Berita (RSS)', skor: S.news.skor, keyakinan: Math.min(0.6, 0.2 + S.news.bermakna * 0.04),
-    ringkasan: `${S.news.label} · ${S.news.bermakna} berita bermakna · ${agoTxt(S.news.dibuat)}`, detail: [...S.news.berita.slice(0, 6).map(b => `${b.skor > 0 ? '▲' : b.skor < 0 ? '▼' : '•'} ${b.judul} (${b.sumber})`), S.news.catatan] });
-  if (S.claude) out.push({ id: 'claude', nama: 'Clara', peran: 'Analis Berita (Claude)', skor: S.claude.skor ?? 0, keyakinan: ageH(S.claude.dibuat) < 14 ? 0.7 : 0.3,
-    ringkasan: `${S.claude.sentimen} · ${S.claude.ringkasan}`, detail: [...(S.claude.poin || []), ...(S.claude.risiko || []).map(r => '⚠ ' + r), `Dibuat ${agoTxt(S.claude.dibuat)}${ageH(S.claude.dibuat) >= 14 ? ' (sudah lama — tunggu analisis berikutnya)' : ''}`] });
-  return out;
-}
-function newsCard() {
-  if (!S.news && !S.claude) return '';
-  const c = S.claude && ageH(S.claude.dibuat) < 24 ? S.claude : null, n = S.news;
-  const cls = v => v > 0.2 ? 'up' : v < -0.2 ? 'dn' : 'gold';
-  return `<div class="sec">Kabar & sentimen</div><div class="card">
-    ${c ? `<div class="row between"><b>Analisis Claude</b><span class="pill ${cls(c.skor ?? 0)}">${esc(c.sentimen)}</span></div>
-      <div style="font-size:13.5px;margin-top:6px">${esc(c.ringkasan)}</div>
-      ${(c.poin || []).slice(0, 3).map(x => `<div class="hint" style="margin-top:4px">• ${esc(x)}</div>`).join('')}
-      <div class="hint" style="margin-top:6px">${esc(c.sesi || '')} · ${agoTxt(c.dibuat)}</div>` : ''}
-    ${n ? `<div class="row between" style="${c ? 'margin-top:12px;padding-top:10px;border-top:1px solid var(--line)' : ''}"><b>Berita terkini</b><span class="pill ${cls(n.skor)}">${esc(n.label)}</span></div>
-      ${n.berita.slice(0, 3).map(b => `<div class="list-row"><a href="${esc(b.link)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${esc(b.judul)}</a><span class="${b.skor > 0 ? 'up' : b.skor < 0 ? 'dn' : 'hint'}" style="white-space:nowrap">${b.skor > 0 ? '▲' : b.skor < 0 ? '▼' : '•'}</span></div>`).join('')}
-      <div class="hint" style="margin-top:4px">Skor kata kunci (tanpa AI) · ${agoTxt(n.dibuat)}</div>` : ''}
-  </div>`;
-}
-
 async function refresh({ remap = false } = {}) {
   setNet('warn', 'Memperbarui…');
-  loadExtras().then(() => { renderHome(); renderTeam(); });
+  const srvP = loadServer().then(v => { S.srv = v; }).catch(() => {});
+  let m = null;
+  try { m = await loadMarket(); S.market = m; S.source = m.source; S.spot = m.spot; S.spotAt = m.spotAt; store.set('kpx_market', { points: m.points.slice(-600), spot: m.spot, spotAt: m.spotAt, source: m.source }); }
+  catch (e) { console.warn(e); }
+  await srvP;
   try {
-    const m = await fetchMarket();
-    const age = S.map ? (Date.now() - Date.parse(S.map.basis.time)) / 60000 : Infinity;
+    const age = S.map ? (Date.now() - Date.parse(S.map.basis.dibuat || S.map.basis.time)) / 60000 : Infinity;
     const reopened = S.map && S.map.gap && marketOpen(new Date()) && Date.now() >= Date.parse(S.map.basis.time);
-    if (remap || reopened || !S.map || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
-    banner(m.state && m.state.status === 'stale' ? 'Data sumber sedang tertunda (stale). Pasar mungkin tutup atau sumber terlambat.' : '');
-    setNet(marketOpen(new Date()) ? 'on' : 'warn', marketOpen(new Date()) ? 'Live' : 'Pasar tutup');
+    const old = S.map && S.map.engine !== undefined && !String(S.map.engine).startsWith('3');
+    if (remap || reopened || old || !S.map || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
+    banner(m ? '' : 'Harga live tidak terjangkau — analisis memakai candle server GitHub (diperbarui tiap jam).');
+    setNet(m ? (marketOpen(new Date()) ? 'on' : 'warn') : 'warn', m ? (marketOpen(new Date()) ? 'Live' : 'Pasar tutup') : 'Data server');
   } catch (e) {
     console.warn(e);
-    try {
-      const r = await (await fetch('data/latest.json', { cache: 'no-store' })).json();
-      if (r && r.basis) { S.map = r; banner(`Sumber harga tidak terjangkau. Menampilkan mapping server GitHub (${wib(new Date(r.basis.time))} WIB).`); }
-    } catch { banner(S.map ? 'Offline — menampilkan mapping terakhir yang tersimpan.' : 'Tidak bisa mengambil data pasar. Periksa koneksi internet lalu coba lagi.'); }
+    try { const r = await (await fetch('data/latest.json', { cache: 'no-store' })).json(); if (r && r.basis) { S.map = r; banner(`Menampilkan mapping server GitHub (${wib(new Date(r.basis.dibuat || r.basis.time))} WIB).`); } }
+    catch { banner(S.map ? 'Offline — menampilkan mapping terakhir yang tersimpan.' : 'Tidak bisa mengambil data pasar. Periksa koneksi internet lalu coba lagi.'); }
     if (!S.market) { const c = store.get('kpx_market', null); if (c) S.market = c; }
     setNet('off', 'Offline');
   }
@@ -112,7 +83,7 @@ function checkStates() {
   const t0 = Date.parse(S.map.basis.time);
   S.map.rencana.forEach((pl, i) => {
     const st = planState(pl, S.spot, Date.now(), t0), prev = S.states[i];
-    if (prev && prev !== st.kode && (st.kode === 'zone' || st.kode === 'sl')) notify(`${pl.tipe} ${pl.prioritas}`, st.teks);
+    if (prev && prev !== st.kode && (st.kode === 'zone' || st.kode === 'sl')) notify(`${pl.tipe} ${pl.prioritas} (${pl.kekuatan}%)`, st.teks);
     S.states[i] = st.kode;
   });
 }
@@ -123,150 +94,222 @@ async function notify(title, body) {
   try { const reg = await navigator.serviceWorker?.ready; reg ? reg.showNotification('XAUUSD · ' + title, { body, icon: 'icons/icon-192.png', tag: 'kpx-' + title }) : new Notification('XAUUSD · ' + title, { body }); } catch {}
 }
 
-// ---------- grafik ----------
-function chart(r, points, live, H = 230) {
-  const W = 360, L = 6, R = 54, T = 10, B = 26, split = 0.3;
+// ---------- grafik: 12 jam terakhir + proyeksi 24 jam + zona + level ----------
+function pastSeries() {
+  const live = aggregate(S.market?.points || [], 15);
+  return mergeCandles(S.srv?.market?.m15 || [], live).map(c => ({ t: c.t + 900, p: c.c }));
+}
+function chart(r, live, H = 230, opt = {}) {
+  const W = 360, L = 6, R = 54, T = 10, B = 26, split = 0.32;
+  const points = pastSeries();
   const p0 = r.basis.price, t0 = Date.parse(r.basis.time) / 1000;
-  const lastT = (points && points.length) ? points[points.length - 1].t : t0;
-  const tEnd = Math.min(t0, lastT);   // akhir pekan: data berhenti di penutupan Jumat
-  const past = (points || []).filter(x => x.t >= tEnd - 12 * 3600 && x.t <= tEnd);
+  const lastT = points.length ? points[points.length - 1].t : t0;
+  const tEnd = Math.min(t0, lastT);
+  const past = points.filter(x => x.t >= tEnd - 12 * 3600 && x.t <= tEnd);
   const fut = [{ m: 0, h: p0, lo: p0, hi: p0 }, ...r.proyeksi.map(p => ({ m: p.menit, h: p.harga, lo: p.bawah, hi: p.atas }))];
-  const plans = r.rencana || [], lv = (r.level || []);
+  const plans = (r.rencana || []).slice(0, opt.plans ?? 2), lv = opt.levels === false ? [] : (r.level || []);
   let vals = [...past.map(x => x.p), ...fut.flatMap(f => [f.lo, f.hi])];
-  plans.forEach(pl => vals.push(pl.entry_bawah, pl.entry_atas));
+  plans.forEach(pl => vals.push(pl.entry_bawah, pl.entry_atas, pl.sl, pl.tp1));
   if (live && Number.isFinite(live.price)) vals.push(live.price);
   let lo = Math.min(...vals), hi = Math.max(...vals);
-  lv.forEach(l => { if (l.harga > lo - (hi - lo) * .3 && l.harga < hi + (hi - lo) * .3) { lo = Math.min(lo, l.harga); hi = Math.max(hi, l.harga); } });
-  const pad = (hi - lo) * .08 || 1; lo -= pad; hi += pad;
+  const pad = (hi - lo) * .06 || 1; lo -= pad; hi += pad;
   const X0 = L + (W - L - R) * split, Y = v => T + (hi - v) * (H - T - B) / (hi - lo);
   const Xp = t => L + (t - (tEnd - 12 * 3600)) / (12 * 3600) * (X0 - L);
   const Xf = i => X0 + i * (W - R - X0) / (fut.length - 1);
   const Xm = m => { for (let i = 1; i < fut.length; i++) if (m <= fut[i].m) return Xf(i - 1) + (m - fut[i - 1].m) / (fut[i].m - fut[i - 1].m) * (Xf(i) - Xf(i - 1)); return Xf(fut.length - 1); };
-  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block" role="img" aria-label="Grafik proyeksi XAUUSD">`;
-  plans.forEach(pl => { const a = Math.max(pl.entry_bawah, pl.entry_atas), b = Math.min(pl.entry_bawah, pl.entry_atas), c = pl.tipe === 'SELL' ? 'var(--red)' : 'var(--green)';
-    const xe = Xm(Math.min(pl.berlaku_menit || 1440, 1440));
-    s += `<rect x="${X0}" y="${Y(a)}" width="${xe - X0}" height="${Math.max(Y(b) - Y(a), 2)}" fill="${c}" opacity=".14"/><text x="${X0 + 3}" y="${Y(a) - 3}" font-size="8.5" fill="${c}" font-weight="600">${pl.tipe}</text>`; });
-  lv.forEach(l => { if (l.harga < lo || l.harga > hi) return; const c = l.jenis === 'Resistance' ? 'var(--red)' : l.jenis === 'Support' ? 'var(--green)' : 'var(--muted)';
-    s += `<line x1="${L}" x2="${W - R}" y1="${Y(l.harga)}" y2="${Y(l.harga)}" stroke="${c}" stroke-dasharray="3 3" stroke-width=".8" opacity=".7"/><text x="${W - R + 3}" y="${Y(l.harga) + 3}" font-size="8.5" fill="${c}">${l.harga.toFixed(2)}</text>`; });
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block" role="img" aria-label="Grafik harga dan proyeksi XAUUSD">`;
+  lv.forEach(l => { if (l.harga < lo || l.harga > hi) return;
+    s += `<line x1="${L}" x2="${W - R}" y1="${Y(l.harga)}" y2="${Y(l.harga)}" stroke="var(--line)" stroke-width="1"/><text x="${W - R + 3}" y="${Y(l.harga) + 3}" font-size="8" fill="var(--muted)">${l.harga.toFixed(0)}</text>`; });
+  plans.forEach((pl, i) => { const a = Math.max(pl.entry_bawah, pl.entry_atas), b = Math.min(pl.entry_bawah, pl.entry_atas), c = pl.tipe === 'SELL' ? 'var(--red)' : 'var(--green)';
+    const xe = Xm(Math.min(pl.berlaku_menit || 1440, 1440)), op = i ? .1 : .2;
+    s += `<rect x="${L}" y="${Y(a)}" width="${xe - L}" height="${Math.max(Y(b) - Y(a), 2)}" fill="${c}" opacity="${op}"/>`;
+    if (!i) { s += `<line x1="${X0}" x2="${xe}" y1="${Y(pl.sl)}" y2="${Y(pl.sl)}" stroke="var(--red)" stroke-dasharray="4 3" stroke-width="1"/><text x="${xe - 2}" y="${Y(pl.sl) - 3}" font-size="8.5" fill="var(--red)" text-anchor="end">SL ${pl.sl.toFixed(0)}</text>`;
+      s += `<line x1="${X0}" x2="${xe}" y1="${Y(pl.tp1)}" y2="${Y(pl.tp1)}" stroke="var(--green)" stroke-dasharray="4 3" stroke-width="1"/><text x="${xe - 2}" y="${Y(pl.tp1) - 3}" font-size="8.5" fill="var(--green)" text-anchor="end">TP1 ${pl.tp1.toFixed(0)}</text>`; }
+    s += `<text x="${L + 3}" y="${Y(a) - 3}" font-size="9" fill="${c}" font-weight="700">${pl.tipe} ${pl.kekuatan ?? ''}${pl.kekuatan != null ? '%' : ''}</text>`; });
   s += `<polygon points="${fut.map((f, i) => `${Xf(i)},${Y(f.hi)}`).join(' ')} ${fut.map((f, i) => `${Xf(i)},${Y(f.lo)}`).reverse().join(' ')}" fill="var(--band)"/>`;
-  if (past.length > 1) s += `<polyline points="${past.map(x => `${Xp(x.t).toFixed(1)},${Y(x.p).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--muted)" stroke-width="1.4"/>`;
-  s += `<polyline points="${fut.map((f, i) => `${Xf(i)},${Y(f.h)}`).join(' ')}" fill="none" stroke="var(--text)" stroke-width="1.8" stroke-linejoin="round"/>`;
+  if (past.length > 1) s += `<polyline points="${past.map(x => `${Xp(x.t).toFixed(1)},${Y(x.p).toFixed(1)}`).join(' ')}" fill="none" stroke="var(--muted)" stroke-width="1.5"/>`;
+  s += `<polyline points="${fut.map((f, i) => `${Xf(i)},${Y(f.h)}`).join(' ')}" fill="none" stroke="var(--text)" stroke-width="2" stroke-linejoin="round"/>`;
   s += `<line x1="${X0}" x2="${X0}" y1="${T}" y2="${H - B}" stroke="var(--gold)" stroke-dasharray="2 3"/>`;
-  fut.forEach((f, i) => { s += `<circle cx="${Xf(i)}" cy="${Y(f.h)}" r="${i ? 2.2 : 3.5}" fill="${i ? 'var(--text)' : 'var(--gold)'}"/>`; });
-  [[-12, '-12j'], [-6, '-6j']].forEach(([h, t]) => { s += `<text x="${Xp(tEnd + h * 3600)}" y="${H - 9}" font-size="8.5" fill="var(--muted)" text-anchor="${h === -12 ? 'start' : 'middle'}">${t}</text>`; });
-  fut.forEach((f, i) => { if (i === 0 || [60, 240, 720, 1440].includes(f.m)) s += `<text x="${Xf(i)}" y="${H - 9}" font-size="8.5" fill="${i ? 'var(--muted)' : 'var(--gold)'}" text-anchor="middle">${i ? '+' + (f.m / 60) + 'j' : (r.gap ? 'Buka' : 'Mapping')}</text>`; });
-  s += `<text x="${W - R + 3}" y="${Y(p0) + 3}" font-size="8.5" fill="var(--gold)" font-weight="700">${p0.toFixed(2)}</text>`;
+  s += `<circle cx="${X0}" cy="${Y(p0)}" r="3.5" fill="var(--gold)"/>`;
+  s += `<text x="${L}" y="${H - 9}" font-size="8.5" fill="var(--muted)">-12j</text>`;
+  fut.forEach((f, i) => { if (i === 0 || [60, 240, 720, 1440].includes(f.m)) s += `<text x="${Xf(i)}" y="${H - 9}" font-size="8.5" fill="${i ? 'var(--muted)' : 'var(--gold)'}" text-anchor="middle">${i ? '+' + (f.m / 60) + 'j' : (r.gap ? 'Buka' : 'Kini')}</text>`; });
+  s += `<text x="${W - R + 3}" y="${Y(fut.at(-1).h) + 3}" font-size="8.5" fill="var(--text)" font-weight="700">${fut.at(-1).h.toFixed(0)}</text>`;
   if (live && Number.isFinite(live.price)) {
     const em = (live.at / 1000 - t0) / 60;
     if (em >= 0 && em <= 1440) { const x = Xm(em), y = Math.min(Math.max(Y(live.price), T), H - B);
-      s += `<line x1="${x}" x2="${x}" y1="${T}" y2="${H - B}" stroke="var(--blue)" stroke-dasharray="2 3" stroke-width=".8"/><circle cx="${x}" cy="${y}" r="4.5" fill="var(--blue)" stroke="var(--panel)" stroke-width="2"/>`; }
+      s += `<circle cx="${x}" cy="${y}" r="4.5" fill="var(--blue)" stroke="var(--panel)" stroke-width="2"/>`; }
   }
   return s + '</svg>';
 }
 
-// ---------- render: beranda ----------
-function biasText(b) { return b === 'BULLISH' ? '▲ BULLISH' : b === 'BEARISH' ? '▼ BEARISH' : '— SIDEWAYS'; }
-function biasCls(b) { return b === 'BULLISH' ? 'up' : b === 'BEARISH' ? 'dn' : 'gold'; }
-function renderHome() {
-  const r = S.map; const el = $('homeBody'); el.classList.remove('skel');
-  if (!r) { el.innerHTML = S.tried ? `<div class="skel">Belum ada data. <button class="btn sm" onclick="kpx.refresh()">Coba lagi</button></div>` : `<div class="skel">Tim agent sedang mengumpulkan data pasar…</div>`; el.classList.add('skel'); return; }
-  const p = Number.isFinite(S.spot) ? S.spot : r.basis.price, d = p - r.basis.price, t0 = Date.parse(r.basis.time);
-  const sess = activeSessions(new Date()).map(x => x.nama);
-  const main = r.rencana[0], st = main ? planState(main, p, Date.now(), t0) : null;
-  const ev = (r.agents.find(a => a.id === 'calendar')?.data.events || []).filter(e => new Date(e.t) > new Date()).slice(0, 2);
-  el.innerHTML = `
-  <div class="card">
-    <div class="row between"><span class="hint">XAUUSD · spot</span><span class="hint">${S.spotAt ? 'diperbarui ' + wib(new Date(S.spotAt)) + ' WIB' : ''}</span></div>
-    <div class="row between" style="margin-top:4px"><div class="big">${p.toFixed(2)}</div><span class="pill ${biasCls(r.bias)}">${biasText(r.bias)}</span></div>
-    <div class="row between" style="margin-top:2px">${r.gap && Date.now() < t0 ? `<span class="hint" style="font-weight:600">Harga penutupan Jumat</span>` : `<span class="${d >= 0 ? 'up' : 'dn'}" style="font-size:13px;font-weight:600">${d >= 0 ? '+' : ''}${d.toFixed(2)} sejak mapping ${wib(new Date(t0))}</span>`}<span class="hint">${marketOpen(new Date()) ? (sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi') : 'Pasar tutup'}</span></div>
-    <div class="gauge"><i style="left:${((r.skor + 1) / 2 * 100).toFixed(1)}%"></i></div>
-    <div class="row between hint"><span>Jual</span><span>Konsensus ${r.skor >= 0 ? '+' : ''}${r.skor.toFixed(2)} · keyakinan ${r.keyakinan}%${Number.isFinite(r.kekuatan_sinyal) ? ` · sinyal ${r.kekuatan_sinyal}%` : ''}</span><span>Beli</span></div>
-  </div>
-  ${r.gap ? gapCard(r) : ''}
-  <div class="card"><div style="font-size:14px">${esc(r.ringkasan)}</div>
-    <div style="margin-top:12px">${chart(r, S.market?.points, { price: p, at: S.spotAt || Date.now() }, 200)}</div>
-    <div class="hint" style="margin-top:4px">Abu-abu = harga 12 jam terakhir · hitam = proyeksi · titik biru = harga kini</div></div>
-  ${main ? `<div class="sec">Rencana utama</div>
-  <div class="card plan ${main.tipe}">
-    <div class="row between"><b class="${main.tipe === 'SELL' ? 'dn' : 'up'}">${main.tipe} · ${esc(main.prioritas)}</b><span class="hint">RR 1:${main.rr}</span></div>
-    <div class="grid3" style="margin-top:10px"><div>Entry<b>${num(main.entry_bawah)}–${num(main.entry_atas)}</b></div><div>Stop loss<b class="dn">${num(main.sl)}</b></div><div>TP1 / TP2<b class="up">${num(main.tp1)} / ${num(main.tp2)}</b></div></div>
-    ${strength(main)}
-    <div class="state ${st.kode}">${esc(st.teks)}</div>
-  </div>` : `<div class="card hint">Belum ada rencana entry yang layak. Tim menyarankan menunggu.</div>`}
-  ${newsCard()}
-  ${ev.length ? `<div class="sec">Rilis data berikutnya</div><div class="card">${ev.map(e => `<div class="list-row"><span>${esc(e.nama)}</span><span class="hint">${wib(new Date(e.t))} WIB</span></div>`).join('')}<div class="hint" style="margin-top:6px">Perkiraan pola rutin — cek kalender ekonomi resmi.</div></div>` : ''}
-  <div class="grid2" style="margin-top:4px"><button class="btn" onclick="kpx.remap()">Mapping baru</button><button class="btn ghost" onclick="kpx.shareImage()">Bagikan gambar</button></div>
-  <div class="hint" style="text-align:center;margin-top:10px">Mapping ${wib(new Date(t0))} WIB · sumber ${esc(r.sumber_harga || S.source || '-')}</div>`;
+// ---------- komponen ----------
+function segbar(k) { const n = Math.round(k / 10); return `<div class="segbar">${Array.from({ length: 10 }, (_, i) => `<i style="${i < n ? `background:${kCol(k)}` : ''}"></i>`).join('')}</div>`; }
+function votes(r) {
+  const dir = r.agents.filter(a => ['trend', 'momentum', 'structure', 'macro', 'news', 'claude'].includes(a.id));
+  const up = dir.filter(a => a.cukup && a.skor > 0.1), dn = dir.filter(a => a.cukup && a.skor < -0.1), off = dir.filter(a => !a.cukup);
+  return `<div class="votes">${dir.map(a => { const c = !a.cukup ? 'off' : a.skor > 0.1 ? 'up' : a.skor < -0.1 ? 'dn' : '';
+    return `<span class="vote ${c}" title="${esc(a.peran)}">${!a.cukup ? '○' : a.skor > 0.1 ? '▲' : a.skor < -0.1 ? '▼' : '–'} ${esc(a.nama)}</span>`; }).join('')}</div>
+    <div class="hint" style="margin-top:6px">${up.length} melihat naik · ${dn.length} melihat turun${off.length ? ` · ${off.length} tanpa data cukup` : ''}</div>`;
 }
-
+function qualityDot(r) {
+  const q = r.kualitas || {}; const bad = q.basi === 2 || q.konsisten === false, warn = q.basi === 1 || (q.agent_kurang || []).length > 2;
+  return { c: bad ? 'var(--red)' : warn ? 'var(--gold)' : 'var(--green)', t: bad ? 'Data bermasalah' : warn ? 'Data sebagian' : 'Data lengkap' };
+}
+function heroCard(r, p) {
+  const n = r.narasi || {}, main = r.rencana[0], t0 = Date.parse(r.basis.time), st = main ? planState(main, p, Date.now(), t0) : null;
+  const k = main?.kekuatan, pk = main?.peluang;
+  return `<div class="card hero ${n.warna || ''}">
+    <div class="row between"><span class="hint">Keputusan tim sekarang</span><span class="hint">${r.gap ? 'untuk pembukaan' : 'berlaku s/d ' + (main ? wib(new Date(t0 + main.berlaku_menit * 60000)) + ' WIB' : '-')}</span></div>
+    <div class="act-big ${n.warna || ''}" style="margin-top:8px">${esc(n.aksi || r.bias)}</div>
+    <div class="lead">${esc(n.judul || r.ringkasan)}</div>
+    ${main ? `<div class="meter">
+      <div><div class="k">Kekuatan sinyal</div><div class="v" style="color:${kCol(k)}">${k}%</div><div class="s">${esc(main.kekuatan_label)} · ${main.analis_searah} analis searah</div>${segbar(k)}</div>
+      <div><div class="k">Peluang TP1 duluan</div><div class="v">${pk != null ? pct(pk) : '–'}</div><div class="s">${pk != null ? `backtest ${main.peluang_sampel} sinyal serupa` : 'belum terkalibrasi'}</div>${pk != null ? segbar(pk * 100) : ''}</div>
+    </div>
+    <div class="grid3" style="margin-top:10px"><div>Zona ${main.tipe}<b>${num(main.entry_bawah)}–${num(main.entry_atas)}</b></div><div>Stop loss<b class="dn">${num(main.sl)}</b></div><div>TP1 · TP2<b class="up">${num(main.tp1)} · ${num(main.tp2)}</b></div></div>
+    ${st ? `<div class="state ${st.kode}">${esc(st.teks)}</div>` : ''}` : ''}
+    <ul class="why">${(n.kenapa || []).map(x => `<li><b class="${(n.warna === 'red') ? 'dn' : n.warna === 'green' ? 'up' : 'gold'}">✓</b><span>${esc(x[0].toUpperCase() + x.slice(1))}</span></li>`).join('')}
+      ${(n.penghambat || []).map(x => `<li><b class="hint">✕</b><span class="hint">Penghambat: ${esc(x)}</span></li>`).join('')}</ul>
+    ${n.batal ? `<div class="note"><b>Batal:</b> ${esc(n.batal.replace(/^Batal /, ''))} ${n.target ? `<br><b>Target:</b> ${esc(n.target)}` : ''}</div>` : ''}
+    ${n.waspada ? `<div class="note warn">⚠ ${esc(n.waspada)}</div>` : ''}
+    ${(r.kualitas?.basi === 2) ? `<div class="note bad">${esc(r.peringatan_list?.[0] || 'Data basi')}</div>` : ''}
+    <div class="hint" style="margin-top:8px">${esc(n.keandalan || '')}</div>
+  </div>`;
+}
+function trackCard(compact = true) {
+  const c = S.srv?.calib, k = S.srv?.kinerja;
+  if (!c?.rencana && !k?.d30?.tersentuh) return '';
+  const R = c?.rencana?.oos || c?.rencana, L = k?.d30;
+  return `<div class="sec">Rekam jejak sistem</div><div class="card">
+    <div class="stat3">
+      <div><b>${R ? pct(R.winrate) : '–'}</b><span>TP1 duluan (uji)</span></div>
+      <div><b class="${R && R.ekspektasi_R >= 0 ? 'up' : 'dn'}">${R ? sgn(R.ekspektasi_R) + 'R' : '–'}</b><span>rata-rata/trade</span></div>
+      <div><b>${c?.arah ? pct(c.arah.h4) : '–'}</b><span>arah 4 jam tepat</span></div>
+    </div>
+    <div class="hint" style="margin-top:8px">Backtest ${esc(c?.periode || '')} · ${R ? R.tersentuh : 0} trade di data uji yang tidak dipakai kalibrasi.${L?.tersentuh ? ` Live 30 hari: ${L.tersentuh} trade, TP1 duluan ${pct(L.winrate)}, ${sgn(L.ekspektasi_R)}R.` : ' Rekam jejak live mulai terkumpul sejak versi ini.'}</div>
+    ${compact ? `<button class="btn ghost sm" style="margin-top:10px" onclick="kpx.go('more')">Lihat detail</button>` : ''}
+  </div>`;
+}
+function eventsCard(r) {
+  const ev = (r.agents.find(a => a.id === 'calendar')?.data.events || []).filter(e => new Date(e.t) > new Date(Date.now() - 45 * 60e3)).slice(0, 6);
+  if (!ev.length) return '';
+  return `<div class="sec">Rilis data 24 jam ke depan</div><div class="chips">${ev.map(e => `<span class="chip ${e.dampak === 'tinggi' ? 'hi' : ''}">${wib(new Date(e.t))} · ${esc(e.nama)}</span>`).join('')}</div>`;
+}
+function newsCard() {
+  const c = S.srv?.claude && ageH(S.srv.claude.dibuat) < 24 ? S.srv.claude : null, n = S.srv?.news;
+  if (!c && !n) return '';
+  const cls = v => v > 0.2 ? 'up' : v < -0.2 ? 'dn' : 'gold';
+  return `<div class="sec">Kabar & sentimen</div><div class="card">
+    ${c ? `<div class="row between"><b>Analisis Claude</b><span class="pill ${cls(c.skor ?? 0)}">${esc(c.sentimen)}</span></div>
+      <div style="font-size:13.5px;margin-top:6px">${esc(c.ringkasan)}</div>
+      ${(c.poin || []).slice(0, 3).map(x => `<div class="hint" style="margin-top:4px">• ${esc(x)}</div>`).join('')}
+      <div class="hint" style="margin-top:6px">${esc(c.sesi || '')} · ${agoTxt(c.dibuat)}</div>` : ''}
+    ${n ? `<div class="row between" style="${c ? 'margin-top:12px;padding-top:10px;border-top:1px solid var(--line)' : ''}"><b>Berita terkini</b><span class="pill ${cls(n.skor)}">${esc(n.label)}</span></div>
+      ${(n.berita || []).slice(0, 3).map(b => `<div class="list-row"><a href="${esc(b.link)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none">${esc(b.judul)}</a><span class="${b.skor > 0 ? 'up' : b.skor < 0 ? 'dn' : 'hint'}" style="white-space:nowrap">${b.skor > 0 ? '▲' : b.skor < 0 ? '▼' : '•'}</span></div>`).join('')}
+      <div class="hint" style="margin-top:4px">Skor kata kunci (tanpa AI) · ${agoTxt(n.dibuat)}</div>` : ''}
+  </div>`;
+}
 function gapCard(r) {
   const g = r.gap, open = Date.parse(g.buka), ms = open - Date.now();
   const sisa = ms > 0 ? `${Math.floor(ms / 3600e3)} jam ${Math.floor(ms % 3600e3 / 60e3)} menit lagi` : 'sudah buka — buat mapping baru';
-  const hari = new Date(open).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', weekday: 'long', hour: '2-digit', minute: '2-digit' });
   return `<div class="card">
-    <div class="row between"><b>Proyeksi pembukaan</b><span class="pill gold">${esc(hari)} WIB</span></div>
-    <div class="hint" style="margin-top:2px">Pasar buka ${sisa}</div>
+    <div class="row between"><b>Skenario pembukaan</b><span class="pill gold">buka ${sisa}</span></div>
     <div class="grid3" style="margin-top:10px"><div>Penutupan<b>${num(g.penutupan)}</b></div><div>Range terakhir<b>${num(g.range_hari_terakhir.low)}–${num(g.range_hari_terakhir.high)}</b></div><div>Minggu ini<b class="${(g.perubahan_mingguan_pct ?? 0) >= 0 ? 'up' : 'dn'}">${g.perubahan_mingguan_pct == null ? '-' : (g.perubahan_mingguan_pct >= 0 ? '+' : '') + g.perubahan_mingguan_pct.toFixed(2) + '%'}</b></div></div>
     <div style="font-size:13.5px;margin-top:10px">Harga ${esc(g.kondisi)}. ${esc(g.kecenderungan)}</div>
     ${g.skenario.map(x => `<div class="list-row" style="display:block"><b>${esc(x.nama)}</b> <span class="hint">· ${esc(x.kondisi)}</span><div style="font-size:13px;margin-top:2px">${esc(x.aksi)}</div></div>`).join('')}
-    <div class="hint" style="margin-top:8px">${esc(g.catatan)}</div>
   </div>`;
+}
+
+// ---------- render: beranda ----------
+function renderHome() {
+  const r = S.map; const el = $('homeBody'); el.classList.remove('skel');
+  if (!r) { el.innerHTML = S.tried ? `<div class="skel">Belum ada data. <button class="btn sm" onclick="kpx.refresh()">Coba lagi</button></div>` : `<div class="skel">Tim agent sedang mengumpulkan data pasar…</div>`; el.classList.add('skel'); return; }
+  if (!r.narasi) { el.innerHTML = `<div class="skel">Memperbarui ke mesin v3… <button class="btn sm" onclick="kpx.remap()">Mapping baru</button></div>`; return; }
+  const p = Number.isFinite(S.spot) ? S.spot : r.basis.price, d = p - r.basis.price, t0 = Date.parse(r.basis.dibuat || r.basis.time);
+  const sess = activeSessions(new Date()).map(x => x.nama), q = qualityDot(r);
+  el.innerHTML = `
+  <div class="row between" style="margin:0 2px 10px;align-items:flex-end">
+    <div><div class="hint">XAUUSD spot</div><div class="big">${p.toFixed(2)}</div></div>
+    <div style="text-align:right"><div class="${d >= 0 ? 'up' : 'dn'}" style="font-weight:650;font-size:14px">${r.gap ? 'tutup Jumat' : `${d >= 0 ? '+' : ''}${d.toFixed(2)} sejak ${wib(new Date(t0))}`}</div>
+      <div class="hint">${marketOpen(new Date()) ? (sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi') : 'Pasar tutup'}</div>
+      <div class="hint"><span class="qdot" style="background:${q.c}"></span>${q.t}</div></div>
+  </div>
+  ${heroCard(r, p)}
+  ${r.gap ? gapCard(r) : ''}
+  <div class="sec">Peta 24 jam</div>
+  <div class="card">${chart(r, { price: S.spot, at: S.spotAt || Date.now() }, 220)}
+    <div class="hint" style="margin-top:6px">Garis abu = 12 jam terakhir · garis tebal = jalur proyeksi · area emas = rentang 80% · kotak = zona entry</div></div>
+  <div class="sec">Suara tim analis</div><div class="card">${votes(r)}</div>
+  ${eventsCard(r)}
+  ${trackCard(true)}
+  ${newsCard()}
+  <div class="grid2" style="margin-top:14px"><button class="btn" onclick="kpx.remap()">Mapping baru</button><button class="btn ghost" onclick="kpx.shareImage()">Bagikan gambar</button></div>
+  <div class="hint" style="text-align:center;margin-top:10px">Mapping ${wib(new Date(t0))} WIB · mesin v${esc(r.engine)} · bukan nasihat keuangan</div>`;
 }
 
 // ---------- render: proyeksi ----------
 function renderProj() {
-  const r = S.map, el = $('projBody'); el.classList.remove('skel'); if (!r) return;
+  const r = S.map, el = $('projBody'); el.classList.remove('skel'); if (!r || !r.narasi) return;
   const t0 = Date.parse(r.basis.time), at = m => wib(new Date(t0 + m * 60000)), p0 = r.basis.price;
+  const kal = r.proyeksi.some(p => p.kalibrasi);
   el.innerHTML = `
-  <div class="card">${chart(r, S.market?.points, { price: S.spot, at: S.spotAt || Date.now() }, 260)}
-    <div class="hint" style="margin-top:6px">Area emas = rentang kemungkinan · hijau/merah = zona entry · garis putus = level kunci</div></div>
+  <div class="card">${chart(r, { price: S.spot, at: S.spotAt || Date.now() }, 280, { plans: 3 })}
+    <div class="hint" style="margin-top:6px">Rentang ${kal ? '80% hasil backtest: 8 dari 10 kali harga berakhir di area ini' : 'perkiraan volatilitas (belum terkalibrasi)'}.</div></div>
   <div class="sec">Proyeksi per waktu</div>
-  <div class="card" style="padding:6px 12px"><table><tr><th>Waktu</th><th>Proyeksi</th><th>Rentang</th></tr>
+  <div class="card" style="padding:6px 12px"><table><tr><th>Waktu</th><th>Jalur</th><th>Rentang ${kal ? '80%' : ''}</th></tr>
   ${r.proyeksi.map(p => { const d = p.harga - p0; return `<tr><td>+${hzLabel(p.menit)}<br><span class="hint">${at(p.menit)}</span></td><td class="${d >= 0 ? 'up' : 'dn'}"><b>${num(p.harga)}</b><br><small>${d >= 0 ? '+' : ''}${d.toFixed(2)}</small></td><td>${num(p.bawah)} – ${num(p.atas)}</td></tr>`; }).join('')}</table></div>
   <div class="sec">Jadwal aksi 24 jam</div>
   <div class="card" style="padding:6px 12px"><table>${r.jadwal.map(j => `<tr><td style="white-space:nowrap">${at(j.menit_mulai)}–${at(j.menit_akhir)}</td><td><span class="act ${j.aksi.split(' ')[0]}">${j.aksi}</span><br><span style="font-size:12.5px">${esc(j.detail)}</span></td></tr>`).join('')}</table></div>
   <div class="sec">Level kunci</div>
-  <div class="card" style="padding:6px 12px"><table>${r.level.map(l => `<tr><td class="${l.jenis === 'Resistance' ? 'dn' : l.jenis === 'Support' ? 'up' : ''}">${l.jenis}</td><td><b>${num(l.harga)}</b></td><td class="hint">${esc(l.catatan)}</td></tr>`).join('')}</table></div>
+  <div class="card" style="padding:6px 12px"><table>${r.level.map(l => `<tr><td class="${l.jenis === 'Resistance' ? 'dn' : l.jenis === 'Support' ? 'up' : ''}">${l.jenis}</td><td><b>${num(l.harga)}</b></td><td class="hint">${esc(l.catatan)}</td></tr>`).join('')}</table>
+    <div class="hint" style="padding:6px 0">PDH/PDL & pivot memakai candle harian versi broker (berganti 17.00 New York).</div></div>
   <div class="card"><b>Invalidasi:</b> ${esc(r.invalidasi)}<br><b>Peringatan:</b> ${esc(r.peringatan)}</div>`;
 }
 
 // ---------- render: tim agent ----------
 function renderTeam() {
-  const r = S.map, el = $('teamBody'); el.classList.remove('skel'); if (!r) return;
-  const dir = new Set(['chief', 'trend', 'momentum', 'structure', 'news', 'claude']);
-  el.innerHTML = `<div class="hint" style="margin:0 2px 10px">${r.agents.length} agent bekerja di perangkat Anda${extraAgents().length ? ` + ${extraAgents().length} agent berita dari server` : ''}. Ketuk agent untuk melihat alasannya.</div>` +
-  [...r.agents, ...extraAgents()].map(a => `<details class="card agent-card"><summary><div class="agent ${a.id === 'chief' ? 'chief' : ''}"><div class="av">${esc(a.nama[0])}</div><div>
-    <div class="row between"><b>${esc(a.nama)}</b><span class="hint">${Math.round(a.keyakinan * 100)}% yakin</span></div>
+  const r = S.map, el = $('teamBody'); el.classList.remove('skel'); if (!r || !r.narasi) return;
+  const chief = r.agents.find(a => a.id === 'chief'), W = chief?.data?.bobot || PRIOR_WEIGHTS;
+  const dirA = r.agents.filter(a => W[a.id] != null);
+  const maxC = Math.max(0.01, ...dirA.filter(a => a.cukup).map(a => Math.abs(a.skor * W[a.id])));
+  el.innerHTML = `<div class="card"><div class="row between"><b>Konsensus Rina</b><span class="pill ${r.bias === 'BULLISH' ? 'up' : r.bias === 'BEARISH' ? 'dn' : 'gold'}">${r.bias} · ${r.keyakinan}%</span></div>
+    <div class="hint" style="margin:4px 0 10px">Kontribusi tiap analis = skor × bobot${S.srv?.calib?.bobot ? ' (bobot dari backtest)' : ''}. Kanan = mendorong naik, kiri = turun.</div>
+    ${dirA.map(a => { const c = a.cukup ? a.skor * W[a.id] : 0, w = Math.abs(c) / maxC * 50;
+      return `<div class="contrib"><span>${esc(a.nama)}</span><div class="track">${a.cukup ? `<i style="${c >= 0 ? 'left:50%' : `left:${50 - w}%`};width:${w}%;background:${c >= 0 ? 'var(--green)' : 'var(--red)'}"></i>` : ''}</div><span class="hint" style="text-align:right">${a.cukup ? (W[a.id] * 100).toFixed(0) + '%' : 'off'}</span></div>`; }).join('')}
+  </div>
+  <div class="hint" style="margin:14px 2px 10px">Ketuk agent untuk melihat alasannya.</div>` +
+  r.agents.map(a => `<details class="card agent-card"><summary><div class="agent ${a.id === 'chief' ? 'chief' : ''}"><div class="av">${esc(a.nama[0])}</div><div>
+    <div class="row between"><b>${esc(a.nama)}</b>${a.cukup === false ? '<span class="badge">tidak ikut</span>' : `<span class="hint">${Math.round(a.keyakinan * 100)}% yakin</span>`}</div>
     <div class="hint" style="margin-top:-2px">${esc(a.peran)}</div>
     <div style="font-size:13.5px;margin-top:6px">${esc(a.ringkasan)}</div>
-    ${dir.has(a.id) ? `<div class="bar" style="margin-top:8px"><i style="left:${a.skor >= 0 ? 50 : 50 + a.skor * 50}%;width:${Math.abs(a.skor) * 50}%;background:${a.skor >= 0 ? 'var(--green)' : 'var(--red)'}"></i></div>` : ''}
   </div></div></summary><ul class="d">${a.detail.map(x => `<li>${esc(x)}</li>`).join('')}</ul></details>`).join('');
 }
 
 // ---------- render: rencana ----------
-function strength(pl) {
-  if (!Number.isFinite(pl?.kekuatan)) return '';
-  const c = pl.kekuatan >= 70 ? 'var(--green)' : pl.kekuatan >= 50 ? 'var(--gold)' : 'var(--red)';
-  return `<div class="row between" style="margin-top:10px;font-size:12.5px"><span class="hint">Kekuatan sinyal</span><b style="color:${c}">${pl.kekuatan}% · ${esc(pl.kekuatan_label || '')}</b></div>
-    <div class="bar" style="margin-top:4px"><i style="left:0;width:${pl.kekuatan}%;background:${c}"></i></div>`;
-}
-
-function renderPlan() {
-  const r = S.map, el = $('planBody'); el.classList.remove('skel'); if (!r) return;
-  const pls = r.rencana;
-  el.innerHTML = (pls.length ? pls.map((pl, i) => `
-  <div class="card plan ${pl.tipe}">
-    <div class="row between"><b class="${pl.tipe === 'SELL' ? 'dn' : 'up'}">${pl.tipe} · ${esc(pl.prioritas)}</b><span class="hint">berlaku s/d ${wib(new Date(Date.parse(r.basis.time) + pl.berlaku_menit * 60000))} WIB</span></div>
+function planCard(pl, i, r) {
+  const t0 = Date.parse(r.basis.time);
+  return `<div class="card plan ${pl.tipe}">
+    <div class="row between"><b class="${pl.tipe === 'SELL' ? 'dn' : 'up'}">${i === 0 ? '★ ' : ''}${pl.tipe} · ${esc(pl.prioritas)}</b><span class="hint">s/d ${wib(new Date(t0 + pl.berlaku_menit * 60000))} WIB</span></div>
+    <div class="meter">
+      <div><div class="k">Kekuatan</div><div class="v" style="color:${kCol(pl.kekuatan)}">${pl.kekuatan}%</div><div class="s">${esc(pl.kekuatan_label)}</div>${segbar(pl.kekuatan)}</div>
+      <div><div class="k">Peluang TP1 duluan</div><div class="v">${pl.peluang != null ? pct(pl.peluang) : '–'}</div><div class="s">${pl.peluang != null ? `${pl.peluang_sampel} sampel · ${sgn(pl.ekspektasi_R)}R` : 'belum terkalibrasi'}</div></div>
+    </div>
     <div class="grid3" style="margin-top:10px"><div>Entry<b>${num(pl.entry_bawah)}–${num(pl.entry_atas)}</b></div><div>Stop loss<b class="dn">${num(pl.sl)}</b></div><div>TP1 / TP2<b class="up">${num(pl.tp1)} / ${num(pl.tp2)}</b></div></div>
-    ${strength(pl)}
-    <div style="font-size:13px;margin-top:10px"><b>RR:</b> 1:${pl.rr} · <b>Alasan:</b> ${esc(pl.alasan)}<br><b>Konfirmasi:</b> ${esc(pl.trigger)}<br><b>Manajemen:</b> ${esc(pl.manajemen)}</div>
+    <div style="font-size:13px;margin-top:10px"><b>Kenapa:</b> ${esc(pl.alasan)} · RR 1:${pl.rr} · ${pl.analis_searah} analis searah, ${pl.analis_berlawanan} berlawanan<br><b>Konfirmasi:</b> ${esc(pl.trigger)}<br><b>Manajemen:</b> ${esc(pl.manajemen)}</div>
+    ${pl.rilis?.length ? `<div class="note warn">⚠ Ada rilis berdampak tinggi dalam masa berlaku: ${esc(pl.rilis.join(', '))}</div>` : ''}
     <div class="state" id="pst${i}"></div>
-  </div>`).join('') : `<div class="card hint">Belum ada rencana entry yang layak.</div>`) + `
+  </div>`;
+}
+function renderPlan() {
+  const r = S.map, el = $('planBody'); el.classList.remove('skel'); if (!r || !r.narasi) return;
+  const pls = r.rencana;
+  el.innerHTML = `<div class="hint" style="margin:0 2px 10px">Diurutkan dari sinyal terkuat. ★ = rencana yang dipakai di Beranda & EA.</div>` +
+  (pls.length ? pls.map((pl, i) => planCard(pl, i, r)).join('') : `<div class="card hint">Belum ada rencana entry yang layak.</div>`) + `
   <div class="sec">Kalkulator lot</div>
   <div class="card">
     <div class="grid2"><div><label class="f">Modal (USD)</label><input type="number" id="cBal" value="${S.settings.balance}" inputmode="decimal"></div>
     <div><label class="f">Risiko per transaksi (%)</label><input type="number" id="cRisk" value="${S.settings.riskPct}" step="0.1" inputmode="decimal"></div></div>
-    ${pls.length ? `<label class="f">Rencana</label><select id="cPlan">${pls.map((p, i) => `<option value="${i}">${p.tipe} ${esc(p.prioritas)}</option>`).join('')}</select>` : ''}
+    ${pls.length ? `<label class="f">Rencana</label><select id="cPlan">${pls.map((p, i) => `<option value="${i}">${p.tipe} ${esc(p.prioritas)} (${p.kekuatan}%)</option>`).join('')}</select>` : ''}
     <div id="cOut" style="margin-top:12px;font-size:14px"></div>
     <div class="hint" style="margin-top:6px">Asumsi 1 lot = 100 oz (standar broker umum). Cek spesifikasi kontrak broker Anda.</div>
   </div>
@@ -274,7 +317,7 @@ function renderPlan() {
   <div class="card">
     <div class="grid2"><button class="btn" onclick="kpx.shareImage()">Gambar ringkasan</button><button class="btn ghost" onclick="kpx.shareText()">Teks ringkasan</button></div>
     <div class="grid2" style="margin-top:8px"><button class="btn ghost" onclick="kpx.downloadEA()">EA MT5 (.zip)</button><button class="btn ghost" onclick="kpx.copyPine()">Indikator Pine</button></div>
-    <div class="hint" style="margin-top:8px">EA berlaku 24 jam sesuai mapping. Uji di akun demo dulu. Indikator Pine: tempel di Pine Editor TradingView.</div>
+    <div class="hint" style="margin-top:8px">EA hanya entry pada rencana dengan kekuatan ≥ 55% (bisa diubah) dan menyesuaikan selisih harga broker otomatis. Uji di akun demo dulu.</div>
   </div>`;
   const calc = () => {
     S.settings.balance = +$('cBal').value || 0; S.settings.riskPct = +$('cRisk').value || 0; saveSettings();
@@ -293,43 +336,38 @@ function renderPlanLive() {
 // ---------- render: lainnya ----------
 let installEvt = null;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; renderMore(); });
-function accuracy() {
-  const pts = S.market?.points || []; if (!pts.length) return null;
-  let hit = 0, n = 0;
-  for (const h of S.history) {
-    const t0 = Date.parse(h.time) / 1000;
-    for (const pr of h.proyeksi.filter(x => [60, 240].includes(x.m))) {
-      const target = t0 + pr.m * 60, near = pts.reduce((b, x) => Math.abs(x.t - target) < Math.abs(b.t - target) ? x : b, pts[0]);
-      if (Math.abs(near.t - target) > 600 || target > Date.now() / 1000) continue;
-      const pd = Math.sign(pr.h - h.price), ad = Math.sign(near.p - h.price); if (!pd || !ad) continue;
-      n++; if (pd === ad) hit++;
-    }
-  }
-  return n ? { pct: Math.round(hit / n * 100), n } : null;
-}
 function renderMore() {
-  const acc = accuracy(), isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent), standalone = matchMedia('(display-mode: standalone)').matches;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent), standalone = matchMedia('(display-mode: standalone)').matches;
+  const c = S.srv?.calib, k = S.srv?.kinerja, r = S.map, q = r?.kualitas || {}, mk = S.srv?.market;
   $('moreBody').innerHTML = `
-  <div class="sec" style="margin-top:4px">Pengaturan</div>
+  ${trackCard(false)}
+  ${c?.kekuatan ? `<div class="sec">Kekuatan sinyal vs hasil backtest</div><div class="card" style="padding:6px 12px"><table><tr><th>Kekuatan</th><th>Trade</th><th>TP1 duluan</th><th>Rata-rata</th></tr>
+    ${c.kekuatan.map(b => `<tr><td>${b.dari}–${b.sampai - 1}%</td><td>${b.n}</td><td><b>${pct(b.peluang)}</b></td><td class="${b.ekspektasi_R >= 0 ? 'up' : 'dn'}">${sgn(b.ekspektasi_R)}R</td></tr>`).join('')}</table>
+    <div class="hint" style="padding:6px 0">${esc(c.catatan)}</div></div>` : ''}
+  ${k?.terakhir?.length ? `<div class="sec">Trade live terakhir (dinilai otomatis)</div><div class="card">${k.terakhir.map(x => `<div class="list-row"><span>${new Date(x.t).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })} · ${x.tipe} ${esc(x.entry)}</span><span class="${x.R > 0 ? 'up' : x.R < 0 ? 'dn' : 'hint'}">${x.hasil} ${sgn(x.R)}R</span></div>`).join('')}</div>` : ''}
+  <div class="sec">Kualitas data</div>
+  <div class="card">
+    <div class="list-row"><span>Umur data harga</span><span class="${q.basi ? 'dn' : 'hint'}">${q.umur_menit ?? '–'} menit</span></div>
+    <div class="list-row"><span>Candle H1 / M15</span><span class="hint">${q.candle_h1 ?? '–'} / ${q.candle_m15 ?? '–'}</span></div>
+    <div class="list-row"><span>Titik harga live</span><span class="hint">${q.titik_live ?? 0}</span></div>
+    <div class="list-row"><span>Agent tanpa data cukup</span><span class="hint">${(q.agent_kurang || []).join(', ') || 'tidak ada'}</span></div>
+    <div class="list-row"><span>Kalender</span><span class="hint">${q.kalender_asli ? 'ForexFactory' : 'perkiraan pola'}</span></div>
+    <div class="list-row"><span>Data server</span><span class="hint">${mk?.dibuat ? agoTxt(mk.dibuat) : 'belum dimuat'}</span></div>
+    ${mk ? `<div class="list-row"><span>Selisih futures → spot</span><span class="hint">${mk.offset} (${mk.offset_sampel} sampel)</span></div>` : ''}
+    <div class="hint" style="margin-top:6px">Harga: xaus.com (spot, live) + candle Yahoo GC=F (disesuaikan ke spot). Makro: Yahoo DXY & FRED. Harga indikatif, cocokkan dengan MT5 Anda.</div>
+  </div>
+  <div class="sec">Pengaturan</div>
   <div class="card">
     <div class="switch"><span>Notifikasi zona entry & SL</span><input type="checkbox" id="sNotif" ${S.settings.notif ? 'checked' : ''}></div>
     <div class="switch"><span>Mapping otomatis tiap</span><select id="sRemap" style="width:auto"><option value="30">30 menit</option><option value="60">1 jam</option><option value="240">4 jam</option><option value="0">Manual</option></select></div>
-    <div class="hint" style="margin-top:6px">Harga diperbarui tiap ±1 menit selama aplikasi terbuka. Notifikasi muncul saat aplikasi terbuka atau di latar belakang singkat.</div>
   </div>
   ${standalone ? '' : `<div class="sec">Install ke HP</div><div class="card">
-    ${installEvt ? `<button class="btn" id="bInstall">Install aplikasi</button>` : isIOS ? `<div style="font-size:14px">Di Safari: ketuk tombol <b>Bagikan</b> lalu <b>Tambahkan ke Layar Utama</b>.</div>` : `<div style="font-size:14px">Buka menu browser (⋮) lalu pilih <b>Install aplikasi</b> / <b>Tambahkan ke layar utama</b>.</div>`}
+    ${installEvt ? `<button class="btn" id="bInstall">Install aplikasi</button>` : isIOS ? `<div style="font-size:14px">Di Safari: ketuk <b>Bagikan</b> lalu <b>Tambahkan ke Layar Utama</b>.</div>` : `<div style="font-size:14px">Buka menu browser (⋮) lalu pilih <b>Install aplikasi</b>.</div>`}
   </div>`}
-  <div class="sec">Riwayat mapping</div>
-  <div class="card">${acc ? `<div style="font-size:14px;margin-bottom:6px">Ketepatan arah proyeksi 1–4 jam: <b>${acc.pct}%</b> <span class="hint">(${acc.n} sampel)</span></div>` : ''}
-    ${S.history.length ? S.history.slice(0, 12).map(h => `<div class="list-row"><span>${new Date(h.time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', dateStyle: 'short', timeStyle: 'short' })}</span><span class="${biasCls(h.bias)}">${h.bias}</span><span class="hint">${num(h.price)} · ${h.conf}%</span></div>`).join('') : '<div class="hint">Belum ada riwayat.</div>'}
-  </div>
-  <div class="sec">Sumber data</div>
-  <div class="card"><div class="list-row"><span>Harga XAU/USD</span><span class="hint">${esc(S.source || 'xaus.com')}</span></div>
-    <div class="list-row"><span>Titik intraday</span><span class="hint">${S.market?.points?.length || 0} (tiap 5 menit)</span></div>
-    <div class="list-row"><span>Mesin analisis</span><span class="hint">v${esc(S.map?.engine || '-')} · di perangkat</span></div>
-    <div class="hint" style="margin-top:6px">Harga indikatif mid-market, bukan kuotasi broker. Selalu cocokkan dengan harga MT5 Anda.</div></div>
+  <div class="sec">Riwayat mapping di HP ini</div>
+  <div class="card">${S.history.length ? S.history.slice(0, 10).map(h => `<div class="list-row"><span>${new Date(h.time).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', dateStyle: 'short', timeStyle: 'short' })}</span><span>${esc(h.aksi || h.bias)}</span><span class="hint">${num(h.price)}${h.k != null ? ` · ${h.k}%` : ''}</span></div>`).join('') : '<div class="hint">Belum ada riwayat.</div>'}</div>
   <div class="sec">Tentang</div>
-  <div class="card" style="font-size:13.5px">Kantor Pine XAUUSD adalah tim agent analisis kuantitatif yang berjalan sepenuhnya di perangkat Anda, tanpa akun dan tanpa API key. Kode sumber dikelola di GitHub.<br><br><b>Disclaimer:</b> semua proyeksi adalah skenario probabilitas, bukan kepastian dan bukan nasihat keuangan. Trading emas berisiko tinggi; gunakan stop loss dan uji di akun demo.</div>`;
+  <div class="card" style="font-size:13.5px">Kantor Pine XAUUSD: tim agent analisis kuantitatif yang berjalan di perangkat Anda, tanpa akun dan tanpa API key. Bobot agent dan peluang sinyal dikalibrasi ulang tiap hari dari backtest, dan setiap mapping dinilai otomatis.<br><br><b>Disclaimer:</b> proyeksi adalah skenario probabilitas, bukan kepastian dan bukan nasihat keuangan. Hasil masa lalu tidak menjamin hasil berikutnya. Gunakan stop loss dan uji di akun demo.</div>`;
   $('sNotif').onchange = async e => {
     if (e.target.checked && 'Notification' in window && Notification.permission !== 'granted') { const p = await Notification.requestPermission(); if (p !== 'granted') { e.target.checked = false; toast('Izin notifikasi ditolak'); } }
     S.settings.notif = e.target.checked; saveSettings();
@@ -348,7 +386,7 @@ async function shareFile(blob, name, title) {
 Object.assign(window.kpx, {
   refresh: () => refresh(),
   remap: async () => { await refresh({ remap: true }); toast('Mapping baru selesai'); },
-  async shareImage() { if (!S.map) return; toast('Membuat gambar…'); const b = await makeMapImage(S.map); await shareFile(b, `mapping-xauusd-${Date.now()}.png`, 'Mapping XAUUSD'); },
+  async shareImage() { if (!S.map) return; toast('Membuat gambar…'); const b = await makeMapImage(S.map, { past: pastSeries() }); await shareFile(b, `mapping-xauusd-${Date.now()}.png`, 'Mapping XAUUSD'); },
   async shareText() { if (!S.map) return; const t = mapSummary(S.map); if (navigator.share) { try { await navigator.share({ text: t }); return; } catch (e) { if (e.name === 'AbortError') return; } } try { await navigator.clipboard.writeText(t); toast('Ringkasan disalin'); } catch { toast('Tidak bisa menyalin'); } },
   downloadEA() { if (!S.map) return; const code = buildEA(S.map); if (!code) return toast('Rencana belum lengkap untuk EA'); const name = lastEAName; downloadBlob(makeZip([{ name, text: code }, { name: 'CARA_PASANG.txt', text: EA_README }]), name.replace('.mq5', '.zip')); },
   async copyPine() { if (!S.map) return; const p = buildPine(S.map); try { await navigator.clipboard.writeText(p.code); toast('Kode Pine disalin — tempel di Pine Editor'); } catch { downloadBlob(new Blob([p.code], { type: 'text/plain' }), p.name); } },
@@ -358,6 +396,7 @@ function renderAll() { renderHome(); renderProj(); renderTeam(); renderPlan(); r
 
 // ---------- mulai ----------
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+if (/^#(home|proj|team|plan|more)$/.test(location.hash)) go(location.hash.slice(1));
 renderAll();
 refresh();
 setInterval(spotTick, 60000);
