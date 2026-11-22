@@ -1,0 +1,17 @@
+name: probe
+on: { push: { branches: [probe-data] } }
+permissions: { contents: write }
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node kantor-pine/scripts/build-market.mjs
+      - run: node kantor-pine/scripts/build-crypto.mjs --rank
+      - run: for a in "BTCUSD Bitcoin" "GBPUSD GBPUSD" "USA100 Nasdaq-100" "SNP500 S&P-500"; do set -- $a; node kantor-pine/scripts/run-news.mjs --aset $1 --nama "$2" || true; done
+      - run: |
+          git config user.name bot; git config user.email bot@users.noreply.github.com
+          mkdir -p probe-out/aset && cp kantor-pine/.cache/*-full.json kantor-pine/app/data/aset.json probe-out/ && for a in BTCUSD GBPUSD USA100 SNP500; do cp -r kantor-pine/app/data/aset/$a probe-out/aset/; done
+          git add -f probe-out && git commit -m "probe data [skip ci]" && git push origin HEAD:probe-out -f
