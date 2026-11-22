@@ -424,7 +424,7 @@ function buildPlans(ctx, S, levels) {
     const t2 = targets.find(x => dist(x) > dist(t1) + risk * 0.5) ?? mid + dir * Math.max(risk * 3, dist(t1) + risk);
     const tp1 = rp(t1), tp2 = rp(t2);
     return { tipe, prioritas, entry_bawah: eb, entry_atas: ea, sl, tp1, tp2, rr: round2(Math.abs(tp1 - mid) / risk),
-      trigger: buy ? 'Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40' : 'Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60',
+      trigger: buy ? 'Entry saat harga menyentuh zona (sama dengan backtest)' : 'Entry saat harga menyentuh zona (sama dengan backtest)',
       manajemen: 'Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.',
       alasan: why, berlaku_menit: 480 };
   };
@@ -476,9 +476,9 @@ function schedule(ctx, events) {
       const s = sessOf(d), ny = localParts(d, 'America/New_York');
       if (P.jam === 'cme' && ny.h === 17) { aksi = 'NO TRADE'; detail = 'Jeda harian bursa CME (17.00–18.00 New York)'; }
       else
-      if (s === 'overlap' && ny.h < 10) { aksi = 'ENTRY'; detail = 'Pembukaan New York: gerakan terbesar hari ini — entry hanya dengan konfirmasi candle' + note('overlap'); }
+      if (s === 'overlap' && ny.h < 10) { aksi = 'ENTRY'; detail = 'Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh' + note('overlap'); }
       else if (s === 'overlap') { aksi = 'HOLD'; detail = 'Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai' + note('overlap'); }
-      else if (s === 'london') { aksi = 'ENTRY'; detail = 'Sesi London: entry bila zona tersentuh + konfirmasi' + note('london'); }
+      else if (s === 'london') { aksi = 'ENTRY'; detail = 'Sesi London: entry saat zona tersentuh' + note('london'); }
       else if (s === 'ny') { aksi = 'TAKE PROFIT'; detail = 'Akhir sesi NY: amankan profit, kurangi posisi' + note('ny'); }
       else if (s === 'akhir-pekan') { aksi = (ss['akhir-pekan'] && ss['akhir-pekan'].n >= 20 && ss['akhir-pekan'].peluang >= 0.55) ? 'ENTRY' : 'WAIT'; detail = 'Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot' + note('akhir-pekan'); }
       else if (s === 'asia') { aksi = (ss.asia && ss.asia.n >= 20 && ss.asia.peluang >= 0.55) ? 'ENTRY' : 'WAIT'; detail = 'Sesi Asia: gerakan relatif kecil, pantau level' + note('asia'); }
@@ -597,7 +597,7 @@ export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h
     ringkasan: by.volatility.data.rezim === 'ekspansi' ? 'Risiko maks 0,5% per transaksi' : 'Risiko maks 1% per transaksi',
     detail: [`SL ≈ ${(ctx.atrH * 0.9).toFixed(P.digit)} dari tepi zona (0,9× ATR H1 asli)`, 'Jangan entry 45 menit sebelum/sesudah rilis data berdampak tinggi', 'Selalu uji di akun demo sebelum akun riil'], data: { maxRisk: by.volatility.data.rezim === 'ekspansi' ? 0.5 : 1 } };
   const exec = { id: 'execution', nama: 'Dimas', peran: 'Eksekusi (EA MQL5)', skor: 0, keyakinan: rencana.length ? 0.7 : 0.3,
-    ringkasan: rencana.length ? `${rencana.length} rencana siap jadi EA MT5` : 'Belum ada rencana layak', detail: ['EA: entry di zona + konfirmasi M15, TP parsial, SL ke BE, filter kekuatan minimal, selisih harga broker dihitung otomatis'], data: {} };
+    ringkasan: rencana.length ? `${rencana.length} rencana siap jadi EA MT5` : 'Belum ada rencana layak', detail: ['EA: entry saat harga menyentuh zona (sama dengan backtest), TP parsial, SL ke BE, filter kekuatan minimal, selisih harga broker dihitung otomatis'], data: {} };
   const pine = { id: 'pine', nama: 'Pina', peran: 'Pine Coder (TradingView)', skor: 0, keyakinan: 0.7,
     ringkasan: 'Indikator Pine v6 level & zona hari ini siap disalin', detail: ['Gambar zona entry, SL/TP, level kunci, dan alert saat harga masuk zona'], data: {} };
   const kurangList = dirAgents.filter(a => !a.cukup).map(a => a.nama);
@@ -650,7 +650,7 @@ function buildNarrative({ bias, S, conf, main, rencana, by, dirAgents, W, highSo
   else if (!main) { aksi = 'TUNGGU'; warna = 'gold'; judul = 'Belum ada zona entry yang layak. Biarkan harga mendekati level kunci.'; }
   else if (tanpaEdge) { aksi = 'TUNGGU'; warna = 'gold'; judul = `Sistem belum punya keunggulan teruji di ${P.id} (uji backtest ${oos.ekspektasi_R.toFixed(2)}R per trade). Pakai sebagai peta level saja — zona ${main.tipe} ${main.entry_bawah}–${main.entry_atas}.`; }
   else if (!layak) { aksi = 'TUNGGU'; warna = 'gold'; judul = `Sinyal ${main.kekuatan_label.toLowerCase()} (${main.kekuatan}%). Pantau zona ${main.tipe} ${main.entry_bawah}–${main.entry_atas}, jangan paksa entry.`; }
-  else { aksi = main.tipe; warna = main.tipe === 'BUY' ? 'green' : 'red'; judul = `${main.tipe} di ${main.entry_bawah}–${main.entry_atas} setelah ada candle konfirmasi.`; }
+  else { aksi = main.tipe; warna = main.tipe === 'BUY' ? 'green' : 'red'; judul = `${main.tipe} di ${main.entry_bawah}–${main.entry_atas} saat harga menyentuh zona.`; }
   if (closed && basi !== 2) judul = `Pasar buka ${fmtWIB(anchor)}. ` + judul;
   const jarak = main ? (main.tipe === 'BUY' ? price - main.entry_atas : main.entry_bawah - price) : null;
   return {
@@ -659,7 +659,7 @@ function buildNarrative({ bias, S, conf, main, rencana, by, dirAgents, W, highSo
     penghambat: con,
     batal: main ? `Batal bila candle H1 close ${main.tipe === 'BUY' ? 'di bawah' : 'di atas'} ${main.sl}.` : null,
     target: main ? `TP1 ${main.tp1} (amankan 50%), TP2 ${main.tp2}. RR 1:${main.rr}.` : null,
-    jarak: main && jarak > 0 ? `Harga ${jarak.toFixed(P.digit)} dari zona — tunggu harga datang.` : main ? 'Harga sudah di/dekat zona — tunggu konfirmasi candle M15.' : null,
+    jarak: main && jarak > 0 ? `Harga ${jarak.toFixed(P.digit)} dari zona — tunggu harga datang.` : main ? 'Harga sudah di/dekat zona — EA entry saat zona tersentuh.' : null,
     waspada: highSoon.length ? `Hindari entry ±45 menit di sekitar ${highSoon.slice(0, 2).map(e => `${e.nama} (${jamWIB(e.t)} WIB)`).join(' dan ')}.` : null,
     keandalan: tanpaEdge ? `Uji backtest aset ini rata-rata ${oos.ekspektasi_R.toFixed(2)}R dari ${oos.tersentuh} trade — EA tidak akan entry.` : pk != null ? `Dalam backtest, sinyal sekuat ini mencapai TP1 sebelum SL ${Math.round(pk * 100)}% dari ${main.peluang_sampel} kali.`
       : calib?.rencana ? 'Sampel backtest untuk kekuatan ini belum cukup — perlakukan sebagai indikasi.' : 'Belum terkalibrasi dengan backtest — perlakukan sebagai indikasi.',
@@ -672,7 +672,7 @@ export function planState(pl, p, nowMs, t0Ms) {
   if (nowMs > t0Ms + (pl.berlaku_menit ?? 1440) * 60000) return { kode: 'exp', teks: 'Kedaluwarsa' };
   if (buy ? p <= pl.sl : p >= pl.sl) return { kode: 'sl', teks: `${buy ? 'Di bawah' : 'Di atas'} SL — skenario batal` };
   const dg = Math.max(2, ...[pl.entry_bawah, pl.sl].map(v => (String(v).split('.')[1] || '').length));
-  if (p >= lo && p <= hi) return { kode: 'zone', teks: `DI ZONA ${buy ? 'BUY' : 'SELL'} — tunggu konfirmasi` };
+  if (p >= lo && p <= hi) return { kode: 'zone', teks: `DI ZONA ${buy ? 'BUY' : 'SELL'} — EA entry` };
   return { kode: 'wait', teks: p > hi ? `Menunggu turun ${(p - hi).toFixed(dg)} ke zona` : `Menunggu naik ${(lo - p).toFixed(dg)} ke zona` };
 }
 // ---------- evaluasi hasil rencana dengan candle sesudahnya (backtest & arsip live) ----------

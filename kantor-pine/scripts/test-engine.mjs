@@ -202,6 +202,7 @@ const ea = buildEA(res); assert.ok(ea.includes('int      P_TYPE[]') && ea.includ
 assert.ok(![...ea].some(c => c.charCodeAt(0) > 127), 'EA ASCII');
 assert.ok(ea.includes('InpAllowReal') && ea.includes('ACCOUNT_TRADE_MODE_REAL'), 'EA: pengaman akun riil');
 assert.ok(ea.includes('InpMaxRiskMult') && ea.includes('SkipKey(i)'), 'EA: pengaman modal kecil');
+assert.ok(ea.includes('InpSemuaSinyal') && ea.includes('!InpSemuaSinyal && P_STR[i]'), 'EA: mode semua sinyal');
 { // EA mengikuti aturan keputusan aplikasi: peluang backtest < 50% (sampel cukup) = dilewati
   const r2 = JSON.parse(JSON.stringify(res)); r2.rencana.forEach(p => { p.peluang = 0.42; p.peluang_sampel = 60; });
   const ea2 = buildEA(r2); assert.ok(/P_PEL\[\]  = \{42/.test(ea2) && ea2.includes('InpMinPeluang'), 'EA: filter peluang'); }

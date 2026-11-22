@@ -11,10 +11,11 @@ on:
   schedule:
     - cron: '7 * * * *'     # tiap jam, 7 hari (kripto buka 24/7; emas tetap dipetakan untuk pembukaan)
   workflow_dispatch:
-
-concurrency:
-  group: kantor-pine
-  cancel-in-progress: false
+    inputs:
+      rantai:
+        description: 'Dipicu otomatis oleh run sebelumnya (tanpa kalibrasi paksa)'
+        type: boolean
+        default: false
 
 jobs:
   test:
@@ -34,6 +35,9 @@ jobs:
 
   mapping:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    concurrency:
+      group: kantor-pine-mapping
+      cancel-in-progress: false
     timeout-minutes: 25
     runs-on: ubuntu-latest
     permissions:
@@ -51,7 +55,7 @@ jobs:
         run: node kantor-pine/scripts/run-news.mjs
       - name: Backtest & kalibrasi (sekali sehari, otomatis dilewati bila masih baru)
         continue-on-error: true
-        run: node kantor-pine/scripts/calibrate.mjs ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
+        run: node kantor-pine/scripts/calibrate.mjs ${{ github.event_name == 'workflow_dispatch' && !inputs.rantai && '--force' || '' }}
       - name: Jalankan tim agent emas (mapping server + arsip)
         continue-on-error: true
         run: node kantor-pine/scripts/run-mapping.mjs
@@ -66,7 +70,7 @@ jobs:
         run: |
           F=kantor-pine/app/data/aset.json
           [ -f "$F" ] || exit 0
-          FORCE="${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}"
+          FORCE="${{ github.event_name == 'workflow_dispatch' && !inputs.rantai && '--force' || '' }}"
           for id in $(node -e "console.log(require('./$F').aktif.join(' '))"); do
             nama=$(node -e "console.log(require('./$F').daftar.find(a=>a.id==='$id').nama)")
             node kantor-pine/scripts/run-news.mjs --aset "$id" --nama "$nama" || true
@@ -86,3 +90,32 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -m "Mapping server $(date -u +'%Y-%m-%d %H:%M') UTC"
           git push || (git pull --rebase origin main && git push)
+
+  lanjut:
+    # Jadwal cadangan: cron GitHub sering telat atau terlewat berjam-jam. Run ini menunggu sampai menit :07
+    # berikutnya lalu memicu run baru, sehingga mapping tetap tiap jam 24/7. Bila ada run terjadwal/manual
+    # yang lebih baru sedang berjalan, run itu yang melanjutkan (rantai tidak pernah berlipat).
+    needs: mapping
+    if: always() && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    permissions:
+      actions: write
+    steps:
+      - name: Tunggu menit :07 berikutnya, lalu picu run berikutnya
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          ME: ${{ github.run_id }}
+        run: |
+          s=$(( $(date -u +%s) % 3600 )); w=$(( (420 - s + 3600) % 3600 ))
+          echo "Menunggu $w detik"; sleep $w
+          newer=0
+          for st in queued in_progress waiting pending requested; do
+            c=$(gh api "repos/$REPO/actions/workflows/kantor-pine.yml/runs?status=$st&per_page=50" \
+                --jq "[.workflow_runs[] | select(.id > $ME and (.event == \"schedule\" or .event == \"workflow_dispatch\"))] | length")
+            newer=$(( newer + c ))
+          done
+          if [ "$newer" -gt 0 ]; then echo "Ada run lebih baru ($newer) — dia yang melanjutkan."; exit 0; fi
+          gh workflow run kantor-pine.yml --repo "$REPO" --ref main -f rantai=true
+          echo "Run berikutnya dipicu."

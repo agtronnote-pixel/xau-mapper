@@ -57,11 +57,12 @@ input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko 
 input double InpMaxSpread     = ${spreadMax};  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
-input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
+input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
 input double InpZoneTolerance = ${gold?'1.00':dv(atrH*0.1)};  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
+input bool   InpSemuaSinyal   = false; // true = jalankan SEMUA rencana: abaikan filter kekuatan, peluang, keunggulan aset & batas risiko lot (untuk akun demo)
 input int    InpMinPeluang    = 50;    // Peluang backtest minimal (%) — sama dengan aturan keputusan di aplikasi
 input int    InpMinStrength   = ${r.keunggulan&&r.keunggulan.ada===false?101:55};    // Kekuatan sinyal minimal (%) untuk entry${r.keunggulan&&r.keunggulan.ada===false?' (101 = tidak entry: backtest aset ini belum menguntungkan)':''}
 input group "Manajemen posisi"
@@ -106,6 +107,8 @@ bool   Flag(const string k){ return GlobalVariableCheck(GVP + k); }
 string DoneKey(const int i){ return "done" + IntegerToString((long)MAP_START) + "_" + IntegerToString(i); }
 string SkipKey(const int i){ return "skip" + IntegerToString((long)MAP_START) + "_" + IntegerToString(i); }
 void   SetFlag(const string k){ GlobalVariableSet(GVP + k, 1); }
+// peringatan pop-up hanya sekali per mapping; EA dimuat ulang tiap jam, selebihnya cukup di tab Experts
+void   Warn(const string k, const string m){ string f = "warn" + IntegerToString((long)MAP_START) + k; if(Flag(f)) Print(m); else { SetFlag(f); Alert(m); } }
 datetime ToServer(const datetime g){ return g + (TimeTradeServer() - TimeGMT()); }
 
 bool InNoTrade(const datetime g)
@@ -133,7 +136,7 @@ double NormLot(double lot)
    double mn   = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MIN);
    double mx   = SymbolInfoDouble(_Symbol, SYMBOL_VOLUME_MAX);
    if(step <= 0) step = 0.01;
-   lot = MathFloor(lot / step) * step;
+   lot = MathFloor(lot / step + 1e-7) * step;
    if(lot < mn) lot = mn;
    if(lot > mx) lot = mx;
    return NormalizeDouble(lot, vDigits);
@@ -168,15 +171,15 @@ void OpenPlan(const int i, const double price, double sl, double tp2)
    sl  = NormalizeDouble(sl, d);
    tp2 = NormalizeDouble(tp2, d);
    double lots = CalcLots(P_TYPE[i], price, sl);
-   if(InpRiskPercent > 0)
+   if(InpRiskPercent > 0 && !InpSemuaSinyal)
    {
       double pl = 0; ENUM_ORDER_TYPE ot = (P_TYPE[i] == 0) ? ORDER_TYPE_BUY : ORDER_TYPE_SELL;
       double want = AccountInfoDouble(ACCOUNT_BALANCE) * InpRiskPercent / 100.0;
       if(OrderCalcProfit(ot, _Symbol, lots, price, sl, pl) && -pl > want * InpMaxRiskMult)
       {
          SetFlag(SkipKey(i));
-         PrintFormat("KPX lewati %s: lot %.2f berisiko %.2f %s (%.1f%% saldo), batas %.2f. Modal terlalu kecil untuk SL ini.",
-                     P_NAME[i], lots, -pl, AccountInfoString(ACCOUNT_CURRENCY), -pl / AccountInfoDouble(ACCOUNT_BALANCE) * 100.0, want * InpMaxRiskMult);
+         PrintFormat("KPX lewati %s: lot %s berisiko %.2f %s (%.1f%% saldo), batas %.2f. Modal terlalu kecil untuk SL ini.",
+                     P_NAME[i], DoubleToString(lots, vDigits), -pl, AccountInfoString(ACCOUNT_CURRENCY), -pl / AccountInfoDouble(ACCOUNT_BALANCE) * 100.0, want * InpMaxRiskMult);
          return;
       }
    }
@@ -186,7 +189,7 @@ void OpenPlan(const int i, const double price, double sl, double tp2)
    if(ok && (rc == TRADE_RETCODE_DONE || rc == TRADE_RETCODE_PLACED))
    {
       SetFlag(DoneKey(i));
-      PrintFormat("KPX entry %s lot %.2f SL %.2f TP %.2f", P_NAME[i], lots, sl, tp2);
+      Print("KPX entry ", P_NAME[i], " lot ", DoubleToString(lots, vDigits), " SL ", DoubleToString(sl, d), " TP ", DoubleToString(tp2, d));
    }
    else
       PrintFormat("KPX gagal entry %s: %s", P_NAME[i], trade.ResultRetcodeDescription());
@@ -207,7 +210,7 @@ void ManagePositions(const double bid, const double ask)
       if(pos < 0) continue;
       double tp1 = StringToDouble(StringSubstr(cm, pos + 3));
       if(tp1 <= 0) continue;
-      string key = "tp1_" + IntegerToString((long)t);
+      string key = "tp1_" + IntegerToString((long)t), keyP = "tp1p_" + IntegerToString((long)t);
       if(Flag(key)) continue;
       long   ptype = PositionGetInteger(POSITION_TYPE);
       bool hit = (ptype == POSITION_TYPE_BUY) ? (bid >= tp1) : (ask <= tp1);
@@ -215,15 +218,23 @@ void ManagePositions(const double bid, const double ask)
       double vol  = PositionGetDouble(POSITION_VOLUME);
       double open = PositionGetDouble(POSITION_PRICE_OPEN);
       double tp   = PositionGetDouble(POSITION_TP);
-      double cv   = NormalizeDouble(MathFloor(vol * InpPartialPct / 100.0 / step) * step, vDigits);
-      if(cv >= mn && vol - cv >= mn) trade.PositionClosePartial(t, cv);
+      double cv   = NormalizeDouble(MathFloor(vol * InpPartialPct / 100.0 / step + 1e-7) * step, vDigits);
+      if(!Flag(keyP))
+      {
+         if(cv >= mn && vol - cv >= mn && !trade.PositionClosePartial(t, cv))
+         { PrintFormat("KPX gagal tutup sebagian tiket %I64u: %s", t, trade.ResultRetcodeDescription()); continue; }
+         SetFlag(keyP);
+         PrintFormat("KPX TP1 tercapai (tiket %I64u): tutup %s lot", t, DoubleToString(cv, vDigits));
+      }
       if(InpMoveToBE)
       {
-         double be = (ptype == POSITION_TYPE_BUY) ? open + InpBEBuffer : open - InpBEBuffer;
-         trade.PositionModify(t, NormalizeDouble(be, d), tp);
+         double be = NormalizeDouble((ptype == POSITION_TYPE_BUY) ? open + InpBEBuffer : open - InpBEBuffer, d);
+         double cur = PositionGetDouble(POSITION_SL);
+         bool better = (ptype == POSITION_TYPE_BUY) ? (cur < be) : (cur == 0 || cur > be);
+         if(better && !trade.PositionModify(t, be, tp))
+         { PrintFormat("KPX SL ke BE gagal (tiket %I64u): %s - dicoba lagi", t, trade.ResultRetcodeDescription()); continue; }
       }
       SetFlag(key);
-      PrintFormat("KPX TP1 tercapai (tiket %I64u): tutup %.2f lot, SL ke BE", t, cv);
    }
 }
 
@@ -259,7 +270,7 @@ void DrawLevels()
          ObjectSetInteger(0, m, OBJPROP_COLOR, j == 0 ? clrRed : clrDodgerBlue);
          ObjectSetInteger(0, m, OBJPROP_STYLE, STYLE_DASH);
          ObjectSetInteger(0, m, OBJPROP_RAY_RIGHT, false);
-         ObjectSetString(0, m, OBJPROP_TOOLTIP, P_NAME[i] + " " + lv[j] + " " + DoubleToString(pr[j], 2));
+         ObjectSetString(0, m, OBJPROP_TOOLTIP, P_NAME[i] + " " + lv[j] + " " + DoubleToString(pr[j], _Digits));
       }
    }
    ChartRedraw();
@@ -267,7 +278,7 @@ void DrawLevels()
 
 void ComputeOffset()
 {
-   gOffset = InpPriceOffset; gOffsetNote = "manual " + DoubleToString(gOffset, 2);
+   gOffset = InpPriceOffset; gOffsetNote = "manual " + DoubleToString(gOffset, _Digits);
    if(!InpAutoOffset) return;
    datetime ts = REF_TIME + (TimeTradeServer() - TimeGMT());
    int sh = iBarShift(_Symbol, PERIOD_M5, ts, false);
@@ -278,7 +289,7 @@ void ComputeOffset()
    double o = c - REF_PRICE;
    if(MathAbs(o) > OFFSET_MAX) { gOffsetNote += " (selisih " + DoubleToString(o, _Digits) + " terlalu besar, diabaikan)"; return; }
    gOffset = o; gOffsetNote = "otomatis " + DoubleToString(o, _Digits);
-   PrintFormat("KPX selisih harga broker vs mapping: %.2f", o);
+   Print("KPX selisih harga broker vs mapping: ", DoubleToString(o, _Digits));
 }
 
 int OnInit()
@@ -290,10 +301,11 @@ int OnInit()
    vDigits = (step > 0) ? (int)MathMax(0, MathCeil(-MathLog10(step) - 1e-9)) : 2;
    ArrayResize(lastTry, ArraySize(P_TYPE));
    for(int i = 0; i < ArraySize(lastTry); i++) lastTry[i] = 0;
-   if(StringFind(_Symbol, "${SYM.replace(/USD$/,'')}") < 0) Alert("KPX: EA ini dibuat untuk ${SYM}. Simbol chart sekarang: ", _Symbol);
-   if(TimeGMT() >= MAP_END) Alert("KPX: Mapping ini sudah kedaluwarsa. Buat mapping baru di Kantor Pine.");
+   for(int i = 0; i < ArraySize(P_TYPE); i++) GlobalVariableDel(GVP + SkipKey(i));   // input bisa berubah: nilai ulang batas risiko
+   if(StringFind(_Symbol, "${SYM.replace(/USD$/,'')}") < 0) Warn("sym", "KPX: EA ini dibuat untuk ${SYM}. Simbol chart sekarang: " + _Symbol);
+   if(TimeGMT() >= MAP_END) Warn("exp", "KPX: Mapping ini sudah kedaluwarsa - cek KPX_Agent_status.txt / jadwal server.");
    if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal)
-      Alert("KPX: Akun ini akun RIIL. EA hanya memantau, tidak entry. Uji di akun demo dulu; untuk riil aktifkan InpAllowReal.");
+      Warn("real", "KPX: Akun ini akun RIIL. EA hanya memantau, tidak entry. Uji di akun demo dulu; untuk riil aktifkan InpAllowReal.");
    ComputeOffset();
    if(InpDrawLevels) DrawLevels();
    return INIT_SUCCEEDED;
@@ -321,20 +333,20 @@ void OnTick()
    else if(AccountInfoInteger(ACCOUNT_TRADE_MODE) == ACCOUNT_TRADE_MODE_REAL && !InpAllowReal) why = "akun riil (aktifkan InpAllowReal)";
    else if(InpOnePosition && CountMyPositions() > 0) why = "posisi sedang berjalan";
 
-   string st = "Kantor Pine ${SYM} - Auto Trade Mapping\\nSelisih harga: " + gOffsetNote + "\\n";
+   string st = "Kantor Pine ${SYM} - Auto Trade Mapping" + (InpSemuaSinyal ? "  [MODE SEMUA SINYAL]" : "") + "\\nSelisih harga: " + gOffsetNote + "\\n";
    for(int i = 0; i < ArraySize(P_TYPE); i++)
    {
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
       if(Flag(DoneKey(i))) s = "sudah entry";
       else if(Flag(SkipKey(i))) s = "dilewati (modal terlalu kecil untuk SL ini - lihat tab Experts)";
-      else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
-      else if(P_PEL[i] >= 0 && P_PEL[i] < InpMinPeluang) s = "dilewati (peluang backtest " + IntegerToString(P_PEL[i]) + "% < " + IntegerToString(InpMinPeluang) + "%)";
+      else if(!InpSemuaSinyal && P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
+      else if(!InpSemuaSinyal && P_PEL[i] >= 0 && P_PEL[i] < InpMinPeluang) s = "dilewati (peluang backtest " + IntegerToString(P_PEL[i]) + "% < " + IntegerToString(InpMinPeluang) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";
       else
       {
-         s = "memantau zona " + DoubleToString(lo, 2) + "-" + DoubleToString(hi, 2);
+         s = "memantau zona " + DoubleToString(lo, _Digits) + "-" + DoubleToString(hi, _Digits);
          double tol = InpZoneTolerance;
          bool inZone = (P_TYPE[i] == 0) ? (ask >= lo - tol && ask <= hi + tol && ask > sl && ask < tp1)
                                         : (bid <= hi + tol && bid >= lo - tol && bid < sl && bid > tp1);
@@ -696,7 +708,7 @@ export function buildPine(r){
   L.push('');
   plans.forEach((pl,i)=>{ const lo=f(Math.min(pl.entry_bawah,pl.entry_atas)), hi=f(Math.max(pl.entry_bawah,pl.entry_atas));
     L.push(`inZone${i} = close >= ${lo} + offset and close <= ${hi} + offset`);
-    L.push(`alertcondition(inZone${i} and not inZone${i}[1], "KPX ${pl.tipe} ${q(pl.prioritas)}: masuk zona", "${SYM} masuk zona ${pl.tipe} {{close}} - tunggu konfirmasi")`); });
+    L.push(`alertcondition(inZone${i} and not inZone${i}[1], "KPX ${pl.tipe} ${q(pl.prioritas)}: masuk zona", "${SYM} masuk zona ${pl.tipe} {{close}} - EA entry")`); });
   L.push('plot(na, "KPX")');
   return { name:`KPX_Mapping_${stamp}.pine`, code: L.join('\n')+'\n' };
 }

@@ -59,7 +59,7 @@ kantor-pine/
 
 ## Batas yang tersisa (jujur)
 - Backtest 60 hari = satu rezim pasar; angka peluang bisa berubah saat rezim berganti (karena itu dikalibrasi ulang tiap hari dan dicek dengan rekam jejak live).
-- Backtest menganggap entry saat harga menyentuh zona, tanpa spread & tanpa syarat candle konfirmasi.
+- Backtest dan EA sama-sama entry saat harga menyentuh zona (tanpa candle konfirmasi; bisa diaktifkan lewat input EA). Backtest tanpa spread.
 - Bobot Kabar & Clara tetap kecil sampai arsip cukup untuk mengukurnya.
 
 ## Disclaimer
