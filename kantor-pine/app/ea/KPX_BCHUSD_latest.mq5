@@ -1,28 +1,29 @@
 //+------------------------------------------------------------------+
-//| KPX_BCHUSD_202611222201.mq5                                      |
+//| KPX_BCHUSD_202611222310.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 22.01 WIB - BCHUSD 198.50                  |
+//| Mapping: 22 Nov 2026, 23.10 WIB - BCHUSD 198.70                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 47%
-   Ringkasan: BCHUSD cenderung naik (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 196.61-197.39 (kekuatan sinyal 61% - Sedang).
-   Rencana 0: BUY 196.61-197.39 SL 194.86 TP1 200.00 TP2 207.03 - Kekuatan sinyal 61% (Sedang)
+/* Bias: BULLISH - Keyakinan 49%
+   Ringkasan: BCHUSD cenderung naik (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 197.91-198.69 (kekuatan sinyal 62% - Sedang).
+   Rencana 0: BUY 197.91-198.69 SL 196.16 TP1 200.80 TP2 207.03 - Kekuatan sinyal 62% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 198.61-199.39 SL 201.15 TP1 194.70 TP2 193.47 - Kekuatan sinyal 43% (Lemah)
+   Rencana 1: SELL 199.61-200.39 SL 202.15 TP1 197.00 TP2 194.70 - Kekuatan sinyal 39% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 194.86
+   Invalidasi: Candle H1 close di bawah 196.16
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping BCHUSD 202611222201"
+#property description "Eksekusi otomatis mapping BCHUSD 202611222310"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
+input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko > N x risiko yang diatur (modal terlalu kecil)
 input double InpMaxSpread     = 0.30;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
@@ -46,22 +47,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {196.61, 198.61};
-double   P_EHI[]  = {197.39, 199.39};
-double   P_SL[]   = {194.86, 201.15};
-double   P_TP1[]  = {200.00, 194.70};
-double   P_TP2[]  = {207.03, 193.47};
-datetime P_EXP[]  = {D'2026.11.22 23:01:00', D'2026.11.22 23:01:00'};
+double   P_ELO[]  = {197.91, 199.61};
+double   P_EHI[]  = {198.69, 200.39};
+double   P_SL[]   = {196.16, 202.15};
+double   P_TP1[]  = {200.80, 197.00};
+double   P_TP2[]  = {207.03, 194.70};
+datetime P_EXP[]  = {D'2026.11.23 00:10:00', D'2026.11.23 00:10:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
-int      P_STR[]  = {61, 43};   // kekuatan sinyal %
-int      P_PEL[]  = {50, 45};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.22 15:01:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 198.40;
+int      P_STR[]  = {62, 39};   // kekuatan sinyal %
+int      P_PEL[]  = {51, 43};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+datetime REF_TIME   = D'2026.11.22 16:10:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 198.70;
 double   OFFSET_MAX = 1.99;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 15:01:00';
-datetime MAP_END    = D'2026.11.23 15:01:00';
+datetime MAP_START  = D'2026.11.22 16:10:00';
+datetime MAP_END    = D'2026.11.23 16:10:00';
 
 CTrade   trade;
 string   GVP;
@@ -73,6 +74,7 @@ string   gOffsetNote = "";
 double Lv(const double v){ return v + gOffset; }
 bool   Flag(const string k){ return GlobalVariableCheck(GVP + k); }
 string DoneKey(const int i){ return "done" + IntegerToString((long)MAP_START) + "_" + IntegerToString(i); }
+string SkipKey(const int i){ return "skip" + IntegerToString((long)MAP_START) + "_" + IntegerToString(i); }
 void   SetFlag(const string k){ GlobalVariableSet(GVP + k, 1); }
 datetime ToServer(const datetime g){ return g + (TimeTradeServer() - TimeGMT()); }
 
@@ -136,6 +138,18 @@ void OpenPlan(const int i, const double price, double sl, double tp2)
    sl  = NormalizeDouble(sl, d);
    tp2 = NormalizeDouble(tp2, d);
    double lots = CalcLots(P_TYPE[i], price, sl);
+   if(InpRiskPercent > 0)
+   {
+      double pl = 0; ENUM_ORDER_TYPE ot = (P_TYPE[i] == 0) ? ORDER_TYPE_BUY : ORDER_TYPE_SELL;
+      double want = AccountInfoDouble(ACCOUNT_BALANCE) * InpRiskPercent / 100.0;
+      if(OrderCalcProfit(ot, _Symbol, lots, price, sl, pl) && -pl > want * InpMaxRiskMult)
+      {
+         SetFlag(SkipKey(i));
+         PrintFormat("KPX lewati %s: lot %.2f berisiko %.2f %s (%.1f%% saldo), batas %.2f. Modal terlalu kecil untuk SL ini.",
+                     P_NAME[i], lots, -pl, AccountInfoString(ACCOUNT_CURRENCY), -pl / AccountInfoDouble(ACCOUNT_BALANCE) * 100.0, want * InpMaxRiskMult);
+         return;
+      }
+   }
    string cm = "KPX T1=" + DoubleToString(NormalizeDouble(Lv(P_TP1[i]), d), d);   // TP1 disimpan di posisi
    bool ok = (P_TYPE[i] == 0) ? trade.Buy(lots, _Symbol, 0, sl, tp2, cm) : trade.Sell(lots, _Symbol, 0, sl, tp2, cm);
    uint rc = trade.ResultRetcode();
@@ -283,6 +297,7 @@ void OnTick()
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
       if(Flag(DoneKey(i))) s = "sudah entry";
+      else if(Flag(SkipKey(i))) s = "dilewati (modal terlalu kecil untuk SL ini - lihat tab Experts)";
       else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
       else if(P_PEL[i] >= 0 && P_PEL[i] < InpMinPeluang) s = "dilewati (peluang backtest " + IntegerToString(P_PEL[i]) + "% < " + IntegerToString(InpMinPeluang) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
@@ -303,7 +318,7 @@ void OnTick()
             else s = "harga di zona, tunggu konfirmasi candle";
          }
       }
-      st += P_NAME[i] + ": " + s + "\n";
+      st += P_NAME[i] + " (kekuatan " + IntegerToString(P_STR[i]) + "%" + (P_PEL[i] >= 0 ? ", peluang " + IntegerToString(P_PEL[i]) + "%" : "") + "): " + s + "\n";
    }
    long left = (long)(MAP_END - g);
    if(left > 0) st += "Sisa masa mapping: " + IntegerToString(left / 3600) + " jam " + IntegerToString((left % 3600) / 60) + " mnt\n";
