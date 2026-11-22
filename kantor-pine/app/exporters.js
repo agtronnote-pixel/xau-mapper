@@ -25,7 +25,9 @@ export function buildEA(r){
   const T=m=>new Date(t0.getTime()+m*60000);
   const nt=(r.jadwal||[]).filter(j=>/^NO/i.test(String(j.aksi||'')) && Number.isFinite(+j.menit_mulai) && Number.isFinite(+j.menit_akhir) && +j.menit_akhir>+j.menit_mulai);
   const stamp=t0.toLocaleString('sv-SE',{timeZone:'Asia/Jakarta'}).replace(/[-: ]/g,'').slice(0,12);
-  const magic=String(Math.floor(t0.getTime()/60000)%900000000+100000000);
+  // magic tetap per aset: EA versi jam berikutnya tetap mengenali & mengelola posisi yang dibuka versi sebelumnya
+  let hh=7; for(const ch of SYM) hh=(hh*31+ch.charCodeAt(0))>>>0;
+  const magic=String(520000000+hh%9999999);
   lastEAName=gold?`KPX_Mapping_${stamp}.mq5`:`KPX_${SYM}_${stamp}.mq5`;
   const f2=v=>(+v).toFixed(DG);
   const arr=(fn)=>plans.map(fn).join(', ');
@@ -68,7 +70,7 @@ input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakh
 input group "Keamanan"
 input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
 input group "Lainnya"
-input ulong  InpMagic         = ${magic}; // Magic number
+input ulong  InpMagic         = ${magic}; // Magic number (tetap per aset)
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
@@ -98,6 +100,7 @@ double   gOffset = 0;
 string   gOffsetNote = "";
 double Lv(const double v){ return v + gOffset; }
 bool   Flag(const string k){ return GlobalVariableCheck(GVP + k); }
+string DoneKey(const int i){ return "done" + IntegerToString((long)MAP_START) + "_" + IntegerToString(i); }
 void   SetFlag(const string k){ GlobalVariableSet(GVP + k, 1); }
 datetime ToServer(const datetime g){ return g + (TimeTradeServer() - TimeGMT()); }
 
@@ -161,12 +164,12 @@ void OpenPlan(const int i, const double price, double sl, double tp2)
    sl  = NormalizeDouble(sl, d);
    tp2 = NormalizeDouble(tp2, d);
    double lots = CalcLots(P_TYPE[i], price, sl);
-   string cm = "KPX P" + IntegerToString(i);
+   string cm = "KPX T1=" + DoubleToString(NormalizeDouble(Lv(P_TP1[i]), d), d);   // TP1 disimpan di posisi
    bool ok = (P_TYPE[i] == 0) ? trade.Buy(lots, _Symbol, 0, sl, tp2, cm) : trade.Sell(lots, _Symbol, 0, sl, tp2, cm);
    uint rc = trade.ResultRetcode();
    if(ok && (rc == TRADE_RETCODE_DONE || rc == TRADE_RETCODE_PLACED))
    {
-      SetFlag("done" + IntegerToString(i));
+      SetFlag(DoneKey(i));
       PrintFormat("KPX entry %s lot %.2f SL %.2f TP %.2f", P_NAME[i], lots, sl, tp2);
    }
    else
@@ -184,14 +187,13 @@ void ManagePositions(const double bid, const double ask)
       if(t == 0) continue;
       if(PositionGetString(POSITION_SYMBOL) != _Symbol || (ulong)PositionGetInteger(POSITION_MAGIC) != InpMagic) continue;
       string cm = PositionGetString(POSITION_COMMENT);
-      int pos = StringFind(cm, "KPX P");
+      int pos = StringFind(cm, "T1=");
       if(pos < 0) continue;
-      int i = (int)StringToInteger(StringSubstr(cm, pos + 5));
-      if(i < 0 || i >= ArraySize(P_TYPE)) continue;
+      double tp1 = StringToDouble(StringSubstr(cm, pos + 3));
+      if(tp1 <= 0) continue;
       string key = "tp1_" + IntegerToString((long)t);
       if(Flag(key)) continue;
       long   ptype = PositionGetInteger(POSITION_TYPE);
-      double tp1   = Lv(P_TP1[i]);
       bool hit = (ptype == POSITION_TYPE_BUY) ? (bid >= tp1) : (ask <= tp1);
       if(!hit) continue;
       double vol  = PositionGetDouble(POSITION_VOLUME);
@@ -205,7 +207,7 @@ void ManagePositions(const double bid, const double ask)
          trade.PositionModify(t, NormalizeDouble(be, d), tp);
       }
       SetFlag(key);
-      PrintFormat("KPX TP1 tercapai %s: tutup %.2f lot, SL ke BE", P_NAME[i], cv);
+      PrintFormat("KPX TP1 tercapai (tiket %I64u): tutup %.2f lot, SL ke BE", t, cv);
    }
 }
 
@@ -308,7 +310,7 @@ void OnTick()
    {
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
-      if(Flag("done" + IntegerToString(i))) s = "sudah entry";
+      if(Flag(DoneKey(i))) s = "sudah entry";
       else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";

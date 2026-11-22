@@ -15,16 +15,22 @@ $mutex = New-Object System.Threading.Mutex($false, 'Local\KPX_Agent')
 if (-not $mutex.WaitOne(0)) { exit }
 function Log([string]$m) { Add-Content -Path $Status -Value ('{0:yyyy-MM-dd HH:mm:ss}  {1}' -f (Get-Date), $m) -Encoding UTF8 }
 if (-not (Test-Path $Config)) { Log 'GAGAL: KPX_Agent.config belum diisi alamat aplikasi.'; exit 1 }
-$cfg  = @(Get-Content $Config)
-$Base = $cfg[0].Trim().TrimEnd('/')
-if ($Base -notmatch 'kantor-pine/app$') { $Base = "$Base/kantor-pine/app" }   # alamat root juga diterima
-# Baris ke-2 (opsional): daftar aset dipisah koma, mis. XAUUSD,BTCUSD,GBPUSD. Kosong = XAUUSD saja.
-$Assets = @('XAUUSD')
-if ($cfg.Count -ge 2 -and $cfg[1].Trim()) { $Assets = $cfg[1].Split(',') | ForEach-Object { $_.Trim().ToUpper() } | Where-Object { $_ -match '^[A-Z0-9]+$' } }
+function Read-Config {
+    $cfg  = @(Get-Content $Config)
+    $b = $cfg[0].Trim().TrimEnd('/')
+    if ($b -notmatch 'kantor-pine/app$') { $b = "$b/kantor-pine/app" }   # alamat root juga diterima
+    # Baris ke-2 (opsional): daftar aset dipisah koma, mis. XAUUSD,BTCUSD,GBPUSD. Kosong = XAUUSD saja.
+    $a = @('XAUUSD')
+    if ($cfg.Count -ge 2 -and $cfg[1].Trim()) { $a = @($cfg[1].Split(',') | ForEach-Object { $_.Trim().ToUpper() } | Where-Object { $_ -match '^[A-Z0-9]+$' }) }
+    return @($b, $a)
+}
 function EaName([string]$a) { if ($a -eq 'XAUUSD') { 'KPX_Mapping_latest.mq5' } else { "KPX_${a}_latest.mq5" } }
-Log ("Aktif. Sumber: $Base · aset: " + ($Assets -join ', '))
+$Base, $Assets = Read-Config
+Log ("Aktif. Sumber: $Base - aset: " + ($Assets -join ', '))
 $last = @{}
 while ($true) {
+    # daftar aset dibaca ulang tiap putaran: ubah baris ke-2 KPX_Agent.config, berlaku dalam 5 menit tanpa restart
+    try { $nb, $na = Read-Config; if (($na -join ',') -ne ($Assets -join ',')) { Log ('Daftar aset diperbarui: ' + ($na -join ', ')) }; $Base = $nb; $Assets = $na } catch {}
     foreach ($a in $Assets) {
         $name = EaName $a
         try {
