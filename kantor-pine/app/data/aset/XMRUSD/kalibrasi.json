@@ -1,32 +1,32 @@
 {
  "versi": 3,
  "aset": "XMRUSD",
- "dibuat": "2026-11-22T13:01:03.100Z",
+ "dibuat": "2026-11-22T14:50:44.139Z",
  "periode": "2026-09-28 – 2026-11-21",
  "sampel_jam": 1296,
  "bobot": {
-  "trend": 0.142,
-  "momentum": 0.203,
-  "structure": 0.211,
-  "macro": 0.241,
-  "news": 0.101,
-  "claude": 0.101
+  "trend": 0.139,
+  "momentum": 0.211,
+  "structure": 0.205,
+  "macro": 0.245,
+  "news": 0.1,
+  "claude": 0.1
  },
  "ic": {
   "trend": {
-   "ic": -0.204,
+   "ic": -0.196,
    "n": 777
   },
   "momentum": {
-   "ic": -0.125,
+   "ic": -0.117,
    "n": 777
   },
   "structure": {
-   "ic": -0.163,
+   "ic": -0.164,
    "n": 777
   },
   "macro": {
-   "ic": -0.002,
+   "ic": 0.007,
    "n": 777
   }
  },
@@ -34,37 +34,37 @@
   {
    "dari": 5,
    "sampai": 40,
-   "n": 303,
-   "peluang": 0.521,
-   "ekspektasi_R": 0.289
+   "n": 301,
+   "peluang": 0.518,
+   "ekspektasi_R": 0.279
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 130,
-   "peluang": 0.464,
-   "ekspektasi_R": 0.137
+   "n": 131,
+   "peluang": 0.461,
+   "ekspektasi_R": 0.128
   },
   {
    "dari": 50,
    "sampai": 60,
-   "n": 138,
-   "peluang": 0.439,
-   "ekspektasi_R": -0.011
+   "n": 135,
+   "peluang": 0.441,
+   "ekspektasi_R": 0
   },
   {
    "dari": 60,
    "sampai": 70,
-   "n": 128,
-   "peluang": 0.514,
-   "ekspektasi_R": 0.185
+   "n": 133,
+   "peluang": 0.51,
+   "ekspektasi_R": 0.164
   },
   {
    "dari": 70,
    "sampai": 96,
-   "n": 176,
-   "peluang": 0.349,
-   "ekspektasi_R": -0.194
+   "n": 172,
+   "peluang": 0.352,
+   "ekspektasi_R": -0.185
   }
  ],
  "sesi": {
@@ -79,14 +79,14 @@
    "ekspektasi_R": 0.042
   },
   "overlap": {
-   "n": 91,
+   "n": 87,
    "peluang": 0.515,
-   "ekspektasi_R": 0.246
+   "ekspektasi_R": 0.239
   },
   "ny": {
-   "n": 88,
-   "peluang": 0.48,
-   "ekspektasi_R": 0.182
+   "n": 89,
+   "peluang": 0.475,
+   "ekspektasi_R": 0.168
   },
   "sepi": {
    "n": 110,
@@ -101,65 +101,65 @@
  },
  "proyeksi": {
   "15": {
-   "k": 0.052,
-   "q80": 0.176,
+   "k": 0.053,
+   "q80": 0.173,
    "n": 1296
   },
   "30": {
-   "k": 0.009,
-   "q80": 0.247,
+   "k": 0.011,
+   "q80": 0.243,
    "n": 1296
   },
   "60": {
-   "k": -0.062,
-   "q80": 0.818,
+   "k": -0.059,
+   "q80": 0.815,
    "n": 1296
   },
   "120": {
-   "k": -0.142,
-   "q80": 1.184,
+   "k": -0.129,
+   "q80": 1.179,
    "n": 1296
   },
   "240": {
-   "k": -0.32,
-   "q80": 1.669,
+   "k": -0.292,
+   "q80": 1.663,
    "n": 1296
   },
   "480": {
-   "k": -0.673,
-   "q80": 2.353,
+   "k": -0.644,
+   "q80": 2.352,
    "n": 1296
   },
   "720": {
-   "k": -0.901,
-   "q80": 2.768,
+   "k": -0.874,
+   "q80": 2.772,
    "n": 1296
   },
   "1440": {
-   "k": -0.34,
+   "k": -0.292,
    "q80": 3.643,
    "n": 1296
   }
  },
  "arah": {
-  "h1": 0.452,
-  "h4": 0.441,
-  "n": 880
+  "h1": 0.455,
+  "h4": 0.446,
+  "n": 869
  },
  "rencana": {
-  "rencana": 1065,
-  "tersentuh": 875,
-  "tp1": 404,
-  "sl": 471,
-  "winrate": 0.462,
-  "ekspektasi_R": 0.107,
+  "rencana": 1063,
+  "tersentuh": 872,
+  "tp1": 402,
+  "sl": 470,
+  "winrate": 0.461,
+  "ekspektasi_R": 0.104,
   "oos": {
-   "rencana": 424,
-   "tersentuh": 354,
+   "rencana": 421,
+   "tersentuh": 353,
    "tp1": 155,
-   "sl": 199,
-   "winrate": 0.438,
-   "ekspektasi_R": 0.087
+   "sl": 198,
+   "winrate": 0.439,
+   "ekspektasi_R": 0.09
   }
  },
  "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."

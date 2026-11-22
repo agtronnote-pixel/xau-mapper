@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_LINKUSD_202611222000.mq5                                     |
+//| KPX_LINKUSD_202611222150.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 20.00 WIB - LINKUSD 8.8000                 |
+//| Mapping: 22 Nov 2026, 21.50 WIB - LINKUSD 8.7880                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
 /* Bias: SIDEWAYS - Keyakinan 41%
-   Ringkasan: LINKUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 8.7327-8.7673 (kekuatan sinyal 53% - Sedang).
-   Rencana 0: BUY 8.7327-8.7673 SL 8.6547 TP1 8.8500 TP2 9.0359 - Kekuatan sinyal 53% (Sedang)
+   Ringkasan: LINKUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 8.7325-8.7675 (kekuatan sinyal 56% - Sedang).
+   Rencana 0: BUY 8.7325-8.7675 SL 8.6536 TP1 8.8500 TP2 9.0392 - Kekuatan sinyal 56% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 8.8327-8.8673 SL 8.9453 TP1 8.7500 TP2 8.6620 - Kekuatan sinyal 46% (Lemah)
+   Rencana 1: SELL 8.8325-8.8675 SL 8.9464 TP1 8.7500 TP2 8.6620 - Kekuatan sinyal 42% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 8.6547
+   Invalidasi: Candle H1 close di bawah 8.6536
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping LINKUSD 202611222000"
+#property description "Eksekusi otomatis mapping LINKUSD 202611222150"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -28,38 +28,38 @@ input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.0087;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.0088;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input int    InpMinStrength   = 101;    // Kekuatan sinyal minimal (%) untuk entry (101 = tidak entry: backtest aset ini belum menguntungkan)
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
-input double InpBEBuffer      = 0.0017;  // Buffer break-even (harga)
+input double InpBEBuffer      = 0.0018;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Keamanan"
 input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
 input group "Lainnya"
-input ulong  InpMagic         = 129922540; // Magic number
+input ulong  InpMagic         = 529854809; // Magic number (tetap per aset)
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {8.7327, 8.8327};
-double   P_EHI[]  = {8.7673, 8.8673};
-double   P_SL[]   = {8.6547, 8.9453};
+double   P_ELO[]  = {8.7325, 8.8325};
+double   P_EHI[]  = {8.7675, 8.8675};
+double   P_SL[]   = {8.6536, 8.9464};
 double   P_TP1[]  = {8.8500, 8.7500};
-double   P_TP2[]  = {9.0359, 8.6620};
-datetime P_EXP[]  = {D'2026.11.22 21:00:00', D'2026.11.22 21:00:00'};
+double   P_TP2[]  = {9.0392, 8.6620};
+datetime P_EXP[]  = {D'2026.11.22 22:50:00', D'2026.11.22 22:50:00'};
 string   P_NAME[] = {"BUY Range", "SELL Range"};
-int      P_STR[]  = {53, 46};   // kekuatan sinyal %
-datetime REF_TIME   = D'2026.11.22 13:00:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 8.8000;
-double   OFFSET_MAX = 0.0880;
+int      P_STR[]  = {56, 42};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.22 14:50:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 8.7880;
+double   OFFSET_MAX = 0.0879;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 13:00:00';
-datetime MAP_END    = D'2026.11.23 13:00:00';
+datetime MAP_START  = D'2026.11.22 14:50:00';
+datetime MAP_END    = D'2026.11.23 14:50:00';
 
 CTrade   trade;
 string   GVP;
@@ -70,6 +70,7 @@ double   gOffset = 0;
 string   gOffsetNote = "";
 double Lv(const double v){ return v + gOffset; }
 bool   Flag(const string k){ return GlobalVariableCheck(GVP + k); }
+string DoneKey(const int i){ return "done" + IntegerToString((long)MAP_START) + "_" + IntegerToString(i); }
 void   SetFlag(const string k){ GlobalVariableSet(GVP + k, 1); }
 datetime ToServer(const datetime g){ return g + (TimeTradeServer() - TimeGMT()); }
 
@@ -133,12 +134,12 @@ void OpenPlan(const int i, const double price, double sl, double tp2)
    sl  = NormalizeDouble(sl, d);
    tp2 = NormalizeDouble(tp2, d);
    double lots = CalcLots(P_TYPE[i], price, sl);
-   string cm = "KPX P" + IntegerToString(i);
+   string cm = "KPX T1=" + DoubleToString(NormalizeDouble(Lv(P_TP1[i]), d), d);   // TP1 disimpan di posisi
    bool ok = (P_TYPE[i] == 0) ? trade.Buy(lots, _Symbol, 0, sl, tp2, cm) : trade.Sell(lots, _Symbol, 0, sl, tp2, cm);
    uint rc = trade.ResultRetcode();
    if(ok && (rc == TRADE_RETCODE_DONE || rc == TRADE_RETCODE_PLACED))
    {
-      SetFlag("done" + IntegerToString(i));
+      SetFlag(DoneKey(i));
       PrintFormat("KPX entry %s lot %.2f SL %.2f TP %.2f", P_NAME[i], lots, sl, tp2);
    }
    else
@@ -156,14 +157,13 @@ void ManagePositions(const double bid, const double ask)
       if(t == 0) continue;
       if(PositionGetString(POSITION_SYMBOL) != _Symbol || (ulong)PositionGetInteger(POSITION_MAGIC) != InpMagic) continue;
       string cm = PositionGetString(POSITION_COMMENT);
-      int pos = StringFind(cm, "KPX P");
+      int pos = StringFind(cm, "T1=");
       if(pos < 0) continue;
-      int i = (int)StringToInteger(StringSubstr(cm, pos + 5));
-      if(i < 0 || i >= ArraySize(P_TYPE)) continue;
+      double tp1 = StringToDouble(StringSubstr(cm, pos + 3));
+      if(tp1 <= 0) continue;
       string key = "tp1_" + IntegerToString((long)t);
       if(Flag(key)) continue;
       long   ptype = PositionGetInteger(POSITION_TYPE);
-      double tp1   = Lv(P_TP1[i]);
       bool hit = (ptype == POSITION_TYPE_BUY) ? (bid >= tp1) : (ask <= tp1);
       if(!hit) continue;
       double vol  = PositionGetDouble(POSITION_VOLUME);
@@ -177,7 +177,7 @@ void ManagePositions(const double bid, const double ask)
          trade.PositionModify(t, NormalizeDouble(be, d), tp);
       }
       SetFlag(key);
-      PrintFormat("KPX TP1 tercapai %s: tutup %.2f lot, SL ke BE", P_NAME[i], cv);
+      PrintFormat("KPX TP1 tercapai (tiket %I64u): tutup %.2f lot, SL ke BE", t, cv);
    }
 }
 
@@ -280,7 +280,7 @@ void OnTick()
    {
       string s;
       double lo = Lv(P_ELO[i]), hi = Lv(P_EHI[i]), sl = Lv(P_SL[i]), tp1 = Lv(P_TP1[i]), tp2 = Lv(P_TP2[i]);
-      if(Flag("done" + IntegerToString(i))) s = "sudah entry";
+      if(Flag(DoneKey(i))) s = "sudah entry";
       else if(P_STR[i] < InpMinStrength) s = "dilewati (kekuatan " + IntegerToString(P_STR[i]) + "% < " + IntegerToString(InpMinStrength) + "%)";
       else if(g >= P_EXP[i]) s = "kedaluwarsa";
       else if(why != "") s = "menunggu (" + why + ")";
