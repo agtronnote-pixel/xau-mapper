@@ -201,6 +201,9 @@ const res = analyze(synth(0.6, 7));
 const ea = buildEA(res); assert.ok(ea.includes('int      P_TYPE[]') && ea.includes('OnTick'), 'EA terbentuk');
 assert.ok(![...ea].some(c => c.charCodeAt(0) > 127), 'EA ASCII');
 assert.ok(ea.includes('InpAllowReal') && ea.includes('ACCOUNT_TRADE_MODE_REAL'), 'EA: pengaman akun riil');
+{ // EA mengikuti aturan keputusan aplikasi: peluang backtest < 50% (sampel cukup) = dilewati
+  const r2 = JSON.parse(JSON.stringify(res)); r2.rencana.forEach(p => { p.peluang = 0.42; p.peluang_sampel = 60; });
+  const ea2 = buildEA(r2); assert.ok(/P_PEL\[\]  = \{42/.test(ea2) && ea2.includes('InpMinPeluang'), 'EA: filter peluang'); }
 assert.ok(ea.includes('InpMinStrength') && ea.includes('P_STR[]') && ea.includes('ComputeOffset()') && ea.includes('REF_PRICE'), 'EA: filter kekuatan & offset otomatis');
 const pine = buildPine(res); assert.ok(pine.code.startsWith('//@version=6') && pine.code.includes('alertcondition'));
 const sum = mapSummary(res); assert.ok(sum.includes('MAPPING XAUUSD') && sum.includes('KEPUTUSAN'));
