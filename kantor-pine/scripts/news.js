@@ -39,6 +39,26 @@ export const LEXICON_CRYPTO = [
   [/\b(rall\w*|surg\w*|soar\w*|jump\w*|climb\w*|rebound\w*|gain\w*|spik\w*|rises?)\b/i, 0.5],
   [/\b(fall\w*|drop\w*|slid\w*|slump\w*|plung\w*|tumbl\w*|crash\w*|sink\w*|declin\w*|retreat\w*)\b/i, -0.5],
 ];
+// Kamus GBPUSD: positif = mendukung kenaikan pound terhadap dolar.
+export const LEXICON_GBPUSD = [
+  [/boe (hike|hawkish)|bank of england (hike|raises|hawkish|holds? rates)|uk (inflation|cpi) (rises|jumps|hot|beats)|uk (gdp|growth|wages|jobs) (beat|rise|strong|grows?)/i, 0.9],
+  [/boe (cut|dovish)|bank of england (cuts?|dovish|signals? cuts?)|uk (inflation|cpi) (falls|cools|eases|slows)|uk (gdp|economy) (contracts?|shrinks|weak|miss)|uk recession/i, -0.9],
+  [/dollar (weak|slump|fall|drop|slide|decline)|weaker dollar|fed (cut|dovish)|rate[- ]cuts?/i, 0.7],
+  [/dollar (strong|firm|rall|jump|gain|climb|surge)|stronger dollar|fed (hike|hawkish)|higher for longer/i, -0.7],
+  [/(pound|sterling|gbp|cable)\W+(rises?|gains?|jumps?|climbs?|rall\w*|surges?|rebounds?|firms?)/i, 0.5],
+  [/(pound|sterling|gbp|cable)\W+(falls?|drops?|slides?|slumps?|declines?|tumbles?|plunges?|weakens?)/i, -0.5],
+  [/gilt (sell-?off|rout|crisis)|uk (budget|fiscal) (fears|crisis|black hole)|political (turmoil|crisis)/i, -0.6],
+];
+// Kamus indeks saham AS: positif = mendukung kenaikan indeks.
+export const LEXICON_EQUITY = [
+  [/rate[- ]cuts?|cut (bets|odds)|dovish|easing|soft landing/i, 0.8],
+  [/rate hikes?|hike (bets|odds)|hawkish|higher for longer|yields? (rise|jump|surge|climb)/i, -0.8],
+  [/earnings (beat|surge|top|strong)|beats? (estimates|expectations)|record (profit|revenue)|guidance (raise|raised|boost)|ai (boom|rally|demand)/i, 0.7],
+  [/earnings (miss|disappoint|fall)|miss(es)? (estimates|expectations)|guidance (cut|lower)|profit warning|layoffs?/i, -0.7],
+  [/record high|all[- ]time high|rally|surge|soar|jump|climb|rebound|gains?\b/i, 0.5],
+  [/sell-?off|plunge|tumble|slump|crash|sink|slide|drop|fall|decline|correction|bear market|rout/i, -0.5],
+  [/recession|tariffs?|trade war|shutdown|default|crisis|turmoil|war\b|geopolit/i, -0.5],
+];
 export function scoreHeadline(title, lex = LEXICON) {
   let s = 0; const hits = [];
   for (const [re, w] of lex) { const m = title.match(re); if (m) { s += w; hits.push(m[0].toLowerCase()); } }

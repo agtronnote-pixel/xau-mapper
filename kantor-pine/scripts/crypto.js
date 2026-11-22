@@ -16,7 +16,7 @@ export const UNIVERSE = [
   ['XMRUSD', 'Monero', null, null, { htx: 'xmrusdt', kraken: 'XMRUSD' }],
 ];
 // Aset permintaan pengguna: selalu dipantau di samping 5 teratas.
-export const TETAP = ['XMRUSD'];
+export const TETAP = ['BTCUSD', 'XMRUSD'];
 // Sumber harga live untuk aplikasi di HP (semua CORS terbuka, tanpa key).
 export const liveSource = u => u[2] ? { provider: 'binance', symbol: u[2] } : u[4]?.htx ? { provider: 'htx', symbol: u[4].htx } : { provider: 'kraken', symbol: u[4].kraken };
 const UA = { 'User-Agent': 'Mozilla/5.0 (KantorPine; +https://github.com/agtronnote-pixel/xau-mapper)' };

@@ -20,6 +20,11 @@ Tim agent analisis emas (XAUUSD) yang berjalan **sepenuhnya di perangkat trader*
 - **Aset tanpa keunggulan teruji** (rata-rata R negatif di uji luar sampel) → keputusan TUNGGU dan EA tidak entry (`InpMinStrength = 101`).
 - Tautan langsung per aset: `.../kantor-pine/app/?aset=BTCUSD`.
 
+## Aset yang selalu dipantau (v3.2)
+- **BTCUSD** (Binance), **XMRUSD** (HTX, cadangan Kraken).
+- **GBPUSD**: candle Yahoo GBPUSD=X, harga live Kraken; jam forex (Minggu 17.00 – Jumat 17.00 NY); kalender USD + GBP.
+- **USA100** (Nasdaq 100) & **SNP500** (S&P 500): candle futures Yahoo NQ=F & ES=F; jam CME (jeda harian 17.00–18.00 NY). Tidak ada sumber harga live gratis untuk HP, jadi data dari server per jam (ambang data basi 90/180 menit).
+
 ## Struktur
 ```
 kantor-pine/

@@ -1,0 +1,161 @@
+{
+ "versi": 3,
+ "aset": "SNP500",
+ "dibuat": "2026-11-22T10:27:02.207Z",
+ "periode": "2026-09-21 – 2026-11-19",
+ "sampel_jam": 1028,
+ "bobot": {
+  "trend": 0.269,
+  "momentum": 0.227,
+  "structure": 0.328,
+  "macro": 0.07,
+  "news": 0.053,
+  "claude": 0.053
+ },
+ "ic": {
+  "trend": {
+   "ic": -0.021,
+   "n": 616
+  },
+  "momentum": {
+   "ic": 0.02,
+   "n": 616
+  },
+  "structure": {
+   "ic": 0.01,
+   "n": 616
+  },
+  "macro": {
+   "ic": -0.111,
+   "n": 616
+  }
+ },
+ "kekuatan": [
+  {
+   "dari": 5,
+   "sampai": 40,
+   "n": 146,
+   "peluang": 0.436,
+   "ekspektasi_R": 0.013
+  },
+  {
+   "dari": 40,
+   "sampai": 50,
+   "n": 69,
+   "peluang": 0.519,
+   "ekspektasi_R": 0.223
+  },
+  {
+   "dari": 50,
+   "sampai": 60,
+   "n": 60,
+   "peluang": 0.486,
+   "ekspektasi_R": 0.281
+  },
+  {
+   "dari": 60,
+   "sampai": 70,
+   "n": 74,
+   "peluang": 0.452,
+   "ekspektasi_R": 0.078
+  },
+  {
+   "dari": 70,
+   "sampai": 96,
+   "n": 104,
+   "peluang": 0.456,
+   "ekspektasi_R": 0.057
+  }
+ ],
+ "sesi": {
+  "asia": {
+   "n": 138,
+   "peluang": 0.486,
+   "ekspektasi_R": 0.129
+  },
+  "london": {
+   "n": 82,
+   "peluang": 0.391,
+   "ekspektasi_R": -0.066
+  },
+  "overlap": {
+   "n": 105,
+   "peluang": 0.504,
+   "ekspektasi_R": 0.295
+  },
+  "ny": {
+   "n": 90,
+   "peluang": 0.41,
+   "ekspektasi_R": -0.052
+  },
+  "sepi": {
+   "n": 38,
+   "peluang": 0.542,
+   "ekspektasi_R": 0.188
+  }
+ },
+ "proyeksi": {
+  "15": {
+   "k": 0.048,
+   "q80": 0.321,
+   "n": 1028
+  },
+  "30": {
+   "k": 0.035,
+   "q80": 0.42,
+   "n": 1028
+  },
+  "60": {
+   "k": 0.039,
+   "q80": 0.777,
+   "n": 1028
+  },
+  "120": {
+   "k": 0.042,
+   "q80": 1.141,
+   "n": 1028
+  },
+  "240": {
+   "k": -0.043,
+   "q80": 1.685,
+   "n": 1028
+  },
+  "480": {
+   "k": -0.434,
+   "q80": 2.581,
+   "n": 1028
+  },
+  "720": {
+   "k": -0.838,
+   "q80": 3.235,
+   "n": 1028
+  },
+  "1440": {
+   "k": -1.544,
+   "q80": 4.683,
+   "n": 1028
+  }
+ },
+ "arah": {
+  "h1": 0.498,
+  "h4": 0.483,
+  "n": 752
+ },
+ "rencana": {
+  "rencana": 636,
+  "tersentuh": 453,
+  "tp1": 208,
+  "sl": 245,
+  "winrate": 0.459,
+  "ekspektasi_R": 0.101,
+  "oos": {
+   "rencana": 282,
+   "tersentuh": 206,
+   "tp1": 91,
+   "sl": 115,
+   "winrate": 0.442,
+   "ekspektasi_R": 0.072
+  }
+ },
+ "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."
+}

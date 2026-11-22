@@ -106,12 +106,20 @@ export async function loadMarket({ provider = 'xaus', symbol, fallback, f = (typ
 }
 // Data pendukung dari server GitHub (diperbarui tiap jam oleh Actions), satu origin dengan aplikasi:
 // candle H1/M15 asli, makro, kalender, kalibrasi backtest, kinerja live, berita, analisis Claude.
+// market.json format 2: candle ringkas [t,o,h,l,c] → objek untuk mesin analisis.
+export function expandMarket(m) {
+  if (!m || m.format !== 2) return m;
+  const C = a => (a || []).map(([t, o, h, l, c]) => ({ t, o, h, l, c }));
+  return { ...m, h1: C(m.h1), m15: C(m.m15), daily: (m.daily || []).map(([d, c, h, l]) => ({ d, c, h: h ?? c, l: l ?? c })),
+    macro: { dxy: (m.macro?.dxy || []).map(([d, c]) => ({ d, c })), ry: (m.macro?.ry || []).map(([d, v]) => ({ d, v })), y10: [] } };
+}
 export const SERVER_FILES = { market: 'market.json', calib: 'kalibrasi.json', kinerja: 'kinerja.json', news: 'berita.json', claude: 'analisis-claude.json' };
 export async function loadServer({ base = 'data/', key = 'XAUUSD', f = (typeof fetch !== 'undefined' ? fetch.bind(globalThis) : null) } = {}) {
   const get = async name => { try { const r = await f(base + name, { cache: 'no-store' }); return r.ok ? await r.json() : null; } catch { return null; } };
   const ent = await Promise.all(Object.entries(SERVER_FILES).map(async ([k, n]) => [k, await get(n)]));
   const out = Object.fromEntries(ent);
   for (const [k, v] of ent) { const sk = `kpx_srv_${key}_${k}`; if (v) store.set(sk, v); else out[k] = store.get(sk); }
+  out.market = expandMarket(out.market);
   return out;
 }
 export async function loadSpot({ provider = 'xaus', symbol, fallback, f = fetch.bind(globalThis) } = {}) {

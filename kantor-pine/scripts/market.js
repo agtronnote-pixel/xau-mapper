@@ -46,8 +46,8 @@ const shift = (arr, d) => arr.map(c => ({ t: c.t, o: +(c.o + d).toFixed(2), h: +
 
 export function parseCalendar(arr) {
   const map = { High: 'tinggi', Medium: 'sedang' };
-  return (arr || []).filter(e => e.country === 'USD' && map[e.impact]).map(e => ({
-    t: new Date(e.date).toISOString(), nama: e.title, dampak: map[e.impact], perkiraan_nilai: e.forecast || null, sebelumnya: e.previous || null,
+  return (arr || []).filter(e => ['USD', 'GBP'].includes(e.country) && map[e.impact]).map(e => ({
+    t: new Date(e.date).toISOString(), nama: e.title, negara: e.country, dampak: map[e.impact], perkiraan_nilai: e.forecast || null, sebelumnya: e.previous || null,
   })).filter(e => !e.t.startsWith('Invalid')).sort((a, b) => a.t.localeCompare(b.t));
 }
 
@@ -86,12 +86,22 @@ export async function fetchServerMarket(prev = null) {
     calendar: cal || prev?.calendar || [],
   };
 }
-// Versi ringkas untuk aplikasi (dimuat di HP): 30 hari H1, 4 hari M15.
+// Versi ringkas untuk aplikasi (dimuat di HP): candle sebagai array [t,o,h,l,c] yang dibulatkan
+// sesuai presisi aset — sekitar 60% lebih kecil, jadi riwayat git & unduhan HP tetap ringan.
 export function appMarket(full) {
+  const dg = full.profil?.digit ?? 2, f = 10 ** dg, r = v => Math.round(v * f) / f;
+  const C = a => a.map(c => [c.t, r(c.o), r(c.h), r(c.l), r(c.c)]);
   return {
-    dibuat: full.dibuat, status: full.status, offset: full.offset, offset_sampel: full.offset_sampel, profil: full.profil || null, live: full.live || null,
-    h1: full.h1.slice(-400), m15: full.m15.slice(-300), daily: full.daily,
-    macro: { dxy: full.macro.dxy.slice(-120), ry: full.macro.ry.slice(-120), y10: full.macro.y10.slice(-120) },
+    format: 2, dibuat: full.dibuat, status: full.status, offset: full.offset, offset_sampel: full.offset_sampel, profil: full.profil || null, live: full.live || null,
+    h1: C(full.h1.slice(-300)), m15: C(full.m15.slice(-200)), daily: full.daily.slice(-120).map(d => [d.d, r(d.c), d.h != null ? r(d.h) : null, d.l != null ? r(d.l) : null]),
+    macro: { dxy: full.macro.dxy.slice(-90).map(x => [x.d, x.c]), ry: full.macro.ry.slice(-90).map(x => [x.d, x.v]), y10: [] },
     calendar: full.calendar,
   };
+}
+export { expandMarket } from '../app/data.js';
+// Tulis market.json hanya bila candle berubah (akhir pekan/pasar tutup → tidak ada commit sia-sia).
+export function sameCandles(a, b) {
+  if (!a || !b || a.format !== 2 || b.format !== 2) return false;
+  const k = m => JSON.stringify([m.h1.slice(-3), m.m15.slice(-3), m.h1.length, m.m15.length, m.calendar?.length, m.profil?.digit]);
+  return k(a) === k(b);
 }

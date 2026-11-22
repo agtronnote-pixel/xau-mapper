@@ -158,6 +158,39 @@ for (const [name, trend, seed] of [['naik', 0.6, 7], ['turun', -0.6, 11], ['data
   const dly = Array.from({ length: 40 }, (_, i) => ({ c: 100 * (1 + (i % 2 ? 0.02 : -0.02)), h: 103, l: 97 }));
   assert.ok(realizedVol(dly).vol30 > 30);
 }
+// FOREX & INDEKS: jam pasar, presisi, kalender GBP, ambang data basi aset tanpa harga live
+{
+  const { PRESETS } = await import('../app/engine.js');
+  const G = PRESETS.GBPUSD, N = PRESETS.USA100;
+  assert.equal(marketOpen(new Date('2026-11-22T22:30:00Z'), G), true, 'forex buka Minggu 17:30 NY');
+  assert.equal(marketOpen(new Date('2026-11-22T22:30:00Z'), N), false, 'indeks CME baru buka 18:00 NY');
+  const sc = 1.308 / 4000, k = c => ({ t: c.t, o: c.o*sc, h: c.h*sc, l: c.l*sc, c: c.c*sc });
+  const s = synth(0.6, 23);
+  const t = new Date(s.now.getTime() + 3 * 3600e3).toISOString();
+  const r = analyze({ ...s, h1: s.h1.map(k), m15: s.m15.map(k), points: s.points.map(x => ({ t: x.t, p: x.p*sc })), spot: s.spot*sc,
+    daily: s.daily.map(d => ({ d: d.d, c: d.c*sc, h: d.h*sc, l: d.l*sc })), profil: G,
+    calendar: [{ t, nama: 'BOE Official Bank Rate', negara: 'GBP', dampak: 'tinggi' }, { t, nama: 'Tokyo CPI', negara: 'JPY', dampak: 'tinggi' }, { t: new Date(s.now.getTime() + 6*86400e3).toISOString(), nama: 'x', negara: 'USD', dampak: 'sedang' }] });
+  assert.equal(r.aset.id, 'GBPUSD'); assert.equal(r.aset.digit, 5);
+  assert.ok(r.jadwal.some(j => j.detail.includes('GBP BOE')), 'rilis GBP masuk kalender GBPUSD'); assert.ok(!r.jadwal.some(j => j.detail.includes('Tokyo')));
+  r.rencana.forEach(p => assert.ok((String(p.sl).split('.')[1] || '').length >= 3));
+  const { buildEA } = await import('../app/exporters.js'); const ea = buildEA(r);
+  if (ea) assert.ok(ea.includes('InpMaxSpread     = 0.00030') && ea.includes('StringFind(_Symbol, "GBP")'), 'EA GBPUSD');
+  // indeks tanpa harga live: data 60 menit masih "segar", 2 jam = tertunda
+  const s2 = synth(-0.6, 29); const pts = s2.points; s2.now = new Date(s2.now.getTime() + 60 * 60e3);
+  const r2 = analyze({ ...s2, points: pts, profil: N }); assert.equal(r2.kualitas.basi, 0, 'indeks: 60 menit = segar');
+  s2.now = new Date(s2.now.getTime() + 60 * 60e3); assert.equal(analyze({ ...s2, points: pts, profil: N }).kualitas.basi, 1);
+  console.log('[GBPUSD]', r.narasi.aksi, '—', r.narasi.judul);
+}
+// format data ringkas (market.json v2): bolak-balik tanpa kehilangan, hasil analisis sama
+{
+  const { appMarket, sameCandles, expandMarket } = await import('./market.js');
+  const s = synth(0.6, 7), full = { dibuat: 'x', status: {}, h1: s.h1, m15: s.m15, daily: s.daily, macro: { ...s.macro, y10: [] }, calendar: [], profil: null };
+  const a = appMarket(full), e = expandMarket(JSON.parse(JSON.stringify(a)));
+  assert.equal(a.format, 2); assert.ok(Array.isArray(a.h1[0])); assert.equal(e.h1.length, Math.min(300, s.h1.length)); assert.deepEqual(Object.keys(e.h1[0]), ['t','o','h','l','c']);
+  assert.ok(sameCandles(a, JSON.parse(JSON.stringify(a)))); assert.ok(!sameCandles(a, { ...a, h1: a.h1.slice(0, -1) }));
+  const r1 = analyze({ ...s, h1: e.h1, m15: e.m15, daily: e.daily, macro: e.macro }), r0 = analyze({ ...s, h1: s.h1.slice(-300), m15: s.m15.slice(-200), daily: s.daily.slice(-120) });
+  assert.equal(r1.bias, r0.bias); assert.ok(Math.abs(r1.skor - r0.skor) < 0.02, 'pembulatan tidak mengubah hasil');
+}
 const st = planState({tipe:'BUY',entry_bawah:10,entry_atas:12,sl:8,berlaku_menit:60}, 11, 0, 0);
 assert.equal(st.kode, 'zone');
 console.log('\nSEMUA TES LULUS');

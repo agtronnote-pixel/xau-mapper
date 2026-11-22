@@ -18,7 +18,8 @@ export function eaPlans(r){
     .filter(pl=> pl.tipe==='BUY' ? (+pl.sl < Math.min(+pl.entry_bawah,+pl.entry_atas) && +pl.tp1 > Math.max(+pl.entry_bawah,+pl.entry_atas)) : (+pl.sl > Math.max(+pl.entry_bawah,+pl.entry_atas) && +pl.tp1 < Math.min(+pl.entry_bawah,+pl.entry_atas)));
 }
 export function buildEA(r){
-  setAsset(r); const gold=SYM==='XAUUSD', atrH=+r.statistik?.atrH1||1, px=+r.basis.price||1, dv=v=>(+v).toFixed(DG);
+  setAsset(r); const gold=SYM==='XAUUSD', kelas=r.aset?.kelas||'emas', atrH=+r.statistik?.atrH1||1, px=+r.basis.price||1, dv=v=>(+v).toFixed(DG);
+  const spreadMax = gold ? '0.50' : kelas==='forex' ? dv(0.0003) : kelas==='indeks' ? dv(px*0.0003) : dv(px*0.0015);
   const b=r.basis, t0=new Date(b.time), plans=eaPlans(r);
   if(!plans.length) return '';
   const T=m=>new Date(t0.getTime()+m*60000);
@@ -50,7 +51,7 @@ ${plans.map((pl,i)=>`   Rencana ${i}: ${pl.tipe} ${f2(pl.entry_bawah)}-${f2(pl.e
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
-input double InpMaxSpread     = ${gold?'0.50':dv(px*0.0015)};  // Spread maksimal (harga)
+input double InpMaxSpread     = ${spreadMax};  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = true;  // Tunggu candle konfirmasi di zona

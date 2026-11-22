@@ -1,5 +1,5 @@
 {
-  "name": "XAU Mapper",
+  "name": "XAU Mapper (lama)",
   "short_name": "XAU Mapper",
   "description": "Six-agent XAUUSD session mapping",
   "start_url": "./",

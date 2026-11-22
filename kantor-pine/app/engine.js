@@ -13,7 +13,7 @@
 //   calib   : kalibrasi.json hasil backtest (bobot, peluang, rentang proyeksi)
 // =====================================================================
 
-export const ENGINE_VERSION = '3.1.0';
+export const ENGINE_VERSION = '3.2.0';
 export const HZ = [5, 15, 30, 60, 120, 240, 480, 720, 1440];
 
 // ---------- util ----------
@@ -31,6 +31,12 @@ export function cryptoProfile(id, nama, harga) {
   const digit = harga >= 100 ? 2 : harga >= 10 ? 3 : harga >= 1 ? 4 : harga >= 0.1 ? 5 : 6;
   return { id, nama, kelas: 'kripto', jam: '24/7', digit, langkah: +nice(harga * 0.01).toPrecision(2), kontrak: 1, harianUTC: true };
 }
+// Profil tetap untuk forex & indeks (CFD broker mengikuti jam futures CME).
+export const PRESETS = {
+  GBPUSD: { id: 'GBPUSD', nama: 'Pound/Dolar AS', kelas: 'forex', jam: 'forex', digit: 5, langkah: 0.005, kontrak: 100000, harianUTC: false, mata_uang: ['USD', 'GBP'] },
+  USA100: { id: 'USA100', nama: 'Nasdaq 100', kelas: 'indeks', jam: 'cme', digit: 2, langkah: 100, kontrak: 1, harianUTC: false, live: false },
+  SNP500: { id: 'SNP500', nama: 'S&P 500', kelas: 'indeks', jam: 'cme', digit: 2, langkah: 25, kontrak: 1, harianUTC: false, live: false },
+};
 let P = GOLD;   // profil aktif selama satu panggilan analyze (sinkron)
 const rp = v => { const f = 10 ** P.digit; return Math.round(v * f) / f; };
 const jamWIB = d => new Date(d).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit' });
@@ -122,12 +128,13 @@ function localParts(date, tz) {
   return { h: +g('hour'), m: +g('minute'), wd: g('weekday'), d: +g('day') };
 }
 // Emas spot tutup dari Jumat 17:00 sampai Minggu 18:00 waktu New York.
+// Forex: Minggu 17:00 – Jumat 17:00 NY. Emas & indeks CME: Minggu 18:00 – Jumat 17:00 NY.
 export function marketOpen(date, prof = GOLD) {
   if (prof.jam === '24/7') return true;
   const { h, wd } = localParts(date, 'America/New_York');
   if (wd === 'Sat') return false;
   if (wd === 'Fri' && h >= 17) return false;
-  if (wd === 'Sun' && h < 18) return false;
+  if (wd === 'Sun' && h < (prof.jam === 'forex' ? 17 : 18)) return false;
   return true;
 }
 const WEEKEND = { id: 'weekend', nama: 'Akhir pekan', vol: 0.6 };
@@ -194,7 +201,8 @@ export function routineEvents(from, hours = 24) {
 }
 function eventsAhead(ctx, from, hours = 24) {
   const t0 = from.getTime(), t1 = t0 + hours * 3600e3;
-  const cal = (ctx.calendar || []).map(e => ({ ...e, t: new Date(e.t) })).filter(e => Number.isFinite(e.t.getTime()));
+  const cur = P.mata_uang || ['USD'];
+  const cal = (ctx.calendar || []).filter(e => cur.includes(e.negara || 'USD')).map(e => ({ ...e, nama: e.negara && e.negara !== 'USD' ? `${e.negara} ${e.nama}` : e.nama, t: new Date(e.t) })).filter(e => Number.isFinite(e.t.getTime()));
   const covered = cal.length && cal.some(e => e.t.getTime() >= t1 - 7 * 86400e3) && cal.some(e => e.t.getTime() <= t0 + 86400e3);
   const src = covered ? cal : routineEvents(from, hours);
   return { list: src.filter(e => e.t.getTime() >= t0 - 45 * 60e3 && e.t.getTime() <= t1).sort((a, b) => a.t - b.t), asli: !!covered };
@@ -466,6 +474,8 @@ function schedule(ctx, events) {
     else if (near) { aksi = 'NO TRADE'; detail = `Sekitar rilis ${near.nama} (${jamWIB(near.t)} WIB)`; }
     else {
       const s = sessOf(d), ny = localParts(d, 'America/New_York');
+      if (P.jam === 'cme' && ny.h === 17) { aksi = 'NO TRADE'; detail = 'Jeda harian bursa CME (17.00–18.00 New York)'; }
+      else
       if (s === 'overlap' && ny.h < 10) { aksi = 'ENTRY'; detail = 'Pembukaan New York: gerakan terbesar hari ini — entry hanya dengan konfirmasi candle' + note('overlap'); }
       else if (s === 'overlap') { aksi = 'HOLD'; detail = 'Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai' + note('overlap'); }
       else if (s === 'london') { aksi = 'ENTRY'; detail = 'Sesi London: entry bila zona tersentuh + konfirmasi' + note('london'); }
@@ -534,7 +544,9 @@ export function analyze({ points = [], daily = [], spot, now = new Date(), h1: h
   const anchor = closed ? nOpen(nowD) : nowD;
   // kualitas data
   const umur = (nowS - lastDataT) / 60;
-  const basi = closed ? (umur > 60 * 60 ? 1 : 0) : (umur > 120 ? 2 : umur > 20 ? 1 : 0);
+  // aset tanpa harga live (indeks): data server per jam, ambang lebih longgar
+  const [b1, b2] = P.live === false ? [90, 180] : [20, 120];
+  const basi = closed ? (umur > 60 * 60 ? 1 : 0) : (umur > b2 ? 2 : umur > b1 ? 1 : 0);
   const ctx = { pts, m15, h1, price, atrH: Math.max(atrH, price * 0.0003), atrD, dailyCloses, prevDay, now: nowD, nowMs, anchor, lastDataT,
     macro, calendar, news, claude, calib, kinerja, dayKey: nowD.toISOString().slice(0, 10) };
   const lastClose = (m15.length ? last(m15) : last(h1)).c, selisih = Math.abs(price - lastClose);
