@@ -21,7 +21,7 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 +15 mnt (06.15): 3538.96
 +1 jam (07.00): 3538.86
 +4 jam (10.00): 3538.42
-+24 jam (06.00): 3536.12
++24 jam (06.00): 3536.11
 
 🕒 Jadwal
 06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
