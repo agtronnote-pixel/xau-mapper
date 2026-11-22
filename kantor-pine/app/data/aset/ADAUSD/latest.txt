@@ -1,41 +1,41 @@
-📊 MAPPING ADAUSD — Min, 22 Nov 2026, 17.14 WIB
-Harga: 0.14570 | Bias: SIDEWAYS (43%)
+📊 MAPPING ADAUSD — Min, 22 Nov 2026, 18.05 WIB
+Harga: 0.14580 | Bias: SIDEWAYS (38%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 0.14593–0.14647 setelah ada candle konfirmasi.
-💪 Kekuatan 63% (Sedang) · Peluang TP1 duluan 42% (16 sampel backtest)
+SELL di 0.14592–0.14648 setelah ada candle konfirmasi.
+💪 Kekuatan 57% (Sedang) · Peluang TP1 duluan 64% (15 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ dolar & yield riil menguat
 ✓ berita cenderung negatif untuk emas
-✕ Penghambat: momentum beli (RSI H1 60)
-❌ Batal bila candle H1 close di atas 0.14768.
+✕ Penghambat: momentum beli (RSI H1 61)
+❌ Batal bila candle H1 close di atas 0.14772.
 
-🎯 Range: SELL 0.14593–0.14647
-💪 Kekuatan sinyal: 63% (Sedang) · peluang 42% | RR 1:1.62
-SL 0.14768 | TP1 0.14380 | TP2 0.14137 | s/d 01.14 WIB
+🎯 Range: SELL 0.14592–0.14648
+💪 Kekuatan sinyal: 57% (Sedang) · peluang 64% | RR 1:1.51
+SL 0.14772 | TP1 0.14390 | TP2 0.14137 | s/d 02.05 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 0.14503–0.14557
-💪 Kekuatan sinyal: 39% (Lemah) · peluang 55% | RR 1:1.15
-SL 0.14382 | TP1 0.14700 | TP2 0.14943 | s/d 01.14 WIB
+🎯 Range: BUY 0.14502–0.14558
+💪 Kekuatan sinyal: 45% (Lemah) | RR 1:1.5
+SL 0.14378 | TP1 0.14758 | TP2 0.14943 | s/d 02.05 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (17.29): 0.14570
-+1 jam (18.14): 0.14570
-+4 jam (21.14): 0.14570
-+24 jam (17.14): 0.14575
++15 mnt (18.20): 0.14580
++1 jam (19.05): 0.14580
++4 jam (22.05): 0.14580
++24 jam (18.05): 0.14584
 
 🕒 Jadwal
-17.14–06.14 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
-06.14–07.14 WAIT: Likuiditas rendah
-07.14–15.14 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
-15.14–17.14 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi
+18.05–06.05 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
+06.05–07.05 WAIT: Likuiditas rendah
+07.05–15.05 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
+15.05–18.05 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi
 
-🧱 Level: R 0.14943 · R 0.14700 · R 0.14620 · S 0.14530 · S 0.14380 · P 0.14137 · S 0.14090 · S 0.13790 · S 0.13653 · S 0.13330
-❌ Invalidasi: Candle H1 close di atas 0.14768
+🧱 Level: R 0.14943 · R 0.14670 · R 0.14620 · S 0.14530 · S 0.14390 · P 0.14137 · S 0.14090 · S 0.13790 · S 0.13653 · S 0.13330
+❌ Invalidasi: Candle H1 close di atas 0.14772
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · ADAUSD · Bukan nasihat keuangan, selalu pakai SL.

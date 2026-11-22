@@ -1,7 +1,7 @@
 {
- "dibuat": "2026-11-22T10:14:02.483Z",
+ "dibuat": "2026-11-22T11:05:19.206Z",
  "diperingkat": "2026-11-22T09:38:48.242Z",
- "metode": "5 teratas menurut volatilitas terealisasi 30 hari (tahunan) dari 12 koin likuid yang umum tersedia di broker MT5, diperbarui sekali sehari (aset lama bertahan selama volatilitasnya ≥ 90% aset ke-5). Ditambah aset yang selalu dipantau: XMRUSD.",
+ "metode": "5 teratas menurut volatilitas terealisasi 30 hari (tahunan) dari 12 koin likuid yang umum tersedia di broker MT5, diperbarui sekali sehari (aset lama bertahan selama volatilitasnya ≥ 90% aset ke-5). Ditambah aset yang selalu dipantau: BTCUSD, XMRUSD, GBPUSD, USA100, SNP500.",
  "daftar": [
   {
    "id": "AVAXUSD",
@@ -13,7 +13,7 @@
     "provider": "binance",
     "symbol": "AVAXUSDT"
    },
-   "harga": 6.68,
+   "harga": 6.682,
    "digit": 4
   },
   {
@@ -26,7 +26,7 @@
     "provider": "binance",
     "symbol": "DOTUSDT"
    },
-   "harga": 0.663,
+   "harga": 0.665,
    "digit": 5
   },
   {
@@ -39,7 +39,7 @@
     "provider": "binance",
     "symbol": "LINKUSDT"
    },
-   "harga": 8.776,
+   "harga": 8.819,
    "digit": 4
   },
   {
@@ -52,7 +52,7 @@
     "provider": "binance",
     "symbol": "ADAUSDT"
    },
-   "harga": 0.1457,
+   "harga": 0.1458,
    "digit": 5
   },
   {
@@ -78,7 +78,52 @@
     "provider": "htx",
     "symbol": "xmrusdt"
    },
-   "harga": 484.2,
+   "harga": 487.6,
+   "digit": 2
+  },
+  {
+   "id": "BTCUSD",
+   "nama": "Bitcoin",
+   "tetap": true,
+   "live": {
+    "provider": "binance",
+    "symbol": "BTCUSDT"
+   },
+   "harga": 60905.64,
+   "digit": 2
+  },
+  {
+   "id": "GBPUSD",
+   "nama": "Pound/Dolar AS",
+   "kelas": "forex",
+   "tetap": true,
+   "live": {
+    "provider": "kraken",
+    "symbol": "GBPUSD"
+   },
+   "harga": 1.3086949586868286,
+   "digit": 5
+  },
+  {
+   "id": "USA100",
+   "nama": "Nasdaq 100",
+   "kelas": "indeks",
+   "tetap": true,
+   "live": {
+    "provider": "server"
+   },
+   "harga": 25126.5,
+   "digit": 2
+  },
+  {
+   "id": "SNP500",
+   "nama": "S&P 500",
+   "kelas": "indeks",
+   "tetap": true,
+   "live": {
+    "provider": "server"
+   },
+   "harga": 6935,
    "digit": 2
   }
  ],
@@ -182,6 +227,10 @@
   "LINKUSD",
   "ADAUSD",
   "BCHUSD",
-  "XMRUSD"
+  "XMRUSD",
+  "BTCUSD",
+  "GBPUSD",
+  "USA100",
+  "SNP500"
  ]
 }

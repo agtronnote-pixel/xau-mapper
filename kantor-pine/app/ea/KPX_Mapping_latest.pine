@@ -14,26 +14,26 @@ var bool drawn = false
 if barstate.islast and not drawn
     drawn := true
     if showLevels
-        drawLine(3694.67, color.red, "R Swing low H1", false)
-        drawLine(3638.27, color.red, "R High kemarin (PDH)", false)
-        drawLine(3613.89, color.red, "R R1 harian", false)
-        drawLine(3596.87, color.red, "R Swing high H1", false)
-        drawLine(3587.17, color.red, "R Swing high H1", false)
+        drawLine(3695.15, color.red, "R Swing low H1", false)
+        drawLine(3638.75, color.red, "R High kemarin (PDH)", false)
+        drawLine(3614.05, color.red, "R R1 harian", false)
+        drawLine(3597.35, color.red, "R Swing high H1", false)
+        drawLine(3587.65, color.red, "R Swing high H1", false)
         drawLine(3575.00, color.red, "R Angka bulat", false)
-        drawLine(3558.48, color.gray, "P Pivot harian", false)
+        drawLine(3558.80, color.gray, "P Pivot harian", false)
         drawLine(3550.00, color.red, "R Angka bulat", false)
         drawLine(3525.00, color.green, "S Angka bulat", false)
-        drawLine(3515.07, color.green, "S Swing low H1", false)
-        drawLine(3503.07, color.green, "S Low kemarin (PDL)", false)
-        drawLine(3478.69, color.green, "S S1 harian", false)
+        drawLine(3515.55, color.green, "S Swing low H1", false)
+        drawLine(3503.55, color.green, "S Low kemarin (PDL)", false)
+        drawLine(3478.85, color.green, "S S1 harian", false)
     if showPlans
         box.new(bar_index - 20, 3555.59 + offset, bar_index + 40, 3544.41 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 69%", text_color=color.red, text_size=size.small)
         drawLine(3580.74, color.red, "SL SELL", true)
-        drawLine(3515.07, color.blue, "TP1 SELL", true)
-        drawLine(3478.69, color.blue, "TP2 SELL", true)
+        drawLine(3515.55, color.blue, "TP1 SELL", true)
+        drawLine(3478.85, color.blue, "TP2 SELL", true)
         box.new(bar_index - 20, 3530.59 + offset, bar_index + 40, 3519.41 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 21%", text_color=color.green, text_size=size.small)
         drawLine(3494.26, color.red, "SL BUY", true)
-        drawLine(3558.48, color.blue, "TP1 BUY", true)
+        drawLine(3558.80, color.blue, "TP1 BUY", true)
         drawLine(3575.00, color.blue, "TP2 BUY", true)
 
 inZone0 = close >= 3544.41 + offset and close <= 3555.59 + offset

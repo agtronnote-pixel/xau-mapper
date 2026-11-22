@@ -1,41 +1,41 @@
-📊 MAPPING BCHUSD — Min, 22 Nov 2026, 17.15 WIB
-Harga: 199.20 | Bias: SIDEWAYS (43%)
+📊 MAPPING BCHUSD — Min, 22 Nov 2026, 18.05 WIB
+Harga: 199.20 | Bias: SIDEWAYS (44%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (53%). Pantau zona BUY 197.95–198.65, jangan paksa entry.
-💪 Kekuatan 53% (Sedang) · Peluang TP1 duluan 40% (89 sampel backtest)
-✓ struktur higher high/higher low
-✓ momentum beli (RSI H1 57)
-✕ Penghambat: trend H1 & harian turun
-✕ Penghambat: dolar & yield riil menguat
-❌ Batal bila candle H1 close di bawah 196.37.
-
-🎯 Range: BUY 197.95–198.65
-💪 Kekuatan sinyal: 53% (Sedang) · peluang 40% | RR 1:1.3
-SL 196.37 | TP1 200.80 | TP2 206.97 | s/d 01.15 WIB
-Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
-Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+Sinyal sedang (58%). Pantau zona SELL 199.55–200.25, jangan paksa entry.
+💪 Kekuatan 58% (Sedang) · Peluang TP1 duluan 41% (87 sampel backtest)
+✓ trend H1 & harian turun
+✓ dolar & yield riil menguat
+✓ berita cenderung negatif untuk emas
+✕ Penghambat: momentum beli (RSI H1 57)
+❌ Batal bila candle H1 close di atas 201.84.
 
 🎯 Range: SELL 199.55–200.25
-💪 Kekuatan sinyal: 49% (Lemah) · peluang 45% | RR 1:1.5
-SL 201.83 | TP1 197.01 | TP2 194.70 | s/d 01.15 WIB
+💪 Kekuatan sinyal: 58% (Sedang) · peluang 41% | RR 1:1.5
+SL 201.84 | TP1 196.99 | TP2 194.70 | s/d 02.05 WIB
 Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
+🎯 Range: BUY 197.95–198.65
+💪 Kekuatan sinyal: 44% (Lemah) · peluang 45% | RR 1:1.29
+SL 196.36 | TP1 200.80 | TP2 206.97 | s/d 02.05 WIB
+Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+
 📈 Proyeksi
-+15 mnt (17.30): 199.20
-+1 jam (18.15): 199.20
-+4 jam (21.15): 199.21
-+24 jam (17.15): 199.23
++15 mnt (18.20): 199.20
++1 jam (19.05): 199.20
++4 jam (22.05): 199.19
++24 jam (18.05): 199.16
 
 🕒 Jadwal
-17.15–06.15 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 45%
-06.15–07.15 WAIT: Likuiditas rendah
-07.15–15.15 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
-15.15–17.15 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi · backtest TP1 duluan 52%
+18.05–06.05 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 45%
+06.05–07.05 WAIT: Likuiditas rendah
+07.05–15.05 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
+15.05–18.05 ENTRY: Sesi London: entry bila zona tersentuh + konfirmasi · backtest TP1 duluan 52%
 
 🧱 Level: R 206.97 · R 200.80 · R 199.90 · S 199.00 · S 198.30 · S 194.70 · S 194.20 · P 193.43 · S 186.07 · S 179.90
-❌ Invalidasi: Candle H1 close di bawah 196.37
+❌ Invalidasi: Candle H1 close di atas 201.84
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · BCHUSD · Bukan nasihat keuangan, selalu pakai SL.

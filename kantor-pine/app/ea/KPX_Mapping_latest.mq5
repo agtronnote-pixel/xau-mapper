@@ -5,12 +5,12 @@
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 54%
+/* Bias: BEARISH - Keyakinan 53%
    Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 23 Nov, 06.00 WIB dari harga penutupan 3539. XAUUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 3544.41-3555.5
-   Rencana 0: SELL 3544.41-3555.59 SL 3580.74 TP1 3515.07 TP2 3478.69 - Kekuatan sinyal 69% (Sedang)
+   Rencana 0: SELL 3544.41-3555.59 SL 3580.74 TP1 3515.55 TP2 3478.85 - Kekuatan sinyal 69% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3519.41-3530.59 SL 3494.26 TP1 3558.48 TP2 3575.00 - Kekuatan sinyal 21% (Lemah)
+   Rencana 1: BUY 3519.41-3530.59 SL 3494.26 TP1 3558.80 TP2 3575.00 - Kekuatan sinyal 21% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
    Invalidasi: Candle H1 close di atas 3580.74
@@ -46,8 +46,8 @@ int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
 double   P_ELO[]  = {3544.41, 3519.41};
 double   P_EHI[]  = {3555.59, 3530.59};
 double   P_SL[]   = {3580.74, 3494.26};
-double   P_TP1[]  = {3515.07, 3558.48};
-double   P_TP2[]  = {3478.69, 3575.00};
+double   P_TP1[]  = {3515.55, 3558.80};
+double   P_TP2[]  = {3478.85, 3575.00};
 datetime P_EXP[]  = {D'2026.11.23 07:00:00', D'2026.11.23 07:00:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
 int      P_STR[]  = {69, 21};   // kekuatan sinyal %

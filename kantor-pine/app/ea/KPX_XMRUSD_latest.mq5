@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_XMRUSD_202611221715.mq5                                      |
+//| KPX_XMRUSD_202611221806.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 22 Nov 2026, 17.15 WIB - XMRUSD 484.20                  |
+//| Mapping: 22 Nov 2026, 18.06 WIB - XMRUSD 487.60                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 33%
-   Ringkasan: XMRUSD bergerak dalam range (1/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 481.63-483.37 (kekuatan sinyal 50% - Sedang).
-   Rencana 0: BUY 481.63-483.37 SL 477.71 TP1 487.50 TP2 493.05 - Kekuatan sinyal 50% (Sedang)
+/* Bias: SIDEWAYS - Keyakinan 35%
+   Ringkasan: XMRUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 484.8-486.56 (kekuatan sinyal 55% - Sedang).
+   Rencana 0: BUY 484.80-486.56 SL 480.84 TP1 493.05 TP2 504.43 - Kekuatan sinyal 55% (Sedang)
      Trigger: Candle M15 menyentuh zona lalu close kembali di atasnya (rejection bullish), RSI M15 > 40
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 484.81-486.55 SL 490.47 TP1 480.21 TP2 469.96 - Kekuatan sinyal 48% (Lemah)
+   Rencana 1: SELL 489.12-490.88 SL 494.84 TP1 482.74 TP2 480.21 - Kekuatan sinyal 46% (Lemah)
      Trigger: Candle M15 menyentuh zona lalu close kembali di bawahnya (rejection bearish), RSI M15 < 60
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 477.71
+   Invalidasi: Candle H1 close di bawah 480.84
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XMRUSD 202611221715"
+#property description "Eksekusi otomatis mapping XMRUSD 202611221806"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -38,26 +38,26 @@ input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
 input double InpBEBuffer      = 0.09;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Lainnya"
-input ulong  InpMagic         = 129922375; // Magic number
+input ulong  InpMagic         = 129922426; // Magic number
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {481.63, 484.81};
-double   P_EHI[]  = {483.37, 486.55};
-double   P_SL[]   = {477.71, 490.47};
-double   P_TP1[]  = {487.50, 480.21};
-double   P_TP2[]  = {493.05, 469.96};
-datetime P_EXP[]  = {D'2026.11.22 18:15:00', D'2026.11.22 18:15:00'};
+double   P_ELO[]  = {484.80, 489.12};
+double   P_EHI[]  = {486.56, 490.88};
+double   P_SL[]   = {480.84, 494.84};
+double   P_TP1[]  = {493.05, 482.74};
+double   P_TP2[]  = {504.43, 480.21};
+datetime P_EXP[]  = {D'2026.11.22 19:06:00', D'2026.11.22 19:06:00'};
 string   P_NAME[] = {"BUY Range", "SELL Range"};
-int      P_STR[]  = {50, 48};   // kekuatan sinyal %
-datetime REF_TIME   = D'2026.11.22 10:15:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 484.20;
-double   OFFSET_MAX = 4.84;
+int      P_STR[]  = {55, 46};   // kekuatan sinyal %
+datetime REF_TIME   = D'2026.11.22 11:06:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 487.84;
+double   OFFSET_MAX = 4.88;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.22 10:15:00';
-datetime MAP_END    = D'2026.11.23 10:15:00';
+datetime MAP_START  = D'2026.11.22 11:06:00';
+datetime MAP_END    = D'2026.11.23 11:06:00';
 
 CTrade   trade;
 string   GVP;
