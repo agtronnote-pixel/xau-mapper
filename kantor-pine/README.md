@@ -32,7 +32,8 @@ kantor-pine/
   app/data/   market.json, kalibrasi.json, kinerja.json, latest.json, berita.json, analisis-claude.json, arsip/
   scripts/    build-market.mjs + market.js (data server), calibrate.mjs (backtest), run-mapping.mjs,
               score-archive.mjs, run-news.mjs + news.js, lib-stats.js, test-engine.mjs
-  mt5/        KPX_Tools: compile otomatis + KPX_Agent
+  mt5/        KPX_Bot.mq5 (EA real-time) + KPX_Tools: KPX_RealTime.bat, compile otomatis, KPX_Agent
+  lokal/      kantor.mjs: Kantor lokal real-time (jalan di PC, sinyal ke MQL5\Files\KPX)
 .github/workflows/kantor-pine.yml   Uji → tiap jam: data → berita → kalibrasi (harian) → mapping → penilaian → commit
 ```
 
@@ -64,3 +65,12 @@ kantor-pine/
 
 ## Disclaimer
 Semua proyeksi adalah skenario probabilitas, **bukan kepastian dan bukan nasihat keuangan**. Trading emas berisiko tinggi. Gunakan stop loss dan uji di akun demo. Bila aplikasi dibagikan ke trader lain sebagai layanan sinyal, periksa aturan otoritas setempat.
+
+## Real-time di MT5 (Kantor lokal)
+1. Salin `mt5/KPX_Tools/KPX_RealTime.bat` ke `MQL5\Experts\KPX_Tools`, klik dua kali (sekali saja).
+   Node.js portable diunduh otomatis bila belum ada; Kantor lokal ikut menyala saat Windows hidup.
+2. Kantor lokal menganalisa tiap 1 detik (Binance), 2 detik (HTX/XMR), 3 detik (Kraken/GBPUSD), 15 detik (emas);
+   indeks memakai data server (tiap jam). Sinyal ditulis ke `MQL5\Files\KPX\<ASET>.sig`.
+3. EA `KPX_Bot` (satu EA untuk semua aset) membaca sinyal tiap 0,25 detik dan langsung eksekusi.
+   Hapus EA lama `KPX_..._latest` dari chart agar tidak dobel.
+4. Server GitHub tetap mengerjakan kalibrasi harian, berita, dan candle H1/M15. Kode Kantor lokal & KPX_Bot diperbarui otomatis tiap 10 menit.

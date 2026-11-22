@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: 22
       - name: Uji mesin analisis & ekspor
-        run: node kantor-pine/scripts/test-engine.mjs
+        run: node kantor-pine/scripts/test-engine.mjs && node --check kantor-pine/lokal/kantor.mjs
       - name: Uji aplikasi lama (/lama)
         run: node lama/test/test_app.js
 
