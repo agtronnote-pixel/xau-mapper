@@ -1,48 +1,44 @@
-📊 MAPPING XAUUSD — Sen, 23 Nov 2026, 06.00 WIB
-Harga: 3539.00 | Bias: BEARISH (54%)
+📊 MAPPING XAUUSD — Sen, 23 Nov 2026, 06.07 WIB
+Harga: 3602.80 | Bias: SIDEWAYS (53%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Pasar buka Senin, 23 Nov, 06.00 WIB. Sinyal sedang (69%). Pantau zona SELL 3547.82–3558.74, jangan paksa entry.
-💪 Kekuatan 69% (Sedang) · Peluang TP1 duluan 43% (62 sampel backtest)
-✓ struktur lower high/lower low
+Sinyal sedang (62%). Pantau zona SELL 3619.54–3630.46, jangan paksa entry.
+💪 Kekuatan 62% (Sedang) · Peluang TP1 duluan 43% (62 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ berita cenderung negatif untuk emas
-❌ Batal bila candle H1 close di atas 3583.29.
+✓ analisis berita Claude bearish
+✕ Penghambat: momentum beli (RSI H1 56)
+❌ Batal bila candle H1 close di atas 3655.01.
 
-🔔 Gap pembukaan (tutup 3539.00)
-• Gap naik — Harga buka di atas 3552.64: Jangan kejar. Bila harga kembali turun di bawah 3552.64 di sesi Asia → peluang SELL menutup gap ke 3539. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.
-• Tanpa gap / gap kecil — Harga buka di 3525.36–3552.64: Ikuti rencana utama setelah 60 menit pertama.
-• Gap turun — Harga buka di bawah 3525.36: Jangan kejar. Bila harga kembali naik di atas 3525.36 di sesi Asia → peluang BUY menutup gap ke 3539. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
-
-🎯 Utama: SELL 3547.82–3558.74
-💪 Kekuatan sinyal: 69% (Sedang) · peluang 43% | RR 1:1.24
-SL 3583.29 | TP1 3516.05 | TP2 3467.32 | s/d 14.00 WIB
+🎯 Range: SELL 3619.54–3630.46
+💪 Kekuatan sinyal: 62% (Sedang) · peluang 43% | RR 1:1.23
+SL 3655.01 | TP1 3588.15 | TP2 3553.28 | s/d 14.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 3519.54–3530.46
-💪 Kekuatan sinyal: 23% (Lemah) · peluang 46% | RR 1:1.67
-SL 3494.99 | TP1 3575.00 | TP2 3602.52 | s/d 14.00 WIB
+🎯 Range: BUY 3582.69–3593.61
+💪 Kekuatan sinyal: 39% (Lemah) · peluang 46% | RR 1:1.23
+SL 3558.14 | TP1 3625.00 | TP2 3695.65 | s/d 14.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (06.15): 3538.60
-+1 jam (07.00): 3537.81
-+4 jam (10.00): 3533.06
-+24 jam (06.00): 3512.81
++15 mnt (06.22): 3602.71
++1 jam (07.07): 3602.52
++4 jam (10.07): 3601.39
++24 jam (06.07): 3596.58
 
 🕒 Jadwal
-06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
-07.00–15.00 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
-15.00–20.00 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 46%
-20.00–22.00 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 48%
-22.00–00.00 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 48%
-00.00–05.00 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
-05.00–06.00 WAIT: Likuiditas rendah
+06.07–07.07 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 46%
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 48%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 48%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
+05.07–06.07 WAIT: Likuiditas rendah
 
-🧱 Level: R 3695.65 · R 3639.25 · R 3602.52 · R 3588.15 · R 3575.00 · P 3553.28 · S 3525.00 · S 3516.05 · S 3504.05 · S 3467.32
-❌ Invalidasi: Candle H1 close di atas 3583.29
-⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan · Agent tanpa data cukup: Clara
+🧱 Level: R 3746.75 · R 3722.95 · R 3695.65 · R 3639.25 · R 3625.00 · S 3602.52 · S 3588.15 · S 3575.00 · P 3553.28 · S 3516.05 · S 3504.05 · S 3467.32
+❌ Invalidasi: Candle H1 close di atas 3655.01
+⚠️ Tidak ada peringatan khusus
 
 — Kantor Pine · XAUUSD · Bukan nasihat keuangan, selalu pakai SL.
