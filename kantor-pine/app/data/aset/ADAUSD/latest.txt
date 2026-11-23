@@ -1,4 +1,4 @@
-📊 MAPPING ADAUSD — Sen, 23 Nov 2026, 18.07 WIB
+📊 MAPPING ADAUSD — Sen, 23 Nov 2026, 19.07 WIB
 Harga: 0.14590 | Bias: SIDEWAYS (36%)
 
 ➡️ KEPUTUSAN: TUNGGU
@@ -11,30 +11,30 @@ Sinyal sedang (54%). Pantau zona BUY 0.14503–0.14557, jangan paksa entry.
 
 🎯 Range: BUY 0.14503–0.14557
 💪 Kekuatan sinyal: 54% (Sedang) · peluang 64% | RR 1:1.16
-SL 0.14383 | TP1 0.14700 | TP2 0.14797 | s/d 02.07 WIB
+SL 0.14383 | TP1 0.14700 | TP2 0.14797 | s/d 03.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Range: SELL 0.14673–0.14727
 💪 Kekuatan sinyal: 45% (Lemah) · peluang 52% | RR 1:1.16
-SL 0.14847 | TP1 0.14530 | TP2 0.14443 | s/d 02.07 WIB
+SL 0.14847 | TP1 0.14530 | TP2 0.14443 | s/d 03.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (18.22): 0.14590
-+1 jam (19.07): 0.14590
-+4 jam (22.07): 0.14590
-+24 jam (18.07): 0.14589
++15 mnt (19.22): 0.14590
++1 jam (20.07): 0.14590
++4 jam (23.07): 0.14590
++24 jam (19.07): 0.14589
 
 🕒 Jadwal
-18.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
+19.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
-15.07–18.07 ENTRY: Sesi London: entry saat zona tersentuh
+15.07–19.07 ENTRY: Sesi London: entry saat zona tersentuh
 
 🧱 Level: R 0.14797 · R 0.14750 · R 0.14700 · S 0.14580 · S 0.14530 · P 0.14443 · S 0.14390 · S 0.14200 · S 0.14137 · S 0.14090
 ❌ Invalidasi: Candle H1 close di bawah 0.14383

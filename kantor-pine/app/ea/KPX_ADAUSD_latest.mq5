@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_ADAUSD_202611231807.mq5                                      |
+//| KPX_ADAUSD_202611231907.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 23 Nov 2026, 18.07 WIB - ADAUSD 0.14590                 |
+//| Mapping: 23 Nov 2026, 19.07 WIB - ADAUSD 0.14590                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping ADAUSD 202611231807"
+#property description "Eksekusi otomatis mapping ADAUSD 202611231907"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {0.14557, 0.14727};
 double   P_SL[]   = {0.14383, 0.14847};
 double   P_TP1[]  = {0.14700, 0.14530};
 double   P_TP2[]  = {0.14797, 0.14443};
-datetime P_EXP[]  = {D'2026.11.23 19:07:00', D'2026.11.23 19:07:00'};
+datetime P_EXP[]  = {D'2026.11.23 20:07:00', D'2026.11.23 20:07:00'};
 string   P_NAME[] = {"BUY Range", "SELL Range"};
 int      P_STR[]  = {54, 45};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, -1};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.23 11:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 0.14590;
+datetime REF_TIME   = D'2026.11.23 12:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 0.14580;
 double   OFFSET_MAX = 0.00146;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.23 11:07:00';
-datetime MAP_END    = D'2026.11.24 11:07:00';
+datetime MAP_START  = D'2026.11.23 12:07:00';
+datetime MAP_END    = D'2026.11.24 12:07:00';
 
 CTrade   trade;
 string   GVP;
