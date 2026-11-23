@@ -1,44 +1,43 @@
-📊 MAPPING XAUUSD — Sel, 24 Nov 2026, 02.07 WIB
-Harga: 3649.15 | Bias: BULLISH (51%)
+📊 MAPPING XAUUSD — Sel, 24 Nov 2026, 03.07 WIB
+Harga: 3640.40 | Bias: SIDEWAYS (44%)
 
-➡️ KEPUTUSAN: BUY
-BUY di 3633.41–3643.09 saat harga menyentuh zona.
-💪 Kekuatan 57% (Sedang) · Peluang TP1 duluan 51% (60 sampel backtest)
+➡️ KEPUTUSAN: TUNGGU
+Sinyal sedang (53%). Pantau zona BUY 3624.97–3634.63, jangan paksa entry.
+💪 Kekuatan 53% (Sedang) · Peluang TP1 duluan 51% (60 sampel backtest)
 ✓ struktur higher high/higher low
-✓ momentum beli (RSI H1 60)
 ✕ Penghambat: trend H1 & harian turun
 ✕ Penghambat: dolar & yield riil menguat
-❌ Batal bila candle H1 close di bawah 3611.62.
+❌ Batal bila candle H1 close di bawah 3603.23.
 
-🎯 Utama: BUY 3633.41–3643.09
-💪 Kekuatan sinyal: 57% (Sedang) · peluang 51% | RR 1:1.38
-SL 3611.62 | TP1 3675.00 | TP2 3691.15 | s/d 10.07 WIB
+🎯 Range: BUY 3624.97–3634.63
+💪 Kekuatan sinyal: 53% (Sedang) · peluang 51% | RR 1:1.7
+SL 3603.23 | TP1 3675.00 | TP2 3691.20 | s/d 11.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 3670.16–3679.84
-💪 Kekuatan sinyal: 46% (Lemah) · peluang 50% | RR 1:1.38
-SL 3701.63 | TP1 3638.25 | TP2 3611.95 | s/d 10.07 WIB
+🎯 Range: SELL 3645.17–3654.83
+💪 Kekuatan sinyal: 52% (Sedang) · peluang 51% | RR 1:1.43
+SL 3676.57 | TP1 3612.00 | TP2 3552.33 | s/d 11.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (02.22): 3649.31
-+1 jam (03.07): 3649.63
-+4 jam (06.07): 3651.29
-+24 jam (02.07): 3657.93
++15 mnt (03.22): 3640.51
++1 jam (04.07): 3640.75
++4 jam (07.07): 3641.95
++24 jam (03.07): 3646.75
 
 🕒 Jadwal
-02.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
+03.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 49%
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 48%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 48%
-00.07–02.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
+00.07–03.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
 
-🧱 Level: R 3691.15 · R 3675.00 · R 3650.00 · S 3638.25 · S 3629.75 · S 3611.95 · S 3601.52 · P 3552.28 · S 3515.05 · S 3503.05
-❌ Invalidasi: Candle H1 close di bawah 3611.62
+🧱 Level: R 3691.20 · R 3675.00 · R 3650.00 · S 3638.30 · S 3629.80 · S 3612.00 · S 3601.57 · P 3552.33 · S 3515.10 · S 3503.10
+❌ Invalidasi: Candle H1 close di bawah 3603.23
 ⚠️ Tidak ada peringatan khusus
 
 — Kantor Pine · XAUUSD · Bukan nasihat keuangan, selalu pakai SL.
