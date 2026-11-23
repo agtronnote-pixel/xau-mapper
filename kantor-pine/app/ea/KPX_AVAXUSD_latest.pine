@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping AVAXUSD 202611240307", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-23T20:07:35.504Z (harga 6.8230).
+indicator("KPX Mapping AVAXUSD 202611240407", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-23T21:07:24.051Z (harga 6.8200).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -24,17 +24,17 @@ if barstate.islast and not drawn
         drawLine(6.5193, color.green, "S S1 harian", false)
         drawLine(6.4780, color.green, "S Low kemarin (PDL)", false)
     if showPlans
-        box.new(bar_index - 20, 6.8041 + offset, bar_index + 40, 6.7519 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 59%", text_color=color.green, text_size=size.small)
-        drawLine(6.6345, color.red, "SL BUY", true)
-        drawLine(6.9933, color.blue, "TP1 BUY", true)
+        box.new(bar_index - 20, 6.8047 + offset, bar_index + 40, 6.7513 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 52%", text_color=color.green, text_size=size.small)
+        drawLine(6.6312, color.red, "SL BUY", true)
+        drawLine(6.9982, color.blue, "TP1 BUY", true)
         drawLine(7.2290, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 7.2551 + offset, bar_index + 40, 7.2029 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 42%", text_color=color.red, text_size=size.small)
-        drawLine(7.3726, color.red, "SL SELL", true)
-        drawLine(7.0136, color.blue, "TP1 SELL", true)
+        box.new(bar_index - 20, 7.2557 + offset, bar_index + 40, 7.2023 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 50%", text_color=color.red, text_size=size.small)
+        drawLine(7.3759, color.red, "SL SELL", true)
+        drawLine(7.0087, color.blue, "TP1 SELL", true)
         drawLine(6.7780, color.blue, "TP2 SELL", true)
 
-inZone0 = close >= 6.7519 + offset and close <= 6.8041 + offset
+inZone0 = close >= 6.7513 + offset and close <= 6.8047 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX BUY Range: masuk zona", "AVAXUSD masuk zona BUY {{close}} - EA entry")
-inZone1 = close >= 7.2029 + offset and close <= 7.2551 + offset
+inZone1 = close >= 7.2023 + offset and close <= 7.2557 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX SELL Range: masuk zona", "AVAXUSD masuk zona SELL {{close}} - EA entry")
 plot(na, "KPX")
