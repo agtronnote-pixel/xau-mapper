@@ -1,32 +1,32 @@
 {
  "versi": 3,
  "aset": "XAUUSD",
- "dibuat": "2026-11-22T17:03:03.025Z",
- "periode": "2026-09-21 – 2026-11-19",
- "sampel_jam": 1028,
+ "dibuat": "2026-11-23T13:07:32.176Z",
+ "periode": "2026-09-22 – 2026-11-20",
+ "sampel_jam": 1027,
  "bobot": {
-  "trend": 0.155,
-  "momentum": 0.219,
-  "structure": 0.386,
-  "macro": 0.122,
-  "news": 0.059,
-  "claude": 0.059
+  "trend": 0.159,
+  "momentum": 0.22,
+  "structure": 0.385,
+  "macro": 0.123,
+  "news": 0.057,
+  "claude": 0.057
  },
  "ic": {
   "trend": {
-   "ic": -0.132,
+   "ic": -0.125,
    "n": 616
   },
   "momentum": {
-   "ic": -0.017,
+   "ic": -0.007,
    "n": 616
   },
   "structure": {
-   "ic": 0.023,
+   "ic": 0.034,
    "n": 616
   },
   "macro": {
-   "ic": -0.034,
+   "ic": -0.023,
    "n": 616
   }
  },
@@ -34,127 +34,127 @@
   {
    "dari": 5,
    "sampai": 40,
-   "n": 182,
-   "peluang": 0.458,
-   "ekspektasi_R": 0.083
+   "n": 178,
+   "peluang": 0.457,
+   "ekspektasi_R": 0.057
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 50,
-   "peluang": 0.483,
-   "ekspektasi_R": 0.088
+   "n": 48,
+   "peluang": 0.5,
+   "ekspektasi_R": 0.073
   },
   {
    "dari": 50,
    "sampai": 60,
-   "n": 62,
-   "peluang": 0.5,
-   "ekspektasi_R": 0.163
+   "n": 60,
+   "peluang": 0.514,
+   "ekspektasi_R": 0.19
   },
   {
    "dari": 60,
    "sampai": 70,
    "n": 62,
-   "peluang": 0.431,
-   "ekspektasi_R": -0.049
+   "peluang": 0.417,
+   "ekspektasi_R": -0.003
   },
   {
    "dari": 70,
    "sampai": 96,
-   "n": 115,
-   "peluang": 0.528,
-   "ekspektasi_R": 0.301
+   "n": 122,
+   "peluang": 0.545,
+   "ekspektasi_R": 0.359
   }
  ],
  "sesi": {
   "asia": {
-   "n": 201,
-   "peluang": 0.479,
+   "n": 204,
+   "peluang": 0.481,
    "ekspektasi_R": 0.134
   },
   "london": {
-   "n": 82,
-   "peluang": 0.457,
-   "ekspektasi_R": 0.077
+   "n": 80,
+   "peluang": 0.489,
+   "ekspektasi_R": 0.146
   },
   "overlap": {
-   "n": 78,
-   "peluang": 0.477,
-   "ekspektasi_R": 0.139
+   "n": 74,
+   "peluang": 0.476,
+   "ekspektasi_R": 0.143
   },
   "ny": {
    "n": 52,
-   "peluang": 0.452,
-   "ekspektasi_R": 0.071
+   "peluang": 0.435,
+   "ekspektasi_R": 0.076
   },
   "sepi": {
-   "n": 58,
-   "peluang": 0.544,
-   "ekspektasi_R": 0.232
+   "n": 60,
+   "peluang": 0.557,
+   "ekspektasi_R": 0.251
   }
  },
  "proyeksi": {
   "15": {
-   "k": 0.034,
-   "q80": 0.268,
-   "n": 1028
+   "k": 0.041,
+   "q80": 0.269,
+   "n": 1027
   },
   "30": {
-   "k": 0.006,
-   "q80": 0.342,
-   "n": 1028
+   "k": 0.035,
+   "q80": 0.352,
+   "n": 1027
   },
   "60": {
-   "k": 0.102,
-   "q80": 0.745,
-   "n": 1028
+   "k": 0.124,
+   "q80": 0.736,
+   "n": 1027
   },
   "120": {
-   "k": 0.234,
-   "q80": 1.118,
-   "n": 1028
+   "k": 0.272,
+   "q80": 1.08,
+   "n": 1027
   },
   "240": {
-   "k": 0.509,
-   "q80": 1.598,
-   "n": 1028
+   "k": 0.552,
+   "q80": 1.595,
+   "n": 1027
   },
   "480": {
-   "k": 1.044,
-   "q80": 2.281,
-   "n": 1028
+   "k": 1.046,
+   "q80": 2.296,
+   "n": 1027
   },
   "720": {
-   "k": 1.385,
-   "q80": 3.035,
-   "n": 1028
+   "k": 1.383,
+   "q80": 3.019,
+   "n": 1027
   },
   "1440": {
-   "k": 2.243,
-   "q80": 4.481,
-   "n": 1028
+   "k": 2.261,
+   "q80": 4.467,
+   "n": 1027
   }
  },
  "arah": {
-  "h1": 0.51,
-  "h4": 0.546,
-  "n": 764
+  "h1": 0.511,
+  "h4": 0.554,
+  "n": 775
  },
  "rencana": {
   "rencana": 617,
-  "tersentuh": 471,
-  "tp1": 225,
-  "sl": 246,
-  "winrate": 0.478,
-  "ekspektasi_R": 0.13,
+  "tersentuh": 470,
+  "tp1": 228,
+  "sl": 242,
+  "winrate": 0.485,
+  "ekspektasi_R": 0.146,
   "oos": {
-   "rencana": 249,
-   "tersentuh": 191,
-   "tp1": 92,
-   "sl": 99,
-   "winrate": 0.482,
-   "ekspektasi_R": 0.212
+   "rencana": 247,
+   "tersentuh": 188,
+   "tp1": 91,
+   "sl": 97,
+   "winrate": 0.484,
+   "ekspektasi_R": 0.177
   }
  },
  "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."
