@@ -1,44 +1,42 @@
-📊 MAPPING DOTUSD — Sel, 24 Nov 2026, 04.14 WIB
-Harga: 0.67800 | Bias: SIDEWAYS (35%)
+📊 MAPPING DOTUSD — Sel, 24 Nov 2026, 05.07 WIB
+Harga: 0.67500 | Bias: SIDEWAYS (36%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.04R per trade). Pakai sebagai peta level saja — zona BUY 0.66947–0.67519.
-💪 Kekuatan 49% (Lemah)
+Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.04R per trade). Pakai sebagai peta level saja — zona BUY 0.66413–0.66987.
+💪 Kekuatan 53% (Sedang)
 ✓ struktur higher high/higher low
 ✓ trend belum jelas
-✕ Penghambat: momentum jual (RSI H1 51)
-✕ Penghambat: dolar & yield riil menguat
-❌ Batal bila candle H1 close di bawah 0.65661.
+✕ Penghambat: momentum jual (RSI H1 50)
+❌ Batal bila candle H1 close di bawah 0.65121.
 
-🎯 Range: BUY 0.66947–0.67519
-💪 Kekuatan sinyal: 49% (Lemah) | RR 1:1.5
-SL 0.65661 | TP1 0.69591 | TP2 0.72300 | s/d 12.14 WIB
+🎯 Range: BUY 0.66413–0.66987
+💪 Kekuatan sinyal: 53% (Sedang) | RR 1:1.5
+SL 0.65121 | TP1 0.69069 | TP2 0.72300 | s/d 13.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: SELL 0.68214–0.68786
-💪 Kekuatan sinyal: 44% (Lemah) | RR 1:1.15
-SL 0.70072 | TP1 0.66700 | TP2 0.65667 | s/d 12.14 WIB
+🎯 Range: SELL 0.72013–0.72587
+💪 Kekuatan sinyal: 41% (Lemah) | RR 1:1.5
+SL 0.73879 | TP1 0.69932 | TP2 0.66700 | s/d 13.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (04.29): 0.67803
-+1 jam (05.14): 0.67799
-+4 jam (08.14): 0.67794
-+24 jam (04.14): 0.67829
++15 mnt (05.22): 0.67505
++1 jam (06.07): 0.67498
++4 jam (09.07): 0.67490
++24 jam (05.07): 0.67547
 
 🕒 Jadwal
-04.14–05.14 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.14–07.14 WAIT: Likuiditas rendah
-07.14–15.14 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
-15.14–20.14 ENTRY: Sesi London: entry saat zona tersentuh
-20.14–22.14 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
-22.14–00.14 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
-00.14–04.14 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.07–07.07 WAIT: Likuiditas rendah
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 
-🧱 Level: R 0.72300 · R 0.68500 · S 0.67700 · S 0.67233 · S 0.66700 · S 0.66300 · P 0.65667 · S 0.65000 · S 0.64633 · S 0.64100
-❌ Invalidasi: Candle H1 close di bawah 0.65661
+🧱 Level: R 0.72300 · R 0.67700 · S 0.67233 · S 0.66700 · S 0.66300 · P 0.65667 · S 0.65000 · S 0.64633 · S 0.64100
+❌ Invalidasi: Candle H1 close di bawah 0.65121
 ⚠️ Volatilitas tinggi · Agent tanpa data cukup: Clara
 
 — Kantor Pine · DOTUSD · Bukan nasihat keuangan, selalu pakai SL.
