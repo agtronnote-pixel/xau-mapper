@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_Mapping_202611230807.mq5                                     |
+//| KPX_Mapping_202611230907.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 23 Nov 2026, 08.07 WIB - XAUUSD 3576.20                 |
+//| Mapping: 23 Nov 2026, 09.07 WIB - XAUUSD 3597.40                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 45%
-   Ringkasan: XAUUSD cenderung turun (2/4 analis searah). Volatilitas tinggi - perlebar SL, kecilkan lot. Rencana terkuat: SELL Utama di 3582.46-3594.54 (kekuatan sinyal 55% - Sedang).
-   Rencana 0: SELL 3582.46-3594.54 SL 3621.74 TP1 3553.63 TP2 3516.40 - Kekuatan sinyal 55% (Sedang)
+/* Bias: SIDEWAYS - Keyakinan 47%
+   Ringkasan: XAUUSD bergerak dalam range (3/4 analis searah). Volatilitas tinggi - perlebar SL, kecilkan lot. Rencana terkuat: SELL Range di 3618.36-3631.64 (kekuatan sinyal 56% - Sedang).
+   Rencana 0: SELL 3618.36-3631.64 SL 3661.54 TP1 3587.60 TP2 3552.73 - Kekuatan sinyal 56% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3547.59-3559.67 SL 3520.39 TP1 3588.50 TP2 3611.52 - Kekuatan sinyal 37% (Lemah)
+   Rencana 1: BUY 3580.96-3594.24 SL 3551.06 TP1 3625.00 TP2 3695.10 - Kekuatan sinyal 36% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 3621.74
+   Invalidasi: Candle H1 close di atas 3661.54
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XAUUSD 202611230807"
+#property description "Eksekusi otomatis mapping XAUUSD 202611230907"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {3582.46, 3547.59};
-double   P_EHI[]  = {3594.54, 3559.67};
-double   P_SL[]   = {3621.74, 3520.39};
-double   P_TP1[]  = {3553.63, 3588.50};
-double   P_TP2[]  = {3516.40, 3611.52};
-datetime P_EXP[]  = {D'2026.11.23 09:07:00', D'2026.11.23 09:07:00'};
-string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {55, 37};   // kekuatan sinyal %
+double   P_ELO[]  = {3618.36, 3580.96};
+double   P_EHI[]  = {3631.64, 3594.24};
+double   P_SL[]   = {3661.54, 3551.06};
+double   P_TP1[]  = {3587.60, 3625.00};
+double   P_TP2[]  = {3552.73, 3695.10};
+datetime P_EXP[]  = {D'2026.11.23 10:07:00', D'2026.11.23 10:07:00'};
+string   P_NAME[] = {"SELL Range", "BUY Range"};
+int      P_STR[]  = {56, 36};   // kekuatan sinyal %
 int      P_PEL[]  = {50, 46};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.23 01:05:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 3572.60;
+datetime REF_TIME   = D'2026.11.23 02:05:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 3605.00;
 double   OFFSET_MAX = 30;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.23 01:07:00';
-datetime MAP_END    = D'2026.11.24 01:07:00';
+datetime MAP_START  = D'2026.11.23 02:07:00';
+datetime MAP_END    = D'2026.11.24 02:07:00';
 
 CTrade   trade;
 string   GVP;
