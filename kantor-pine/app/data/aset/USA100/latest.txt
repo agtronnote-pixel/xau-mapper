@@ -1,43 +1,45 @@
-📊 MAPPING USA100 — Sen, 23 Nov 2026, 20.09 WIB
-Harga: 25866.50 | Bias: SIDEWAYS (44%)
+📊 MAPPING USA100 — Sen, 23 Nov 2026, 21.07 WIB
+Harga: 25866.50 | Bias: BULLISH (36%)
 
-➡️ KEPUTUSAN: SELL
-SELL di 25908.88–25981.13 saat harga menyentuh zona.
-💪 Kekuatan 62% (Sedang) · Peluang TP1 duluan 55% (63 sampel backtest)
-✓ trend H1 & harian turun
-✓ dolar & yield riil menguat
-✕ Penghambat: struktur higher high/higher low
-❌ Batal bila candle H1 close di atas 26143.69.
+➡️ KEPUTUSAN: TUNGGU
+Sinyal lemah (49%). Pantau zona BUY 25769.08–25841.93, jangan paksa entry.
+💪 Kekuatan 49% (Lemah) · Peluang TP1 duluan 55% (88 sampel backtest)
+✓ momentum beli (RSI H1 63)
+✓ struktur higher high/higher low
+✕ Penghambat: trend H1 & harian turun
+✕ Penghambat: dolar & yield riil menguat
+❌ Batal bila candle H1 close di bawah 25605.17.
 
-🎯 Range: SELL 25908.88–25981.13
-💪 Kekuatan sinyal: 62% (Sedang) · peluang 55% | RR 1:1.89
-SL 26143.69 | TP1 25568.83 | TP2 24976.50 | s/d 04.09 WIB
+🎯 Utama: BUY 25769.08–25841.93
+💪 Kekuatan sinyal: 49% (Lemah) · peluang 55% | RR 1:1.48
+SL 25605.17 | TP1 26102.25 | TP2 26447.75 | s/d 05.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 25769.38–25841.63
-💪 Kekuatan sinyal: 42% (Lemah) · peluang 55% | RR 1:1.49
-SL 25606.82 | TP1 26102.25 | TP2 26447.75 | s/d 04.09 WIB
+🎯 Alternatif: SELL 25908.58–25981.43
+💪 Kekuatan sinyal: 40% (Lemah) · peluang 55% | RR 1:1.88
+SL 26145.34 | TP1 25568.83 | TP2 24976.50 | s/d 05.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (20.24): 25865.58
-+1 jam (21.09): 25864.74
-+4 jam (00.09): 25860.97
-+24 jam (20.09): 25881.17
++15 mnt (21.22): 25867.68
++1 jam (22.07): 25868.75
++4 jam (01.07): 25873.60
++24 jam (21.07): 25847.67
 
 🕒 Jadwal
-20.09–22.09 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 55%
-22.09–00.09 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 55%
-00.09–05.09 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
-05.09–06.09 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
-06.09–07.09 WAIT: Likuiditas rendah
-07.09–15.09 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
-15.09–20.09 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 45%
+21.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 55%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 55%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
+05.07–06.07 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
+06.07–07.07 WAIT: Likuiditas rendah
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 45%
+20.07–21.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 55%
 
 🧱 Level: R 26603.50 · R 26504.25 · R 26447.75 · R 26161.17 · R 26102.25 · R 26000.00 · R 25945.00 · S 25805.50 · P 25568.83 · S 24976.50 · S 24534.17
-❌ Invalidasi: Candle H1 close di atas 26143.69
-⚠️ Agent tanpa data cukup: Clara
+❌ Invalidasi: Candle H1 close di bawah 25605.17
+⚠️ Harga spot & candle berbeda 625.25 — cek sumber data · Agent tanpa data cukup: Clara
 
 — Kantor Pine · USA100 · Bukan nasihat keuangan, selalu pakai SL.

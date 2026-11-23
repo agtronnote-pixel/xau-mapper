@@ -1,35 +1,35 @@
 //+------------------------------------------------------------------+
-//| KPX_XMRUSD_202611232008.mq5                                      |
+//| KPX_XMRUSD_202611232107.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 23 Nov 2026, 20.08 WIB - XMRUSD 503.69                  |
+//| Mapping: 23 Nov 2026, 21.07 WIB - XMRUSD 511.08                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 44%
-   Ringkasan: XMRUSD cenderung naik (3/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 498.57-500.33 (kekuatan sinyal 66% - Sedang).
-   Rencana 0: BUY 498.57-500.33 SL 494.59 TP1 508.40 TP2 514.03 - Kekuatan sinyal 66% (Sedang)
+/* Bias: BULLISH - Keyakinan 51%
+   Ringkasan: XMRUSD cenderung naik (3/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 508.93-511.07 (kekuatan sinyal 74% - Kuat).
+   Rencana 0: BUY 508.93-511.07 SL 504.11 TP1 518.84 TP2 527.67 - Kekuatan sinyal 74% (Kuat)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 507.52-509.28 SL 513.26 TP1 499.45 TP2 496.56 - Kekuatan sinyal 38% (Lemah)
+   Rencana 1: SELL 513.93-516.07 SL 520.89 TP1 508.40 TP2 504.57 - Kekuatan sinyal 26% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 494.59
+   Invalidasi: Candle H1 close di bawah 504.11
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XMRUSD 202611232008"
+#property description "Eksekusi otomatis mapping XMRUSD 202611232107"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
 input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko > N x risiko yang diatur (modal terlalu kecil)
-input double InpMaxSpread     = 0.76;  // Spread maksimal (harga)
+input double InpMaxSpread     = 0.77;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.44;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.54;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input bool   InpSemuaSinyal   = false; // true = jalankan SEMUA rencana: abaikan filter kekuatan, peluang, keunggulan aset & batas risiko lot (untuk akun demo)
@@ -38,7 +38,7 @@ input int    InpMinStrength   = 55;    // Kekuatan sinyal minimal (%) untuk entr
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
-input double InpBEBuffer      = 0.09;  // Buffer break-even (harga)
+input double InpBEBuffer      = 0.11;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Keamanan"
 input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {498.57, 507.52};
-double   P_EHI[]  = {500.33, 509.28};
-double   P_SL[]   = {494.59, 513.26};
-double   P_TP1[]  = {508.40, 499.45};
-double   P_TP2[]  = {514.03, 496.56};
-datetime P_EXP[]  = {D'2026.11.23 21:08:00', D'2026.11.23 21:08:00'};
+double   P_ELO[]  = {508.93, 513.93};
+double   P_EHI[]  = {511.07, 516.07};
+double   P_SL[]   = {504.11, 520.89};
+double   P_TP1[]  = {518.84, 508.40};
+double   P_TP2[]  = {527.67, 504.57};
+datetime P_EXP[]  = {D'2026.11.23 22:07:00', D'2026.11.23 22:07:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
-int      P_STR[]  = {66, 38};   // kekuatan sinyal %
-int      P_PEL[]  = {52, 53};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.23 13:08:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 503.57;
-double   OFFSET_MAX = 5.04;
+int      P_STR[]  = {74, 26};   // kekuatan sinyal %
+int      P_PEL[]  = {35, 53};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+datetime REF_TIME   = D'2026.11.23 14:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 514.31;
+double   OFFSET_MAX = 5.11;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.23 13:08:00';
-datetime MAP_END    = D'2026.11.24 13:08:00';
+datetime MAP_START  = D'2026.11.23 14:07:00';
+datetime MAP_END    = D'2026.11.24 14:07:00';
 
 CTrade   trade;
 string   GVP;

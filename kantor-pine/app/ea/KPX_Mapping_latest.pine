@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping XAUUSD 202611232007", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (XAUUSD) dari mapping 2026-11-23T13:07:32.245Z (harga 3621.80).
+indicator("KPX Mapping XAUUSD 202611232107", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (XAUUSD) dari mapping 2026-11-23T14:07:12.477Z (harga 3665.40).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -15,27 +15,27 @@ if barstate.islast and not drawn
     drawn := true
     if showLevels
         drawLine(3694.70, color.red, "R Swing low H1", false)
-        drawLine(3650.00, color.red, "R Angka bulat", false)
-        drawLine(3638.30, color.red, "R High kemarin (PDH)", false)
-        drawLine(3629.80, color.red, "R Swing high H1", false)
+        drawLine(3675.00, color.red, "R Angka bulat", false)
+        drawLine(3650.00, color.green, "S Angka bulat", false)
+        drawLine(3638.30, color.green, "S High kemarin (PDH)", false)
+        drawLine(3629.80, color.green, "S Swing high H1", false)
         drawLine(3601.57, color.green, "S R1 harian", false)
         drawLine(3587.20, color.green, "S Swing high H1", false)
         drawLine(3552.33, color.gray, "P Pivot harian", false)
         drawLine(3515.10, color.green, "S Swing low H1", false)
         drawLine(3503.10, color.green, "S Low kemarin (PDL)", false)
-        drawLine(3466.37, color.green, "S S1 harian", false)
     if showPlans
-        box.new(bar_index - 20, 3634.79 + offset, bar_index + 40, 3624.81 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 56%", text_color=color.red, text_size=size.small)
-        drawLine(3657.26, color.red, "SL SELL", true)
-        drawLine(3601.57, color.blue, "TP1 SELL", true)
-        drawLine(3587.20, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 3606.56 + offset, bar_index + 40, 3596.58 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 44%", text_color=color.green, text_size=size.small)
-        drawLine(3574.11, color.red, "SL BUY", true)
-        drawLine(3629.80, color.blue, "TP1 BUY", true)
-        drawLine(3650.00, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 3654.66 + offset, bar_index + 40, 3645.34 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 63%", text_color=color.green, text_size=size.small)
+        drawLine(3624.39, color.red, "SL BUY", true)
+        drawLine(3694.70, color.blue, "TP1 BUY", true)
+        drawLine(3726.83, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 3679.66 + offset, bar_index + 40, 3670.34 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 42%", text_color=color.red, text_size=size.small)
+        drawLine(3700.61, color.red, "SL SELL", true)
+        drawLine(3638.30, color.blue, "TP1 SELL", true)
+        drawLine(3601.57, color.blue, "TP2 SELL", true)
 
-inZone0 = close >= 3624.81 + offset and close <= 3634.79 + offset
-alertcondition(inZone0 and not inZone0[1], "KPX SELL Range: masuk zona", "XAUUSD masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 3596.58 + offset and close <= 3606.56 + offset
-alertcondition(inZone1 and not inZone1[1], "KPX BUY Range: masuk zona", "XAUUSD masuk zona BUY {{close}} - EA entry")
+inZone0 = close >= 3645.34 + offset and close <= 3654.66 + offset
+alertcondition(inZone0 and not inZone0[1], "KPX BUY Utama: masuk zona", "XAUUSD masuk zona BUY {{close}} - EA entry")
+inZone1 = close >= 3670.34 + offset and close <= 3679.66 + offset
+alertcondition(inZone1 and not inZone1[1], "KPX SELL Alternatif: masuk zona", "XAUUSD masuk zona SELL {{close}} - EA entry")
 plot(na, "KPX")
