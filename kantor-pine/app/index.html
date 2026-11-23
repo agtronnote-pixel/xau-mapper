@@ -76,7 +76,16 @@ input:focus,select:focus{border-color:var(--ink)}
 .tabs button.on{background:var(--panel);color:var(--text);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
 pre{background:var(--panel2);border-radius:10px;padding:12px;overflow:auto;font-size:11.5px;max-height:260px;white-space:pre}
 nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:7px 4px calc(7px + env(safe-area-inset-bottom));z-index:10}
-nav button{background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;padding:4px 8px;cursor:pointer;font-weight:500}
+nav button{background:none;border:0;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;padding:4px 5px;cursor:pointer;font-weight:500}
+.chat{display:flex;flex-direction:column;gap:8px;padding-bottom:150px}
+.msg{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.45}
+.msg.me{align-self:flex-end;background:var(--ink);color:var(--on-ink);border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:4px}
+.msg .who{font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:3px}
+.chatbar{position:fixed;left:0;right:0;bottom:calc(60px + env(safe-area-inset-bottom));background:var(--bg);border-top:1px solid var(--line);padding:8px 12px;z-index:5}
+.qchips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.qchips button{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:99px;padding:6px 11px;font-size:12.5px;cursor:pointer}
+.chatin{display:flex;gap:8px}.chatin input{flex:1;padding:11px 13px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:15px}
 nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 nav button.on{color:var(--text)}
 .toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(14px);background:var(--ink);color:var(--on-ink);padding:10px 16px;border-radius:999px;font-size:13px;opacity:0;transition:.2s;z-index:30;pointer-events:none;max-width:90vw;text-align:center}
@@ -141,6 +150,7 @@ nav button.on{color:var(--text)}
   <!-- RENCANA -->
   <section class="view" id="v-plan"><div id="planBody" class="skel">Menunggu analisis…</div></section>
   <!-- LAINNYA -->
+  <section class="view" id="v-chat"><div class="chat" id="chatLog"></div><div class="chatbar" id="chatBar"></div></section>
   <section class="view" id="v-more"><div id="moreBody"></div></section>
 </div>
 
@@ -149,6 +159,7 @@ nav button.on{color:var(--text)}
   <button data-v="proj"><svg viewBox="0 0 24 24"><path d="M4 19h16M5 15l4-4 3 3 6-7"/></svg>Proyeksi</button>
   <button data-v="team"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 19c0-3 3-5 6-5s6 2 6 5M15 15c3 0 6 1.5 6 4"/></svg>Tim</button>
   <button data-v="plan"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Rencana</button>
+  <button data-v="chat"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/></svg>Tanya</button>
   <button data-v="more"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>Lainnya</button>
 </nav>
 <div class="toast" id="toast"></div>
