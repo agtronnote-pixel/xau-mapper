@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping AVAXUSD 202611240407", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-23T21:07:24.051Z (harga 6.8200).
+indicator("KPX Mapping AVAXUSD 202611240414", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-23T21:14:07.115Z (harga 6.8170).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -15,7 +15,7 @@ if barstate.islast and not drawn
     drawn := true
     if showLevels
         drawLine(7.2290, color.red, "R Swing high H1", false)
-        drawLine(6.8193, color.green, "S R1 harian", false)
+        drawLine(6.8193, color.red, "R R1 harian", false)
         drawLine(6.7780, color.green, "S High kemarin (PDH)", false)
         drawLine(6.7280, color.green, "S Swing high H1", false)
         drawLine(6.6930, color.green, "S Swing high H1", false)
@@ -28,7 +28,7 @@ if barstate.islast and not drawn
         drawLine(6.6312, color.red, "SL BUY", true)
         drawLine(6.9982, color.blue, "TP1 BUY", true)
         drawLine(7.2290, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 7.2557 + offset, bar_index + 40, 7.2023 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 50%", text_color=color.red, text_size=size.small)
+        box.new(bar_index - 20, 7.2557 + offset, bar_index + 40, 7.2023 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 49%", text_color=color.red, text_size=size.small)
         drawLine(7.3759, color.red, "SL SELL", true)
         drawLine(7.0087, color.blue, "TP1 SELL", true)
         drawLine(6.7780, color.blue, "TP2 SELL", true)
