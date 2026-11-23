@@ -5,6 +5,7 @@
 import { analyze, planState, positionSize, activeSessions, marketOpen, mergeCandles, aggregate, PRIOR_WEIGHTS } from './engine.js';
 import { loadMarket, loadSpot, loadServer, expandMarket } from './data.js';
 import { buildEA, buildPine, mapSummary, makeMapImage, makeZip, EA_README, lastEAName, wib, num, hzLabel, setAsset } from './exporters.js';
+import { answer, SARAN } from './chat.js';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -19,7 +20,8 @@ const kCol = k => k >= 70 ? 'var(--green)' : k >= 50 ? 'var(--gold)' : 'var(--re
 const GOLD_ID = 'XAUUSD';
 const mapKey = id => id === GOLD_ID ? 'kpx_map_active' : `kpx_map_${id}`;
 const S = {
-  settings: store.get('kpx_settings', { balance: 1000, riskPct: 1, notif: false, remap: 60 }),
+  settings: (s => (s.rt ? s : { ...s, remap: -1, rt: 1 }))(store.get('kpx_settings', { balance: 1000, riskPct: 1, notif: false, remap: -1, rt: 1 })),
+  chat: store.get('kpx_chat', []),
   asset: (new URLSearchParams(location.search).get('aset') || '').toUpperCase().replace(/[^A-Z0-9]/g, '') || store.get('kpx_asset', GOLD_ID), assets: store.get('kpx_assets', null),
   market: null, srv: {}, map: null, spot: null, spotAt: 0,
   history: store.get('kpx_history', []), states: {}, source: '',
@@ -55,7 +57,7 @@ const saveSettings = () => store.set('kpx_settings', S.settings);
 function go(v) {
   document.querySelectorAll('.view').forEach(s => s.classList.toggle('active', s.id === 'v-' + v));
   document.querySelectorAll('#nav button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
-  window.scrollTo({ top: 0 });
+  window.scrollTo({ top: v === 'chat' ? document.body.scrollHeight : 0 });
 }
 $('nav').onclick = e => { const b = e.target.closest('button'); if (b) go(b.dataset.v); };
 window.kpx = { go };
@@ -65,15 +67,20 @@ function banner(msg) { const b = $('banner'); b.innerHTML = msg || ''; b.classLi
 // ---------- data & analisis ----------
 const ageH = iso => (Date.now() - Date.parse(iso)) / 3600e3;
 const agoTxt = iso => { const h = ageH(iso); return h < 1 ? `${Math.max(1, Math.round(h * 60))} menit lalu` : h < 48 ? `${Math.round(h)} jam lalu` : `${Math.round(h / 24)} hari lalu`; };
-function runMapping(m) {
+const RT = () => S.settings.remap === -1;   // real-time: mapping ulang tiap beberapa detik dari harga live
+function runMapping(m, quiet = false) {
   const srv = S.srv || {}, mk = srv.market || {};
   const r = analyze({ points: m?.points || [], spot: m?.spot, daily: mk.daily?.length ? mk.daily : (m?.daily || []), h1: mk.h1, m15: mk.m15,
     macro: mk.macro, calendar: mk.calendar, news: srv.news, claude: isGold() ? srv.claude : null, calib: srv.calib, kinerja: srv.kinerja, profil: mk.profil || undefined, now: new Date() });
   r.sumber_harga = m ? `${m.source} + candle server` : 'candle server GitHub (harga live tidak terjangkau)';
   r._sumber = 'lokal';
-  S.map = r; S.states = {}; store.set(mapKey(S.asset), r);
-  S.history.unshift({ aset: S.asset, time: r.basis.dibuat, price: r.basis.price, bias: r.bias, conf: r.keyakinan, aksi: r.narasi?.aksi, k: r.kekuatan_sinyal });
-  S.history = S.history.slice(0, 60); store.set('kpx_history', S.history);
+  const prev = S.map; S.map = r; if (!quiet || prev?.narasi?.aksi !== r.narasi?.aksi) S.states = {}; store.set(mapKey(S.asset), r);
+  const last = S.history.find(h => (h.aset || GOLD_ID) === S.asset);
+  // riwayat hanya dicatat bila keputusan berubah (real-time memetakan ulang tiap beberapa detik)
+  if (!quiet || !last || last.aksi !== r.narasi?.aksi || Math.abs((last.k ?? 0) - (r.kekuatan_sinyal ?? 0)) >= 10) {
+    S.history.unshift({ aset: S.asset, time: r.basis.dibuat, price: r.basis.price, bias: r.bias, conf: r.keyakinan, aksi: r.narasi?.aksi, k: r.kekuatan_sinyal });
+    S.history = S.history.slice(0, 60); store.set('kpx_history', S.history);
+  }
   return r;
 }
 async function refresh({ remap = false } = {}) {
@@ -91,14 +98,14 @@ async function refresh({ remap = false } = {}) {
   try {
     const srvAge = srvMap?.basis?.dibuat ? (Date.now() - Date.parse(srvMap.basis.dibuat)) / 60000 : Infinity;
     const srvFresh = srvMap?.narasi && /^3\.[1-9]/.test(String(srvMap.engine)) && (srvAge <= 75 || (srvMap.mode === 'akhir-pekan' && srvAge <= 8 * 60));
-    if (!remap && srvFresh) {
+    if (!remap && srvFresh && !(RT() && m)) {
       // tampilkan perintah yang sedang dijalankan EA; harga live tetap memperbarui status zona tiap menit
       if (!S.map || S.map._sumber !== 'server' || S.map.basis.dibuat !== srvMap.basis.dibuat) { srvMap._sumber = 'server'; S.map = srvMap; S.states = {}; store.set(mapKey(S.asset), srvMap); }
     } else {
       const age = S.map ? (Date.now() - Date.parse(S.map.basis.dibuat || S.map.basis.time)) / 60000 : Infinity;
       const reopened = S.map && S.map.gap && marketOpen(new Date(), prof()) && Date.now() >= Date.parse(S.map.basis.time);
       const old = S.map && S.map.engine !== undefined && !/^3\.[1-9]/.test(String(S.map.engine));
-      if (remap || reopened || old || !S.map || S.map._sumber === 'server' || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m);
+      if (remap || reopened || old || !S.map || S.map._sumber === 'server' || (RT() && m) || (S.settings.remap > 0 && age >= S.settings.remap)) runMapping(m, RT() && !remap);
     }
     banner(c.provider === 'server' ? 'Indeks tidak punya sumber harga live gratis — data dari server GitHub, diperbarui tiap jam. Cocokkan dengan harga MT5 sebelum entry.' : m ? '' : 'Harga live tidak terjangkau — analisis memakai candle server GitHub (diperbarui tiap jam).');
     setNet(m ? (marketOpen(new Date(), prof()) ? 'on' : 'warn') : 'warn', m ? (marketOpen(new Date(), prof()) ? 'Live' : 'Pasar tutup') : 'Data server');
@@ -201,7 +208,7 @@ function heroCard(r, p) {
   const n = r.narasi || {}, main = r.rencana[0], t0 = Date.parse(r.basis.time), st = main ? planState(main, p, Date.now(), t0) : null;
   const k = main?.kekuatan, pk = main?.peluang;
   return `<div class="card hero ${n.warna || ''}">
-    <div class="row between"><span class="hint">${r._sumber === 'lokal' ? '<b class="gold">Pratinjau lokal</b> · EA memakai mapping server' : `Perintah ke EA MT5 · mapping ${wib(new Date(r.basis.dibuat || r.basis.time))} WIB`}</span><span class="hint">${r.gap ? 'untuk pembukaan' : 'berlaku s/d ' + (main ? wib(new Date(t0 + main.berlaku_menit * 60000)) + ' WIB' : '-')}</span></div>
+    <div class="row between"><span class="hint">${r._sumber === 'lokal' ? (RT() ? `<b class="up">● Live real-time</b> · ${wib(new Date(r.basis.dibuat))} WIB · sama dengan KPX_Bot` : '<b class="gold">Pratinjau lokal</b> · EA memakai mapping server') : `Perintah ke EA MT5 · mapping ${wib(new Date(r.basis.dibuat || r.basis.time))} WIB`}</span><span class="hint">${r.gap ? 'untuk pembukaan' : 'berlaku s/d ' + (main ? wib(new Date(t0 + main.berlaku_menit * 60000)) + ' WIB' : '-')}</span></div>
     <div class="act-big ${n.warna || ''}" style="margin-top:8px">${esc(n.aksi || r.bias)}</div>
     <div class="lead">${esc(n.judul || r.ringkasan)}</div>
     ${main ? `<div class="meter">
@@ -267,12 +274,15 @@ function renderHome() {
   const r = S.map; const el = $('homeBody'); el.classList.remove('skel');
   if (!r) { el.innerHTML = S.tried ? `<div class="skel">Belum ada data. <button class="btn sm" onclick="kpx.refresh()">Coba lagi</button></div>` : `<div class="skel">Tim agent sedang mengumpulkan data pasar…</div>`; el.classList.add('skel'); return; }
   if (!r.narasi) { el.innerHTML = `<div class="skel">Memperbarui ke mesin v3… <button class="btn sm" onclick="kpx.remap()">Mapping baru</button></div>`; return; }
-  const p = Number.isFinite(S.spot) ? S.spot : r.basis.price, d = p - r.basis.price, t0 = Date.parse(r.basis.dibuat || r.basis.time);
-  const sess = activeSessions(new Date(), prof()).map(x => x.nama), q = qualityDot(r), dp = d / r.basis.price * 100;
+  const p = Number.isFinite(S.spot) ? S.spot : r.basis.price, t0 = Date.parse(r.basis.dibuat || r.basis.time);
+  // real-time: mapping dibuat ulang tiap detik, jadi perubahan dibandingkan dengan harga 1 jam lalu
+  const hr = RT() && r._sumber === 'lokal' ? (S.market?.points || []).reduce((b2, x) => Math.abs(x.t - (Date.now() / 1000 - 3600)) < Math.abs(b2.t - (Date.now() / 1000 - 3600)) ? x : b2, { t: 0, p: null }) : null;
+  const base = hr?.p && Math.abs(hr.t - (Date.now() / 1000 - 3600)) < 1200 ? hr.p : r.basis.price, d = p - base;
+  const sess = activeSessions(new Date(), prof()).map(x => x.nama), q = qualityDot(r), dp = d / base * 100;
   el.innerHTML = `
   <div class="row between" style="margin:0 2px 10px;align-items:flex-end">
     <div><div class="hint">${esc(r.aset?.nama || 'Emas')} · ${esc(S.asset)}</div><div class="big">${px(p)}</div></div>
-    <div style="text-align:right"><div class="${d >= 0 ? 'up' : 'dn'}" style="font-weight:650;font-size:14px">${r.gap ? 'tutup Jumat' : `${d >= 0 ? '+' : ''}${px(d)} (${dp >= 0 ? '+' : ''}${dp.toFixed(2)}%) sejak ${wib(new Date(t0))}`}</div>
+    <div style="text-align:right"><div class="${d >= 0 ? 'up' : 'dn'}" style="font-weight:650;font-size:14px">${r.gap ? 'tutup Jumat' : `${d >= 0 ? '+' : ''}${px(d)} (${dp >= 0 ? '+' : ''}${dp.toFixed(2)}%) ${base !== r.basis.price ? 'dalam 1 jam' : 'sejak ' + wib(new Date(t0))}`}</div>
       <div class="hint">${marketOpen(new Date(), prof()) ? `${r.aset?.jam === '24/7' ? 'Buka 24/7 · ' : ''}${sess.length ? 'Sesi ' + sess.join(' + ') : 'Antar sesi'}` : 'Pasar tutup'}</div>
       <div class="hint"><span class="qdot" style="background:${q.c}"></span>${q.t}</div></div>
   </div>
@@ -408,7 +418,7 @@ function renderMore() {
   <div class="sec">Pengaturan</div>
   <div class="card">
     <div class="switch"><span>Notifikasi zona entry & SL</span><input type="checkbox" id="sNotif" ${S.settings.notif ? 'checked' : ''}></div>
-    <div class="switch"><span>Mapping otomatis tiap</span><select id="sRemap" style="width:auto"><option value="30">30 menit</option><option value="60">1 jam</option><option value="240">4 jam</option><option value="0">Manual</option></select></div>
+    <div class="switch"><span>Mapping otomatis tiap</span><select id="sRemap" style="width:auto"><option value="-1">Real-time (tiap detik)</option><option value="30">30 menit</option><option value="60">1 jam</option><option value="240">4 jam</option><option value="0">Manual</option></select></div>
   </div>
   ${standalone ? '' : `<div class="sec">Install ke HP</div><div class="card">
     ${installEvt ? `<button class="btn" id="bInstall">Install aplikasi</button>` : isIOS ? `<div style="font-size:14px">Di Safari: ketuk <b>Bagikan</b> lalu <b>Tambahkan ke Layar Utama</b>.</div>` : `<div style="font-size:14px">Buka menu browser (⋮) lalu pilih <b>Install aplikasi</b>.</div>`}
@@ -436,19 +446,68 @@ Object.assign(window.kpx, {
   pick(id) {
     if (id === S.asset) return;
     S.asset = id; store.set('kpx_asset', id);
+    if (S.chat.length) { S.chat.push({ dari: 'Kantor', html: `Sekarang membahas <b>${esc(id)}</b>.` }); store.set('kpx_chat', S.chat); }
     S.map = store.get(mapKey(id), null); S.market = null; S.spot = null; S.spotAt = 0; S.states = {};
     const k = `kpx_srv_${id}_`; S.srv = { market: expandMarket(store.get(k + 'market', null)), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) };
     renderAssetBar(); renderAll(); window.scrollTo({ top: 0 }); refresh();
   },
   refresh: () => refresh(),
-  remap: async () => { await refresh({ remap: true }); toast('Pratinjau lokal dibuat — EA tetap memakai mapping server jam ini'); },
+  remap: async () => { await refresh({ remap: true }); toast(RT() ? 'Mapping live diperbarui' : 'Pratinjau lokal dibuat — EA tetap memakai mapping server jam ini'); },
+  ask(t) { askKantor(t); },
   async shareImage() { if (!S.map) return; toast('Membuat gambar…'); const b = await makeMapImage(S.map, { past: pastSeries() }); setAsset(S.map); await shareFile(b, `mapping-${S.asset.toLowerCase()}-${Date.now()}.png`, `Mapping ${S.asset}`); },
   async shareText() { if (!S.map) return; const t = mapSummary(S.map); if (navigator.share) { try { await navigator.share({ text: t }); return; } catch (e) { if (e.name === 'AbortError') return; } } try { await navigator.clipboard.writeText(t); toast('Ringkasan disalin'); } catch { toast('Tidak bisa menyalin'); } },
   downloadEA() { if (!S.map) return; const code = buildEA(S.map); if (!code) return toast('Rencana belum lengkap untuk EA'); const name = lastEAName; downloadBlob(makeZip([{ name, text: code }, { name: 'CARA_PASANG.txt', text: EA_README }]), name.replace('.mq5', '.zip')); },
   async copyPine() { if (!S.map) return; const p = buildPine(S.map); try { await navigator.clipboard.writeText(p.code); toast('Kode Pine disalin — tempel di Pine Editor'); } catch { downloadBlob(new Blob([p.code], { type: 'text/plain' }), p.name); } },
 });
 
-function renderAll() { setAsset(S.map); renderHome(); renderProj(); renderTeam(); renderPlan(); renderMore(); checkStates(); }
+function renderAll() { setAsset(S.map); renderHome(); renderProj(); renderTeam(); renderPlan(); renderMore(); renderChat(); checkStates(); }
+
+// ---------- Tanya Kantor (chat dengan tim agent) ----------
+function renderChat() {
+  const log = $('chatLog'); if (!log) return;
+  const intro = `<div class="msg bot"><div class="who">Kantor Pine · ${esc(S.asset)}</div>Tanyakan apa saja ke tim: keputusan, alasan, SL/TP, waktu entry, berita, lot, akurasi, atau sebut nama agent. Jawaban diambil dari analisis live saat ini.</div>`;
+  log.innerHTML = intro + S.chat.map(m => m.me ? `<div class="msg me">${esc(m.t)}</div>` : `<div class="msg bot"><div class="who">${esc(m.dari)}</div>${m.html}</div>`).join('');
+  const bar = $('chatBar');
+  if (!bar.dataset.ok) {
+    bar.dataset.ok = 1;
+    bar.innerHTML = `<div class="qchips">${SARAN.map(s => `<button>${esc(s)}</button>`).join('')}<button data-clear="1">Hapus chat</button></div>
+      <form class="chatin" id="chatForm"><input id="chatIn" placeholder="Tanya tim Kantor…" autocomplete="off"><button class="btn sm" style="width:auto">Kirim</button></form>`;
+    bar.querySelector('.qchips').onclick = e => { const b = e.target.closest('button'); if (!b) return; if (b.dataset.clear) { S.chat = []; store.set('kpx_chat', S.chat); renderChat(); } else askKantor(b.textContent); };
+    $('chatForm').onsubmit = e => { e.preventDefault(); const v = $('chatIn').value.trim(); if (v) { $('chatIn').value = ''; askKantor(v); } };
+  }
+}
+function askKantor(t) {
+  const res = answer(t, { map: S.map, asset: S.asset, spot: S.spot, news: S.srv?.news, settings: S.settings, num: px, wib, positionSize,
+    contract: isGold() ? 100 : 1, assets: (S.assets?.daftar || []).filter(a => (S.assets.aktif || []).includes(a.id)) });
+  S.chat.push({ me: 1, t }, ...res.map(a => ({ dari: a.dari, html: a.html })));
+  S.chat = S.chat.slice(-40); store.set('kpx_chat', S.chat);
+  renderChat(); requestAnimationFrame(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }));
+  const pin = res.find(a => a.pindah); if (pin) window.kpx.pick(pin.pindah);
+}
+
+// ---------- real-time: harga live → tim agent memetakan ulang tiap beberapa detik ----------
+let liveBusy = false, liveLast = 0;
+async function liveTick() {
+  if (document.hidden || !RT() || liveBusy) return;
+  const id = S.asset, c = cfg(id);
+  if (c.provider === 'server' || !S.market || !S.srv?.market?.h1?.length) return;
+  const every = c.provider === 'xaus' ? 15000 : 5000;
+  if (Date.now() - liveLast < every - 200) return;
+  liveBusy = true; liveLast = Date.now();
+  try {
+    const s = await loadSpot({ provider: c.provider, symbol: c.symbol, fallback: c.fallback });
+    if (S.asset !== id || !S.market) return;
+    const now = Math.floor(Date.now() / 1000);
+    S.market.points = [...(S.market.points || []).filter(p => p.t < now - 30), { t: now, p: s.price }].slice(-600);
+    S.market.spot = s.price; S.spot = s.price; S.spotAt = s.at;
+    runMapping(S.market, true);
+    setNet(marketOpen(new Date(), prof()) ? 'on' : 'warn', marketOpen(new Date(), prof()) ? 'Live · real-time' : 'Pasar tutup');
+    checkStates(); setAsset(S.map);
+    // gambar ulang hanya halaman yang terlihat, dan jangan ganggu kolom yang sedang diketik
+    const v = document.querySelector('.view.active')?.id, typing = document.activeElement?.tagName === 'INPUT';
+    if (v === 'v-home') renderHome(); else if (v === 'v-proj') renderProj(); else if (v === 'v-team') renderTeam(); else if (v === 'v-plan' && !typing) renderPlan();
+  } catch { /* coba lagi di detik berikutnya */ } finally { liveBusy = false; }
+}
 
 // ---------- mulai ----------
 if ('serviceWorker' in navigator) {
@@ -457,11 +516,12 @@ if ('serviceWorker' in navigator) {
   let reloaded = false; const hadController = !!navigator.serviceWorker.controller;   // kunjungan pertama: jangan muat ulang
   navigator.serviceWorker.addEventListener('controllerchange', () => { if (reloaded || !hadController) return; reloaded = true; location.reload(); });
 }
-if (/^#(home|proj|team|plan|more)$/.test(location.hash)) go(location.hash.slice(1));
+if (/^#(home|proj|team|plan|chat|more)$/.test(location.hash)) go(location.hash.slice(1));
 { const k = `kpx_srv_${S.asset}_`; S.srv = { market: expandMarket(store.get(k + 'market', null)), calib: store.get(k + 'calib', null), kinerja: store.get(k + 'kinerja', null), news: store.get(k + 'news', null), claude: store.get(k + 'claude', null) }; }
 renderAssetBar(); loadAssets();
 renderAll();
 refresh();
-setInterval(spotTick, 60000);
-setInterval(() => { if (!document.hidden) refresh(); }, 5 * 60000);
+setInterval(() => { if (!RT() || cfg(S.asset).provider === 'server') spotTick(); }, 60000);
+setInterval(liveTick, 1000);
+setInterval(() => { if (!document.hidden) refresh(); }, (RT() ? 1 : 5) * 60000);   // candle intraday & data server
 document.addEventListener('visibilitychange', () => { if (!document.hidden) spotTick(); });
