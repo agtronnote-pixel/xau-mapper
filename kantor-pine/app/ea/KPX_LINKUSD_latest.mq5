@@ -1,35 +1,35 @@
 //+------------------------------------------------------------------+
-//| KPX_LINKUSD_202611240008.mq5                                     |
+//| KPX_LINKUSD_202611240107.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 24 Nov 2026, 00.08 WIB - LINKUSD 9.1900                 |
+//| Mapping: 24 Nov 2026, 01.07 WIB - LINKUSD 9.0950                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 51%
-   Ringkasan: LINKUSD cenderung naik (3/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 9.1182-9.1818 (kekuatan sinyal 69% - Sedang).
-   Rencana 0: BUY 9.1182-9.1818 SL 8.9749 TP1 9.4127 TP2 9.5580 - Kekuatan sinyal 69% (Sedang)
+/* Bias: BULLISH - Keyakinan 48%
+   Ringkasan: LINKUSD cenderung naik (3/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 9.0176-9.0824 (kekuatan sinyal 66% - Sedang).
+   Rencana 0: BUY 9.0176-9.0824 SL 8.8717 TP1 9.3175 TP2 9.5580 - Kekuatan sinyal 66% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 9.2182-9.2818 SL 9.4251 TP1 8.9907 TP2 8.8430 - Kekuatan sinyal 31% (Lemah)
+   Rencana 1: SELL 9.1176-9.1824 SL 9.3283 TP1 8.9100 TP2 8.7423 - Kekuatan sinyal 36% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 8.9749
+   Invalidasi: Candle H1 close di bawah 8.8717
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping LINKUSD 202611240008"
+#property description "Eksekusi otomatis mapping LINKUSD 202611240107"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
 input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko > N x risiko yang diatur (modal terlalu kecil)
-input double InpMaxSpread     = 0.0138;  // Spread maksimal (harga)
+input double InpMaxSpread     = 0.0136;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.0159;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.0162;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input bool   InpSemuaSinyal   = false; // true = jalankan SEMUA rencana: abaikan filter kekuatan, peluang, keunggulan aset & batas risiko lot (untuk akun demo)
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {9.1182, 9.2182};
-double   P_EHI[]  = {9.1818, 9.2818};
-double   P_SL[]   = {8.9749, 9.4251};
-double   P_TP1[]  = {9.4127, 8.9907};
-double   P_TP2[]  = {9.5580, 8.8430};
-datetime P_EXP[]  = {D'2026.11.24 01:08:00', D'2026.11.24 01:08:00'};
+double   P_ELO[]  = {9.0176, 9.1176};
+double   P_EHI[]  = {9.0824, 9.1824};
+double   P_SL[]   = {8.8717, 9.3283};
+double   P_TP1[]  = {9.3175, 8.9100};
+double   P_TP2[]  = {9.5580, 8.7423};
+datetime P_EXP[]  = {D'2026.11.24 02:07:00', D'2026.11.24 02:07:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
-int      P_STR[]  = {69, 31};   // kekuatan sinyal %
+int      P_STR[]  = {66, 36};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, 42};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.23 17:08:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 9.2100;
-double   OFFSET_MAX = 0.0919;
+datetime REF_TIME   = D'2026.11.23 18:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 9.0830;
+double   OFFSET_MAX = 0.0910;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.23 17:08:00';
-datetime MAP_END    = D'2026.11.24 17:08:00';
+datetime MAP_START  = D'2026.11.23 18:07:00';
+datetime MAP_END    = D'2026.11.24 18:07:00';
 
 CTrade   trade;
 string   GVP;
