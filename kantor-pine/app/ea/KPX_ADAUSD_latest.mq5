@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_ADAUSD_202611250107.mq5                                      |
+//| KPX_ADAUSD_202611250207.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 25 Nov 2026, 01.07 WIB - ADAUSD 0.14590                 |
+//| Mapping: 25 Nov 2026, 02.07 WIB - ADAUSD 0.14480                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 42%
-   Ringkasan: ADAUSD cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 0.14611-0.14689 (kekuatan sinyal 69% - Sedang).
-   Rencana 0: SELL 0.14611-0.14689 SL 0.14864 TP1 0.14250 TP2 0.14008 - Kekuatan sinyal 69% (Sedang)
+/* Bias: BEARISH - Keyakinan 47%
+   Ringkasan: ADAUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 0.14522-0.14598 (kekuatan sinyal 73% - Kuat).
+   Rencana 0: SELL 0.14522-0.14598 SL 0.14767 TP1 0.14250 TP2 0.13939 - Kekuatan sinyal 73% (Kuat)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 0.14471-0.14549 SL 0.14296 TP1 0.14750 TP2 0.14900 - Kekuatan sinyal 23% (Lemah)
+   Rencana 1: BUY 0.14362-0.14438 SL 0.14193 TP1 0.14650 TP2 0.14900 - Kekuatan sinyal 18% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 0.14864
+   Invalidasi: Candle H1 close di atas 0.14767
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping ADAUSD 202611250107"
+#property description "Eksekusi otomatis mapping ADAUSD 202611250207"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {0.14611, 0.14471};
-double   P_EHI[]  = {0.14689, 0.14549};
-double   P_SL[]   = {0.14864, 0.14296};
-double   P_TP1[]  = {0.14250, 0.14750};
-double   P_TP2[]  = {0.14008, 0.14900};
-datetime P_EXP[]  = {D'2026.11.25 02:07:00', D'2026.11.25 02:07:00'};
+double   P_ELO[]  = {0.14522, 0.14362};
+double   P_EHI[]  = {0.14598, 0.14438};
+double   P_SL[]   = {0.14767, 0.14193};
+double   P_TP1[]  = {0.14250, 0.14650};
+double   P_TP2[]  = {0.13939, 0.14900};
+datetime P_EXP[]  = {D'2026.11.25 03:07:00', D'2026.11.25 03:07:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {69, 23};   // kekuatan sinyal %
+int      P_STR[]  = {73, 18};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, 50};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.24 18:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 0.14600;
-double   OFFSET_MAX = 0.00146;
+datetime REF_TIME   = D'2026.11.24 19:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 0.14450;
+double   OFFSET_MAX = 0.00145;
 datetime NT_START[] = {D'2026.11.25 13:07:00'};
 datetime NT_END[]   = {D'2026.11.25 14:37:00'};
-datetime MAP_START  = D'2026.11.24 18:07:00';
-datetime MAP_END    = D'2026.11.25 18:07:00';
+datetime MAP_START  = D'2026.11.24 19:07:00';
+datetime MAP_END    = D'2026.11.25 19:07:00';
 
 CTrade   trade;
 string   GVP;

@@ -1,33 +1,33 @@
-📊 MAPPING SNP500 — Rab, 25 Nov 2026, 01.07 WIB
-Harga: 7274.50 | Bias: SIDEWAYS (29%)
+📊 MAPPING SNP500 — Rab, 25 Nov 2026, 02.07 WIB
+Harga: 7275.00 | Bias: SIDEWAYS (30%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal lemah (47%). Pantau zona SELL 7276.15–7292.35, jangan paksa entry.
-💪 Kekuatan 47% (Lemah) · Peluang TP1 duluan 49% (65 sampel backtest)
+Sinyal sedang (54%). Pantau zona SELL 7275.85–7292.65, jangan paksa entry.
+💪 Kekuatan 54% (Sedang) · Peluang TP1 duluan 45% (66 sampel backtest)
 ✓ Tidak ada faktor dominan — pasar cenderung datar
-❌ Batal bila candle H1 close di atas 7328.8.
+❌ Batal bila candle H1 close di atas 7330.47.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Range: SELL 7276.15–7292.35
-💪 Kekuatan sinyal: 47% (Lemah) · peluang 49% | RR 1:1.5
-SL 7328.80 | TP1 7217.42 | TP2 7191.92 | s/d 09.07 WIB
+🎯 Range: SELL 7275.85–7292.65
+💪 Kekuatan sinyal: 54% (Sedang) · peluang 45% | RR 1:2
+SL 7330.47 | TP1 7191.92 | TP2 7144.75 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 7232.65–7248.85
-💪 Kekuatan sinyal: 45% (Lemah) · peluang 49% | RR 1:1.29
-SL 7196.20 | TP1 7298.25 | TP2 7391.83 | s/d 09.07 WIB
+🎯 Range: BUY 7232.35–7249.15
+💪 Kekuatan sinyal: 40% (Lemah) · peluang 49% | RR 1:1.24
+SL 7194.53 | TP1 7298.25 | TP2 7391.83 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (01.22): 7274.44
-+1 jam (02.07): 7274.47
-+4 jam (05.07): 7274.55
-+24 jam (01.07): 7275.37
++15 mnt (02.22): 7274.83
++1 jam (03.07): 7274.92
++4 jam (06.07): 7275.15
++24 jam (02.07): 7277.59
 
 🕒 Jadwal
-01.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
+02.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
 05.07–06.07 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
 06.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
@@ -35,10 +35,10 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 50%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 50%
-00.07–01.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
+00.07–02.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
 
 🧱 Level: R 7391.83 · R 7313.25 · R 7298.25 · R 7284.25 · S 7240.75 · P 7191.92 · S 7144.75 · S 7082.50 · S 7070.58 · S 6992.00
-❌ Invalidasi: Candle H1 close di atas 7328.8
+❌ Invalidasi: Candle H1 close di atas 7330.47
 ⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
