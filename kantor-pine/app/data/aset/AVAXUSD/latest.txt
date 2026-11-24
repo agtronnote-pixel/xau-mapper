@@ -1,42 +1,42 @@
-📊 MAPPING AVAXUSD — Sel, 24 Nov 2026, 16.08 WIB
-Harga: 6.7150 | Bias: BEARISH (42%)
+📊 MAPPING AVAXUSD — Sel, 24 Nov 2026, 17.07 WIB
+Harga: 6.7220 | Bias: BEARISH (48%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.10R per trade). Pakai sebagai peta level saja — zona SELL 6.7455–6.7785.
-💪 Kekuatan 67% (Sedang) · Peluang TP1 duluan 42% (26 sampel backtest)
-✓ momentum jual (RSI H1 45)
+Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.10R per trade). Pakai sebagai peta level saja — zona SELL 6.7465–6.7775.
+💪 Kekuatan 73% (Kuat) · Peluang TP1 duluan 44% (22 sampel backtest)
+✓ momentum jual (RSI H1 43)
 ✓ struktur lower high/lower low
-❌ Batal bila candle H1 close di atas 6.8528.
+❌ Batal bila candle H1 close di atas 6.8472.
 
-🎯 Utama: SELL 6.7455–6.7785
-💪 Kekuatan sinyal: 67% (Sedang) · peluang 42% | RR 1:1.18
-SL 6.8528 | TP1 6.6550 | TP2 6.5610 | s/d 00.08 WIB
+🎯 Utama: SELL 6.7465–6.7775
+💪 Kekuatan sinyal: 73% (Kuat) · peluang 44% | RR 1:1.26
+SL 6.8472 | TP1 6.6550 | TP2 6.5610 | s/d 01.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 6.6605–6.6935
-💪 Kekuatan sinyal: 33% (Lemah) · peluang 46% | RR 1:2
-SL 6.5862 | TP1 6.8583 | TP2 7.1557 | s/d 00.08 WIB
+🎯 Alternatif: BUY 6.6845–6.7155
+💪 Kekuatan sinyal: 29% (Lemah) · peluang 46% | RR 1:1.86
+SL 6.6148 | TP1 6.8583 | TP2 7.1557 | s/d 01.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (16.23): 6.7142
-+1 jam (17.08): 6.7164
-+4 jam (20.08): 6.7239
-+24 jam (16.08): 6.7568
++15 mnt (17.22): 6.7212
++1 jam (18.07): 6.7233
++4 jam (21.07): 6.7303
++24 jam (17.07): 6.7612
 
 🕒 Jadwal
-16.08–20.08 ENTRY: Sesi London: entry saat zona tersentuh
-20.08–22.08 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 36%
-22.08–00.08 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 36%
-00.08–05.08 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.08–07.08 WAIT: Likuiditas rendah
-07.08–15.08 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 36%
-15.08–16.08 ENTRY: Sesi London: entry saat zona tersentuh
+17.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 36%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 36%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.07–07.07 WAIT: Likuiditas rendah
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 36%
+15.07–17.07 ENTRY: Sesi London: entry saat zona tersentuh
 
 🧱 Level: R 7.2290 · R 7.1557 · P 6.8583 · R 6.7620 · R 6.7290 · S 6.7000 · S 6.6770 · S 6.6550 · S 6.5610 · S 6.4877
-❌ Invalidasi: Candle H1 close di atas 6.8528
-⚠️ Agent tanpa data cukup: Kabar, Clara
+❌ Invalidasi: Candle H1 close di atas 6.8472
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · AVAXUSD · Bukan nasihat keuangan, selalu pakai SL.
