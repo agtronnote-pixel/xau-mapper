@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_GBPUSD_202611242007.mq5                                      |
+//| KPX_GBPUSD_202611242107.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 24 Nov 2026, 20.07 WIB - GBPUSD 1.30366                 |
+//| Mapping: 24 Nov 2026, 21.07 WIB - GBPUSD 1.30366                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 38%
-   Ringkasan: GBPUSD cenderung naik (1/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 1.30275-1.30321 (kekuatan sinyal 51% - Sedang).
-   Rencana 0: BUY 1.30275-1.30321 SL 1.30170 TP1 1.30487 TP2 1.30626 - Kekuatan sinyal 51% (Sedang)
+/* Bias: BULLISH - Keyakinan 32%
+   Ringkasan: GBPUSD cenderung naik (1/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 1.30274-1.30322 (kekuatan sinyal 45% - Lemah).
+   Rencana 0: BUY 1.30274-1.30322 SL 1.30164 TP1 1.30487 TP2 1.30626 - Kekuatan sinyal 45% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 1.30464-1.30510 SL 1.30615 TP1 1.30298 TP2 1.30115 - Kekuatan sinyal 36% (Lemah)
+   Rencana 1: SELL 1.30463-1.30511 SL 1.30621 TP1 1.30298 TP2 1.30115 - Kekuatan sinyal 33% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 1.3017
+   Invalidasi: Candle H1 close di bawah 1.30164
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping GBPUSD 202611242007"
+#property description "Eksekusi otomatis mapping GBPUSD 202611242107"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {1.30275, 1.30464};
-double   P_EHI[]  = {1.30321, 1.30510};
-double   P_SL[]   = {1.30170, 1.30615};
+double   P_ELO[]  = {1.30274, 1.30463};
+double   P_EHI[]  = {1.30322, 1.30511};
+double   P_SL[]   = {1.30164, 1.30621};
 double   P_TP1[]  = {1.30487, 1.30298};
 double   P_TP2[]  = {1.30626, 1.30115};
-datetime P_EXP[]  = {D'2026.11.24 21:07:00', D'2026.11.24 21:07:00'};
+datetime P_EXP[]  = {D'2026.11.24 22:07:00', D'2026.11.24 22:07:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
-int      P_STR[]  = {51, 36};   // kekuatan sinyal %
+int      P_STR[]  = {45, 33};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, -1};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.24 13:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 1.31034;
+datetime REF_TIME   = D'2026.11.24 14:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 1.31038;
 double   OFFSET_MAX = 0.01304;
-datetime NT_START[] = {D'1970.01.01 00:00:00'};
-datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.24 13:07:00';
-datetime MAP_END    = D'2026.11.25 13:07:00';
+datetime NT_START[] = {D'2026.11.25 13:07:00'};
+datetime NT_END[]   = {D'2026.11.25 14:07:00'};
+datetime MAP_START  = D'2026.11.24 14:07:00';
+datetime MAP_END    = D'2026.11.25 14:07:00';
 
 CTrade   trade;
 string   GVP;
