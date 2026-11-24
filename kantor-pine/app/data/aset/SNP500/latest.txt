@@ -1,44 +1,44 @@
-📊 MAPPING SNP500 — Sel, 24 Nov 2026, 12.55 WIB
+📊 MAPPING SNP500 — Sel, 24 Nov 2026, 13.07 WIB
 Harga: 7275.00 | Bias: BULLISH (54%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal kuat (75%). Pantau zona BUY 7230.97–7248.03, jangan paksa entry.
+Sinyal kuat (75%). Pantau zona BUY 7242.93–7257.08, jangan paksa entry.
 💪 Kekuatan 75% (Kuat) · Peluang TP1 duluan 48% (106 sampel backtest)
 ✓ struktur higher high/higher low
-✓ momentum beli (RSI H1 63)
 ✓ trend H1 & harian naik
-❌ Batal bila candle H1 close di bawah 7192.59.
+✓ momentum beli (RSI H1 63)
+❌ Batal bila candle H1 close di bawah 7211.09.
 
-🎯 Utama: BUY 7230.97–7248.03
-💪 Kekuatan sinyal: 75% (Kuat) · peluang 48% | RR 1:1.25
-SL 7192.59 | TP1 7298.25 | TP2 7391.83 | s/d 20.55 WIB
+🎯 Utama: BUY 7242.93–7257.08
+💪 Kekuatan sinyal: 75% (Kuat) · peluang 48% | RR 1:1.24
+SL 7211.09 | TP1 7298.25 | TP2 7391.83 | s/d 21.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 7275.72–7292.78
-💪 Kekuatan sinyal: 28% (Lemah) · peluang 45% | RR 1:1.97
-SL 7331.16 | TP1 7191.92 | TP2 7142.50 | s/d 20.55 WIB
+🎯 Alternatif: SELL 7277.18–7291.33
+💪 Kekuatan sinyal: 25% (Lemah) · peluang 45% | RR 1:1.15
+SL 7323.17 | TP1 7239.50 | TP2 7191.92 | s/d 21.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (13.10): 7275.98
-+1 jam (13.55): 7275.44
-+4 jam (16.55): 7274.13
-+24 jam (12.55): 7257.28
++15 mnt (13.22): 7275.80
++1 jam (14.07): 7275.35
++4 jam (17.07): 7274.30
++24 jam (13.07): 7260.67
 
 🕒 Jadwal
-12.55–15.25 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 49%
-15.25–20.25 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 42%
-20.25–22.25 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
-22.25–00.25 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
-00.25–05.25 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
-05.25–06.25 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
-06.25–07.25 WAIT: Likuiditas rendah
-07.25–12.55 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 49%
+13.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 49%
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 42%
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
+05.07–06.07 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
+06.07–07.07 WAIT: Likuiditas rendah
+07.07–13.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 49%
 
-🧱 Level: R 7391.83 · R 7313.25 · R 7298.25 · R 7284.25 · S 7239.50 · P 7191.92 · S 7142.50 · S 7082.50 · S 7070.58 · S 6992.00
-❌ Invalidasi: Candle H1 close di bawah 7192.59
+🧱 Level: R 7391.83 · R 7313.25 · R 7298.25 · R 7284.25 · S 7275.00 · S 7250.00 · S 7239.50 · P 7191.92 · S 7142.50 · S 7082.50 · S 7070.58 · S 6992.00
+❌ Invalidasi: Candle H1 close di bawah 7211.09
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
