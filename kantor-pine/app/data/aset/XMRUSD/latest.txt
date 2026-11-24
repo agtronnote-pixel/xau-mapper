@@ -1,42 +1,42 @@
-📊 MAPPING XMRUSD — Sel, 24 Nov 2026, 18.09 WIB
-Harga: 498.24 | Bias: SIDEWAYS (32%)
+📊 MAPPING XMRUSD — Sel, 24 Nov 2026, 19.07 WIB
+Harga: 499.69 | Bias: SIDEWAYS (34%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (52%). Pantau zona SELL 498.65–501.36, jangan paksa entry.
-💪 Kekuatan 52% (Sedang) · Peluang TP1 duluan 44% (132 sampel backtest)
-✓ struktur lower high/lower low
-✕ Penghambat: momentum beli (RSI H1 53)
-❌ Batal bila candle H1 close di atas 507.46.
+Sinyal sedang (57%). Pantau zona BUY 496.21–498.79, jangan paksa entry.
+💪 Kekuatan 57% (Sedang) · Peluang TP1 duluan 44% (132 sampel backtest)
+✓ momentum beli (RSI H1 54)
+✕ Penghambat: berita cenderung negatif untuk emas
+❌ Batal bila candle H1 close di bawah 490.4.
 
-🎯 Range: SELL 498.65–501.36
-💪 Kekuatan sinyal: 52% (Sedang) · peluang 44% | RR 1:1.5
-SL 507.46 | TP1 488.82 | TP2 483.68 | s/d 02.09 WIB
+🎯 Range: BUY 496.21–498.79
+💪 Kekuatan sinyal: 57% (Sedang) · peluang 44% | RR 1:1.44
+SL 490.40 | TP1 507.73 | TP2 516.85 | s/d 03.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 494.35–497.06
-💪 Kekuatan sinyal: 47% (Lemah) · peluang 49% | RR 1:1.61
-SL 488.25 | TP1 507.73 | TP2 516.85 | s/d 02.09 WIB
+🎯 Range: SELL 500.63–503.21
+💪 Kekuatan sinyal: 44% (Lemah) · peluang 49% | RR 1:1.5
+SL 509.02 | TP1 491.27 | TP2 483.68 | s/d 03.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (18.24): 498.21
-+1 jam (19.09): 498.27
-+4 jam (22.09): 498.39
-+24 jam (18.09): 498.47
++15 mnt (19.22): 499.72
++1 jam (20.07): 499.66
++4 jam (23.07): 499.54
++24 jam (19.07): 499.45
 
 🕒 Jadwal
-18.09–20.09 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 47%
-20.09–22.09 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 52%
-22.09–00.09 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 52%
-00.09–05.09 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 50%
-05.09–07.09 WAIT: Likuiditas rendah
-07.09–15.09 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 50%
-15.09–18.09 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 47%
+19.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 47%
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 52%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 52%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 50%
+05.07–07.07 WAIT: Likuiditas rendah
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 50%
+15.07–19.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 47%
 
-🧱 Level: R 516.85 · R 507.73 · R 501.92 · R 500.00 · S 497.50 · P 495.70 · S 483.68 · S 479.21 · S 474.56
-❌ Invalidasi: Candle H1 close di atas 507.46
-⚠️ Agent tanpa data cukup: Kabar, Clara
+🧱 Level: R 516.85 · R 507.73 · R 501.92 · R 500.29 · S 497.50 · P 495.70 · S 483.68 · S 479.21 · S 474.56
+❌ Invalidasi: Candle H1 close di bawah 490.4
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · XMRUSD · Bukan nasihat keuangan, selalu pakai SL.
