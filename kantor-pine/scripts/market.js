@@ -6,6 +6,7 @@
 //  - Kalender ekonomi minggu ini: ForexFactory (faireconomy.media)
 // =====================================================================
 import { PROVIDERS } from '../app/data.js';
+import { oandaMarket, oandaCfgFromEnv } from '../app/oanda.js';
 
 const UA = { 'User-Agent': 'Mozilla/5.0 (KantorPine; +https://github.com/agtronnote-pixel/xau-mapper)' };
 async function getJSON(url) { const r = await fetch(url, { headers: UA }); if (!r.ok) throw new Error(`${url} HTTP ${r.status}`); return r.json(); }
@@ -54,6 +55,27 @@ export function parseCalendar(arr) {
 // Ambil semua data. `prev` = market.json sebelumnya (dipakai bila sumber gagal).
 export async function fetchServerMarket(prev = null) {
   const status = {}, safe = async (k, fn) => { try { const v = await fn(); status[k] = 'ok'; return v; } catch (e) { status[k] = 'gagal: ' + e.message.slice(0, 80); return null; } };
+  // Sumber utama bila token tersedia: OANDA (candle spot asli XAU/USD — tanpa geser futures→spot)
+  const oc = oandaCfgFromEnv();
+  const oa = oc ? await safe('oanda', () => oandaMarket(oc, 'XAUUSD')) : null;
+  if (oa && oa.h1.length >= 200) {
+    const [dxyD, ry, y10, cal] = await Promise.all([
+      safe('dxy', () => yahooCandles('DX-Y.NYB', '1d', '1y')),
+      safe('real_yield', async () => fredCSV(await getText('https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10'))),
+      safe('yield10', async () => fredCSV(await getText('https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10'))),
+      safe('kalender', async () => parseCalendar(await getJSON('https://nfs.faireconomy.media/ff_calendar_thisweek.json'))),
+    ]);
+    const dayKey = t => new Date(t * 1000).toISOString().slice(0, 10);
+    return {
+      dibuat: new Date().toISOString(), status, sumber: 'oanda', offset: 0, offset_sampel: 0, offset_lama: false,
+      h1: oa.h1, m15: oa.m15, spot: oa.spot, spot_at: oa.spotAt, points: oa.points, daily: oa.daily,
+      macro: {
+        dxy: dxyD ? dxyD.map(c => ({ d: dayKey(c.t), c: +c.c.toFixed(3) })) : (prev?.macro?.dxy || []),
+        ry: ry ? ry.slice(-400) : (prev?.macro?.ry || []), y10: y10 ? y10.slice(-400) : (prev?.macro?.y10 || []),
+      },
+      calendar: cal || prev?.calendar || [],
+    };
+  }
   const [h1f, m15f, spot, intra, dxyD, ry, y10, cal, hist] = await Promise.all([
     safe('gc_h1', () => yahooCandles('GC=F', '60m', '60d')),
     safe('gc_m15', () => yahooCandles('GC=F', '15m', '30d')),
@@ -92,7 +114,7 @@ export function appMarket(full) {
   const dg = full.profil?.digit ?? 2, f = 10 ** dg, r = v => Math.round(v * f) / f;
   const C = a => a.map(c => [c.t, r(c.o), r(c.h), r(c.l), r(c.c)]);
   return {
-    format: 2, dibuat: full.dibuat, status: full.status, offset: full.offset, offset_sampel: full.offset_sampel, profil: full.profil || null, live: full.live || null,
+    format: 2, dibuat: full.dibuat, status: full.status, sumber: full.sumber || null, offset: full.offset, offset_sampel: full.offset_sampel, profil: full.profil || null, live: full.live || null,
     h1: C(full.h1.slice(-300)), m15: C(full.m15.slice(-200)), daily: full.daily.slice(-120).map(d => [d.d, r(d.c), d.h != null ? r(d.h) : null, d.l != null ? r(d.l) : null]),
     macro: { dxy: full.macro.dxy.slice(-90).map(x => [x.d, x.c]), ry: full.macro.ry.slice(-90).map(x => [x.d, x.v]), y10: [] },
     calendar: full.calendar,
