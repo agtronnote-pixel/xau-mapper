@@ -1,30 +1,30 @@
 //+------------------------------------------------------------------+
-//| KPX_AVAXUSD_202611250407.mq5                                     |
+//| KPX_AVAXUSD_202611250507.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 25 Nov 2026, 04.07 WIB - AVAXUSD 6.5600                 |
+//| Mapping: 25 Nov 2026, 05.07 WIB - AVAXUSD 6.5990                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 43%
-   Ringkasan: AVAXUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 6.5833-6.6167 (kekuatan sinyal 69% - Sedang).
-   Rencana 0: SELL 6.5833-6.6167 SL 6.6917 TP1 6.4923 TP2 6.3249 - Kekuatan sinyal 69% (Sedang)
+/* Bias: BEARISH - Keyakinan 34%
+   Ringkasan: AVAXUSD cenderung turun (1/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 6.6064-6.6396 (kekuatan sinyal 58% - Sedang).
+   Rencana 0: SELL 6.6064-6.6396 SL 6.7141 TP1 6.5220 TP2 6.3497 - Kekuatan sinyal 58% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 6.4756-6.5090 SL 6.4006 TP1 6.6000 TP2 6.6550 - Kekuatan sinyal 20% (Lemah)
+   Rencana 1: BUY 6.5444-6.5776 SL 6.4699 TP1 6.6550 TP2 6.7610 - Kekuatan sinyal 30% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 6.6917
+   Invalidasi: Candle H1 close di atas 6.7141
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping AVAXUSD 202611250407"
+#property description "Eksekusi otomatis mapping AVAXUSD 202611250507"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
 input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko > N x risiko yang diatur (modal terlalu kecil)
-input double InpMaxSpread     = 0.0098;  // Spread maksimal (harga)
+input double InpMaxSpread     = 0.0099;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {6.5833, 6.4756};
-double   P_EHI[]  = {6.6167, 6.5090};
-double   P_SL[]   = {6.6917, 6.4006};
-double   P_TP1[]  = {6.4923, 6.6000};
-double   P_TP2[]  = {6.3249, 6.6550};
-datetime P_EXP[]  = {D'2026.11.25 05:07:00', D'2026.11.25 05:07:00'};
+double   P_ELO[]  = {6.6064, 6.5444};
+double   P_EHI[]  = {6.6396, 6.5776};
+double   P_SL[]   = {6.7141, 6.4699};
+double   P_TP1[]  = {6.5220, 6.6550};
+double   P_TP2[]  = {6.3497, 6.7610};
+datetime P_EXP[]  = {D'2026.11.25 06:07:00', D'2026.11.25 06:07:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {69, 20};   // kekuatan sinyal %
+int      P_STR[]  = {58, 30};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, 46};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.24 21:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 6.5620;
-double   OFFSET_MAX = 0.0656;
+datetime REF_TIME   = D'2026.11.24 22:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 6.6080;
+double   OFFSET_MAX = 0.0660;
 datetime NT_START[] = {D'2026.11.25 13:07:00'};
 datetime NT_END[]   = {D'2026.11.25 14:37:00'};
-datetime MAP_START  = D'2026.11.24 21:07:00';
-datetime MAP_END    = D'2026.11.25 21:07:00';
+datetime MAP_START  = D'2026.11.24 22:07:00';
+datetime MAP_END    = D'2026.11.25 22:07:00';
 
 CTrade   trade;
 string   GVP;
