@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping SNP500 202611250507", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (SNP500) dari mapping 2026-11-24T22:07:29.353Z (harga 7274.50).
+indicator("KPX Mapping SNP500 202611250607", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (SNP500) dari mapping 2026-11-24T23:07:36.444Z (harga 7275.00).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -17,13 +17,13 @@ if barstate.islast and not drawn
         drawLine(7298.25, color.red, "R High kemarin (PDH)", false)
         drawLine(7284.25, color.red, "R Swing high H1", false)
         drawLine(7240.75, color.green, "S Swing high H1", false)
-        drawLine(7217.75, color.gray, "P Pivot harian", false)
+        drawLine(7217.92, color.gray, "P Pivot harian", false)
         drawLine(7144.75, color.green, "S Low kemarin (PDL)", false)
         drawLine(7082.50, color.green, "S Swing low H1", false)
     if showPlans
-        box.new(bar_index - 20, 7293.12 + offset, bar_index + 40, 7275.38 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 51%", text_color=color.red, text_size=size.small)
+        box.new(bar_index - 20, 7293.12 + offset, bar_index + 40, 7275.38 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 52%", text_color=color.red, text_size=size.small)
         drawLine(7333.03, color.red, "SL SELL", true)
-        drawLine(7217.75, color.blue, "TP1 SELL", true)
+        drawLine(7217.92, color.blue, "TP1 SELL", true)
         drawLine(7144.75, color.blue, "TP2 SELL", true)
         box.new(bar_index - 20, 7249.62 + offset, bar_index + 40, 7231.88 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 39%", text_color=color.green, text_size=size.small)
         drawLine(7191.97, color.red, "SL BUY", true)

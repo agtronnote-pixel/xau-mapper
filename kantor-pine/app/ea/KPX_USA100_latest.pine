@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping USA100 202611250507", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (USA100) dari mapping 2026-11-24T22:07:28.334Z (harga 26866.25).
+indicator("KPX Mapping USA100 202611250607", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (USA100) dari mapping 2026-11-24T23:07:35.445Z (harga 26866.25).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -16,13 +16,13 @@ if barstate.islast and not drawn
     if showLevels
         drawLine(27036.00, color.red, "R High kemarin (PDH)", false)
         drawLine(26948.00, color.red, "R Swing high H1", false)
-        drawLine(26862.67, color.green, "S R1 harian", false)
+        drawLine(26868.67, color.red, "R R1 harian", false)
         drawLine(26800.00, color.green, "S Angka bulat", false)
         drawLine(26684.00, color.green, "S Swing low H1", false)
         drawLine(26509.75, color.green, "S Swing high H1", false)
-        drawLine(26430.33, color.gray, "P Pivot harian", false)
+        drawLine(26433.33, color.gray, "P Pivot harian", false)
         drawLine(25998.00, color.green, "S Low kemarin (PDL)", false)
-        drawLine(25824.67, color.green, "S S1 harian", false)
+        drawLine(25830.67, color.green, "S S1 harian", false)
     if showPlans
         box.new(bar_index - 20, 26994.56 + offset, bar_index + 40, 26901.44 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 59%", text_color=color.red, text_size=size.small)
         drawLine(27204.10, color.red, "SL SELL", true)

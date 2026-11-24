@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_USA100_202611250507.mq5                                      |
+//| KPX_USA100_202611250607.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 25 Nov 2026, 05.07 WIB - USA100 26866.25                |
+//| Mapping: 25 Nov 2026, 06.07 WIB - USA100 26866.25                |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping USA100 202611250507"
+#property description "Eksekusi otomatis mapping USA100 202611250607"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {26994.56, 26846.56};
 double   P_SL[]   = {27204.10, 26543.90};
 double   P_TP1[]  = {26684.00, 27184.15};
 double   P_TP2[]  = {26509.75, 27568.30};
-datetime P_EXP[]  = {D'2026.11.25 06:07:00', D'2026.11.25 06:07:00'};
+datetime P_EXP[]  = {D'2026.11.25 07:07:00', D'2026.11.25 07:07:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
 int      P_STR[]  = {59, 18};   // kekuatan sinyal %
 int      P_PEL[]  = {51, 48};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.24 22:00:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 26257.00;
+double   REF_PRICE  = 26266.00;
 double   OFFSET_MAX = 268.66;
-datetime NT_START[] = {D'2026.11.24 22:07:00', D'2026.11.25 13:07:00'};
-datetime NT_END[]   = {D'2026.11.24 23:07:00', D'2026.11.25 14:37:00'};
-datetime MAP_START  = D'2026.11.24 22:07:00';
-datetime MAP_END    = D'2026.11.25 22:07:00';
+datetime NT_START[] = {D'2026.11.25 13:07:00', D'2026.11.25 22:07:00'};
+datetime NT_END[]   = {D'2026.11.25 14:37:00', D'2026.11.25 23:07:00'};
+datetime MAP_START  = D'2026.11.24 23:07:00';
+datetime MAP_END    = D'2026.11.25 23:07:00';
 
 CTrade   trade;
 string   GVP;
