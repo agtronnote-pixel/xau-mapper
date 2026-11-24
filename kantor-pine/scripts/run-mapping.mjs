@@ -14,7 +14,7 @@ if (!M) { console.error(`${A.cache} tidak ada — jalankan build-market/build-cr
 const extra = { news: read(join(D, 'berita.json')), claude: A.id === 'XAUUSD' ? read(join(app, 'data', 'analisis-claude.json')) : null,
   calib: read(join(D, 'kalibrasi.json')), kinerja: read(join(D, 'kinerja.json')), profil: M.profil || undefined };
 const r = analyze({ points: M.points, spot: M.spot ?? undefined, h1: M.h1, m15: M.m15, daily: M.daily, macro: M.macro, calendar: M.calendar, now: new Date(), ...extra });
-r.sumber_harga = A.id === 'XAUUSD' ? `${M.spot != null ? 'xaus.com' : 'Yahoo GC=F (disesuaikan ke spot)'} · server GitHub` : `${M.sumber || 'binance'} · server GitHub`;
+r.sumber_harga = M.sumber === 'oanda' ? 'OANDA · server GitHub' : A.id === 'XAUUSD' ? `${M.spot != null ? 'xaus.com' : 'Yahoo GC=F (disesuaikan ke spot)'} · server GitHub` : `${M.sumber || 'binance'} · server GitHub`;
 r.basis.live = false;
 // pasar tutup & data sama dengan mapping sebelumnya → tidak perlu ditulis ulang (hemat commit), kecuali sudah > 6 jam
 const prevMap = read(join(D, 'latest.json'));

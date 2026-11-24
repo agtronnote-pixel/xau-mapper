@@ -18,7 +18,7 @@ const TOOLS = join(ROOT, '..');                                    // ...\MQL5\E
 const EXPERTS = join(TOOLS, '..');
 const OUT = join(EXPERTS, '..', 'Files', 'KPX');                   // ...\MQL5\Files\KPX
 const LOG = join(EXPERTS, 'KPX_Kantor_status.txt');
-const CODE = ['lokal/kantor.mjs', 'app/engine.js', 'app/data.js', 'app/exporters.js'];   // diperbarui otomatis
+const CODE = ['lokal/kantor.mjs', 'app/engine.js', 'app/data.js', 'app/exporters.js', 'app/oanda.js'];   // diperbarui otomatis
 mkdirSync(OUT, { recursive: true });
 
 const log = m => { const s = `${new Date().toISOString().replace('T', ' ').slice(0, 19)}  ${m}`; console.log(s); try { if (existsSync(LOG) && statSync(LOG).size > 2e6) writeFileSync(LOG, ''); appendFileSync(LOG, s + '\n'); } catch {} };
@@ -32,6 +32,11 @@ function readConfig() {
   return { app, site: app.replace(/\/kantor-pine\/app$/, ''), aset: aset.length ? aset : ['XAUUSD'] };
 }
 let C = readConfig();
+// OANDA (opsional): KPX_Tools\KPX_OANDA.txt — baris 1 token, baris 2 practice/live. Dipakai untuk emas, GBPUSD, USA100, SNP500.
+function readOanda() {
+  try { const l = readFileSync(join(TOOLS, 'KPX_OANDA.txt'), 'utf8').split(/\r?\n/).map(s => s.trim()); return l[0] && l[0].length > 20 ? { token: l[0], env: /live/i.test(l[1] || '') ? 'live' : 'practice' } : null; } catch { return null; }
+}
+let OC = readOanda();
 const bust = u => u + (u.includes('?') ? '&' : '?') + 't=' + Date.now();          // lewati cache GitHub Pages
 const fNoCache = (u, o) => fetch(bust(u), { ...o, signal: AbortSignal.timeout(15000) });
 const fLive = (u, o) => fetch(u, { ...o, signal: AbortSignal.timeout(8000) });
@@ -41,8 +46,8 @@ let E = null;
 async function loadEngine() {
   const v = hash(CODE.map(p => { try { return readFileSync(join(ROOT, p), 'utf8'); } catch { return ''; } }).join(''));
   const imp = p => import(pathToFileURL(join(ROOT, p)).href + '?v=' + v);
-  const [eng, dat, exp] = await Promise.all([imp('app/engine.js'), imp('app/data.js'), imp('app/exporters.js')]);
-  E = { analyze: eng.analyze, PROVIDERS: dat.PROVIDERS, expandMarket: dat.expandMarket, SERVER_FILES: dat.SERVER_FILES, eaPlans: exp.eaPlans, version: eng.ENGINE_VERSION || '' };
+  const [eng, dat, exp, oa] = await Promise.all([imp('app/engine.js'), imp('app/data.js'), imp('app/exporters.js'), imp('app/oanda.js')]);
+  E = { analyze: eng.analyze, PROVIDERS: dat.PROVIDERS, expandMarket: dat.expandMarket, SERVER_FILES: dat.SERVER_FILES, eaPlans: exp.eaPlans, version: eng.ENGINE_VERSION || '', oanda: oa };
 }
 async function selfUpdate() {
   let changed = [];
@@ -67,6 +72,7 @@ async function selfUpdate() {
 let ASET = null;        // data/aset.json (provider live tiap aset)
 const KNOWN = { USA100: { provider: 'server' }, SNP500: { provider: 'server' }, GBPUSD: { provider: 'kraken', symbol: 'GBPUSD' }, XMRUSD: { provider: 'htx', symbol: 'xmrusdt' } };
 function cfg(id) {
+  if (OC && E?.oanda?.OANDA_INSTR[id]) return { provider: 'oanda', base: id === 'XAUUSD' ? `${C.app}/data/` : `${C.app}/data/aset/${id}/`, every: 1000 };
   if (id === 'XAUUSD') return { provider: 'xaus', base: `${C.app}/data/`, every: 15000 };
   const live = (ASET?.daftar || []).find(a => a.id === id)?.live || KNOWN[id] || {};
   const provider = live.provider || 'binance';
@@ -79,12 +85,14 @@ async function loadServer(base) {
   out.market = E.expandMarket(out.market);
   return out;
 }
-async function spotOf(c) {
+async function spotOf(c, id) {
+  if (c.provider === 'oanda') return (await E.oanda.oandaPrice(OC, id, fLive)).price;
   const P = E.PROVIDERS[c.provider];
   try { return (await P.spot(fLive, c.symbol)).price; }
   catch (e) { if (c.fallback) return (await E.PROVIDERS.kraken.spot(fLive, c.fallback)).price; throw e; }
 }
-async function intraOf(c) {
+async function intraOf(c, id) {
+  if (c.provider === 'oanda') return (await E.oanda.oandaCandles(OC, id, 'M5', 170, { withLast: true, f: fLive })).map(k => ({ t: k.t + 300, p: k.c }));
   const P = E.PROVIDERS[c.provider];
   try { return (c.provider === 'xaus' ? await P.intraday(fLive, 48) : await P.intraday(fLive, c.symbol)).points; }
   catch (e) { if (c.fallback) return (await E.PROVIDERS.kraken.intraday(fLive, c.fallback)).points; throw e; }
@@ -124,8 +132,8 @@ async function runAsset(id) {
       if (!s.srv) throw new Error('data server belum ada');
       let spot = null;
       if (c.provider !== 'server') {
-        if (t - s.ptsAt > 60e3) { try { s.pts = await intraOf(c); s.ptsAt = t; } catch {} }
-        spot = await spotOf(c);
+        if (t - s.ptsAt > 60e3) { try { s.pts = await intraOf(c, id); s.ptsAt = t; } catch {} }
+        spot = await spotOf(c, id);
       }
       const mk = s.srv.market, now = new Date();
       const points = spot != null ? [...s.pts.filter(p => p.t < now / 1000 - 30), { t: Math.floor(now / 1000), p: spot }] : s.pts;
@@ -154,10 +162,10 @@ writeFileSync(lock, JSON.stringify({ pid: process.pid, t: Date.now() }));
 await selfUpdate();
 await loadEngine();
 try { ASET = await (await fNoCache(`${C.app}/data/aset.json`)).json(); } catch {}
-log(`Kantor lokal aktif — aset: ${C.aset.join(', ')} — sinyal ke ${OUT}`);
+log(`Kantor lokal aktif — aset: ${C.aset.join(', ')} — sinyal ke ${OUT}${OC ? ` — OANDA (${OC.env})` : ''}`);
 const running = new Set();
 const startAll = () => { for (const id of C.aset) if (!running.has(id)) { running.add(id); runAsset(id).finally(() => running.delete(id)); } };
 startAll();
-setInterval(() => { try { const n = readConfig(); if (n.aset.join() !== C.aset.join()) log('Daftar aset diperbarui: ' + n.aset.join(', ')); C = n; startAll(); } catch {} }, 30e3);
+setInterval(() => { try { const o = readOanda(); if (!!o !== !!OC) log(o ? 'Token OANDA terpasang — emas, GBPUSD, USA100, SNP500 dari OANDA' : 'Token OANDA dihapus — kembali ke sumber gratis'); OC = o; } catch {} try { const n = readConfig(); if (n.aset.join() !== C.aset.join()) log('Daftar aset diperbarui: ' + n.aset.join(', ')); C = n; startAll(); } catch {} }, 30e3);
 setInterval(async () => { try { ASET = await (await fNoCache(`${C.app}/data/aset.json`)).json(); } catch {} }, 30 * 60e3);
 setInterval(selfUpdate, 10 * 60e3);

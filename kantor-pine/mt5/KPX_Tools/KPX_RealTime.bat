@@ -41,9 +41,16 @@ echo [1/4] Node.js: %NODE%
 
 rem ---- 2: kode Kantor lokal + EA KPX_Bot ----
 echo [2/4] Mengunduh kode Kantor lokal dan EA KPX_Bot...
-powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; $s='%SITE%/kantor-pine/'; $k=Join-Path '%DIR%' 'kantor'; foreach($p in 'lokal/kantor.mjs','app/engine.js','app/data.js','app/exporters.js'){ $f=Join-Path $k $p; New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Invoke-WebRequest -UseBasicParsing ($s+$p+'?t='+[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()) -OutFile $f }; Invoke-WebRequest -UseBasicParsing ($s+'mt5/KPX_Bot.mq5?t='+[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()) -OutFile (Join-Path '%DIR%..' 'KPX_Bot.mq5')"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$ProgressPreference='SilentlyContinue'; $s='%SITE%/kantor-pine/'; $k=Join-Path '%DIR%' 'kantor'; foreach($p in 'lokal/kantor.mjs','app/engine.js','app/data.js','app/exporters.js','app/oanda.js'){ $f=Join-Path $k $p; New-Item -ItemType Directory -Force (Split-Path $f) | Out-Null; Invoke-WebRequest -UseBasicParsing ($s+$p+'?t='+[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()) -OutFile $f }; Invoke-WebRequest -UseBasicParsing ($s+'mt5/KPX_Bot.mq5?t='+[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()) -OutFile (Join-Path '%DIR%..' 'KPX_Bot.mq5')"
 if not exist "%DIR%kantor\lokal\kantor.mjs" ( echo GAGAL mengunduh kode. Periksa internet lalu jalankan ulang. & pause & exit /b 1 )
 
+rem ---- 2b: token OANDA (opsional) untuk emas, GBPUSD, USA100, SNP500 ----
+if not exist "%DIR%KPX_OANDA.txt" (
+  echo Token OANDA ^(dari akun demo OANDA: Manage API Access^). Enter = lewati, pakai sumber gratis.
+  set "OTOK="
+  set /p OTOK=Token OANDA: 
+  call :simpanOanda
+)
 rem ---- 3: Kantor lokal menyala terus (ikut Windows, hidup lagi bila berhenti) + compile otomatis ----
 set "SU=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
 > "%SU%\KPX_Kantor.vbs" echo Set sh = CreateObject("WScript.Shell")
@@ -80,3 +87,13 @@ echo  2. Navigator - Expert Advisors - seret KPX_Bot ke chart itu - centang Allo
 echo  3. Pojok kiri atas chart harus menulis "Kantor Pine REAL-TIME" dan "Sinyal: 1 dtk lalu".
 echo.
 pause
+exit /b 0
+
+:simpanOanda
+if "%OTOK%"=="" exit /b 0
+set "OENV=practice"
+set /p OENV=Jenis akun OANDA practice/live ^(Enter = practice^): 
+> "%DIR%KPX_OANDA.txt" echo %OTOK%
+>> "%DIR%KPX_OANDA.txt" echo %OENV%
+echo       Token OANDA disimpan di KPX_OANDA.txt ^(hanya di PC ini^).
+exit /b 0
