@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_BCHUSD_202611242307.mq5                                      |
+//| KPX_BCHUSD_202611250007.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 24 Nov 2026, 23.07 WIB - BCHUSD 195.80                  |
+//| Mapping: 25 Nov 2026, 00.07 WIB - BCHUSD 196.50                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
 /* Bias: BEARISH - Keyakinan 57%
-   Ringkasan: BCHUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 196.59-197.61 (kekuatan sinyal 77% - Kuat).
-   Rencana 0: SELL 196.59-197.61 SL 199.89 TP1 193.90 TP2 192.07 - Kekuatan sinyal 77% (Kuat)
+   Ringkasan: BCHUSD cenderung turun (3/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 196.61-197.59 (kekuatan sinyal 77% - Kuat).
+   Rencana 0: SELL 196.61-197.59 SL 199.81 TP1 193.90 TP2 192.07 - Kekuatan sinyal 77% (Kuat)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 194.49-195.51 SL 192.21 TP1 198.40 TP2 200.20 - Kekuatan sinyal 13% (Lemah)
+   Rencana 1: BUY 195.51-196.49 SL 193.29 TP1 200.20 TP2 202.53 - Kekuatan sinyal 15% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 199.89
+   Invalidasi: Candle H1 close di atas 199.81
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping BCHUSD 202611242307"
+#property description "Eksekusi otomatis mapping BCHUSD 202611250007"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {196.59, 194.49};
-double   P_EHI[]  = {197.61, 195.51};
-double   P_SL[]   = {199.89, 192.21};
-double   P_TP1[]  = {193.90, 198.40};
-double   P_TP2[]  = {192.07, 200.20};
-datetime P_EXP[]  = {D'2026.11.25 00:07:00', D'2026.11.25 00:07:00'};
+double   P_ELO[]  = {196.61, 195.51};
+double   P_EHI[]  = {197.59, 196.49};
+double   P_SL[]   = {199.81, 193.29};
+double   P_TP1[]  = {193.90, 200.20};
+double   P_TP2[]  = {192.07, 202.53};
+datetime P_EXP[]  = {D'2026.11.25 01:07:00', D'2026.11.25 01:07:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {77, 13};   // kekuatan sinyal %
+int      P_STR[]  = {77, 15};   // kekuatan sinyal %
 int      P_PEL[]  = {54, 41};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.24 16:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 196.00;
-double   OFFSET_MAX = 1.96;
+datetime REF_TIME   = D'2026.11.24 17:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 195.90;
+double   OFFSET_MAX = 1.97;
 datetime NT_START[] = {D'2026.11.25 13:07:00'};
 datetime NT_END[]   = {D'2026.11.25 14:37:00'};
-datetime MAP_START  = D'2026.11.24 16:07:00';
-datetime MAP_END    = D'2026.11.25 16:07:00';
+datetime MAP_START  = D'2026.11.24 17:07:00';
+datetime MAP_END    = D'2026.11.25 17:07:00';
 
 CTrade   trade;
 string   GVP;
