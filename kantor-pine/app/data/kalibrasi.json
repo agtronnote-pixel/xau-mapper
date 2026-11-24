@@ -1,92 +1,92 @@
 {
  "versi": 3,
  "aset": "XAUUSD",
- "dibuat": "2026-11-23T13:07:32.176Z",
- "periode": "2026-09-22 – 2026-11-20",
- "sampel_jam": 1027,
+ "dibuat": "2026-11-24T09:07:45.477Z",
+ "periode": "2026-09-23 – 2026-11-23",
+ "sampel_jam": 1013,
  "bobot": {
-  "trend": 0.159,
-  "momentum": 0.22,
-  "structure": 0.385,
+  "trend": 0.174,
+  "momentum": 0.199,
+  "structure": 0.39,
   "macro": 0.123,
   "news": 0.057,
   "claude": 0.057
  },
  "ic": {
   "trend": {
-   "ic": -0.125,
-   "n": 616
+   "ic": -0.114,
+   "n": 607
   },
   "momentum": {
-   "ic": -0.007,
-   "n": 616
+   "ic": -0.032,
+   "n": 607
   },
   "structure": {
-   "ic": 0.034,
-   "n": 616
+   "ic": 0.035,
+   "n": 607
   },
   "macro": {
-   "ic": -0.023,
-   "n": 616
+   "ic": -0.024,
+   "n": 607
   }
  },
  "kekuatan": [
   {
    "dari": 5,
    "sampai": 40,
-   "n": 178,
-   "peluang": 0.457,
-   "ekspektasi_R": 0.057
+   "n": 175,
+   "peluang": 0.449,
+   "ekspektasi_R": 0.033
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 48,
+   "n": 46,
    "peluang": 0.5,
-   "ekspektasi_R": 0.073
+   "ekspektasi_R": 0.083
   },
   {
    "dari": 50,
    "sampai": 60,
-   "n": 60,
-   "peluang": 0.514,
-   "ekspektasi_R": 0.19
+   "n": 62,
+   "peluang": 0.472,
+   "ekspektasi_R": 0.047
   },
   {
    "dari": 60,
    "sampai": 70,
-   "n": 62,
-   "peluang": 0.417,
-   "ekspektasi_R": -0.003
+   "n": 54,
+   "peluang": 0.438,
+   "ekspektasi_R": 0.087
   },
   {
    "dari": 70,
    "sampai": 96,
    "n": 122,
-   "peluang": 0.545,
-   "ekspektasi_R": 0.359
+   "peluang": 0.553,
+   "ekspektasi_R": 0.373
   }
  ],
  "sesi": {
   "asia": {
-   "n": 204,
-   "peluang": 0.481,
-   "ekspektasi_R": 0.134
+   "n": 202,
+   "peluang": 0.472,
+   "ekspektasi_R": 0.098
   },
   "london": {
-   "n": 80,
-   "peluang": 0.489,
-   "ekspektasi_R": 0.146
+   "n": 77,
+   "peluang": 0.483,
+   "ekspektasi_R": 0.15
   },
   "overlap": {
-   "n": 74,
-   "peluang": 0.476,
-   "ekspektasi_R": 0.143
+   "n": 73,
+   "peluang": 0.47,
+   "ekspektasi_R": 0.138
   },
   "ny": {
-   "n": 52,
-   "peluang": 0.435,
-   "ekspektasi_R": 0.076
+   "n": 47,
+   "peluang": 0.456,
+   "ekspektasi_R": 0.131
   },
   "sepi": {
    "n": 60,
@@ -96,64 +96,64 @@
  },
  "proyeksi": {
   "15": {
-   "k": 0.041,
-   "q80": 0.269,
-   "n": 1027
+   "k": 0.035,
+   "q80": 0.274,
+   "n": 1013
   },
   "30": {
-   "k": 0.035,
-   "q80": 0.352,
-   "n": 1027
+   "k": 0.037,
+   "q80": 0.35,
+   "n": 1013
   },
   "60": {
-   "k": 0.124,
+   "k": 0.125,
    "q80": 0.736,
-   "n": 1027
+   "n": 1013
   },
   "120": {
    "k": 0.272,
-   "q80": 1.08,
-   "n": 1027
+   "q80": 1.083,
+   "n": 1013
   },
   "240": {
    "k": 0.552,
-   "q80": 1.595,
-   "n": 1027
+   "q80": 1.598,
+   "n": 1013
   },
   "480": {
-   "k": 1.046,
-   "q80": 2.296,
-   "n": 1027
+   "k": 1.063,
+   "q80": 2.267,
+   "n": 1013
   },
   "720": {
-   "k": 1.383,
-   "q80": 3.019,
-   "n": 1027
+   "k": 1.42,
+   "q80": 2.986,
+   "n": 1013
   },
   "1440": {
-   "k": 2.261,
-   "q80": 4.467,
-   "n": 1027
+   "k": 2.323,
+   "q80": 4.437,
+   "n": 1013
   }
  },
  "arah": {
-  "h1": 0.511,
-  "h4": 0.554,
-  "n": 775
+  "h1": 0.509,
+  "h4": 0.555,
+  "n": 771
  },
  "rencana": {
-  "rencana": 617,
-  "tersentuh": 470,
-  "tp1": 228,
-  "sl": 242,
-  "winrate": 0.485,
-  "ekspektasi_R": 0.146,
+  "rencana": 608,
+  "tersentuh": 459,
+  "tp1": 221,
+  "sl": 238,
+  "winrate": 0.481,
+  "ekspektasi_R": 0.137,
   "oos": {
-   "rencana": 247,
-   "tersentuh": 188,
-   "tp1": 91,
-   "sl": 97,
-   "winrate": 0.484,
+   "rencana": 242,
+   "tersentuh": 183,
+   "tp1": 88,
+   "sl": 95,
+   "winrate": 0.481,
    "ekspektasi_R": 0.177
   }
  },

@@ -1,24 +1,24 @@
 {
  "versi": 3,
  "aset": "BCHUSD",
- "dibuat": "2026-11-23T13:08:36.856Z",
- "periode": "2026-09-29 – 2026-11-22",
+ "dibuat": "2026-11-24T09:09:57.356Z",
+ "periode": "2026-09-30 – 2026-11-23",
  "sampel_jam": 1296,
  "bobot": {
-  "trend": 0.184,
+  "trend": 0.195,
   "momentum": 0.18,
-  "structure": 0.397,
-  "macro": 0.138,
-  "news": 0.051,
-  "claude": 0.051
+  "structure": 0.386,
+  "macro": 0.141,
+  "news": 0.049,
+  "claude": 0.049
  },
  "ic": {
   "trend": {
-   "ic": -0.088,
+   "ic": -0.073,
    "n": 777
   },
   "momentum": {
-   "ic": -0.029,
+   "ic": -0.022,
    "n": 777
   },
   "structure": {
@@ -26,7 +26,7 @@
    "n": 777
   },
   "macro": {
-   "ic": 0.033,
+   "ic": 0.048,
    "n": 777
   }
  },
@@ -34,132 +34,132 @@
   {
    "dari": 5,
    "sampai": 40,
-   "n": 284,
-   "peluang": 0.432,
-   "ekspektasi_R": 0.009
+   "n": 286,
+   "peluang": 0.412,
+   "ekspektasi_R": -0.043
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 88,
-   "peluang": 0.449,
-   "ekspektasi_R": 0.089
+   "n": 84,
+   "peluang": 0.447,
+   "ekspektasi_R": 0.093
   },
   {
    "dari": 50,
    "sampai": 60,
    "n": 90,
-   "peluang": 0.41,
-   "ekspektasi_R": -0.088
+   "peluang": 0.39,
+   "ekspektasi_R": -0.122
   },
   {
    "dari": 60,
    "sampai": 70,
-   "n": 106,
-   "peluang": 0.5,
-   "ekspektasi_R": 0.172
+   "n": 105,
+   "peluang": 0.504,
+   "ekspektasi_R": 0.186
   },
   {
    "dari": 70,
    "sampai": 96,
-   "n": 221,
-   "peluang": 0.541,
-   "ekspektasi_R": 0.412
+   "n": 220,
+   "peluang": 0.543,
+   "ekspektasi_R": 0.418
   }
  ],
  "sesi": {
   "asia": {
-   "n": 199,
-   "peluang": 0.469,
-   "ekspektasi_R": 0.12
+   "n": 201,
+   "peluang": 0.45,
+   "ekspektasi_R": 0.063
   },
   "london": {
    "n": 89,
-   "peluang": 0.525,
-   "ekspektasi_R": 0.259
+   "peluang": 0.535,
+   "ekspektasi_R": 0.293
   },
   "overlap": {
-   "n": 81,
-   "peluang": 0.44,
-   "ekspektasi_R": 0.143
+   "n": 80,
+   "peluang": 0.433,
+   "ekspektasi_R": 0.115
   },
   "ny": {
-   "n": 83,
-   "peluang": 0.452,
-   "ekspektasi_R": 0.116
+   "n": 80,
+   "peluang": 0.433,
+   "ekspektasi_R": 0.095
   },
   "sepi": {
-   "n": 102,
-   "peluang": 0.527,
-   "ekspektasi_R": 0.241
+   "n": 99,
+   "peluang": 0.514,
+   "ekspektasi_R": 0.227
   },
   "akhir-pekan": {
-   "n": 235,
-   "peluang": 0.445,
-   "ekspektasi_R": 0.081
+   "n": 236,
+   "peluang": 0.443,
+   "ekspektasi_R": 0.077
   }
  },
  "proyeksi": {
   "15": {
-   "k": 0.032,
-   "q80": 0.267,
+   "k": 0.029,
+   "q80": 0.268,
    "n": 1296
   },
   "30": {
-   "k": 0.003,
-   "q80": 0.362,
+   "k": -0.005,
+   "q80": 0.366,
    "n": 1296
   },
   "60": {
-   "k": -0.013,
+   "k": -0.012,
    "q80": 0.766,
    "n": 1296
   },
   "120": {
-   "k": -0.017,
-   "q80": 1.09,
+   "k": -0.018,
+   "q80": 1.095,
    "n": 1296
   },
   "240": {
-   "k": 0.037,
-   "q80": 1.58,
+   "k": 0.05,
+   "q80": 1.586,
    "n": 1296
   },
   "480": {
-   "k": 0.132,
-   "q80": 2.226,
+   "k": 0.18,
+   "q80": 2.238,
    "n": 1296
   },
   "720": {
-   "k": 0.273,
-   "q80": 2.673,
+   "k": 0.276,
+   "q80": 2.729,
    "n": 1296
   },
   "1440": {
-   "k": 0.229,
-   "q80": 4.186,
+   "k": 0.266,
+   "q80": 4.243,
    "n": 1296
   }
  },
  "arah": {
-  "h1": 0.49,
-  "h4": 0.508,
-  "n": 939
+  "h1": 0.492,
+  "h4": 0.512,
+  "n": 936
  },
  "rencana": {
-  "rencana": 964,
-  "tersentuh": 789,
-  "tp1": 370,
-  "sl": 419,
-  "winrate": 0.469,
-  "ekspektasi_R": 0.142,
+  "rencana": 961,
+  "tersentuh": 785,
+  "tp1": 361,
+  "sl": 424,
+  "winrate": 0.46,
+  "ekspektasi_R": 0.123,
   "oos": {
-   "rencana": 372,
-   "tersentuh": 303,
-   "tp1": 146,
-   "sl": 157,
-   "winrate": 0.482,
-   "ekspektasi_R": 0.173
+   "rencana": 375,
+   "tersentuh": 306,
+   "tp1": 143,
+   "sl": 163,
+   "winrate": 0.467,
+   "ekspektasi_R": 0.148
   }
  },
  "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."
