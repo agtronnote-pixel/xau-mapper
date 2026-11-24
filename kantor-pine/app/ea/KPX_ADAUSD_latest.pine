@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping ADAUSD 202611250307", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (ADAUSD) dari mapping 2026-11-24T20:07:27.062Z (harga 0.14390).
+indicator("KPX Mapping ADAUSD 202611250407", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (ADAUSD) dari mapping 2026-11-24T21:07:25.014Z (harga 0.14390).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -27,11 +27,11 @@ if barstate.islast and not drawn
         drawLine(0.14200, color.green, "S Low kemarin (PDL)", false)
     if showPlans
         box.new(bar_index - 20, 0.14547 + offset, bar_index + 40, 0.14473 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 72%", text_color=color.red, text_size=size.small)
-        drawLine(0.14712, color.red, "SL SELL", true)
+        drawLine(0.14713, color.red, "SL SELL", true)
         drawLine(0.14300, color.blue, "TP1 SELL", true)
-        drawLine(0.13904, color.blue, "TP2 SELL", true)
+        drawLine(0.13901, color.blue, "TP2 SELL", true)
         box.new(bar_index - 20, 0.14337 + offset, bar_index + 40, 0.14263 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 17%", text_color=color.green, text_size=size.small)
-        drawLine(0.14098, color.red, "SL BUY", true)
+        drawLine(0.14097, color.red, "SL BUY", true)
         drawLine(0.14510, color.blue, "TP1 BUY", true)
         drawLine(0.14620, color.blue, "TP2 BUY", true)
 
