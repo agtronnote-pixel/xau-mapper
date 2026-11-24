@@ -1,40 +1,42 @@
-📊 MAPPING ADAUSD — Sel, 24 Nov 2026, 07.07 WIB
-Harga: 0.14850 | Bias: BULLISH (37%)
+📊 MAPPING ADAUSD — Sel, 24 Nov 2026, 08.07 WIB
+Harga: 0.14940 | Bias: BULLISH (43%)
 
 ➡️ KEPUTUSAN: BUY
 BUY di 0.14688–0.14812 saat harga menyentuh zona.
-💪 Kekuatan 56% (Sedang)
+💪 Kekuatan 66% (Sedang) · Peluang TP1 duluan 44% (15 sampel backtest)
 ✓ struktur higher high/higher low
-❌ Batal bila candle H1 close di bawah 0.14408.
+✓ momentum beli (RSI H1 57)
+❌ Batal bila candle H1 close di bawah 0.14407.
 
 🎯 Utama: BUY 0.14688–0.14812
-💪 Kekuatan sinyal: 56% (Sedang) | RR 1:1.5
-SL 0.14408 | TP1 0.15263 | TP2 0.15640 | s/d 15.07 WIB
+💪 Kekuatan sinyal: 66% (Sedang) · peluang 44% | RR 1:1.5
+SL 0.14407 | TP1 0.15265 | TP2 0.15640 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 0.14938–0.15062
-💪 Kekuatan sinyal: 36% (Lemah) · peluang 53% | RR 1:1.02
-SL 0.15342 | TP1 0.14650 | TP2 0.14380 | s/d 15.07 WIB
+🎯 Alternatif: SELL 0.15578–0.15702
+💪 Kekuatan sinyal: 28% (Lemah) · peluang 53% | RR 1:1.5
+SL 0.15983 | TP1 0.15125 | TP2 0.14750 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (07.22): 0.14852
-+1 jam (08.07): 0.14850
-+4 jam (11.07): 0.14847
-+24 jam (07.07): 0.14824
++15 mnt (08.22): 0.14943
++1 jam (09.07): 0.14940
++4 jam (12.07): 0.14936
++24 jam (08.07): 0.14898
 
 🕒 Jadwal
-07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
+08.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
+07.07–08.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
 
 🧱 Level: R 0.15640 · R 0.15000 · P 0.14893 · S 0.14750 · S 0.14650 · S 0.14530 · S 0.14380 · S 0.14200
-❌ Invalidasi: Candle H1 close di bawah 0.14408
+❌ Invalidasi: Candle H1 close di bawah 0.14407
 ⚠️ Volatilitas tinggi · Agent tanpa data cukup: Clara
 
 — Kantor Pine · ADAUSD · Bukan nasihat keuangan, selalu pakai SL.
