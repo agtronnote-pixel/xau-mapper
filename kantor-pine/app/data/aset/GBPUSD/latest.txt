@@ -1,42 +1,41 @@
-📊 MAPPING GBPUSD — Sel, 24 Nov 2026, 19.07 WIB
-Harga: 1.30366 | Bias: BULLISH (36%)
+📊 MAPPING GBPUSD — Sel, 24 Nov 2026, 20.07 WIB
+Harga: 1.30366 | Bias: BULLISH (38%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal lemah (48%). Pantau zona BUY 1.30275–1.30321, jangan paksa entry.
-💪 Kekuatan 48% (Lemah)
-✓ momentum beli (RSI H1 62)
+Sinyal sedang (51%). Pantau zona BUY 1.30275–1.30321, jangan paksa entry.
+💪 Kekuatan 51% (Sedang)
+✓ momentum beli (RSI H1 69)
 ✕ Penghambat: trend H1 & harian turun
 ❌ Batal bila candle H1 close di bawah 1.3017.
 
 🎯 Utama: BUY 1.30275–1.30321
-💪 Kekuatan sinyal: 48% (Lemah) | RR 1:1.48
-SL 1.30170 | TP1 1.30487 | TP2 1.30626 | s/d 03.07 WIB
+💪 Kekuatan sinyal: 51% (Sedang) | RR 1:1.48
+SL 1.30170 | TP1 1.30487 | TP2 1.30626 | s/d 04.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: SELL 1.30464–1.30510
-💪 Kekuatan sinyal: 39% (Lemah) · peluang 51% | RR 1:1.48
-SL 1.30615 | TP1 1.30298 | TP2 1.30115 | s/d 03.07 WIB
+💪 Kekuatan sinyal: 36% (Lemah) · peluang 51% | RR 1:1.48
+SL 1.30615 | TP1 1.30298 | TP2 1.30115 | s/d 04.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (19.22): 1.30366
-+1 jam (20.07): 1.30367
-+4 jam (23.07): 1.30371
-+24 jam (19.07): 1.30373
++15 mnt (20.22): 1.30366
++1 jam (21.07): 1.30368
++4 jam (00.07): 1.30373
++24 jam (20.07): 1.30376
 
 🕒 Jadwal
-19.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 54%
-15.07–19.07 ENTRY: Sesi London: entry saat zona tersentuh
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 
 🧱 Level: R 1.31442 · R 1.31280 · R 1.31138 · R 1.31053 · R 1.31000 · P 1.30626 · R 1.30487 · S 1.30298 · S 1.30251 · S 1.30115 · S 1.30000 · S 1.29811
 ❌ Invalidasi: Candle H1 close di bawah 1.3017
-⚠️ Harga spot & candle berbeda 0.00483 — cek sumber data · Agent tanpa data cukup: Clara
+⚠️ Harga spot & candle berbeda 0.00668 — cek sumber data · Agent tanpa data cukup: Clara
 
 — Kantor Pine · GBPUSD · Bukan nasihat keuangan, selalu pakai SL.
