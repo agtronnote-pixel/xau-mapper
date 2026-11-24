@@ -1,44 +1,44 @@
-📊 MAPPING ADAUSD — Rab, 25 Nov 2026, 00.07 WIB
-Harga: 0.14400 | Bias: BEARISH (50%)
+📊 MAPPING ADAUSD — Rab, 25 Nov 2026, 00.31 WIB
+Harga: 0.14530 | Bias: BEARISH (45%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 0.14452–0.14528 saat harga menyentuh zona.
-💪 Kekuatan 77% (Kuat) · Peluang TP1 duluan 43% (18 sampel backtest)
+SELL di 0.14612–0.14688 saat harga menyentuh zona.
+💪 Kekuatan 70% (Kuat) · Peluang TP1 duluan 43% (18 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 38)
-❌ Batal bila candle H1 close di atas 0.147.
+❌ Batal bila candle H1 close di atas 0.1486.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 0.14452–0.14528
-💪 Kekuatan sinyal: 77% (Kuat) · peluang 43% | RR 1:1.38
-SL 0.14700 | TP1 0.14200 | TP2 0.13860 | s/d 08.07 WIB
+🎯 Utama: SELL 0.14612–0.14688
+💪 Kekuatan sinyal: 70% (Kuat) · peluang 43% | RR 1:1.19
+SL 0.14860 | TP1 0.14400 | TP2 0.14200 | s/d 08.31 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 0.14262–0.14338
-💪 Kekuatan sinyal: 14% (Lemah) · peluang 50% | RR 1:1.24
-SL 0.14090 | TP1 0.14560 | TP2 0.14750 | s/d 08.07 WIB
+🎯 Alternatif: BUY 0.14452–0.14528
+💪 Kekuatan sinyal: 19% (Lemah) · peluang 50% | RR 1:1.24
+SL 0.14280 | TP1 0.14750 | TP2 0.14900 | s/d 08.31 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (00.22): 0.14395
-+1 jam (01.07): 0.14401
-+4 jam (04.07): 0.14409
-+24 jam (00.07): 0.14476
++15 mnt (00.46): 0.14526
++1 jam (01.31): 0.14530
++4 jam (04.31): 0.14537
++24 jam (00.31): 0.14586
 
 🕒 Jadwal
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–07.07 WAIT: Likuiditas rendah
-07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
-20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
-21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
+00.31–05.01 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.01–07.01 WAIT: Likuiditas rendah
+07.01–15.01 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
+15.01–20.01 ENTRY: Sesi London: entry saat zona tersentuh
+20.01–21.31 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
+21.31–22.01 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
+22.01–00.01 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
+00.01–00.31 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 
-🧱 Level: R 0.15640 · R 0.15090 · R 0.14990 · P 0.14900 · R 0.14750 · R 0.14650 · R 0.14560 · R 0.14490 · S 0.14400 · S 0.14300 · S 0.14200
-❌ Invalidasi: Candle H1 close di atas 0.147
-⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
+🧱 Level: R 0.15640 · R 0.15090 · R 0.14990 · P 0.14900 · R 0.14750 · R 0.14650 · R 0.14560 · S 0.14490 · S 0.14400 · S 0.14200
+❌ Invalidasi: Candle H1 close di atas 0.1486
+⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Kabar, Clara
 
 — Kantor Pine · ADAUSD · Bukan nasihat keuangan, selalu pakai SL.

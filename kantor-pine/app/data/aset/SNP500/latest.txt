@@ -1,44 +1,44 @@
-📊 MAPPING SNP500 — Rab, 25 Nov 2026, 00.07 WIB
-Harga: 7275.00 | Bias: BEARISH (34%)
+📊 MAPPING SNP500 — Rab, 25 Nov 2026, 00.32 WIB
+Harga: 7274.50 | Bias: SIDEWAYS (33%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (54%). Pantau zona SELL 7276.8–7291.7, jangan paksa entry.
-💪 Kekuatan 54% (Sedang) · Peluang TP1 duluan 45% (66 sampel backtest)
-✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 44)
+Sinyal sedang (53%). Pantau zona SELL 7276.8–7291.7, jangan paksa entry.
+💪 Kekuatan 53% (Sedang) · Peluang TP1 duluan 45% (66 sampel backtest)
+✓ Tidak ada faktor dominan — pasar cenderung datar
 ❌ Batal bila candle H1 close di atas 7325.24.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 7276.80–7291.70
-💪 Kekuatan sinyal: 54% (Sedang) · peluang 45% | RR 1:1.09
-SL 7325.24 | TP1 7239.50 | TP2 7191.92 | s/d 08.07 WIB
+🎯 Range: SELL 7276.80–7291.70
+💪 Kekuatan sinyal: 53% (Sedang) · peluang 45% | RR 1:1.06
+SL 7325.24 | TP1 7240.75 | TP2 7191.92 | s/d 08.32 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 7242.55–7257.45
-💪 Kekuatan sinyal: 22% (Lemah) · peluang 44% | RR 1:1.18
-SL 7209.01 | TP1 7298.25 | TP2 7391.83 | s/d 08.07 WIB
+🎯 Range: BUY 7233.30–7248.20
+💪 Kekuatan sinyal: 35% (Lemah) · peluang 44% | RR 1:1.06
+SL 7199.76 | TP1 7284.25 | TP2 7313.25 | s/d 08.32 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (00.22): 7274.41
-+1 jam (01.07): 7274.73
-+4 jam (04.07): 7275.51
-+24 jam (00.07): 7283.98
++15 mnt (00.47): 7274.34
++1 jam (01.32): 7274.43
++4 jam (04.32): 7274.64
++24 jam (00.32): 7276.92
 
 🕒 Jadwal
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
-05.07–06.07 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
-06.07–07.07 WAIT: Likuiditas rendah
-07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
-20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
-21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 50%
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 50%
+00.32–05.02 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
+05.02–06.02 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
+06.02–07.02 WAIT: Likuiditas rendah
+07.02–15.02 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
+15.02–20.02 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
+20.02–21.32 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
+21.32–22.02 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 50%
+22.02–00.02 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 50%
+00.02–00.32 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
 
-🧱 Level: R 7391.83 · R 7313.25 · R 7298.25 · R 7284.25 · S 7250.00 · S 7239.50 · P 7191.92 · S 7144.75 · S 7082.50 · S 7070.58 · S 6992.00
+🧱 Level: R 7391.83 · R 7313.25 · R 7298.25 · R 7284.25 · S 7240.75 · P 7191.92 · S 7144.75 · S 7082.50 · S 7070.58 · S 6992.00
 ❌ Invalidasi: Candle H1 close di atas 7325.24
-⚠️ Harga spot & candle berbeda 100.25 — cek sumber data · Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
+⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Kabar, Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
