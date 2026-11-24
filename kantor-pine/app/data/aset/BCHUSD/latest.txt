@@ -1,42 +1,41 @@
-📊 MAPPING BCHUSD — Sel, 24 Nov 2026, 10.07 WIB
-Harga: 197.70 | Bias: BEARISH (51%)
+📊 MAPPING BCHUSD — Sel, 24 Nov 2026, 11.07 WIB
+Harga: 201.00 | Bias: BEARISH (43%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 198.14–199.86 saat harga menyentuh zona.
-💪 Kekuatan 69% (Sedang) · Peluang TP1 duluan 50% (106 sampel backtest)
+SELL di 201.79–203.15 saat harga menyentuh zona.
+💪 Kekuatan 61% (Sedang) · Peluang TP1 duluan 50% (106 sampel backtest)
 ✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 46)
-❌ Batal bila candle H1 close di atas 203.74.
+❌ Batal bila candle H1 close di atas 206.22.
 
-🎯 Utama: SELL 198.14–199.86
-💪 Kekuatan sinyal: 69% (Sedang) · peluang 50% | RR 1:1.08
-SL 203.74 | TP1 193.90 | TP2 184.78 | s/d 18.07 WIB
+🎯 Utama: SELL 201.79–203.15
+💪 Kekuatan sinyal: 61% (Sedang) · peluang 50% | RR 1:1.09
+SL 206.22 | TP1 198.40 | TP2 193.90 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 193.04–194.76
-💪 Kekuatan sinyal: 22% (Lemah) · peluang 43% | RR 1:1.08
-SL 189.16 | TP1 199.00 | TP2 202.47 | s/d 18.07 WIB
+🎯 Alternatif: BUY 199.32–200.68
+💪 Kekuatan sinyal: 39% (Lemah) · peluang 43% | RR 1:1.15
+SL 196.25 | TP1 204.30 | TP2 211.03 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (10.22): 197.63
-+1 jam (11.07): 197.73
-+4 jam (14.07): 197.62
-+24 jam (10.07): 197.20
++15 mnt (11.22): 200.98
++1 jam (12.07): 201.01
++4 jam (15.07): 200.97
++24 jam (11.07): 200.83
 
 🕒 Jadwal
-10.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
+11.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 53%
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 44%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 44%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
 05.07–07.07 WAIT: Likuiditas rendah
-07.07–10.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
+07.07–11.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
 
-🧱 Level: R 213.00 · R 211.03 · R 204.30 · P 202.47 · R 200.90 · R 199.00 · S 197.40 · S 193.90 · S 191.93
-❌ Invalidasi: Candle H1 close di atas 203.74
-⚠️ Volatilitas tinggi · Agent tanpa data cukup: Clara
+🧱 Level: R 213.00 · R 211.03 · R 204.30 · P 202.47 · S 200.90 · S 200.00 · S 198.40 · S 197.40 · S 193.90 · S 191.93
+❌ Invalidasi: Candle H1 close di atas 206.22
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · BCHUSD · Bukan nasihat keuangan, selalu pakai SL.
