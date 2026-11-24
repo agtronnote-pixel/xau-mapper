@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping USA100 202611241707", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (USA100) dari mapping 2026-11-24T10:07:36.608Z (harga 26866.25).
+indicator("KPX Mapping USA100 202611241809", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (USA100) dari mapping 2026-11-24T11:09:59.365Z (harga 26866.25).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -25,17 +25,17 @@ if barstate.islast and not drawn
         drawLine(25825.67, color.green, "S S1 harian", false)
         drawLine(25462.00, color.green, "S Low kemarin (PDL)", false)
     if showPlans
-        box.new(bar_index - 20, 26931.84 + offset, bar_index + 40, 26868.16 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 45%", text_color=color.red, text_size=size.small)
-        drawLine(27075.10, color.red, "SL SELL", true)
+        box.new(bar_index - 20, 26933.31 + offset, bar_index + 40, 26866.69 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 48%", text_color=color.red, text_size=size.small)
+        drawLine(27083.19, color.red, "SL SELL", true)
         drawLine(26684.00, color.blue, "TP1 SELL", true)
         drawLine(26481.33, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 26831.84 + offset, bar_index + 40, 26768.16 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 40%", text_color=color.green, text_size=size.small)
-        drawLine(26624.90, color.red, "SL BUY", true)
+        box.new(bar_index - 20, 26833.31 + offset, bar_index + 40, 26766.69 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 36%", text_color=color.green, text_size=size.small)
+        drawLine(26616.81, color.red, "SL BUY", true)
         drawLine(27036.00, color.blue, "TP1 BUY", true)
         drawLine(27137.00, color.blue, "TP2 BUY", true)
 
-inZone0 = close >= 26868.16 + offset and close <= 26931.84 + offset
-alertcondition(inZone0 and not inZone0[1], "KPX SELL Range: masuk zona", "USA100 masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 26768.16 + offset and close <= 26831.84 + offset
-alertcondition(inZone1 and not inZone1[1], "KPX BUY Range: masuk zona", "USA100 masuk zona BUY {{close}} - EA entry")
+inZone0 = close >= 26866.69 + offset and close <= 26933.31 + offset
+alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "USA100 masuk zona SELL {{close}} - EA entry")
+inZone1 = close >= 26766.69 + offset and close <= 26833.31 + offset
+alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "USA100 masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")

@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping BTCUSD 202611241707", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (BTCUSD) dari mapping 2026-11-24T10:07:34.964Z (harga 60030.00).
+indicator("KPX Mapping BTCUSD 202611241809", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (BTCUSD) dari mapping 2026-11-24T11:09:33.840Z (harga 59739.29).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -22,20 +22,21 @@ if barstate.islast and not drawn
         drawLine(61139.36, color.red, "R Swing low H1", false)
         drawLine(60768.56, color.red, "R Swing high H1", false)
         drawLine(60386.00, color.red, "R Low kemarin (PDL)", false)
-        drawLine(60000.00, color.green, "S Angka bulat", false)
+        drawLine(60000.00, color.red, "R Angka bulat", false)
         drawLine(59573.95, color.green, "S S1 harian", false)
+        drawLine(59000.00, color.green, "S Angka bulat", false)
     if showPlans
-        box.new(bar_index - 20, 60487.30 + offset, bar_index + 40, 60284.70 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 84%", text_color=color.red, text_size=size.small)
-        drawLine(60943.16, color.red, "SL SELL", true)
-        drawLine(59573.95, color.blue, "TP1 SELL", true)
-        drawLine(58714.52, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 59675.25 + offset, bar_index + 40, 59472.65 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 18%", text_color=color.green, text_size=size.small)
-        drawLine(59016.79, color.red, "SL BUY", true)
+        box.new(bar_index - 20, 60105.39 + offset, bar_index + 40, 59894.61 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 86%", text_color=color.red, text_size=size.small)
+        drawLine(60579.65, color.red, "SL SELL", true)
+        drawLine(59000.00, color.blue, "TP1 SELL", true)
+        drawLine(58261.05, color.blue, "TP2 SELL", true)
+        box.new(bar_index - 20, 59679.34 + offset, bar_index + 40, 59468.56 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 15%", text_color=color.green, text_size=size.small)
+        drawLine(58994.30, color.red, "SL BUY", true)
         drawLine(60386.00, color.blue, "TP1 BUY", true)
         drawLine(60768.56, color.blue, "TP2 BUY", true)
 
-inZone0 = close >= 60284.70 + offset and close <= 60487.30 + offset
+inZone0 = close >= 59894.61 + offset and close <= 60105.39 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "BTCUSD masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 59472.65 + offset and close <= 59675.25 + offset
+inZone1 = close >= 59468.56 + offset and close <= 59679.34 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "BTCUSD masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")
