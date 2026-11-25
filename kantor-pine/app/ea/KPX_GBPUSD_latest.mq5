@@ -1,11 +1,11 @@
 //+------------------------------------------------------------------+
-//| KPX_GBPUSD_202611260207.mq5                                      |
+//| KPX_GBPUSD_202611260307.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 02.07 WIB - GBPUSD 1.31120                 |
+//| Mapping: 26 Nov 2026, 03.07 WIB - GBPUSD 1.31120                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 51%
+/* Bias: BULLISH - Keyakinan 52%
    Ringkasan: GBPUSD cenderung naik (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 1.30963-1.31037 (kekuatan sinyal 63% - Sedang).
    Rencana 0: BUY 1.30963-1.31037 SL 1.30797 TP1 1.31235 TP2 1.31510 - Kekuatan sinyal 63% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping GBPUSD 202611260207"
+#property description "Eksekusi otomatis mapping GBPUSD 202611260307"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {1.31037, 1.31272};
 double   P_SL[]   = {1.30797, 1.31438};
 double   P_TP1[]  = {1.31235, 1.31000};
 double   P_TP2[]  = {1.31510, 1.30880};
-datetime P_EXP[]  = {D'2026.11.26 03:07:00', D'2026.11.26 03:07:00'};
+datetime P_EXP[]  = {D'2026.11.26 04:07:00', D'2026.11.26 04:07:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {63, 37};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, -1};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.25 19:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 1.31237;
+datetime REF_TIME   = D'2026.11.25 20:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 1.31230;
 double   OFFSET_MAX = 0.01311;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.25 19:07:00';
-datetime MAP_END    = D'2026.11.26 19:07:00';
+datetime MAP_START  = D'2026.11.25 20:07:00';
+datetime MAP_END    = D'2026.11.26 20:07:00';
 
 CTrade   trade;
 string   GVP;

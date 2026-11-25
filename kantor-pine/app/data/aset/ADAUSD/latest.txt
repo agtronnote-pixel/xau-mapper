@@ -1,43 +1,43 @@
-📊 MAPPING ADAUSD — Kam, 26 Nov 2026, 02.07 WIB
-Harga: 0.14520 | Bias: SIDEWAYS (40%)
+📊 MAPPING ADAUSD — Kam, 26 Nov 2026, 03.07 WIB
+Harga: 0.14620 | Bias: SIDEWAYS (39%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (54%). Pantau zona SELL 0.14556–0.14644, jangan paksa entry.
-💪 Kekuatan 54% (Sedang) · Peluang TP1 duluan 60% (15 sampel backtest)
+Sinyal sedang (53%). Pantau zona SELL 0.14693–0.14787, jangan paksa entry.
+💪 Kekuatan 53% (Sedang) · Peluang TP1 duluan 60% (15 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ berita cenderung negatif untuk emas
-✕ Penghambat: momentum beli (RSI H1 60)
-❌ Batal bila candle H1 close di atas 0.14841.
+✕ Penghambat: momentum beli (RSI H1 61)
+❌ Batal bila candle H1 close di atas 0.14999.
 
-🎯 Range: SELL 0.14556–0.14644
-💪 Kekuatan sinyal: 54% (Sedang) · peluang 60% | RR 1:1.12
-SL 0.14841 | TP1 0.14330 | TP2 0.14170 | s/d 10.07 WIB
+🎯 Range: SELL 0.14693–0.14787
+💪 Kekuatan sinyal: 53% (Sedang) · peluang 60% | RR 1:1.2
+SL 0.14999 | TP1 0.14430 | TP2 0.14250 | s/d 11.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 0.14386–0.14474
-💪 Kekuatan sinyal: 46% (Lemah) · peluang 50% | RR 1:1.29
-SL 0.14189 | TP1 0.14740 | TP2 0.14950 | s/d 10.07 WIB
+🎯 Range: BUY 0.14463–0.14557
+💪 Kekuatan sinyal: 49% (Lemah) · peluang 50% | RR 1:1.7
+SL 0.14251 | TP1 0.14950 | TP2 0.15090 | s/d 11.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (02.22): 0.14519
-+1 jam (03.07): 0.14520
-+4 jam (06.07): 0.14522
-+24 jam (02.07): 0.14538
++15 mnt (03.22): 0.14619
++1 jam (04.07): 0.14620
++4 jam (07.07): 0.14621
++24 jam (03.07): 0.14635
 
 🕒 Jadwal
-02.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+03.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
-00.07–02.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+00.07–03.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 
 🧱 Level: R 0.15090 · R 0.14950 · R 0.14740 · P 0.14600 · S 0.14510 · S 0.14430 · S 0.14330 · S 0.14250 · S 0.14170 · S 0.14110 · S 0.13560
-❌ Invalidasi: Candle H1 close di atas 0.14841
+❌ Invalidasi: Candle H1 close di atas 0.14999
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · ADAUSD · Bukan nasihat keuangan, selalu pakai SL.
