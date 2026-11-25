@@ -1,45 +1,45 @@
-📊 MAPPING DOTUSD — Rab, 25 Nov 2026, 18.07 WIB
-Harga: 0.64400 | Bias: BEARISH (49%)
+📊 MAPPING DOTUSD — Rab, 25 Nov 2026, 19.07 WIB
+Harga: 0.63500 | Bias: BEARISH (53%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.02R per trade). Pakai sebagai peta level saja — zona SELL 0.64871–0.65129.
-💪 Kekuatan 70% (Kuat) · Peluang TP1 duluan 49% (23 sampel backtest)
+Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.02R per trade). Pakai sebagai peta level saja — zona SELL 0.63864–0.64136.
+💪 Kekuatan 75% (Kuat) · Peluang TP1 duluan 49% (23 sampel backtest)
 ✓ trend H1 & harian turun
-✓ momentum jual (RSI H1 37)
+✓ momentum jual (RSI H1 30)
 ✓ struktur lower high/lower low
-❌ Batal bila candle H1 close di atas 0.65708.
+❌ Batal bila candle H1 close di atas 0.64747.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 0.64871–0.65129
-💪 Kekuatan sinyal: 70% (Kuat) · peluang 49% | RR 1:1.27
-SL 0.65708 | TP1 0.64100 | TP2 0.63400 | s/d 02.07 WIB
+🎯 Utama: SELL 0.63864–0.64136
+💪 Kekuatan sinyal: 75% (Kuat) · peluang 49% | RR 1:1.34
+SL 0.64747 | TP1 0.63000 | TP2 0.61759 | s/d 03.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 0.63971–0.64229
-💪 Kekuatan sinyal: 20% (Lemah) · peluang 43% | RR 1:1.27
-SL 0.63392 | TP1 0.65000 | TP2 0.65400 | s/d 02.07 WIB
+🎯 Alternatif: BUY 0.62864–0.63136
+💪 Kekuatan sinyal: 16% (Lemah) · peluang 43% | RR 1:1.34
+SL 0.62253 | TP1 0.64000 | TP2 0.64500 | s/d 03.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (18.22): 0.64386
-+1 jam (19.07): 0.64406
-+4 jam (22.07): 0.64427
-+24 jam (18.07): 0.64264
++15 mnt (19.22): 0.63482
++1 jam (20.07): 0.63508
++4 jam (23.07): 0.63536
++24 jam (19.07): 0.63320
 
 🕒 Jadwal
-18.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
+19.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level
-15.07–18.07 ENTRY: Sesi London: entry saat zona tersentuh
+15.07–19.07 ENTRY: Sesi London: entry saat zona tersentuh
 
-🧱 Level: R 0.69400 · R 0.68300 · P 0.66400 · R 0.65700 · R 0.65400 · R 0.65000 · R 0.64500 · S 0.64100 · S 0.63400
-❌ Invalidasi: Candle H1 close di atas 0.65708
+🧱 Level: R 0.69400 · R 0.68300 · P 0.66400 · R 0.65700 · R 0.65400 · R 0.65000 · R 0.64500 · R 0.64000 · S 0.63400 · S 0.63000
+❌ Invalidasi: Candle H1 close di atas 0.64747
 ⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · DOTUSD · Bukan nasihat keuangan, selalu pakai SL.
