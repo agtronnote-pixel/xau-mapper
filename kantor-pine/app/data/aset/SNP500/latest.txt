@@ -1,4 +1,4 @@
-📊 MAPPING SNP500 — Kam, 26 Nov 2026, 05.25 WIB
+📊 MAPPING SNP500 — Kam, 26 Nov 2026, 06.07 WIB
 Harga: 7165.50 | Bias: BEARISH (44%)
 
 ➡️ KEPUTUSAN: TUNGGU
@@ -12,30 +12,30 @@ Sinyal sedang (62%). Pantau zona SELL 7189.7–7210.3, jangan paksa entry.
 
 🎯 Utama: SELL 7189.70–7210.30
 💪 Kekuatan sinyal: 62% (Sedang) · peluang 43% | RR 1:1.21
-SL 7256.63 | TP1 7131.33 | TP2 7038.67 | s/d 13.25 WIB
+SL 7256.63 | TP1 7131.33 | TP2 7038.67 | s/d 14.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: BUY 7134.45–7155.05
 💪 Kekuatan sinyal: 39% (Lemah) · peluang 47% | RR 1:1.4
-SL 7088.12 | TP1 7224.00 | TP2 7280.17 | s/d 13.25 WIB
+SL 7088.12 | TP1 7224.00 | TP2 7280.17 | s/d 14.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (05.40): 7164.68
-+1 jam (06.25): 7165.33
-+4 jam (09.25): 7166.69
-+24 jam (05.25): 7177.21
++15 mnt (06.22): 7164.67
++1 jam (07.07): 7165.33
++4 jam (10.07): 7166.70
++24 jam (06.07): 7177.33
 
 🕒 Jadwal
-05.25–06.25 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
-06.25–07.25 WAIT: Likuiditas rendah
-07.25–15.25 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
-15.25–20.25 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 42%
-20.25–22.25 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
-22.25–00.25 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
-00.25–05.25 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
+06.07–07.07 WAIT: Likuiditas rendah
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 48%
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 42%
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
+05.07–06.07 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
 
 🧱 Level: R 7298.25 · R 7280.17 · R 7240.75 · R 7224.00 · R 7200.00 · R 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
 ❌ Invalidasi: Candle H1 close di atas 7256.63

@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping SNP500 202611260525", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (SNP500) dari mapping 2026-11-25T22:25:08.133Z (harga 7165.50).
+indicator("KPX Mapping SNP500 202611260607", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (SNP500) dari mapping 2026-11-25T23:07:30.221Z (harga 7165.50).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")

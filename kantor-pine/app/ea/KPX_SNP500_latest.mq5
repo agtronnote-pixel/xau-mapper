@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_SNP500_202611260525.mq5                                      |
+//| KPX_SNP500_202611260607.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 05.25 WIB - SNP500 7165.50                 |
+//| Mapping: 26 Nov 2026, 06.07 WIB - SNP500 7165.50                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping SNP500 202611260525"
+#property description "Eksekusi otomatis mapping SNP500 202611260607"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {7210.30, 7155.05};
 double   P_SL[]   = {7256.63, 7088.12};
 double   P_TP1[]  = {7131.33, 7224.00};
 double   P_TP2[]  = {7038.67, 7280.17};
-datetime P_EXP[]  = {D'2026.11.26 06:25:00', D'2026.11.26 06:25:00'};
+datetime P_EXP[]  = {D'2026.11.26 07:07:00', D'2026.11.26 07:07:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
 int      P_STR[]  = {62, 39};   // kekuatan sinyal %
 int      P_PEL[]  = {43, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.25 22:00:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 7187.50;
 double   OFFSET_MAX = 71.66;
-datetime NT_START[] = {D'2026.11.25 22:25:00'};
-datetime NT_END[]   = {D'2026.11.25 23:25:00'};
-datetime MAP_START  = D'2026.11.25 22:25:00';
-datetime MAP_END    = D'2026.11.26 22:25:00';
+datetime NT_START[] = {D'2026.11.26 22:07:00'};
+datetime NT_END[]   = {D'2026.11.26 23:07:00'};
+datetime MAP_START  = D'2026.11.25 23:07:00';
+datetime MAP_END    = D'2026.11.26 23:07:00';
 
 CTrade   trade;
 string   GVP;
