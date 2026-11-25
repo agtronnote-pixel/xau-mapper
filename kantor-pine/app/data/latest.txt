@@ -1,42 +1,42 @@
-📊 MAPPING XAUUSD — Rab, 25 Nov 2026, 09.07 WIB
-Harga: 3546.60 | Bias: BEARISH (60%)
+📊 MAPPING XAUUSD — Rab, 25 Nov 2026, 09.16 WIB
+Harga: 3553.45 | Bias: BEARISH (59%)
 
 ➡️ KEPUTUSAN: SELL
 SELL di 3562.87–3571.13 saat harga menyentuh zona.
-💪 Kekuatan 77% (Kuat) · Peluang TP1 duluan 55% (122 sampel backtest)
+💪 Kekuatan 76% (Kuat) · Peluang TP1 duluan 55% (122 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 30)
+✓ momentum jual (RSI H1 35)
 ❌ Batal bila candle H1 close di atas 3589.7.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
 🎯 Utama: SELL 3562.87–3571.13
-💪 Kekuatan sinyal: 77% (Kuat) · peluang 55% | RR 1:1.85
-SL 3589.70 | TP1 3525.00 | TP2 3506.80 | s/d 17.07 WIB
+💪 Kekuatan sinyal: 76% (Kuat) · peluang 55% | RR 1:1.85
+SL 3589.70 | TP1 3525.00 | TP2 3506.80 | s/d 17.16 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 3520.87–3529.13
-💪 Kekuatan sinyal: 19% (Lemah) · peluang 45% | RR 1:1.85
-SL 3502.30 | TP1 3567.00 | TP2 3591.85 | s/d 17.07 WIB
+🎯 Alternatif: BUY 3541.47–3549.73
+💪 Kekuatan sinyal: 18% (Lemah) · peluang 45% | RR 1:1.3
+SL 3522.90 | TP1 3575.00 | TP2 3591.85 | s/d 17.16 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (09.22): 3546.18
-+1 jam (10.07): 3545.11
-+4 jam (13.07): 3540.04
-+24 jam (09.07): 3519.00
++15 mnt (09.31): 3553.06
++1 jam (10.16): 3552.07
++4 jam (13.16): 3547.34
++24 jam (09.16): 3527.74
 
 🕒 Jadwal
-09.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 48%
-20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
-21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 47%
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 47%
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 46%
-05.07–07.07 WAIT: Likuiditas rendah
-07.07–09.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
+09.16–15.16 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
+15.16–19.46 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 48%
+19.46–21.16 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
+21.16–22.16 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 47%
+22.16–00.16 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 47%
+00.16–05.16 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 46%
+05.16–07.16 WAIT: Likuiditas rendah
+07.16–09.16 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
 
 🧱 Level: R 3691.20 · R 3676.90 · R 3651.60 · R 3638.10 · R 3630.00 · R 3618.70 · R 3606.60 · P 3591.85 · R 3575.00 · R 3567.00 · S 3545.60 · S 3525.00 · S 3506.80
 ❌ Invalidasi: Candle H1 close di atas 3589.7

@@ -1,4 +1,4 @@
-📊 MAPPING GBPUSD — Rab, 25 Nov 2026, 09.07 WIB
+📊 MAPPING GBPUSD — Rab, 25 Nov 2026, 09.16 WIB
 Harga: 1.31120 | Bias: BULLISH (46%)
 
 ➡️ KEPUTUSAN: BUY
@@ -12,31 +12,31 @@ BUY di 1.31033–1.31073 saat harga menyentuh zona.
 
 🎯 Utama: BUY 1.31033–1.31073
 💪 Kekuatan sinyal: 63% (Sedang) | RR 1:1.64
-SL 1.30942 | TP1 1.31235 | TP2 1.31442 | s/d 17.07 WIB
+SL 1.30942 | TP1 1.31235 | TP2 1.31442 | s/d 17.16 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: SELL 1.31215–1.31255
 💪 Kekuatan sinyal: 31% (Lemah) · peluang 51% | RR 1:1.64
-SL 1.31346 | TP1 1.31053 | TP2 1.30880 | s/d 17.07 WIB
+SL 1.31346 | TP1 1.31053 | TP2 1.30880 | s/d 17.16 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (09.22): 1.31120
-+1 jam (10.07): 1.31122
-+4 jam (13.07): 1.31128
-+24 jam (09.07): 1.31130
++15 mnt (09.31): 1.31120
++1 jam (10.16): 1.31122
++4 jam (13.16): 1.31127
++24 jam (09.16): 1.31130
 
 🕒 Jadwal
-09.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 54%
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
-20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
-21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–07.07 WAIT: Likuiditas rendah
-07.07–09.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 54%
+09.16–15.16 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 54%
+15.16–19.46 ENTRY: Sesi London: entry saat zona tersentuh
+19.46–21.16 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
+21.16–22.16 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
+22.16–00.16 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
+00.16–05.16 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.16–07.16 WAIT: Likuiditas rendah
+07.16–09.16 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 54%
 
 🧱 Level: R 1.31510 · R 1.31442 · R 1.31235 · S 1.31053 · S 1.31000 · P 1.30880 · S 1.30525 · S 1.30487 · S 1.30298 · S 1.30251 · S 1.30115
 ❌ Invalidasi: Candle H1 close di bawah 1.30942

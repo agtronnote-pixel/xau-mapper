@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping BCHUSD 202611250907", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (BCHUSD) dari mapping 2026-11-25T02:07:26.388Z (harga 196.10).
+indicator("KPX Mapping BCHUSD 202611250916", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (BCHUSD) dari mapping 2026-11-25T02:16:42.437Z (harga 195.60).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -19,7 +19,7 @@ if barstate.islast and not drawn
         drawLine(200.20, color.red, "R Swing high H1", false)
         drawLine(198.67, color.gray, "P Pivot harian", false)
         drawLine(197.10, color.red, "R Swing low H1", false)
-        drawLine(196.00, color.green, "S Angka bulat", false)
+        drawLine(196.00, color.red, "R Angka bulat", false)
         drawLine(195.00, color.green, "S Angka bulat", false)
         drawLine(194.20, color.green, "S Low kemarin (PDL)", false)
         drawLine(193.03, color.green, "S S1 harian", false)
@@ -28,7 +28,7 @@ if barstate.islast and not drawn
         drawLine(199.42, color.red, "SL SELL", true)
         drawLine(194.20, color.blue, "TP1 SELL", true)
         drawLine(193.03, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 195.42 + offset, bar_index + 40, 194.58 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 21%", text_color=color.green, text_size=size.small)
+        box.new(bar_index - 20, 195.42 + offset, bar_index + 40, 194.58 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 20%", text_color=color.green, text_size=size.small)
         drawLine(192.68, color.red, "SL BUY", true)
         drawLine(198.67, color.blue, "TP1 BUY", true)
         drawLine(200.20, color.blue, "TP2 BUY", true)
