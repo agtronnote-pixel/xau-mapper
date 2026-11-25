@@ -1,44 +1,43 @@
-📊 MAPPING GBPUSD — Rab, 25 Nov 2026, 14.07 WIB
-Harga: 1.31120 | Bias: BEARISH (37%)
+📊 MAPPING GBPUSD — Rab, 25 Nov 2026, 15.07 WIB
+Harga: 1.31120 | Bias: BEARISH (31%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal lemah (46%). Pantau zona SELL 1.31137–1.31169, jangan paksa entry.
-💪 Kekuatan 46% (Lemah)
-✓ momentum jual (RSI H1 41)
+Sinyal lemah (44%). Pantau zona SELL 1.31136–1.3117, jangan paksa entry.
+💪 Kekuatan 44% (Lemah)
+✓ momentum jual (RSI H1 38)
 ✕ Penghambat: berita cenderung positif untuk emas
-❌ Batal bila candle H1 close di atas 1.3124.
+❌ Batal bila candle H1 close di atas 1.31244.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 1.31137–1.31169
-💪 Kekuatan sinyal: 46% (Lemah) | RR 1:1.15
-SL 1.31240 | TP1 1.31053 | TP2 1.31000 | s/d 22.07 WIB
+🎯 Utama: SELL 1.31136–1.31170
+💪 Kekuatan sinyal: 44% (Lemah) | RR 1:1.1
+SL 1.31244 | TP1 1.31053 | TP2 1.31000 | s/d 23.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 1.31037–1.31069
-💪 Kekuatan sinyal: 43% (Lemah) | RR 1:1.15
-SL 1.30966 | TP1 1.31153 | TP2 1.31235 | s/d 22.07 WIB
+🎯 Alternatif: BUY 1.31036–1.31070
+💪 Kekuatan sinyal: 32% (Lemah) · peluang 53% | RR 1:1.1
+SL 1.30962 | TP1 1.31153 | TP2 1.31235 | s/d 23.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (14.22): 1.31120
-+1 jam (15.07): 1.31119
-+4 jam (18.07): 1.31117
-+24 jam (14.07): 1.31116
++15 mnt (15.22): 1.31120
++1 jam (16.07): 1.31119
++4 jam (19.07): 1.31115
++24 jam (15.07): 1.31115
 
 🕒 Jadwal
-14.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
-07.07–14.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
+07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
 
 🧱 Level: R 1.31510 · R 1.31235 · R 1.31153 · S 1.31053 · S 1.31000 · P 1.30880 · S 1.30525 · S 1.30487 · S 1.30298 · S 1.30251 · S 1.30115
-❌ Invalidasi: Candle H1 close di atas 1.3124
-⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
+❌ Invalidasi: Candle H1 close di atas 1.31244
+⚠️ Harga spot & candle berbeda 0.00398 — cek sumber data · Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · GBPUSD · Bukan nasihat keuangan, selalu pakai SL.
