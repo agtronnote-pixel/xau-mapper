@@ -1,45 +1,45 @@
-📊 MAPPING LINKUSD — Rab, 25 Nov 2026, 10.07 WIB
-Harga: 8.7510 | Bias: BEARISH (51%)
+📊 MAPPING LINKUSD — Rab, 25 Nov 2026, 11.07 WIB
+Harga: 8.7770 | Bias: BEARISH (42%)
 
-➡️ KEPUTUSAN: TUNGGU
-Sinyal kuat (71%). Pantau zona SELL 8.7773–8.8147, jangan paksa entry.
-💪 Kekuatan 71% (Kuat) · Peluang TP1 duluan 43% (39 sampel backtest)
-✓ momentum jual (RSI H1 35)
+➡️ KEPUTUSAN: SELL
+SELL di 8.778–8.814 saat harga menyentuh zona.
+💪 Kekuatan 61% (Sedang) · Peluang TP1 duluan 52% (19 sampel backtest)
 ✓ trend H1 & harian turun
-✓ struktur range
-❌ Batal bila candle H1 close di atas 8.8987.
+✓ momentum jual (RSI H1 40)
+✓ berita cenderung negatif untuk emas
+❌ Batal bila candle H1 close di atas 8.8949.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 8.7773–8.8147
-💪 Kekuatan sinyal: 71% (Kuat) · peluang 43% | RR 1:1.25
-SL 8.8987 | TP1 8.6680 | TP2 8.4879 | s/d 18.07 WIB
+🎯 Utama: SELL 8.7780–8.8140
+💪 Kekuatan sinyal: 61% (Sedang) · peluang 52% | RR 1:1.29
+SL 8.8949 | TP1 8.6680 | TP2 8.4993 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 8.6813–8.7187
-💪 Kekuatan sinyal: 21% (Lemah) · peluang 44% | RR 1:1.8
-SL 8.5973 | TP1 8.8850 | TP2 9.0900 | s/d 18.07 WIB
+🎯 Alternatif: BUY 8.7160–8.7520
+💪 Kekuatan sinyal: 29% (Lemah) · peluang 44% | RR 1:1.17
+SL 8.6351 | TP1 8.8500 | TP2 8.9120 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (10.22): 8.7490
-+1 jam (11.07): 8.7506
-+4 jam (14.07): 8.7554
-+24 jam (10.07): 8.7633
++15 mnt (11.22): 8.7757
++1 jam (12.07): 8.7768
++4 jam (15.07): 8.7797
++24 jam (11.07): 8.7847
 
 🕒 Jadwal
-10.07–15.07 ENTRY: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 56%
+11.07–15.07 ENTRY: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 56%
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 42%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 42%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
-07.07–10.07 ENTRY: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 56%
+07.07–11.07 ENTRY: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 56%
 
-🧱 Level: R 9.1560 · R 9.0900 · R 8.9360 · P 8.9120 · R 8.8850 · R 8.7960 · S 8.7340 · S 8.7000 · S 8.6680
-❌ Invalidasi: Candle H1 close di atas 8.8987
+🧱 Level: R 9.1560 · R 9.0900 · R 8.9360 · P 8.9120 · R 8.8850 · R 8.8500 · R 8.7960 · S 8.7340 · S 8.7090 · S 8.6680
+❌ Invalidasi: Candle H1 close di atas 8.8949
 ⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · LINKUSD · Bukan nasihat keuangan, selalu pakai SL.
