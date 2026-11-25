@@ -1,45 +1,45 @@
-📊 MAPPING AVAXUSD — Rab, 25 Nov 2026, 17.07 WIB
-Harga: 6.4640 | Bias: BEARISH (39%)
+📊 MAPPING AVAXUSD — Rab, 25 Nov 2026, 18.07 WIB
+Harga: 6.4660 | Bias: BEARISH (43%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.11R per trade). Pakai sebagai peta level saja — zona SELL 6.4881–6.5119.
-💪 Kekuatan 61% (Sedang) · Peluang TP1 duluan 36% (23 sampel backtest)
+Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.11R per trade). Pakai sebagai peta level saja — zona SELL 6.4886–6.5114.
+💪 Kekuatan 66% (Sedang) · Peluang TP1 duluan 36% (23 sampel backtest)
 ✓ trend H1 & harian turun
+✓ momentum jual (RSI H1 39)
 ✓ struktur lower high/lower low
-✓ berita cenderung negatif untuk emas
-❌ Batal bila candle H1 close di atas 6.5653.
+❌ Batal bila candle H1 close di atas 6.5626.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 6.4881–6.5119
-💪 Kekuatan sinyal: 61% (Sedang) · peluang 36% | RR 1:1.18
-SL 6.5653 | TP1 6.4230 | TP2 6.3041 | s/d 01.07 WIB
+🎯 Utama: SELL 6.4886–6.5114
+💪 Kekuatan sinyal: 66% (Sedang) · peluang 36% | RR 1:1.23
+SL 6.5626 | TP1 6.4230 | TP2 6.3122 | s/d 02.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 6.4381–6.4619
-💪 Kekuatan sinyal: 28% (Lemah) · peluang 44% | RR 1:1.1
-SL 6.3847 | TP1 6.5220 | TP2 6.5580 | s/d 01.07 WIB
+🎯 Alternatif: BUY 6.4386–6.4614
+💪 Kekuatan sinyal: 24% (Lemah) · peluang 44% | RR 1:1.15
+SL 6.3874 | TP1 6.5220 | TP2 6.5580 | s/d 02.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (17.22): 6.4631
-+1 jam (18.07): 6.4652
-+4 jam (21.07): 6.4720
-+24 jam (17.07): 6.5061
++15 mnt (18.22): 6.4650
++1 jam (19.07): 6.4672
++4 jam (22.07): 6.4742
++24 jam (18.07): 6.5093
 
 🕒 Jadwal
-17.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
+18.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 33%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 33%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 36%
-15.07–17.07 ENTRY: Sesi London: entry saat zona tersentuh
+15.07–18.07 ENTRY: Sesi London: entry saat zona tersentuh
 
 🧱 Level: R 6.8720 · R 6.8033 · R 6.7610 · P 6.6387 · R 6.6230 · R 6.5580 · R 6.5220 · R 6.5000 · R 6.4740 · S 6.4500 · S 6.4230 · S 6.4053
-❌ Invalidasi: Candle H1 close di atas 6.5653
+❌ Invalidasi: Candle H1 close di atas 6.5626
 ⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · AVAXUSD · Bukan nasihat keuangan, selalu pakai SL.

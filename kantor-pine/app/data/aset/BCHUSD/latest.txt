@@ -1,44 +1,45 @@
-📊 MAPPING BCHUSD — Rab, 25 Nov 2026, 17.07 WIB
-Harga: 196.00 | Bias: BEARISH (38%)
+📊 MAPPING BCHUSD — Rab, 25 Nov 2026, 18.07 WIB
+Harga: 195.00 | Bias: BEARISH (44%)
 
-➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (52%). Pantau zona SELL 196.63–197.37, jangan paksa entry.
-💪 Kekuatan 52% (Sedang) · Peluang TP1 duluan 39% (94 sampel backtest)
+➡️ KEPUTUSAN: SELL
+SELL di 195.64–196.36 saat harga menyentuh zona.
+💪 Kekuatan 61% (Sedang) · Peluang TP1 duluan 50% (103 sampel backtest)
 ✓ trend H1 & harian turun
+✓ momentum jual (RSI H1 42)
 ✓ berita cenderung negatif untuk emas
-❌ Batal bila candle H1 close di atas 199.03.
+❌ Batal bila candle H1 close di atas 198.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 196.63–197.37
-💪 Kekuatan sinyal: 52% (Sedang) · peluang 39% | RR 1:1.13
-SL 199.03 | TP1 194.70 | TP2 193.03 | s/d 01.07 WIB
+🎯 Utama: SELL 195.64–196.36
+💪 Kekuatan sinyal: 61% (Sedang) · peluang 50% | RR 1:1.48
+SL 198.00 | TP1 193.03 | TP2 190.00 | s/d 02.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 194.93–195.67
-💪 Kekuatan sinyal: 38% (Lemah) · peluang 43% | RR 1:1.43
-SL 193.27 | TP1 198.20 | TP2 200.20 | s/d 01.07 WIB
+🎯 Alternatif: BUY 193.84–194.56
+💪 Kekuatan sinyal: 33% (Lemah) · peluang 43% | RR 1:2
+SL 192.20 | TP1 198.20 | TP2 200.20 | s/d 02.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (17.22): 195.99
-+1 jam (18.07): 196.01
-+4 jam (21.07): 195.99
-+24 jam (17.07): 195.91
++15 mnt (18.22): 194.98
++1 jam (19.07): 195.01
++4 jam (22.07): 194.98
++24 jam (18.07): 194.87
 
 🕒 Jadwal
-17.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 53%
+18.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 53%
 20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 44%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 44%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 45%
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 45%
-15.07–17.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 53%
+15.07–18.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 53%
 
-🧱 Level: R 204.30 · R 203.13 · R 200.20 · P 198.67 · R 198.20 · R 197.00 · S 196.00 · S 195.30 · S 194.70 · S 194.20 · S 193.03
-❌ Invalidasi: Candle H1 close di atas 199.03
+🧱 Level: R 204.30 · R 203.13 · R 200.20 · P 198.67 · R 198.20 · R 196.00 · R 195.30 · S 194.70 · S 194.20 · S 193.03
+❌ Invalidasi: Candle H1 close di atas 198
 ⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · BCHUSD · Bukan nasihat keuangan, selalu pakai SL.
