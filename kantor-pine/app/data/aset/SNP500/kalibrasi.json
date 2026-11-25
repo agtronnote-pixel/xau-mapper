@@ -1,160 +1,160 @@
 {
  "versi": 3,
  "aset": "SNP500",
- "dibuat": "2026-11-24T09:12:12.121Z",
- "periode": "2026-09-23 – 2026-11-23",
- "sampel_jam": 1013,
+ "dibuat": "2026-11-25T06:10:03.474Z",
+ "periode": "2026-09-24 – 2026-11-24",
+ "sampel_jam": 1010,
  "bobot": {
-  "trend": 0.245,
-  "momentum": 0.226,
-  "structure": 0.305,
-  "macro": 0.105,
-  "news": 0.06,
-  "claude": 0.06
+  "trend": 0.264,
+  "momentum": 0.219,
+  "structure": 0.3,
+  "macro": 0.089,
+  "news": 0.064,
+  "claude": 0.064
  },
  "ic": {
   "trend": {
-   "ic": -0.066,
-   "n": 607
+   "ic": -0.065,
+   "n": 606
   },
   "momentum": {
-   "ic": -0.012,
-   "n": 607
+   "ic": -0.036,
+   "n": 606
   },
   "structure": {
-   "ic": -0.037,
-   "n": 607
+   "ic": -0.054,
+   "n": 606
   },
   "macro": {
-   "ic": -0.066,
-   "n": 607
+   "ic": -0.104,
+   "n": 606
   }
  },
  "kekuatan": [
   {
    "dari": 5,
    "sampai": 40,
-   "n": 152,
-   "peluang": 0.444,
-   "ekspektasi_R": 0.022
+   "n": 151,
+   "peluang": 0.466,
+   "ekspektasi_R": 0.087
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 65,
-   "peluang": 0.493,
-   "ekspektasi_R": 0.196
+   "n": 67,
+   "peluang": 0.494,
+   "ekspektasi_R": 0.203
   },
   {
    "dari": 50,
    "sampai": 60,
-   "n": 66,
-   "peluang": 0.447,
-   "ekspektasi_R": 0.165
+   "n": 65,
+   "peluang": 0.48,
+   "ekspektasi_R": 0.257
   },
   {
    "dari": 60,
    "sampai": 70,
-   "n": 75,
-   "peluang": 0.471,
-   "ekspektasi_R": 0.143
+   "n": 76,
+   "peluang": 0.43,
+   "ekspektasi_R": -0.026
   },
   {
    "dari": 70,
    "sampai": 96,
    "n": 105,
-   "peluang": 0.478,
-   "ekspektasi_R": 0.126
+   "peluang": 0.461,
+   "ekspektasi_R": 0.094
   }
  ],
  "sesi": {
   "asia": {
-   "n": 137,
+   "n": 133,
    "peluang": 0.476,
-   "ekspektasi_R": 0.104
+   "ekspektasi_R": 0.116
   },
   "london": {
    "n": 87,
-   "peluang": 0.412,
-   "ekspektasi_R": -0.001
+   "peluang": 0.423,
+   "ekspektasi_R": 0.032
   },
   "overlap": {
-   "n": 110,
-   "peluang": 0.5,
-   "ekspektasi_R": 0.294
+   "n": 113,
+   "peluang": 0.512,
+   "ekspektasi_R": 0.302
   },
   "ny": {
    "n": 91,
-   "peluang": 0.416,
-   "ekspektasi_R": -0.029
+   "peluang": 0.406,
+   "ekspektasi_R": -0.067
   },
   "sepi": {
-   "n": 38,
-   "peluang": 0.542,
-   "ekspektasi_R": 0.188
+   "n": 40,
+   "peluang": 0.52,
+   "ekspektasi_R": 0.129
   }
  },
  "proyeksi": {
   "15": {
-   "k": 0.06,
-   "q80": 0.329,
-   "n": 1013
+   "k": 0.067,
+   "q80": 0.333,
+   "n": 1010
   },
   "30": {
-   "k": 0.058,
-   "q80": 0.435,
-   "n": 1013
+   "k": 0.074,
+   "q80": 0.44,
+   "n": 1010
   },
   "60": {
-   "k": 0.028,
-   "q80": 0.782,
-   "n": 1013
+   "k": 0.014,
+   "q80": 0.771,
+   "n": 1010
   },
   "120": {
-   "k": 0.027,
-   "q80": 1.146,
-   "n": 1013
+   "k": -0.001,
+   "q80": 1.138,
+   "n": 1010
   },
   "240": {
-   "k": -0.052,
-   "q80": 1.696,
-   "n": 1013
+   "k": -0.097,
+   "q80": 1.679,
+   "n": 1010
   },
   "480": {
-   "k": -0.341,
-   "q80": 2.628,
-   "n": 1013
+   "k": -0.391,
+   "q80": 2.602,
+   "n": 1010
   },
   "720": {
-   "k": -0.595,
-   "q80": 3.23,
-   "n": 1013
+   "k": -0.643,
+   "q80": 3.205,
+   "n": 1010
   },
   "1440": {
-   "k": -0.917,
-   "q80": 4.834,
-   "n": 1013
+   "k": -0.954,
+   "q80": 4.67,
+   "n": 1010
   }
  },
  "arah": {
-  "h1": 0.499,
-  "h4": 0.475,
-  "n": 726
+  "h1": 0.491,
+  "h4": 0.462,
+  "n": 725
  },
  "rencana": {
-  "rencana": 644,
-  "tersentuh": 463,
-  "tp1": 213,
+  "rencana": 645,
+  "tersentuh": 464,
+  "tp1": 214,
   "sl": 250,
-  "winrate": 0.46,
-  "ekspektasi_R": 0.11,
+  "winrate": 0.461,
+  "ekspektasi_R": 0.111,
   "oos": {
-   "rencana": 283,
+   "rencana": 286,
    "tersentuh": 206,
-   "tp1": 89,
-   "sl": 117,
-   "winrate": 0.432,
-   "ekspektasi_R": 0.085
+   "tp1": 86,
+   "sl": 120,
+   "winrate": 0.417,
+   "ekspektasi_R": 0.051
   }
  },
  "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."

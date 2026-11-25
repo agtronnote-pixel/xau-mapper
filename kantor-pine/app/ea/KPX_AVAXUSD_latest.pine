@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping AVAXUSD 202611251207", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-25T05:07:26.439Z (harga 6.5130).
+indicator("KPX Mapping AVAXUSD 202611251307", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (AVAXUSD) dari mapping 2026-11-25T06:07:50.045Z (harga 6.5030).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -19,25 +19,25 @@ if barstate.islast and not drawn
         drawLine(6.7610, color.red, "R Swing high H1", false)
         drawLine(6.6700, color.red, "R Swing low H1", false)
         drawLine(6.6387, color.gray, "P Pivot harian", false)
-        drawLine(6.6140, color.red, "R Swing high H1", false)
-        drawLine(6.5500, color.red, "R Angka bulat", false)
+        drawLine(6.6230, color.red, "R Swing high H1", false)
+        drawLine(6.5580, color.red, "R Swing high H1", false)
         drawLine(6.5220, color.red, "R Swing low H1", false)
         drawLine(6.5000, color.green, "S Angka bulat", false)
         drawLine(6.4740, color.green, "S Low kemarin (PDL)", false)
         drawLine(6.4500, color.green, "S Swing low H1", false)
         drawLine(6.4053, color.green, "S S1 harian", false)
     if showPlans
-        box.new(bar_index - 20, 6.5635 + offset, bar_index + 40, 6.5365 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 66%", text_color=color.red, text_size=size.small)
-        drawLine(6.6243, color.red, "SL SELL", true)
-        drawLine(6.4740, color.blue, "TP1 SELL", true)
+        box.new(bar_index - 20, 6.5340 + offset, bar_index + 40, 6.5100 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 67%", text_color=color.red, text_size=size.small)
+        drawLine(6.5881, color.red, "SL SELL", true)
+        drawLine(6.4500, color.blue, "TP1 SELL", true)
         drawLine(6.4053, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 6.4875 + offset, bar_index + 40, 6.4605 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 22%", text_color=color.green, text_size=size.small)
-        drawLine(6.3997, color.red, "SL BUY", true)
-        drawLine(6.5500, color.blue, "TP1 BUY", true)
-        drawLine(6.6140, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 6.4860 + offset, bar_index + 40, 6.4620 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 22%", text_color=color.green, text_size=size.small)
+        drawLine(6.4079, color.red, "SL BUY", true)
+        drawLine(6.5580, color.blue, "TP1 BUY", true)
+        drawLine(6.6230, color.blue, "TP2 BUY", true)
 
-inZone0 = close >= 6.5365 + offset and close <= 6.5635 + offset
+inZone0 = close >= 6.5100 + offset and close <= 6.5340 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "AVAXUSD masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 6.4605 + offset and close <= 6.4875 + offset
+inZone1 = close >= 6.4620 + offset and close <= 6.4860 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "AVAXUSD masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")
