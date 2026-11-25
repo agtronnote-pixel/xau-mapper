@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_SNP500_202611251907.mq5                                      |
+//| KPX_SNP500_202611251936.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 25 Nov 2026, 19.07 WIB - SNP500 7165.50                 |
+//| Mapping: 25 Nov 2026, 19.36 WIB - SNP500 7165.50                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -10,14 +10,14 @@
    Rencana 0: SELL 7165.97-7178.03 SL 7205.17 TP1 7122.25 TP2 7072.49 - Kekuatan sinyal 62% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 7138.72-7150.78 SL 7111.58 TP1 7182.75 TP2 7200.00 - Kekuatan sinyal 16% (Lemah)
+   Rencana 1: BUY 7138.72-7150.78 SL 7111.58 TP1 7182.75 TP2 7200.00 - Kekuatan sinyal 15% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
    Invalidasi: Candle H1 close di atas 7205.17
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping SNP500 202611251907"
+#property description "Eksekusi otomatis mapping SNP500 202611251936"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {7178.03, 7150.78};
 double   P_SL[]   = {7205.17, 7111.58};
 double   P_TP1[]  = {7122.25, 7182.75};
 double   P_TP2[]  = {7072.49, 7200.00};
-datetime P_EXP[]  = {D'2026.11.25 20:07:00', D'2026.11.25 20:07:00'};
+datetime P_EXP[]  = {D'2026.11.25 20:36:00', D'2026.11.25 20:36:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {62, 16};   // kekuatan sinyal %
+int      P_STR[]  = {62, 15};   // kekuatan sinyal %
 int      P_PEL[]  = {43, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.25 12:00:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 7085.75;
+datetime REF_TIME   = D'2026.11.25 12:36:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 7079.00;
 double   OFFSET_MAX = 71.66;
-datetime NT_START[] = {D'2026.11.25 13:07:00', D'2026.11.25 22:07:00'};
-datetime NT_END[]   = {D'2026.11.25 14:37:00', D'2026.11.25 23:07:00'};
-datetime MAP_START  = D'2026.11.25 12:07:00';
-datetime MAP_END    = D'2026.11.26 12:07:00';
+datetime NT_START[] = {D'2026.11.25 13:06:00', D'2026.11.25 22:06:00'};
+datetime NT_END[]   = {D'2026.11.25 14:36:00', D'2026.11.25 23:06:00'};
+datetime MAP_START  = D'2026.11.25 12:36:00';
+datetime MAP_END    = D'2026.11.26 12:36:00';
 
 CTrade   trade;
 string   GVP;
