@@ -1,44 +1,45 @@
-📊 MAPPING BTCUSD — Rab, 25 Nov 2026, 20.07 WIB
-Harga: 58718.77 | Bias: BEARISH (53%)
+📊 MAPPING BTCUSD — Rab, 25 Nov 2026, 21.07 WIB
+Harga: 58221.94 | Bias: BEARISH (59%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 58900.52–59099.48 saat harga menyentuh zona.
-💪 Kekuatan 71% (Kuat) · Peluang TP1 duluan 50% (171 sampel backtest)
+SELL di 58524.55–58741.69 saat harga menyentuh zona.
+💪 Kekuatan 75% (Kuat) · Peluang TP1 duluan 50% (171 sampel backtest)
 ✓ trend H1 & harian turun
+✓ momentum jual (RSI H1 31)
 ✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 38)
-❌ Batal bila candle H1 close di atas 59547.15.
+❌ Batal bila candle H1 close di atas 59230.23.
 ⚠️ Hindari entry ±45 menit di sekitar Core PCE Price Index m/m (20.30 WIB) dan Prelim GDP q/q (20.30 WIB).
 
-🎯 Utama: SELL 58900.52–59099.48
-💪 Kekuatan sinyal: 71% (Kuat) · peluang 50% | RR 1:1.83
-SL 59547.15 | TP1 58000.00 | TP2 57358.55 | s/d 04.07 WIB
+🎯 Utama: SELL 58524.55–58741.69
+💪 Kekuatan sinyal: 75% (Kuat) · peluang 50% | RR 1:1.06
+SL 59230.23 | TP1 58000.00 | TP2 57500.00 | s/d 05.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 58356.77–58555.73
-💪 Kekuatan sinyal: 22% (Lemah) · peluang 49% | RR 1:1.47
-SL 57909.10 | TP1 59260.00 | TP2 60106.00 | s/d 04.07 WIB
+🎯 Alternatif: BUY 57891.43–58108.57
+💪 Kekuatan sinyal: 14% (Lemah) · peluang 49% | RR 1:1.06
+SL 57402.89 | TP1 58633.12 | TP2 59260.00 | s/d 05.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (20.22): 58703.87
-+1 jam (21.07): 58709.19
-+4 jam (00.07): 58700.67
-+24 jam (20.07): 58556.17
++15 mnt (21.22): 58199.09
++1 jam (22.07): 58207.25
++4 jam (01.07): 58194.19
++24 jam (21.07): 57972.59
 
 🕒 Jadwal
-20.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
+21.07–21.37 NO TRADE: Sekitar rilis Core PCE Price Index m/m (20.30 WIB)
 21.37–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 52%
 05.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 50%
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 50%
+20.07–21.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
 
-🧱 Level: R 61682.01 · R 61237.50 · R 60687.53 · P 60248.75 · R 60106.00 · R 59489.63 · R 59260.00 · R 59000.00 · R 58815.49 · S 58633.12 · S 58456.25 · S 58000.00
-❌ Invalidasi: Candle H1 close di atas 59547.15
+🧱 Level: R 61682.01 · R 61256.01 · R 60687.53 · P 60258.00 · R 60106.00 · R 59489.63 · R 59260.00 · R 58834.00 · R 58633.12 · S 58000.00 · S 57500.00
+❌ Invalidasi: Candle H1 close di atas 59230.23
 ⚠️ Rilis berdampak tinggi: Core PCE Price Index m/m 20.30 WIB, Prelim GDP q/q 20.30 WIB · Agent tanpa data cukup: Clara
 
 — Kantor Pine · BTCUSD · Bukan nasihat keuangan, selalu pakai SL.
