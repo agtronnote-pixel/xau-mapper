@@ -1,42 +1,42 @@
-📊 MAPPING BTCUSD — Kam, 26 Nov 2026, 05.07 WIB
-Harga: 60185.93 | Bias: BEARISH (46%)
+📊 MAPPING BTCUSD — Kam, 26 Nov 2026, 05.25 WIB
+Harga: 60055.53 | Bias: BEARISH (47%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 60350.78–60649.22 saat harga menyentuh zona.
-💪 Kekuatan 60% (Sedang) · Peluang TP1 duluan 51% (92 sampel backtest)
+SELL di 60108.78–60407.22 saat harga menyentuh zona.
+💪 Kekuatan 61% (Sedang) · Peluang TP1 duluan 51% (92 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ berita cenderung negatif untuk emas
-✕ Penghambat: momentum beli (RSI H1 58)
-❌ Batal bila candle H1 close di atas 61320.71.
+✕ Penghambat: momentum beli (RSI H1 57)
+❌ Batal bila candle H1 close di atas 61078.71.
 
-🎯 Utama: SELL 60350.78–60649.22
-💪 Kekuatan sinyal: 60% (Sedang) · peluang 51% | RR 1:1.23
-SL 61320.71 | TP1 59489.63 | TP2 58834.00 | s/d 13.07 WIB
+🎯 Utama: SELL 60108.78–60407.22
+💪 Kekuatan sinyal: 61% (Sedang) · peluang 51% | RR 1:1.22
+SL 61078.71 | TP1 59260.00 | TP2 58834.00 | s/d 13.25 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 59850.78–60149.22
-💪 Kekuatan sinyal: 41% (Lemah) · peluang 40% | RR 1:1.53
-SL 59179.29 | TP1 61256.01 | TP2 61682.01 | s/d 13.07 WIB
+🎯 Alternatif: BUY 59340.41–59638.85
+💪 Kekuatan sinyal: 39% (Lemah) · peluang 49% | RR 1:1.23
+SL 58668.92 | TP1 60500.00 | TP2 61256.01 | s/d 13.25 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (05.22): 60178.87
-+1 jam (06.07): 60181.39
-+4 jam (09.07): 60177.35
-+24 jam (05.07): 60108.86
++15 mnt (05.40): 60047.35
++1 jam (06.25): 60050.27
++4 jam (09.25): 60045.59
++24 jam (05.25): 59966.24
 
 🕒 Jadwal
-05.07–07.07 WAIT: Likuiditas rendah
-07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 50%
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 50%
-20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 52%
+05.25–07.25 WAIT: Likuiditas rendah
+07.25–15.25 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 50%
+15.25–20.25 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 50%
+20.25–22.25 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
+22.25–00.25 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
+00.25–05.25 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 52%
 
 🧱 Level: R 61682.01 · R 61256.01 · R 60500.00 · P 60258.00 · S 60000.00 · S 59489.63 · S 59260.00 · S 58834.00 · S 58633.12 · S 57300.38
-❌ Invalidasi: Candle H1 close di atas 61320.71
+❌ Invalidasi: Candle H1 close di atas 61078.71
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · BTCUSD · Bukan nasihat keuangan, selalu pakai SL.

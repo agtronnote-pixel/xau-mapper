@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_USA100_202611260507.mq5                                      |
+//| KPX_USA100_202611260525.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 05.07 WIB - USA100 25961.75                |
+//| Mapping: 26 Nov 2026, 05.25 WIB - USA100 25961.75                |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
 /* Bias: BEARISH - Keyakinan 49%
-   Ringkasan: USA100 cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 26073.71-26178.79 (kekuatan sinyal 65% - Sedang).
-   Rencana 0: SELL 26073.71-26178.79 SL 26415.20 TP1 25792.17 TP2 25233.58 - Kekuatan sinyal 65% (Sedang)
+   Ringkasan: USA100 cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 26073.71-26178.79 (kekuatan sinyal 64% - Sedang).
+   Rencana 0: SELL 26073.71-26178.79 SL 26415.20 TP1 25792.92 TP2 25235.08 - Kekuatan sinyal 64% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 25847.46-25952.54 SL 25611.05 TP1 26350.75 TP2 26556.83 - Kekuatan sinyal 37% (Lemah)
+   Rencana 1: BUY 25847.46-25952.54 SL 25611.05 TP1 26350.75 TP2 26558.33 - Kekuatan sinyal 37% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
    Invalidasi: Candle H1 close di atas 26415.2
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping USA100 202611260507"
+#property description "Eksekusi otomatis mapping USA100 202611260525"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -51,19 +51,19 @@ int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
 double   P_ELO[]  = {26073.71, 25847.46};
 double   P_EHI[]  = {26178.79, 25952.54};
 double   P_SL[]   = {26415.20, 25611.05};
-double   P_TP1[]  = {25792.17, 26350.75};
-double   P_TP2[]  = {25233.58, 26556.83};
-datetime P_EXP[]  = {D'2026.11.26 06:07:00', D'2026.11.26 06:07:00'};
+double   P_TP1[]  = {25792.92, 26350.75};
+double   P_TP2[]  = {25235.08, 26558.33};
+datetime P_EXP[]  = {D'2026.11.26 06:25:00', D'2026.11.26 06:25:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {65, 37};   // kekuatan sinyal %
+int      P_STR[]  = {64, 37};   // kekuatan sinyal %
 int      P_PEL[]  = {49, 48};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.25 22:00:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 25998.25;
+double   REF_PRICE  = 26000.50;
 double   OFFSET_MAX = 259.62;
-datetime NT_START[] = {D'2026.11.25 22:07:00'};
-datetime NT_END[]   = {D'2026.11.25 23:07:00'};
-datetime MAP_START  = D'2026.11.25 22:07:00';
-datetime MAP_END    = D'2026.11.26 22:07:00';
+datetime NT_START[] = {D'2026.11.25 22:25:00'};
+datetime NT_END[]   = {D'2026.11.25 23:25:00'};
+datetime MAP_START  = D'2026.11.25 22:25:00';
+datetime MAP_END    = D'2026.11.26 22:25:00';
 
 CTrade   trade;
 string   GVP;

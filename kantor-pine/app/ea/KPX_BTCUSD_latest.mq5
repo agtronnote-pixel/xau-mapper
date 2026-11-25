@@ -1,30 +1,30 @@
 //+------------------------------------------------------------------+
-//| KPX_BTCUSD_202611260507.mq5                                      |
+//| KPX_BTCUSD_202611260525.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 05.07 WIB - BTCUSD 60185.93                |
+//| Mapping: 26 Nov 2026, 05.25 WIB - BTCUSD 60055.53                |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 46%
-   Ringkasan: BTCUSD cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 60350.78-60649.22 (kekuatan sinyal 60% - Sedang).
-   Rencana 0: SELL 60350.78-60649.22 SL 61320.71 TP1 59489.63 TP2 58834.00 - Kekuatan sinyal 60% (Sedang)
+/* Bias: BEARISH - Keyakinan 47%
+   Ringkasan: BTCUSD cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 60108.78-60407.22 (kekuatan sinyal 61% - Sedang).
+   Rencana 0: SELL 60108.78-60407.22 SL 61078.71 TP1 59260.00 TP2 58834.00 - Kekuatan sinyal 61% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 59850.78-60149.22 SL 59179.29 TP1 61256.01 TP2 61682.01 - Kekuatan sinyal 41% (Lemah)
+   Rencana 1: BUY 59340.41-59638.85 SL 58668.92 TP1 60500.00 TP2 61256.01 - Kekuatan sinyal 39% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 61320.71
+   Invalidasi: Candle H1 close di atas 61078.71
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping BTCUSD 202611260507"
+#property description "Eksekusi otomatis mapping BTCUSD 202611260525"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
 input double InpRiskPercent   = 0.5;   // Risiko per transaksi (% balance), 0 = lot tetap
 input double InpFixedLot      = 0.01;  // Lot tetap (dipakai bila risiko = 0)
 input double InpMaxRiskMult   = 2.0;   // Tolak entry bila lot minimum berisiko > N x risiko yang diatur (modal terlalu kecil)
-input double InpMaxSpread     = 90.28;  // Spread maksimal (harga)
+input double InpMaxSpread     = 90.08;  // Spread maksimal (harga)
 input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {60350.78, 59850.78};
-double   P_EHI[]  = {60649.22, 60149.22};
-double   P_SL[]   = {61320.71, 59179.29};
-double   P_TP1[]  = {59489.63, 61256.01};
-double   P_TP2[]  = {58834.00, 61682.01};
-datetime P_EXP[]  = {D'2026.11.26 06:07:00', D'2026.11.26 06:07:00'};
+double   P_ELO[]  = {60108.78, 59340.41};
+double   P_EHI[]  = {60407.22, 59638.85};
+double   P_SL[]   = {61078.71, 58668.92};
+double   P_TP1[]  = {59260.00, 60500.00};
+double   P_TP2[]  = {58834.00, 61256.01};
+datetime P_EXP[]  = {D'2026.11.26 06:25:00', D'2026.11.26 06:25:00'};
 string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {60, 41};   // kekuatan sinyal %
-int      P_PEL[]  = {51, 40};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.25 22:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 60144.95;
-double   OFFSET_MAX = 601.86;
+int      P_STR[]  = {61, 39};   // kekuatan sinyal %
+int      P_PEL[]  = {51, 49};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+datetime REF_TIME   = D'2026.11.25 22:25:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 60055.53;
+double   OFFSET_MAX = 600.56;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.25 22:07:00';
-datetime MAP_END    = D'2026.11.26 22:07:00';
+datetime MAP_START  = D'2026.11.25 22:25:00';
+datetime MAP_END    = D'2026.11.26 22:25:00';
 
 CTrade   trade;
 string   GVP;
