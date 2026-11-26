@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_AVAXUSD_202611260707.mq5                                     |
+//| KPX_AVAXUSD_202611260807.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 07.07 WIB - AVAXUSD 6.6370                 |
+//| Mapping: 26 Nov 2026, 08.07 WIB - AVAXUSD 6.6440                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 31%
-   Ringkasan: AVAXUSD bergerak dalam range (1/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 6.5829-6.6171 (kekuatan sinyal 52% - Sedang).
-   Rencana 0: BUY 6.5829-6.6171 SL 6.5060 TP1 6.7000 TP2 6.7763 - Kekuatan sinyal 52% (Sedang)
+/* Bias: SIDEWAYS - Keyakinan 36%
+   Ringkasan: AVAXUSD bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Range di 6.6046-6.6414 (kekuatan sinyal 57% - Sedang).
+   Rencana 0: BUY 6.6046-6.6414 SL 6.5219 TP1 6.7763 TP2 6.9263 - Kekuatan sinyal 57% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 6.6829-6.7171 SL 6.7940 TP1 6.6000 TP2 6.5097 - Kekuatan sinyal 46% (Lemah)
+   Rencana 1: SELL 6.6816-6.7184 SL 6.8011 TP1 6.5870 TP2 6.5097 - Kekuatan sinyal 43% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 6.506
+   Invalidasi: Candle H1 close di bawah 6.5219
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping AVAXUSD 202611260707"
+#property description "Eksekusi otomatis mapping AVAXUSD 202611260807"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -29,7 +29,7 @@ input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 0.0085;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 0.0092;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input bool   InpSemuaSinyal   = false; // true = jalankan SEMUA rencana: abaikan filter kekuatan, peluang, keunggulan aset & batas risiko lot (untuk akun demo)
@@ -38,7 +38,7 @@ input int    InpMinStrength   = 101;    // Kekuatan sinyal minimal (%) untuk ent
 input group "Manajemen posisi"
 input double InpPartialPct    = 50;    // % lot ditutup saat TP1
 input bool   InpMoveToBE      = true;  // Geser SL ke entry setelah TP1
-input double InpBEBuffer      = 0.0017;  // Buffer break-even (harga)
+input double InpBEBuffer      = 0.0018;  // Buffer break-even (harga)
 input bool   InpCloseAtEnd    = false; // Tutup semua posisi saat mapping berakhir
 input group "Keamanan"
 input bool   InpAllowReal     = false; // Izinkan trading di akun RIIL (default: hanya akun demo)
@@ -48,22 +48,22 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
-double   P_ELO[]  = {6.5829, 6.6829};
-double   P_EHI[]  = {6.6171, 6.7171};
-double   P_SL[]   = {6.5060, 6.7940};
-double   P_TP1[]  = {6.7000, 6.6000};
-double   P_TP2[]  = {6.7763, 6.5097};
-datetime P_EXP[]  = {D'2026.11.26 08:07:00', D'2026.11.26 08:07:00'};
+double   P_ELO[]  = {6.6046, 6.6816};
+double   P_EHI[]  = {6.6414, 6.7184};
+double   P_SL[]   = {6.5219, 6.8011};
+double   P_TP1[]  = {6.7763, 6.5870};
+double   P_TP2[]  = {6.9263, 6.5097};
+datetime P_EXP[]  = {D'2026.11.26 09:07:00', D'2026.11.26 09:07:00'};
 string   P_NAME[] = {"BUY Range", "SELL Range"};
-int      P_STR[]  = {52, 46};   // kekuatan sinyal %
+int      P_STR[]  = {57, 43};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, -1};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.26 00:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 6.6260;
+datetime REF_TIME   = D'2026.11.26 01:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 6.6530;
 double   OFFSET_MAX = 0.0664;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.26 00:07:00';
-datetime MAP_END    = D'2026.11.27 00:07:00';
+datetime MAP_START  = D'2026.11.26 01:07:00';
+datetime MAP_END    = D'2026.11.27 01:07:00';
 
 CTrade   trade;
 string   GVP;

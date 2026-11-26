@@ -1,41 +1,41 @@
-📊 MAPPING GBPUSD — Kam, 26 Nov 2026, 07.07 WIB
+📊 MAPPING GBPUSD — Kam, 26 Nov 2026, 08.07 WIB
 Harga: 1.31139 | Bias: BULLISH (48%)
 
 ➡️ KEPUTUSAN: BUY
-BUY di 1.30953–1.31025 saat harga menyentuh zona.
+BUY di 1.30947–1.31015 saat harga menyentuh zona.
 💪 Kekuatan 64% (Sedang)
-✓ momentum beli (RSI H1 59)
-✓ dolar & yield riil melemah
-❌ Batal bila candle H1 close di bawah 1.30789.
+✓ momentum beli (RSI H1 61)
+❌ Batal bila candle H1 close di bawah 1.30792.
 
-🎯 Utama: BUY 1.30953–1.31025
-💪 Kekuatan sinyal: 64% (Sedang) | RR 1:1.23
-SL 1.30789 | TP1 1.31235 | TP2 1.31515 | s/d 15.07 WIB
+🎯 Utama: BUY 1.30947–1.31015
+💪 Kekuatan sinyal: 64% (Sedang) | RR 1:1.34
+SL 1.30792 | TP1 1.31235 | TP2 1.31498 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 1.31199–1.31271
-💪 Kekuatan sinyal: 37% (Lemah) · peluang 53% | RR 1:1.23
-SL 1.31435 | TP1 1.30989 | TP2 1.30801 | s/d 15.07 WIB
+🎯 Alternatif: SELL 1.31201–1.31269
+💪 Kekuatan sinyal: 37% (Lemah) · peluang 53% | RR 1:1.34
+SL 1.31424 | TP1 1.30981 | TP2 1.30801 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (07.22): 1.31139
-+1 jam (08.07): 1.31141
-+4 jam (11.07): 1.31147
-+24 jam (07.07): 1.31147
++15 mnt (08.22): 1.31139
++1 jam (09.07): 1.31141
++4 jam (12.07): 1.31146
++24 jam (08.07): 1.31147
 
 🕒 Jadwal
-07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
+08.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
 15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
 05.07–07.07 WAIT: Likuiditas rendah
+07.07–08.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 53%
 
-🧱 Level: R 1.31515 · R 1.31297 · R 1.31235 · R 1.31153 · P 1.30989 · S 1.30801 · S 1.30680 · S 1.30569 · S 1.30463 · S 1.30298 · S 1.30251
-❌ Invalidasi: Candle H1 close di bawah 1.30789
+🧱 Level: R 1.31498 · R 1.31297 · R 1.31235 · R 1.31153 · P 1.30981 · S 1.30801 · S 1.30664 · S 1.30569 · S 1.30463 · S 1.30298 · S 1.30251
+❌ Invalidasi: Candle H1 close di bawah 1.30792
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · GBPUSD · Bukan nasihat keuangan, selalu pakai SL.
