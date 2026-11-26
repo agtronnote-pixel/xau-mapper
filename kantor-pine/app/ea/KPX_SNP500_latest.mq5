@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_SNP500_202611260607.mq5                                      |
+//| KPX_SNP500_202611260707.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 06.07 WIB - SNP500 7165.50                 |
+//| Mapping: 26 Nov 2026, 07.07 WIB - SNP500 7165.50                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 44%
-   Ringkasan: SNP500 cenderung turun (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Utama di 7189.7-7210.3 (kekuatan sinyal 62% - Sedang).
-   Rencana 0: SELL 7189.70-7210.30 SL 7256.63 TP1 7131.33 TP2 7038.67 - Kekuatan sinyal 62% (Sedang)
+/* Bias: SIDEWAYS - Keyakinan 41%
+   Ringkasan: SNP500 bergerak dalam range (2/4 analis searah). Volatilitas normal. Rencana terkuat: SELL Range di 7189.7-7210.3 (kekuatan sinyal 55% - Sedang).
+   Rencana 0: SELL 7189.70-7210.30 SL 7256.63 TP1 7131.33 TP2 7038.67 - Kekuatan sinyal 55% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 7134.45-7155.05 SL 7088.12 TP1 7224.00 TP2 7280.17 - Kekuatan sinyal 39% (Lemah)
+   Rencana 1: BUY 7134.45-7155.05 SL 7088.12 TP1 7224.00 TP2 7280.17 - Kekuatan sinyal 46% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
    Invalidasi: Candle H1 close di atas 7256.63
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping SNP500 202611260607"
+#property description "Eksekusi otomatis mapping SNP500 202611260707"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {7210.30, 7155.05};
 double   P_SL[]   = {7256.63, 7088.12};
 double   P_TP1[]  = {7131.33, 7224.00};
 double   P_TP2[]  = {7038.67, 7280.17};
-datetime P_EXP[]  = {D'2026.11.26 07:07:00', D'2026.11.26 07:07:00'};
-string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {62, 39};   // kekuatan sinyal %
-int      P_PEL[]  = {43, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.25 22:00:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 7187.50;
+datetime P_EXP[]  = {D'2026.11.26 08:07:00', D'2026.11.26 08:07:00'};
+string   P_NAME[] = {"SELL Range", "BUY Range"};
+int      P_STR[]  = {55, 46};   // kekuatan sinyal %
+int      P_PEL[]  = {48, 49};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+datetime REF_TIME   = D'2026.11.26 00:00:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 7218.50;
 double   OFFSET_MAX = 71.66;
 datetime NT_START[] = {D'2026.11.26 22:07:00'};
 datetime NT_END[]   = {D'2026.11.26 23:07:00'};
-datetime MAP_START  = D'2026.11.25 23:07:00';
-datetime MAP_END    = D'2026.11.26 23:07:00';
+datetime MAP_START  = D'2026.11.26 00:07:00';
+datetime MAP_END    = D'2026.11.27 00:07:00';
 
 CTrade   trade;
 string   GVP;
