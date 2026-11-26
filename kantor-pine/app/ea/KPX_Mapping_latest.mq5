@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_Mapping_202611260907.mq5                                     |
+//| KPX_Mapping_202611261007.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 09.07 WIB - XAUUSD 3569.10                 |
+//| Mapping: 26 Nov 2026, 10.07 WIB - XAUUSD 3580.70                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BEARISH - Keyakinan 41%
-   Ringkasan: XAUUSD cenderung turun (1/4 analis searah). Volatilitas tinggi - perlebar SL, kecilkan lot. Rencana terkuat: SELL Utama di 3588.18-3611.82 (kekuatan sinyal 53% - Sedang).
-   Rencana 0: SELL 3588.18-3611.82 SL 3665.00 TP1 3509.70 TP2 3467.83 - Kekuatan sinyal 53% (Sedang)
+/* Bias: SIDEWAYS - Keyakinan 48%
+   Ringkasan: XAUUSD bergerak dalam range (3/4 analis searah). Volatilitas tinggi - perlebar SL, kecilkan lot. Rencana terkuat: BUY Range di 3552.66-3576.44 (kekuatan sinyal 58% - Sedang).
+   Rencana 0: BUY 3552.66-3576.44 SL 3499.17 TP1 3654.00 TP2 3760.69 - Kekuatan sinyal 58% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 3530.20-3553.84 SL 3477.02 TP1 3616.20 TP2 3654.43 - Kekuatan sinyal 41% (Lemah)
+   Rencana 1: SELL 3588.11-3611.89 SL 3665.38 TP1 3509.05 TP2 3468.05 - Kekuatan sinyal 37% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di atas 3665
+   Invalidasi: Candle H1 close di bawah 3499.17
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XAUUSD 202611260907"
+#property description "Eksekusi otomatis mapping XAUUSD 202611261007"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -47,23 +47,23 @@ input ulong  InpMagic         = 524601909; // Magic number (tetap per aset)
 input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 
 //--- data mapping (waktu dalam GMT)
-int      P_TYPE[] = {1, 0};   // 0=BUY 1=SELL
-double   P_ELO[]  = {3588.18, 3530.20};
-double   P_EHI[]  = {3611.82, 3553.84};
-double   P_SL[]   = {3665.00, 3477.02};
-double   P_TP1[]  = {3509.70, 3616.20};
-double   P_TP2[]  = {3467.83, 3654.43};
-datetime P_EXP[]  = {D'2026.11.26 10:07:00', D'2026.11.26 10:07:00'};
-string   P_NAME[] = {"SELL Utama", "BUY Alternatif"};
-int      P_STR[]  = {53, 41};   // kekuatan sinyal %
-int      P_PEL[]  = {49, 52};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.26 02:05:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 3566.30;
+int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
+double   P_ELO[]  = {3552.66, 3588.11};
+double   P_EHI[]  = {3576.44, 3611.89};
+double   P_SL[]   = {3499.17, 3665.38};
+double   P_TP1[]  = {3654.00, 3509.05};
+double   P_TP2[]  = {3760.69, 3468.05};
+datetime P_EXP[]  = {D'2026.11.26 11:07:00', D'2026.11.26 11:07:00'};
+string   P_NAME[] = {"BUY Range", "SELL Range"};
+int      P_STR[]  = {58, 37};   // kekuatan sinyal %
+int      P_PEL[]  = {51, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+datetime REF_TIME   = D'2026.11.26 03:05:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 3580.70;
 double   OFFSET_MAX = 30;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.26 02:07:00';
-datetime MAP_END    = D'2026.11.27 02:07:00';
+datetime MAP_START  = D'2026.11.26 03:07:00';
+datetime MAP_END    = D'2026.11.27 03:07:00';
 
 CTrade   trade;
 string   GVP;

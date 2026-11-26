@@ -1,32 +1,32 @@
 {
  "versi": 3,
  "aset": "XMRUSD",
- "dibuat": "2026-11-25T06:08:59.742Z",
- "periode": "2026-10-01 – 2026-11-24",
+ "dibuat": "2026-11-26T03:08:18.902Z",
+ "periode": "2026-10-02 – 2026-11-25",
  "sampel_jam": 1296,
  "bobot": {
-  "trend": 0.131,
-  "momentum": 0.221,
-  "structure": 0.232,
+  "trend": 0.126,
+  "momentum": 0.214,
+  "structure": 0.251,
   "macro": 0.23,
-  "news": 0.093,
-  "claude": 0.093
+  "news": 0.09,
+  "claude": 0.09
  },
  "ic": {
   "trend": {
-   "ic": -0.223,
+   "ic": -0.205,
    "n": 777
   },
   "momentum": {
-   "ic": -0.103,
+   "ic": -0.101,
    "n": 777
   },
   "structure": {
-   "ic": -0.146,
+   "ic": -0.133,
    "n": 777
   },
   "macro": {
-   "ic": 0.006,
+   "ic": 0.016,
    "n": 777
   }
  },
@@ -34,64 +34,64 @@
   {
    "dari": 5,
    "sampai": 40,
-   "n": 262,
-   "peluang": 0.537,
-   "ekspektasi_R": 0.287
+   "n": 260,
+   "peluang": 0.526,
+   "ekspektasi_R": 0.266
   },
   {
    "dari": 40,
    "sampai": 50,
-   "n": 126,
-   "peluang": 0.493,
-   "ekspektasi_R": 0.165
+   "n": 125,
+   "peluang": 0.467,
+   "ekspektasi_R": 0.118
   },
   {
    "dari": 50,
    "sampai": 60,
-   "n": 127,
-   "peluang": 0.453,
-   "ekspektasi_R": -0.001
+   "n": 122,
+   "peluang": 0.455,
+   "ekspektasi_R": -0.004
   },
   {
    "dari": 60,
    "sampai": 70,
-   "n": 107,
-   "peluang": 0.513,
-   "ekspektasi_R": 0.222
+   "n": 112,
+   "peluang": 0.516,
+   "ekspektasi_R": 0.25
   },
   {
    "dari": 70,
    "sampai": 96,
-   "n": 149,
-   "peluang": 0.365,
-   "ekspektasi_R": -0.18
+   "n": 150,
+   "peluang": 0.356,
+   "ekspektasi_R": -0.219
   }
  ],
  "sesi": {
   "asia": {
-   "n": 214,
-   "peluang": 0.504,
-   "ekspektasi_R": 0.184
+   "n": 217,
+   "peluang": 0.493,
+   "ekspektasi_R": 0.161
   },
   "london": {
-   "n": 88,
-   "peluang": 0.541,
-   "ekspektasi_R": 0.201
+   "n": 86,
+   "peluang": 0.531,
+   "ekspektasi_R": 0.192
   },
   "overlap": {
-   "n": 77,
-   "peluang": 0.46,
-   "ekspektasi_R": 0.099
+   "n": 74,
+   "peluang": 0.44,
+   "ekspektasi_R": 0.043
   },
   "ny": {
-   "n": 74,
+   "n": 76,
    "peluang": 0.488,
-   "ekspektasi_R": 0.101
+   "ekspektasi_R": 0.095
   },
   "sepi": {
-   "n": 93,
-   "peluang": 0.505,
-   "ekspektasi_R": 0.138
+   "n": 91,
+   "peluang": 0.485,
+   "ekspektasi_R": 0.099
   },
   "akhir-pekan": {
    "n": 225,
@@ -101,65 +101,65 @@
  },
  "proyeksi": {
   "15": {
-   "k": 0.045,
-   "q80": 0.171,
+   "k": 0.044,
+   "q80": 0.175,
    "n": 1296
   },
   "30": {
-   "k": 0.001,
-   "q80": 0.232,
+   "k": 0.003,
+   "q80": 0.237,
    "n": 1296
   },
   "60": {
-   "k": -0.046,
-   "q80": 0.816,
+   "k": -0.045,
+   "q80": 0.818,
    "n": 1296
   },
   "120": {
-   "k": -0.113,
-   "q80": 1.188,
+   "k": -0.114,
+   "q80": 1.194,
    "n": 1296
   },
   "240": {
-   "k": -0.274,
-   "q80": 1.683,
+   "k": -0.262,
+   "q80": 1.677,
    "n": 1296
   },
   "480": {
-   "k": -0.649,
-   "q80": 2.406,
+   "k": -0.668,
+   "q80": 2.414,
    "n": 1296
   },
   "720": {
-   "k": -0.931,
-   "q80": 2.835,
+   "k": -0.971,
+   "q80": 2.843,
    "n": 1296
   },
   "1440": {
-   "k": -0.427,
-   "q80": 3.691,
+   "k": -0.44,
+   "q80": 3.701,
    "n": 1296
   }
  },
  "arah": {
-  "h1": 0.462,
-  "h4": 0.453,
-  "n": 872
+  "h1": 0.461,
+  "h4": 0.459,
+  "n": 881
  },
  "rencana": {
-  "rencana": 931,
-  "tersentuh": 771,
-  "tp1": 368,
-  "sl": 403,
-  "winrate": 0.477,
-  "ekspektasi_R": 0.12,
+  "rencana": 930,
+  "tersentuh": 769,
+  "tp1": 360,
+  "sl": 409,
+  "winrate": 0.468,
+  "ekspektasi_R": 0.102,
   "oos": {
-   "rencana": 378,
-   "tersentuh": 315,
-   "tp1": 147,
-   "sl": 168,
-   "winrate": 0.467,
-   "ekspektasi_R": 0.085
+   "rencana": 377,
+   "tersentuh": 316,
+   "tp1": 144,
+   "sl": 172,
+   "winrate": 0.456,
+   "ekspektasi_R": 0.057
   }
  },
  "catatan": "Bobot dipelajari dari 60% data awal; angka \"oos\" diuji pada 40% data terakhir yang tidak dipakai kalibrasi. Entry dihitung saat harga menyentuh zona (tanpa syarat candle konfirmasi); bila SL & TP tersentuh di candle yang sama dianggap SL."
