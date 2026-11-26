@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping XAUUSD 202611262307", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (XAUUSD) dari mapping 2026-11-26T16:07:12.347Z (harga 3573.50).
+indicator("KPX Mapping XAUUSD 202611270007", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (XAUUSD) dari mapping 2026-11-26T17:07:12.524Z (harga 3570.20).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -14,29 +14,30 @@ var bool drawn = false
 if barstate.islast and not drawn
     drawn := true
     if showLevels
-        drawLine(3641.43, color.red, "R R1 harian", false)
-        drawLine(3613.60, color.red, "R Swing high H1", false)
-        drawLine(3596.70, color.red, "R High kemarin (PDH)", false)
+        drawLine(3640.90, color.red, "R R1 harian", false)
+        drawLine(3612.80, color.red, "R Swing high H1", false)
+        drawLine(3600.00, color.red, "R Angka bulat", false)
+        drawLine(3595.90, color.red, "R High kemarin (PDH)", false)
         drawLine(3582.90, color.red, "R Swing high H1", false)
         drawLine(3575.00, color.red, "R Angka bulat", false)
         drawLine(3553.00, color.green, "S Swing low H1", false)
-        drawLine(3546.30, color.green, "S Swing high H1", false)
-        drawLine(3535.52, color.gray, "P Pivot harian", false)
-        drawLine(3490.20, color.green, "S Swing low H1", false)
-        drawLine(3474.33, color.green, "S S1 harian", false)
+        drawLine(3545.50, color.green, "S Swing high H1", false)
+        drawLine(3535.25, color.gray, "P Pivot harian", false)
+        drawLine(3489.40, color.green, "S Swing low H1", false)
+        drawLine(3474.60, color.green, "S S1 harian", false)
         drawLine(3429.60, color.green, "S Low kemarin (PDL)", false)
     if showPlans
-        box.new(bar_index - 20, 3586.42 + offset, bar_index + 40, 3579.38 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 59%", text_color=color.red, text_size=size.small)
-        drawLine(3602.24, color.red, "SL SELL", true)
+        box.new(bar_index - 20, 3577.83 + offset, bar_index + 40, 3572.17 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 62%", text_color=color.red, text_size=size.small)
+        drawLine(3590.55, color.red, "SL SELL", true)
         drawLine(3553.00, color.blue, "TP1 SELL", true)
-        drawLine(3535.52, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 3556.52 + offset, bar_index + 40, 3549.48 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 44%", text_color=color.green, text_size=size.small)
-        drawLine(3533.66, color.red, "SL BUY", true)
-        drawLine(3582.90, color.blue, "TP1 BUY", true)
-        drawLine(3596.70, color.blue, "TP2 BUY", true)
+        drawLine(3535.25, color.blue, "TP2 SELL", true)
+        box.new(bar_index - 20, 3555.83 + offset, bar_index + 40, 3550.17 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 40%", text_color=color.green, text_size=size.small)
+        drawLine(3537.45, color.red, "SL BUY", true)
+        drawLine(3575.00, color.blue, "TP1 BUY", true)
+        drawLine(3582.90, color.blue, "TP2 BUY", true)
 
-inZone0 = close >= 3579.38 + offset and close <= 3586.42 + offset
+inZone0 = close >= 3572.17 + offset and close <= 3577.83 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "XAUUSD masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 3549.48 + offset and close <= 3556.52 + offset
+inZone1 = close >= 3550.17 + offset and close <= 3555.83 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "XAUUSD masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")
