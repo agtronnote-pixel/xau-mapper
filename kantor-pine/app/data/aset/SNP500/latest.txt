@@ -1,4 +1,4 @@
-📊 MAPPING SNP500 — Kam, 26 Nov 2026, 19.07 WIB
+📊 MAPPING SNP500 — Kam, 26 Nov 2026, 20.07 WIB
 Harga: 7216.75 | Bias: BULLISH (50%)
 
 ➡️ KEPUTUSAN: JANGAN TRADING
@@ -8,23 +8,22 @@ Data harga basi — tunggu sampai data kembali normal.
 ✓ dolar & yield riil melemah
 
 📈 Proyeksi
-+15 mnt (19.22): 7217.68
-+1 jam (20.07): 7216.86
-+4 jam (23.07): 7215.37
-+24 jam (19.07): 7204.79
++15 mnt (20.22): 7217.69
++1 jam (21.07): 7216.86
++4 jam (00.07): 7215.35
++24 jam (20.07): 7204.62
 
 🕒 Jadwal
-19.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 50%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 50%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
 05.07–06.07 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
 06.07–07.07 WAIT: Likuiditas rendah
 07.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 47%
-15.07–19.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
 
 🧱 Level: R 7280.17 · R 7240.75 · R 7224.00 · S 7200.00 · S 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
 ❌ Invalidasi: Tidak ada skenario aktif
-⚠️ Data harga basi (428 menit tanpa pembaruan) — tidak ada rencana entry · Agent tanpa data cukup: Clara
+⚠️ Data harga basi (488 menit tanpa pembaruan) — tidak ada rencana entry · Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
