@@ -1,23 +1,23 @@
 //+------------------------------------------------------------------+
-//| KPX_BCHUSD_202611270207.mq5                                      |
+//| KPX_BCHUSD_202611270307.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 27 Nov 2026, 02.07 WIB - BCHUSD 209.30                  |
+//| Mapping: 27 Nov 2026, 03.07 WIB - BCHUSD 209.40                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 52%
+/* Bias: BULLISH - Keyakinan 51%
    Ringkasan: BCHUSD cenderung naik (3/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 208.24-208.96 (kekuatan sinyal 68% - Sedang).
-   Rencana 0: BUY 208.24-208.96 SL 206.64 TP1 211.00 TP2 212.00 - Kekuatan sinyal 68% (Sedang)
+   Rencana 0: BUY 208.24-208.96 SL 206.63 TP1 211.00 TP2 212.00 - Kekuatan sinyal 68% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 209.64-210.36 SL 211.96 TP1 208.00 TP2 206.00 - Kekuatan sinyal 32% (Lemah)
+   Rencana 1: SELL 209.64-210.36 SL 211.97 TP1 208.00 TP2 206.00 - Kekuatan sinyal 32% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 206.64
+   Invalidasi: Candle H1 close di bawah 206.63
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping BCHUSD 202611270207"
+#property description "Eksekusi otomatis mapping BCHUSD 202611270307"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -50,20 +50,20 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
 double   P_ELO[]  = {208.24, 209.64};
 double   P_EHI[]  = {208.96, 210.36};
-double   P_SL[]   = {206.64, 211.96};
+double   P_SL[]   = {206.63, 211.97};
 double   P_TP1[]  = {211.00, 208.00};
 double   P_TP2[]  = {212.00, 206.00};
-datetime P_EXP[]  = {D'2026.11.27 03:07:00', D'2026.11.27 03:07:00'};
+datetime P_EXP[]  = {D'2026.11.27 04:07:00', D'2026.11.27 04:07:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {68, 32};   // kekuatan sinyal %
 int      P_PEL[]  = {49, 44};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.26 19:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 209.40;
+datetime REF_TIME   = D'2026.11.26 20:07:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 209.30;
 double   OFFSET_MAX = 2.09;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.26 19:07:00';
-datetime MAP_END    = D'2026.11.27 19:07:00';
+datetime MAP_START  = D'2026.11.26 20:07:00';
+datetime MAP_END    = D'2026.11.27 20:07:00';
 
 CTrade   trade;
 string   GVP;
