@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_AVAXUSD_202611261107.mq5                                     |
+//| KPX_AVAXUSD_202611261155.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 26 Nov 2026, 11.07 WIB - AVAXUSD 6.6890                 |
+//| Mapping: 26 Nov 2026, 11.55 WIB - AVAXUSD 6.6920                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping AVAXUSD 202611261107"
+#property description "Eksekusi otomatis mapping AVAXUSD 202611261155"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {6.6699, 6.7669};
 double   P_SL[]   = {6.5599, 6.8431};
 double   P_TP1[]  = {6.7500, 6.6530};
 double   P_TP2[]  = {6.9323, 6.5870};
-datetime P_EXP[]  = {D'2026.11.26 12:07:00', D'2026.11.26 12:07:00'};
+datetime P_EXP[]  = {D'2026.11.26 12:55:00', D'2026.11.26 12:55:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {63, 35};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, 45};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.26 04:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 6.6910;
+datetime REF_TIME   = D'2026.11.26 04:55:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 6.6950;
 double   OFFSET_MAX = 0.0669;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.26 04:07:00';
-datetime MAP_END    = D'2026.11.27 04:07:00';
+datetime MAP_START  = D'2026.11.26 04:55:00';
+datetime MAP_END    = D'2026.11.27 04:55:00';
 
 CTrade   trade;
 string   GVP;
