@@ -1,42 +1,42 @@
-📊 MAPPING LINKUSD — Jum, 27 Nov 2026, 10.08 WIB
-Harga: 9.4920 | Bias: BULLISH (65%)
+📊 MAPPING LINKUSD — Jum, 27 Nov 2026, 11.07 WIB
+Harga: 9.4810 | Bias: BULLISH (59%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal kuat (88%). Pantau zona BUY 9.444–9.4826, jangan paksa entry.
-💪 Kekuatan 88% (Kuat) · Peluang TP1 duluan 46% (40 sampel backtest)
-✓ momentum beli (RSI H1 69)
+Sinyal kuat (79%). Pantau zona BUY 9.4062–9.4458, jangan paksa entry.
+💪 Kekuatan 79% (Kuat) · Peluang TP1 duluan 46% (40 sampel backtest)
+✓ momentum beli (RSI H1 66)
 ✓ struktur higher high/higher low
-✓ dolar & yield riil melemah
-❌ Batal bila candle H1 close di bawah 9.357.
+✓ trend belum jelas
+❌ Batal bila candle H1 close di bawah 9.3172.
 
-🎯 Utama: BUY 9.4440–9.4826
-💪 Kekuatan sinyal: 88% (Kuat) · peluang 46% | RR 1:1.5
-SL 9.3570 | TP1 9.6228 | TP2 9.7822 | s/d 18.08 WIB
+🎯 Utama: BUY 9.4062–9.4458
+💪 Kekuatan sinyal: 79% (Kuat) · peluang 46% | RR 1:1.31
+SL 9.3172 | TP1 9.5690 | TP2 9.7524 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 9.5307–9.5693
-💪 Kekuatan sinyal: 11% (Lemah) · peluang 42% | RR 1:1.17
-SL 9.6563 | TP1 9.4260 | TP2 9.2750 | s/d 18.08 WIB
+🎯 Alternatif: SELL 9.5492–9.5888
+💪 Kekuatan sinyal: 21% (Lemah) · peluang 42% | RR 1:1.31
+SL 9.6778 | TP1 9.4260 | TP2 9.2750 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (10.23): 9.4945
-+1 jam (11.08): 9.4923
-+4 jam (14.08): 9.4853
-+24 jam (10.08): 9.4591
++15 mnt (11.22): 9.4825
++1 jam (12.07): 9.4812
++4 jam (15.07): 9.4769
++24 jam (11.07): 9.4609
 
 🕒 Jadwal
-10.08–15.08 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 52%
-15.08–20.08 ENTRY: Sesi London: entry saat zona tersentuh
-20.08–22.08 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 43%
-22.08–00.08 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 43%
-00.08–05.08 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.08–10.08 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 31%
+11.07–15.07 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 52%
+15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
+20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 43%
+22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 43%
+00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.07–11.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 31%
 
-🧱 Level: R 9.5500 · R 9.5000 · S 9.4633 · S 9.4260 · S 9.2750 · P 9.2497 · S 9.1420 · S 9.0733 · S 9.0360 · S 8.9950
-❌ Invalidasi: Candle H1 close di bawah 9.357
-⚠️ Agent tanpa data cukup: Kabar, Clara
+🧱 Level: R 9.5690 · R 9.5000 · S 9.4633 · S 9.4260 · S 9.2750 · P 9.2497 · S 9.1420 · S 9.0733 · S 9.0360 · S 8.9950
+❌ Invalidasi: Candle H1 close di bawah 9.3172
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · LINKUSD · Bukan nasihat keuangan, selalu pakai SL.
