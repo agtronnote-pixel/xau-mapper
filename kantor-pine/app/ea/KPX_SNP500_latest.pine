@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping SNP500 202611280151", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (SNP500) dari mapping 2026-11-27T18:51:00.923Z (harga 7258.00).
+indicator("KPX Mapping SNP500 202611280207", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (SNP500) dari mapping 2026-11-27T19:07:30.217Z (harga 7258.00).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -25,17 +25,17 @@ if barstate.islast and not drawn
         drawLine(7038.67, color.green, "S S1 harian", false)
         drawLine(6982.50, color.green, "S Low kemarin (PDL)", false)
     if showPlans
-        box.new(bar_index - 20, 7256.31 + offset, bar_index + 40, 7244.19 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 88%", text_color=color.green, text_size=size.small)
-        drawLine(7216.92, color.red, "SL BUY", true)
-        drawLine(7300.25, color.blue, "TP1 BUY", true)
-        drawLine(7350.24, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 7286.23 + offset, bar_index + 40, 7274.11 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 13%", text_color=color.red, text_size=size.small)
-        drawLine(7313.50, color.red, "SL SELL", true)
+        box.new(bar_index - 20, 7256.23 + offset, bar_index + 40, 7244.27 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 88%", text_color=color.green, text_size=size.small)
+        drawLine(7217.35, color.red, "SL BUY", true)
+        drawLine(7299.60, color.blue, "TP1 BUY", true)
+        drawLine(7348.95, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 7286.15 + offset, bar_index + 40, 7274.19 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 13%", text_color=color.red, text_size=size.small)
+        drawLine(7313.07, color.red, "SL SELL", true)
         drawLine(7240.75, color.blue, "TP1 SELL", true)
         drawLine(7224.00, color.blue, "TP2 SELL", true)
 
-inZone0 = close >= 7244.19 + offset and close <= 7256.31 + offset
+inZone0 = close >= 7244.27 + offset and close <= 7256.23 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX BUY Utama: masuk zona", "SNP500 masuk zona BUY {{close}} - EA entry")
-inZone1 = close >= 7274.11 + offset and close <= 7286.23 + offset
+inZone1 = close >= 7274.19 + offset and close <= 7286.15 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX SELL Alternatif: masuk zona", "SNP500 masuk zona SELL {{close}} - EA entry")
 plot(na, "KPX")

@@ -1,38 +1,37 @@
-📊 MAPPING ADAUSD — Sab, 28 Nov 2026, 01.50 WIB
-Harga: 0.14920 | Bias: BEARISH (42%)
+📊 MAPPING ADAUSD — Sab, 28 Nov 2026, 02.07 WIB
+Harga: 0.14950 | Bias: SIDEWAYS (42%)
 
 ➡️ KEPUTUSAN: SELL
 SELL di 0.14964–0.15036 saat harga menyentuh zona.
-💪 Kekuatan 59% (Sedang) · Peluang TP1 duluan 54% (16 sampel backtest)
+💪 Kekuatan 58% (Sedang) · Peluang TP1 duluan 54% (16 sampel backtest)
 ✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 46)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 0.152.
+❌ Batal bila candle H1 close di atas 0.15199.
 
-🎯 Utama: SELL 0.14964–0.15036
-💪 Kekuatan sinyal: 59% (Sedang) · peluang 54% | RR 1:1.05
-SL 0.15200 | TP1 0.14790 | TP2 0.14560 | s/d 09.50 WIB
+🎯 Range: SELL 0.14964–0.15036
+💪 Kekuatan sinyal: 58% (Sedang) · peluang 54% | RR 1:1.06
+SL 0.15199 | TP1 0.14790 | TP2 0.14560 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 0.14817–0.14889
-💪 Kekuatan sinyal: 42% (Lemah) | RR 1:1.44
-SL 0.14653 | TP1 0.15140 | TP2 0.15390 | s/d 09.50 WIB
+🎯 Range: BUY 0.14864–0.14936
+💪 Kekuatan sinyal: 42% (Lemah) | RR 1:1.21
+SL 0.14701 | TP1 0.15140 | TP2 0.15390 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (02.05): 0.14919
-+1 jam (02.50): 0.14919
-+4 jam (05.50): 0.14920
-+24 jam (01.50): 0.14939
++15 mnt (02.22): 0.14949
++1 jam (03.07): 0.14950
++4 jam (06.07): 0.14950
++24 jam (02.07): 0.14965
 
 🕒 Jadwal
-01.50–05.20 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.20–01.50 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 47%
+02.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.07–02.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 47%
 
 🧱 Level: R 0.15390 · R 0.15230 · R 0.15140 · R 0.15000 · S 0.14900 · P 0.14853 · S 0.14790 · S 0.14730 · S 0.14560
-❌ Invalidasi: Candle H1 close di atas 0.152
+❌ Invalidasi: Candle H1 close di atas 0.15199
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · ADAUSD · Bukan nasihat keuangan, selalu pakai SL.

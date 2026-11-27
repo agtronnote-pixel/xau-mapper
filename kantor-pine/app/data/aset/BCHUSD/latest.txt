@@ -1,37 +1,37 @@
-📊 MAPPING BCHUSD — Sab, 28 Nov 2026, 01.50 WIB
-Harga: 206.30 | Bias: SIDEWAYS (43%)
+📊 MAPPING BCHUSD — Sab, 28 Nov 2026, 02.07 WIB
+Harga: 206.60 | Bias: SIDEWAYS (43%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (55%). Pantau zona SELL 208.1–209.1, jangan paksa entry.
+Sinyal sedang (55%). Pantau zona SELL 208.11–209.09, jangan paksa entry.
 💪 Kekuatan 55% (Sedang) · Peluang TP1 duluan 45% (66 sampel backtest)
-✓ momentum jual (RSI H1 41)
+✓ momentum jual (RSI H1 43)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 211.37.
+❌ Batal bila candle H1 close di atas 211.31.
 
-🎯 Range: SELL 208.10–209.10
-💪 Kekuatan sinyal: 55% (Sedang) · peluang 45% | RR 1:1.08
-SL 211.37 | TP1 205.60 | TP2 204.20 | s/d 09.50 WIB
+🎯 Range: SELL 208.11–209.09
+💪 Kekuatan sinyal: 55% (Sedang) · peluang 45% | RR 1:1.11
+SL 211.31 | TP1 205.60 | TP2 204.20 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 205.10–206.10
-💪 Kekuatan sinyal: 44% (Lemah) · peluang 44% | RR 1:1.08
-SL 202.83 | TP1 208.60 | TP2 210.00 | s/d 09.50 WIB
+🎯 Range: BUY 205.11–206.09
+💪 Kekuatan sinyal: 44% (Lemah) · peluang 44% | RR 1:1.11
+SL 202.89 | TP1 208.60 | TP2 210.00 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (02.05): 206.30
-+1 jam (02.50): 206.30
-+4 jam (05.50): 206.29
-+24 jam (01.50): 206.30
++15 mnt (02.22): 206.60
++1 jam (03.07): 206.60
++4 jam (06.07): 206.59
++24 jam (02.07): 206.60
 
 🕒 Jadwal
-01.50–05.20 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 50%
-05.20–01.50 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 45%
+02.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 50%
+05.07–02.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 45%
 
 🧱 Level: R 220.00 · R 213.00 · R 211.60 · R 210.00 · R 209.30 · P 208.60 · S 205.60 · S 204.20 · S 201.80
-❌ Invalidasi: Candle H1 close di atas 211.37
+❌ Invalidasi: Candle H1 close di atas 211.31
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · BCHUSD · Bukan nasihat keuangan, selalu pakai SL.
