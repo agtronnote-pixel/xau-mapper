@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping GBPUSD 202611270907", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (GBPUSD) dari mapping 2026-11-27T02:07:28.833Z (harga 1.31053).
+indicator("KPX Mapping GBPUSD 202611271009", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (GBPUSD) dari mapping 2026-11-27T03:09:39.928Z (harga 1.31053).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -22,17 +22,17 @@ if barstate.islast and not drawn
         drawLine(1.30964, color.green, "S Low kemarin (PDL)", false)
         drawLine(1.30500, color.green, "S Angka bulat", false)
     if showPlans
-        box.new(bar_index - 20, 1.31019 + offset, bar_index + 40, 1.30981 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 63%", text_color=color.green, text_size=size.small)
-        drawLine(1.30895, color.red, "SL BUY", true)
+        box.new(bar_index - 20, 1.31020 + offset, bar_index + 40, 1.30980 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 64%", text_color=color.green, text_size=size.small)
+        drawLine(1.30890, color.red, "SL BUY", true)
         drawLine(1.31196, color.blue, "TP1 BUY", true)
         drawLine(1.31500, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 1.31106 + offset, bar_index + 40, 1.31068 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 40%", text_color=color.red, text_size=size.small)
-        drawLine(1.31192, color.red, "SL SELL", true)
+        box.new(bar_index - 20, 1.31107 + offset, bar_index + 40, 1.31067 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 37%", text_color=color.red, text_size=size.small)
+        drawLine(1.31197, color.red, "SL SELL", true)
         drawLine(1.30964, color.blue, "TP1 SELL", true)
         drawLine(1.30500, color.blue, "TP2 SELL", true)
 
-inZone0 = close >= 1.30981 + offset and close <= 1.31019 + offset
+inZone0 = close >= 1.30980 + offset and close <= 1.31020 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX BUY Range: masuk zona", "GBPUSD masuk zona BUY {{close}} - EA entry")
-inZone1 = close >= 1.31068 + offset and close <= 1.31106 + offset
+inZone1 = close >= 1.31067 + offset and close <= 1.31107 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX SELL Range: masuk zona", "GBPUSD masuk zona SELL {{close}} - EA entry")
 plot(na, "KPX")
