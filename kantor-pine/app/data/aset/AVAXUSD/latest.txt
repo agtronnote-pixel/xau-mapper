@@ -1,37 +1,37 @@
-📊 MAPPING AVAXUSD — Sab, 28 Nov 2026, 01.07 WIB
-Harga: 6.6420 | Bias: SIDEWAYS (32%)
+📊 MAPPING AVAXUSD — Sab, 28 Nov 2026, 01.50 WIB
+Harga: 6.6400 | Bias: SIDEWAYS (32%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.06R per trade). Pakai sebagai peta level saja — zona SELL 6.6841–6.7139.
+Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.06R per trade). Pakai sebagai peta level saja — zona SELL 6.6842–6.7138.
 💪 Kekuatan 50% (Sedang) · Peluang TP1 duluan 38% (22 sampel backtest)
-✓ momentum jual (RSI H1 44)
+✓ momentum jual (RSI H1 45)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 6.7809.
+❌ Batal bila candle H1 close di atas 6.7805.
 
-🎯 Range: SELL 6.6841–6.7139
-💪 Kekuatan sinyal: 50% (Sedang) · peluang 38% | RR 1:1.14
-SL 6.7809 | TP1 6.6053 | TP2 6.4700 | s/d 09.07 WIB
+🎯 Range: SELL 6.6842–6.7138
+💪 Kekuatan sinyal: 50% (Sedang) · peluang 38% | RR 1:1.15
+SL 6.7805 | TP1 6.6053 | TP2 6.4700 | s/d 09.50 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 6.5904–6.6202
-💪 Kekuatan sinyal: 49% (Lemah) · peluang 41% | RR 1:1.14
-SL 6.5234 | TP1 6.6990 | TP2 6.7500 | s/d 09.07 WIB
+🎯 Range: BUY 6.5905–6.6201
+💪 Kekuatan sinyal: 49% (Lemah) · peluang 41% | RR 1:1.15
+SL 6.5238 | TP1 6.6990 | TP2 6.7500 | s/d 09.50 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (01.22): 6.6420
-+1 jam (02.07): 6.6420
-+4 jam (05.07): 6.6423
-+24 jam (01.07): 6.6440
++15 mnt (02.05): 6.6400
++1 jam (02.50): 6.6400
++4 jam (05.50): 6.6401
++24 jam (01.50): 6.6403
 
 🕒 Jadwal
-01.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–01.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 36%
+01.50–05.20 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.20–01.50 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 36%
 
 🧱 Level: R 6.8220 · R 6.7500 · R 6.7290 · R 6.6990 · R 6.6500 · P 6.6053 · S 6.5730 · S 6.4700
-❌ Invalidasi: Candle H1 close di atas 6.7809
+❌ Invalidasi: Candle H1 close di atas 6.7805
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · AVAXUSD · Bukan nasihat keuangan, selalu pakai SL.

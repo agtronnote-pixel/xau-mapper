@@ -1,39 +1,38 @@
-📊 MAPPING SNP500 — Sab, 28 Nov 2026, 01.07 WIB
-Harga: 7258.00 | Bias: BULLISH (62%)
+📊 MAPPING SNP500 — Sab, 28 Nov 2026, 01.51 WIB
+Harga: 7258.00 | Bias: BULLISH (63%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal kuat (87%). Pantau zona BUY 7244.19–7256.31, jangan paksa entry.
-💪 Kekuatan 87% (Kuat) · Peluang TP1 duluan 45% (111 sampel backtest)
+Sinyal kuat (88%). Pantau zona BUY 7244.19–7256.31, jangan paksa entry.
+💪 Kekuatan 88% (Kuat) · Peluang TP1 duluan 45% (111 sampel backtest)
 ✓ struktur higher high/higher low
 ✓ momentum beli (RSI H1 72)
 ✓ trend H1 & harian naik
-✕ Penghambat: RSI H1 72 jenuh beli — rawan koreksi
-❌ Batal bila candle H1 close di bawah 7216.9.
+❌ Batal bila candle H1 close di bawah 7216.92.
 
 🎯 Utama: BUY 7244.19–7256.31
-💪 Kekuatan sinyal: 87% (Kuat) · peluang 45% | RR 1:1.5
-SL 7216.90 | TP1 7300.28 | TP2 7350.30 | s/d 09.07 WIB
+💪 Kekuatan sinyal: 88% (Kuat) · peluang 45% | RR 1:1.5
+SL 7216.92 | TP1 7300.25 | TP2 7350.24 | s/d 09.51 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: SELL 7274.11–7286.23
-💪 Kekuatan sinyal: 14% (Lemah) · peluang 46% | RR 1:1.18
-SL 7313.52 | TP1 7240.75 | TP2 7224.00 | s/d 09.07 WIB
+💪 Kekuatan sinyal: 13% (Lemah) · peluang 46% | RR 1:1.18
+SL 7313.50 | TP1 7240.75 | TP2 7224.00 | s/d 09.51 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (01.22): 7259.24
-+1 jam (02.07): 7258.16
-+4 jam (05.07): 7256.17
-+24 jam (01.07): 7241.69
++15 mnt (02.06): 7259.32
++1 jam (02.51): 7258.17
++4 jam (05.51): 7256.04
++24 jam (01.51): 7240.58
 
 🕒 Jadwal
-01.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
-05.07–01.07 NO TRADE: Pasar tutup
+01.51–05.21 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
+05.21–01.51 NO TRADE: Pasar tutup
 
 🧱 Level: R 7280.17 · S 7250.25 · S 7240.75 · S 7224.00 · S 7182.75 · S 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
-❌ Invalidasi: Candle H1 close di bawah 7216.9
+❌ Invalidasi: Candle H1 close di bawah 7216.92
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
