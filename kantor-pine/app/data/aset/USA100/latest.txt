@@ -1,38 +1,38 @@
-📊 MAPPING USA100 — Sab, 28 Nov 2026, 03.09 WIB
-Harga: 26376.50 | Bias: BULLISH (50%)
+📊 MAPPING USA100 — Sab, 28 Nov 2026, 04.07 WIB
+Harga: 26377.25 | Bias: BULLISH (38%)
 
 ➡️ KEPUTUSAN: BUY
-BUY di 26266.76–26333.24 saat harga menyentuh zona.
-💪 Kekuatan 70% (Kuat) · Peluang TP1 duluan 50% (141 sampel backtest)
+BUY di 26266.82–26333.18 saat harga menyentuh zona.
+💪 Kekuatan 56% (Sedang) · Peluang TP1 duluan 57% (83 sampel backtest)
 ✓ momentum beli (RSI H1 72)
 ✓ trend H1 & harian naik
 ✓ struktur range
-❌ Batal bila candle H1 close di bawah 26117.2.
+❌ Batal bila candle H1 close di bawah 26117.5.
 
-🎯 Utama: BUY 26266.76–26333.24
-💪 Kekuatan sinyal: 70% (Kuat) · peluang 50% | RR 1:1.15
-SL 26117.20 | TP1 26509.75 | TP2 26949.50 | s/d 11.09 WIB
+🎯 Utama: BUY 26266.82–26333.18
+💪 Kekuatan sinyal: 56% (Sedang) · peluang 57% | RR 1:1.15
+SL 26117.50 | TP1 26509.75 | TP2 26949.50 | s/d 12.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 26476.51–26542.99
-💪 Kekuatan sinyal: 15% (Lemah) · peluang 47% | RR 1:1.15
-SL 26692.55 | TP1 26300.00 | TP2 26208.50 | s/d 11.09 WIB
+🎯 Alternatif: SELL 26476.57–26542.93
+💪 Kekuatan sinyal: 12% (Lemah) · peluang 47% | RR 1:1.15
+SL 26692.25 | TP1 26300.00 | TP2 26208.50 | s/d 12.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (03.24): 26379.13
-+1 jam (04.09): 26381.61
-+4 jam (07.09): 26393.18
-+24 jam (03.09): 26347.84
++15 mnt (04.22): 26379.84
++1 jam (05.07): 26382.28
++4 jam (08.07): 26393.68
++24 jam (04.07): 26349.03
 
 🕒 Jadwal
-03.09–05.09 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
-05.09–03.09 NO TRADE: Pasar tutup
+04.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 42%
+05.07–04.07 NO TRADE: Pasar tutup
 
 🧱 Level: R 27036.00 · R 26949.50 · R 26558.33 · R 26509.75 · R 26400.00 · S 26350.75 · S 26300.00 · S 26208.50 · S 26126.25 · S 25998.00 · P 25792.92 · S 25235.08 · S 25027.50
-❌ Invalidasi: Candle H1 close di bawah 26117.2
-⚠️ Harga spot & candle berbeda 388.50 — cek sumber data · Agent tanpa data cukup: Clara
+❌ Invalidasi: Candle H1 close di bawah 26117.5
+⚠️ Data harga tertunda 127 menit · Harga spot & candle berbeda 387.75 — cek sumber data · Agent tanpa data cukup: Clara
 
 — Kantor Pine · USA100 · Bukan nasihat keuangan, selalu pakai SL.
