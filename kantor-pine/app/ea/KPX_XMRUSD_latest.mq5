@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_XMRUSD_202611271507.mq5                                      |
+//| KPX_XMRUSD_202611271508.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 27 Nov 2026, 15.07 WIB - XMRUSD 465.11                  |
+//| Mapping: 27 Nov 2026, 15.08 WIB - XMRUSD 465.31                  |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XMRUSD 202611271507"
+#property description "Eksekusi otomatis mapping XMRUSD 202611271508"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {464.80, 475.35};
 double   P_SL[]   = {449.87, 485.68};
 double   P_TP1[]  = {481.45, 458.63};
 double   P_TP2[]  = {516.10, 437.22};
-datetime P_EXP[]  = {D'2026.11.27 16:07:00', D'2026.11.27 16:07:00'};
+datetime P_EXP[]  = {D'2026.11.27 16:08:00', D'2026.11.27 16:08:00'};
 string   P_NAME[] = {"BUY Range", "SELL Range"};
 int      P_STR[]  = {54, 46};   // kekuatan sinyal %
 int      P_PEL[]  = {44, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.27 08:07:00';   // waktu harga acuan mapping (GMT)
+datetime REF_TIME   = D'2026.11.27 08:08:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 466.33;
 double   OFFSET_MAX = 4.65;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.27 08:07:00';
-datetime MAP_END    = D'2026.11.28 08:07:00';
+datetime MAP_START  = D'2026.11.27 08:08:00';
+datetime MAP_END    = D'2026.11.28 08:08:00';
 
 CTrade   trade;
 string   GVP;

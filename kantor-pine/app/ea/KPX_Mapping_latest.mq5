@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_Mapping_202611271507.mq5                                     |
+//| KPX_Mapping_202611271508.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 27 Nov 2026, 15.07 WIB - XAUUSD 3664.90                 |
+//| Mapping: 27 Nov 2026, 15.08 WIB - XAUUSD 3657.90                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping XAUUSD 202611271507"
+#property description "Eksekusi otomatis mapping XAUUSD 202611271508"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {3652.22, 3677.22};
 double   P_SL[]   = {3637.78, 3687.22};
 double   P_TP1[]  = {3668.33, 3656.67};
 double   P_TP2[]  = {3675.00, 3650.00};
-datetime P_EXP[]  = {D'2026.11.27 16:07:00', D'2026.11.27 16:07:00'};
+datetime P_EXP[]  = {D'2026.11.27 16:08:00', D'2026.11.27 16:08:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {70, 33};   // kekuatan sinyal %
 int      P_PEL[]  = {55, 46};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.27 08:05:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 3664.90;
 double   OFFSET_MAX = 30;
-datetime NT_START[] = {D'2026.11.27 22:07:00'};
-datetime NT_END[]   = {D'2026.11.28 08:07:00'};
-datetime MAP_START  = D'2026.11.27 08:07:00';
-datetime MAP_END    = D'2026.11.28 08:07:00';
+datetime NT_START[] = {D'2026.11.27 22:08:00'};
+datetime NT_END[]   = {D'2026.11.28 08:08:00'};
+datetime MAP_START  = D'2026.11.27 08:08:00';
+datetime MAP_END    = D'2026.11.28 08:08:00';
 
 CTrade   trade;
 string   GVP;

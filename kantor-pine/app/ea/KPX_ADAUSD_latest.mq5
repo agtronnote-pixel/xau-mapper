@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_ADAUSD_202611271507.mq5                                      |
+//| KPX_ADAUSD_202611271508.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 27 Nov 2026, 15.07 WIB - ADAUSD 0.15310                 |
+//| Mapping: 27 Nov 2026, 15.08 WIB - ADAUSD 0.15320                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping ADAUSD 202611271507"
+#property description "Eksekusi otomatis mapping ADAUSD 202611271508"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {0.15256, 0.15396};
 double   P_SL[]   = {0.15085, 0.15515};
 double   P_TP1[]  = {0.15447, 0.15140};
 double   P_TP2[]  = {0.15665, 0.14970};
-datetime P_EXP[]  = {D'2026.11.27 16:07:00', D'2026.11.27 16:07:00'};
+datetime P_EXP[]  = {D'2026.11.27 16:08:00', D'2026.11.27 16:08:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {81, 21};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, 48};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.27 08:07:00';   // waktu harga acuan mapping (GMT)
+datetime REF_TIME   = D'2026.11.27 08:08:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 0.15320;
 double   OFFSET_MAX = 0.00153;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.27 08:07:00';
-datetime MAP_END    = D'2026.11.28 08:07:00';
+datetime MAP_START  = D'2026.11.27 08:08:00';
+datetime MAP_END    = D'2026.11.28 08:08:00';
 
 CTrade   trade;
 string   GVP;

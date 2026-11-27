@@ -1,5 +1,5 @@
-📊 MAPPING XAUUSD — Jum, 27 Nov 2026, 15.07 WIB
-Harga: 3664.90 | Bias: BULLISH (59%)
+📊 MAPPING XAUUSD — Jum, 27 Nov 2026, 15.08 WIB
+Harga: 3657.90 | Bias: BULLISH (59%)
 
 ➡️ KEPUTUSAN: BUY
 BUY di 3647.78–3652.22 saat harga menyentuh zona.
@@ -12,30 +12,30 @@ BUY di 3647.78–3652.22 saat harga menyentuh zona.
 
 🎯 Utama: BUY 3647.78–3652.22
 💪 Kekuatan sinyal: 70% (Kuat) · peluang 55% | RR 1:1.5
-SL 3637.78 | TP1 3668.33 | TP2 3675.00 | s/d 23.07 WIB
+SL 3637.78 | TP1 3668.33 | TP2 3675.00 | s/d 23.08 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: SELL 3672.78–3677.22
 💪 Kekuatan sinyal: 33% (Lemah) · peluang 46% | RR 1:1.5
-SL 3687.22 | TP1 3656.67 | TP2 3650.00 | s/d 23.07 WIB
+SL 3687.22 | TP1 3656.67 | TP2 3650.00 | s/d 23.08 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (15.22): 3665.02
-+1 jam (16.07): 3665.31
-+4 jam (19.07): 3666.67
-+24 jam (15.07): 3671.95
++15 mnt (15.23): 3658.02
++1 jam (16.08): 3658.31
++4 jam (19.08): 3659.66
++24 jam (15.08): 3664.91
 
 🕒 Jadwal
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 52%
-20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 53%
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 53%
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 48%
-05.07–15.07 NO TRADE: Pasar tutup
+15.08–20.08 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 52%
+20.08–22.08 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 53%
+22.08–00.08 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 53%
+00.08–05.08 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 48%
+05.08–15.08 NO TRADE: Pasar tutup
 
-🧱 Level: R 3700.00 · R 3675.00 · S 3650.00 · S 3605.85 · S 3598.05 · S 3590.95 · S 3582.90 · P 3574.00 · S 3564.00 · S 3557.90 · S 3549.95 · S 3542.15 · S 3538.55
+🧱 Level: R 3675.00 · S 3650.00 · S 3625.00 · S 3605.85 · S 3598.05 · S 3590.95 · S 3582.90 · P 3574.00 · S 3564.00 · S 3557.90 · S 3549.95 · S 3542.15 · S 3538.55
 ❌ Invalidasi: Candle H1 close di bawah 3637.78
 ⚠️ Agent tanpa data cukup: Clara
 

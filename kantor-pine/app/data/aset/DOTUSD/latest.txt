@@ -1,5 +1,5 @@
-📊 MAPPING DOTUSD — Jum, 27 Nov 2026, 15.07 WIB
-Harga: 0.68600 | Bias: BULLISH (57%)
+📊 MAPPING DOTUSD — Jum, 27 Nov 2026, 15.08 WIB
+Harga: 0.68600 | Bias: BULLISH (56%)
 
 ➡️ KEPUTUSAN: TUNGGU
 Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.02R per trade). Pakai sebagai peta level saja — zona BUY 0.68104–0.68362.
@@ -12,28 +12,28 @@ Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.02R per trade). 
 
 🎯 Utama: BUY 0.68104–0.68362
 💪 Kekuatan sinyal: 75% (Kuat) · peluang 53% | RR 1:1.08
-SL 0.67525 | TP1 0.69000 | TP2 0.69500 | s/d 23.07 WIB
+SL 0.67525 | TP1 0.69000 | TP2 0.69500 | s/d 23.08 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: SELL 0.68871–0.69129
 💪 Kekuatan sinyal: 24% (Lemah) · peluang 39% | RR 1:1.08
-SL 0.69708 | TP1 0.68233 | TP2 0.66967 | s/d 23.07 WIB
+SL 0.69708 | TP1 0.68233 | TP2 0.66967 | s/d 23.08 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (15.22): 0.68607
-+1 jam (16.07): 0.68601
-+4 jam (19.07): 0.68599
-+24 jam (15.07): 0.68646
++15 mnt (15.23): 0.68607
++1 jam (16.08): 0.68601
++4 jam (19.08): 0.68599
++24 jam (15.08): 0.68646
 
 🕒 Jadwal
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh
-20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–15.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
+15.08–20.08 ENTRY: Sesi London: entry saat zona tersentuh
+20.08–22.08 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
+22.08–00.08 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
+00.08–05.08 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.08–15.08 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
 
 🧱 Level: R 0.69500 · R 0.69200 · R 0.69000 · S 0.68500 · S 0.68233 · S 0.67900 · P 0.66967 · S 0.66200 · S 0.66033 · S 0.65700 · S 0.65500
 ❌ Invalidasi: Candle H1 close di bawah 0.67525

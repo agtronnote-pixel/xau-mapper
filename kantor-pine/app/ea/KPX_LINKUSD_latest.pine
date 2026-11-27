@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping LINKUSD 202611271507", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (LINKUSD) dari mapping 2026-11-27T08:07:27.877Z (harga 9.5980).
+indicator("KPX Mapping LINKUSD 202611271508", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (LINKUSD) dari mapping 2026-11-27T08:08:16.143Z (harga 9.6140).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -16,7 +16,7 @@ if barstate.islast and not drawn
     if showLevels
         drawLine(9.7180, color.red, "R Swing high H1", false)
         drawLine(9.6500, color.red, "R Angka bulat", false)
-        drawLine(9.6000, color.red, "R Angka bulat", false)
+        drawLine(9.6000, color.green, "S Angka bulat", false)
         drawLine(9.5500, color.green, "S Angka bulat", false)
         drawLine(9.4633, color.green, "S R1 harian", false)
         drawLine(9.4260, color.green, "S High kemarin (PDH)", false)
@@ -27,7 +27,7 @@ if barstate.islast and not drawn
         drawLine(9.0360, color.green, "S Low kemarin (PDL)", false)
         drawLine(8.9950, color.green, "S Swing low H1", false)
     if showPlans
-        box.new(bar_index - 20, 9.5706 + offset, bar_index + 40, 9.5294 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 82%", text_color=color.green, text_size=size.small)
+        box.new(bar_index - 20, 9.5706 + offset, bar_index + 40, 9.5294 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 81%", text_color=color.green, text_size=size.small)
         drawLine(9.4368, color.red, "SL BUY", true)
         drawLine(9.7180, color.blue, "TP1 BUY", true)
         drawLine(9.8896, color.blue, "TP2 BUY", true)

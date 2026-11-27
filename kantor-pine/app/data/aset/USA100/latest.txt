@@ -1,5 +1,5 @@
-📊 MAPPING USA100 — Jum, 27 Nov 2026, 15.07 WIB
-Harga: 26126.00 | Bias: SIDEWAYS (44%)
+📊 MAPPING USA100 — Jum, 27 Nov 2026, 15.08 WIB
+Harga: 26126.00 | Bias: SIDEWAYS (43%)
 
 ➡️ KEPUTUSAN: JANGAN TRADING
 Data harga basi — tunggu sampai data kembali normal.
@@ -9,17 +9,17 @@ Data harga basi — tunggu sampai data kembali normal.
 ✕ Penghambat: dolar & yield riil melemah
 
 📈 Proyeksi
-+15 mnt (15.22): 26125.00
-+1 jam (16.07): 26124.14
-+4 jam (19.07): 26119.46
-+24 jam (15.07): 26129.84
++15 mnt (15.23): 26125.04
++1 jam (16.08): 26124.22
++4 jam (19.08): 26119.76
++24 jam (15.08): 26129.67
 
 🕒 Jadwal
-15.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 44%
-20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 53%
-22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 53%
-00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
-05.07–15.07 NO TRADE: Pasar tutup
+15.08–20.08 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 44%
+20.08–22.08 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 53%
+22.08–00.08 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 53%
+00.08–05.08 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
+05.08–15.08 NO TRADE: Pasar tutup
 
 🧱 Level: R 27036.00 · R 26949.50 · R 26707.00 · R 26558.33 · R 26350.75 · R 26200.00 · R 26126.25 · S 25998.00 · P 25792.92 · S 25235.08 · S 25027.50
 ❌ Invalidasi: Tidak ada skenario aktif
