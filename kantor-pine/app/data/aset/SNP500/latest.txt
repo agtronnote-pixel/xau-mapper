@@ -1,26 +1,39 @@
-📊 MAPPING SNP500 — Jum, 27 Nov 2026, 21.07 WIB
-Harga: 7216.75 | Bias: BULLISH (50%)
+📊 MAPPING SNP500 — Jum, 27 Nov 2026, 22.07 WIB
+Harga: 7258.00 | Bias: BULLISH (56%)
 
-➡️ KEPUTUSAN: JANGAN TRADING
-Data harga basi — tunggu sampai data kembali normal.
-✓ momentum beli (RSI H1 65)
-✓ trend belum jelas
-✓ dolar & yield riil melemah
+➡️ KEPUTUSAN: TUNGGU
+Sinyal kuat (79%). Pantau zona BUY 7232.81–7248.69, jangan paksa entry.
+💪 Kekuatan 79% (Kuat) · Peluang TP1 duluan 45% (111 sampel backtest)
+✓ struktur range
+✓ trend H1 & harian naik
+✓ momentum beli (RSI H1 61)
+❌ Batal bila candle H1 close di bawah 7197.1.
+
+🎯 Utama: BUY 7232.81–7248.69
+💪 Kekuatan sinyal: 79% (Kuat) · peluang 45% | RR 1:1.5
+SL 7197.10 | TP1 7306.23 | TP2 7371.70 | s/d 06.07 WIB
+Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
+
+🎯 Alternatif: SELL 7272.23–7288.11
+💪 Kekuatan sinyal: 22% (Lemah) · peluang 46% | RR 1:1.29
+SL 7323.82 | TP1 7224.00 | TP2 7182.75 | s/d 06.07 WIB
+Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
+Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (21.22): 7217.80
-+1 jam (22.07): 7216.88
-+4 jam (01.07): 7215.20
-+24 jam (21.07): 7203.00
++15 mnt (22.22): 7258.99
++1 jam (23.07): 7258.13
++4 jam (02.07): 7256.53
++24 jam (22.07): 7244.95
 
 🕒 Jadwal
-21.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
-05.07–21.07 NO TRADE: Pasar tutup
+05.07–22.07 NO TRADE: Pasar tutup
 
-🧱 Level: R 7280.17 · R 7240.75 · R 7224.00 · S 7200.00 · S 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
-❌ Invalidasi: Tidak ada skenario aktif
-⚠️ Data harga basi (1988 menit tanpa pembaruan) — tidak ada rencana entry · Agent tanpa data cukup: Clara
+🧱 Level: R 7280.17 · S 7240.75 · S 7224.00 · S 7182.75 · S 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
+❌ Invalidasi: Candle H1 close di bawah 7197.1
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
