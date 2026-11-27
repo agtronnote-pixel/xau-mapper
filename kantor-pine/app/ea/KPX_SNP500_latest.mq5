@@ -1,11 +1,11 @@
 //+------------------------------------------------------------------+
-//| KPX_SNP500_202611280207.mq5                                      |
+//| KPX_SNP500_202611280310.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 28 Nov 2026, 02.07 WIB - SNP500 7258.00                 |
+//| Mapping: 28 Nov 2026, 03.10 WIB - SNP500 7258.00                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 63%
+/* Bias: BULLISH - Keyakinan 65%
    Ringkasan: SNP500 cenderung naik (4/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 7244.27-7256.23 (kekuatan sinyal 88% - Kuat).
    Rencana 0: BUY 7244.27-7256.23 SL 7217.35 TP1 7299.60 TP2 7348.95 - Kekuatan sinyal 88% (Kuat)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping SNP500 202611280207"
+#property description "Eksekusi otomatis mapping SNP500 202611280310"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {7256.23, 7286.15};
 double   P_SL[]   = {7217.35, 7313.07};
 double   P_TP1[]  = {7299.60, 7240.75};
 double   P_TP2[]  = {7348.95, 7224.00};
-datetime P_EXP[]  = {D'2026.11.28 03:07:00', D'2026.11.28 03:07:00'};
+datetime P_EXP[]  = {D'2026.11.28 04:10:00', D'2026.11.28 04:10:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {88, 13};   // kekuatan sinyal %
-int      P_PEL[]  = {45, 46};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+int      P_PEL[]  = {44, 45};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.27 19:00:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 7308.25;
 double   OFFSET_MAX = 72.58;
-datetime NT_START[] = {D'2026.11.27 22:07:00'};
-datetime NT_END[]   = {D'2026.11.28 19:07:00'};
-datetime MAP_START  = D'2026.11.27 19:07:00';
-datetime MAP_END    = D'2026.11.28 19:07:00';
+datetime NT_START[] = {D'2026.11.27 22:10:00'};
+datetime NT_END[]   = {D'2026.11.28 20:10:00'};
+datetime MAP_START  = D'2026.11.27 20:10:00';
+datetime MAP_END    = D'2026.11.28 20:10:00';
 
 CTrade   trade;
 string   GVP;

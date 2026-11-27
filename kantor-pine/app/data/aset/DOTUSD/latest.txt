@@ -1,37 +1,37 @@
-📊 MAPPING DOTUSD — Sab, 28 Nov 2026, 02.07 WIB
-Harga: 0.66900 | Bias: SIDEWAYS (35%)
+📊 MAPPING DOTUSD — Sab, 28 Nov 2026, 03.08 WIB
+Harga: 0.66800 | Bias: SIDEWAYS (35%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.02R per trade). Pakai sebagai peta level saja — zona SELL 0.67334–0.67666.
+Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.03R per trade). Pakai sebagai peta level saja — zona SELL 0.66803–0.67131.
 💪 Kekuatan 50% (Sedang)
 ✓ momentum jual (RSI H1 45)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 0.68412.
+❌ Batal bila candle H1 close di atas 0.6787.
 
-🎯 Range: SELL 0.67334–0.67666
-💪 Kekuatan sinyal: 50% (Sedang) | RR 1:1.1
-SL 0.68412 | TP1 0.66500 | TP2 0.66033 | s/d 10.07 WIB
+🎯 Range: SELL 0.66803–0.67131
+💪 Kekuatan sinyal: 50% (Sedang) | RR 1:1.03
+SL 0.67870 | TP1 0.66033 | TP2 0.65100 | s/d 11.08 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 0.66334–0.66666
-💪 Kekuatan sinyal: 49% (Lemah) | RR 1:1.1
-SL 0.65588 | TP1 0.67500 | TP2 0.68233 | s/d 10.07 WIB
+🎯 Range: BUY 0.66336–0.66664
+💪 Kekuatan sinyal: 49% (Lemah) | RR 1:1.11
+SL 0.65597 | TP1 0.67500 | TP2 0.68233 | s/d 11.08 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (02.22): 0.66900
-+1 jam (03.07): 0.66900
-+4 jam (06.07): 0.66900
-+24 jam (02.07): 0.66898
++15 mnt (03.23): 0.66799
++1 jam (04.08): 0.66800
++4 jam (07.08): 0.66800
++24 jam (03.08): 0.66795
 
 🕒 Jadwal
-02.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–02.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 48%
+03.08–05.08 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
+05.08–03.08 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 49%
 
 🧱 Level: R 0.69500 · R 0.69200 · R 0.68700 · R 0.68233 · R 0.67900 · R 0.67500 · P 0.66967 · S 0.66500 · S 0.66033 · S 0.65700 · S 0.65100
-❌ Invalidasi: Candle H1 close di atas 0.68412
+❌ Invalidasi: Candle H1 close di atas 0.6787
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · DOTUSD · Bukan nasihat keuangan, selalu pakai SL.

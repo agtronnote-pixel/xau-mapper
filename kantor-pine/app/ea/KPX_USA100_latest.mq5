@@ -1,11 +1,11 @@
 //+------------------------------------------------------------------+
-//| KPX_USA100_202611280207.mq5                                      |
+//| KPX_USA100_202611280309.mq5                                      |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 28 Nov 2026, 02.07 WIB - USA100 26376.50                |
+//| Mapping: 28 Nov 2026, 03.09 WIB - USA100 26376.50                |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: BULLISH - Keyakinan 51%
+/* Bias: BULLISH - Keyakinan 50%
    Ringkasan: USA100 cenderung naik (4/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 26266.76-26333.24 (kekuatan sinyal 70% - Kuat).
    Rencana 0: BUY 26266.76-26333.24 SL 26117.20 TP1 26509.75 TP2 26949.50 - Kekuatan sinyal 70% (Kuat)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping USA100 202611280207"
+#property description "Eksekusi otomatis mapping USA100 202611280309"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {26333.24, 26542.99};
 double   P_SL[]   = {26117.20, 26692.55};
 double   P_TP1[]  = {26509.75, 26300.00};
 double   P_TP2[]  = {26949.50, 26208.50};
-datetime P_EXP[]  = {D'2026.11.28 03:07:00', D'2026.11.28 03:07:00'};
+datetime P_EXP[]  = {D'2026.11.28 04:09:00', D'2026.11.28 04:09:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {70, 15};   // kekuatan sinyal %
-int      P_PEL[]  = {48, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
+int      P_PEL[]  = {50, 47};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.27 19:00:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 26765.00;
 double   OFFSET_MAX = 263.76;
-datetime NT_START[] = {D'2026.11.27 22:07:00'};
-datetime NT_END[]   = {D'2026.11.28 19:07:00'};
-datetime MAP_START  = D'2026.11.27 19:07:00';
-datetime MAP_END    = D'2026.11.28 19:07:00';
+datetime NT_START[] = {D'2026.11.27 22:09:00'};
+datetime NT_END[]   = {D'2026.11.28 20:09:00'};
+datetime MAP_START  = D'2026.11.27 20:09:00';
+datetime MAP_END    = D'2026.11.28 20:09:00';
 
 CTrade   trade;
 string   GVP;
