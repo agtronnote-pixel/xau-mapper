@@ -1,38 +1,38 @@
-📊 MAPPING GBPUSD — Jum, 27 Nov 2026, 23.07 WIB
-Harga: 1.31053 | Bias: BEARISH (42%)
+📊 MAPPING GBPUSD — Sab, 28 Nov 2026, 00.07 WIB
+Harga: 1.31053 | Bias: SIDEWAYS (40%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (52%). Pantau zona BUY 1.30976–1.31024, jangan paksa entry.
+Sinyal sedang (52%). Pantau zona BUY 1.30977–1.31023, jangan paksa entry.
 💪 Kekuatan 52% (Sedang)
-✓ momentum jual (RSI H1 36)
+✓ momentum jual (RSI H1 39)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di bawah 1.30869.
+✕ Penghambat: berita cenderung positif untuk emas
+❌ Batal bila candle H1 close di bawah 1.30874.
 
-🎯 Alternatif: BUY 1.30976–1.31024
-💪 Kekuatan sinyal: 52% (Sedang) | RR 1:1.31
-SL 1.30869 | TP1 1.31172 | TP2 1.31306 | s/d 07.07 WIB
+🎯 Range: BUY 1.30977–1.31023
+💪 Kekuatan sinyal: 52% (Sedang) | RR 1:1.37
+SL 1.30874 | TP1 1.31172 | TP2 1.31306 | s/d 08.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Utama: SELL 1.31063–1.31111
-💪 Kekuatan sinyal: 49% (Lemah) | RR 1:1.5
-SL 1.31218 | TP1 1.30891 | TP2 1.30500 | s/d 07.07 WIB
+🎯 Range: SELL 1.31064–1.31110
+💪 Kekuatan sinyal: 51% (Sedang) | RR 1:1.5
+SL 1.31213 | TP1 1.30898 | TP2 1.30500 | s/d 08.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (23.22): 1.31053
-+1 jam (00.07): 1.31052
-+4 jam (03.07): 1.31049
-+24 jam (23.07): 1.31050
++15 mnt (00.22): 1.31053
++1 jam (01.07): 1.31052
++4 jam (04.07): 1.31051
++24 jam (00.07): 1.31051
 
 🕒 Jadwal
-23.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–23.07 NO TRADE: Pasar tutup
+05.07–00.07 NO TRADE: Pasar tutup
 
 🧱 Level: R 1.31500 · R 1.31351 · R 1.31306 · R 1.31234 · R 1.31172 · P 1.31087 · S 1.31000 · S 1.30964 · S 1.30500
-❌ Invalidasi: Candle H1 close di bawah 1.30869
-⚠️ Agent tanpa data cukup: Kabar, Clara
+❌ Invalidasi: Candle H1 close di bawah 1.30874
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · GBPUSD · Bukan nasihat keuangan, selalu pakai SL.

@@ -1,38 +1,37 @@
-📊 MAPPING LINKUSD — Jum, 27 Nov 2026, 23.07 WIB
-Harga: 9.3080 | Bias: SIDEWAYS (36%)
+📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 00.07 WIB
+Harga: 9.3450 | Bias: SIDEWAYS (34%)
 
-➡️ KEPUTUSAN: BUY
-BUY di 9.2213–9.2721 saat harga menyentuh zona.
-💪 Kekuatan 56% (Sedang)
-✓ momentum jual (RSI H1 45)
+➡️ KEPUTUSAN: TUNGGU
+Sinyal sedang (53%). Pantau zona BUY 9.2647–9.3113, jangan paksa entry.
+💪 Kekuatan 53% (Sedang)
+✓ momentum jual (RSI H1 46)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di bawah 9.107.
+❌ Batal bila candle H1 close di bawah 9.1597.
 
-🎯 Range: BUY 9.2213–9.2721
-💪 Kekuatan sinyal: 56% (Sedang) | RR 1:1.28
-SL 9.1070 | TP1 9.4260 | TP2 9.5550 | s/d 07.07 WIB
+🎯 Range: BUY 9.2647–9.3113
+💪 Kekuatan sinyal: 53% (Sedang) | RR 1:1.08
+SL 9.1597 | TP1 9.4260 | TP2 9.5550 | s/d 08.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: SELL 9.3246–9.3754
-💪 Kekuatan sinyal: 45% (Lemah) | RR 1:1.49
-SL 9.4897 | TP1 9.1420 | TP2 9.0360 | s/d 07.07 WIB
+🎯 Range: SELL 9.4027–9.4493
+💪 Kekuatan sinyal: 46% (Lemah) | RR 1:1.08
+SL 9.5543 | TP1 9.2880 | TP2 9.0990 | s/d 08.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (23.22): 9.3077
-+1 jam (00.07): 9.3080
-+4 jam (03.07): 9.3087
-+24 jam (23.07): 9.3116
++15 mnt (00.22): 9.3450
++1 jam (01.07): 9.3450
++4 jam (04.07): 9.3450
++24 jam (00.07): 9.3451
 
 🕒 Jadwal
-23.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 43%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi
-05.07–23.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 31%
+05.07–00.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 31%
 
-🧱 Level: R 9.7180 · R 9.5550 · R 9.4260 · R 9.3500 · S 9.2880 · P 9.2467 · S 9.1420 · S 9.0360
-❌ Invalidasi: Candle H1 close di bawah 9.107
+🧱 Level: R 9.7180 · R 9.5550 · R 9.4573 · R 9.4260 · R 9.3500 · S 9.2880 · P 9.2467 · S 9.0990 · S 9.0673 · S 9.0360
+❌ Invalidasi: Candle H1 close di bawah 9.1597
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · LINKUSD · Bukan nasihat keuangan, selalu pakai SL.

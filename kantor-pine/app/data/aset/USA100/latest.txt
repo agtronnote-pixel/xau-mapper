@@ -1,39 +1,38 @@
-📊 MAPPING USA100 — Jum, 27 Nov 2026, 23.07 WIB
-Harga: 26376.50 | Bias: BULLISH (58%)
+📊 MAPPING USA100 — Sab, 28 Nov 2026, 00.07 WIB
+Harga: 26376.50 | Bias: BULLISH (64%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal kuat (75%). Pantau zona BUY 26083.32–26169.18, jangan paksa entry.
-💪 Kekuatan 75% (Kuat) · Peluang TP1 duluan 48% (139 sampel backtest)
-✓ momentum beli (RSI H1 68)
+Sinyal kuat (82%). Pantau zona BUY 26263.12–26336.88, jangan paksa entry.
+💪 Kekuatan 82% (Kuat) · Peluang TP1 duluan 48% (139 sampel backtest)
+✓ momentum beli (RSI H1 70)
 ✓ trend H1 & harian naik
-✓ dolar & yield riil melemah
-❌ Batal bila candle H1 close di bawah 25890.14.
+✓ struktur range
+❌ Batal bila candle H1 close di bawah 26097.15.
 
-🎯 Utama: BUY 26083.32–26169.18
-💪 Kekuatan sinyal: 75% (Kuat) · peluang 48% | RR 1:1.58
-SL 25890.14 | TP1 26500.00 | TP2 26707.00 | s/d 07.07 WIB
+🎯 Utama: BUY 26263.12–26336.88
+💪 Kekuatan sinyal: 82% (Kuat) · peluang 48% | RR 1:1.03
+SL 26097.15 | TP1 26509.75 | TP2 26949.50 | s/d 08.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 26457.07–26542.93
-💪 Kekuatan sinyal: 29% (Lemah) · peluang 47% | RR 1:1.58
-SL 26736.11 | TP1 26126.25 | TP2 25998.00 | s/d 07.07 WIB
+🎯 Alternatif: SELL 26472.87–26546.63
+💪 Kekuatan sinyal: 17% (Lemah) · peluang 47% | RR 1:1.03
+SL 26712.60 | TP1 26300.00 | TP2 26126.25 | s/d 08.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (23.22): 26379.81
-+1 jam (00.07): 26382.64
-+4 jam (03.07): 26398.04
-+24 jam (23.07): 26363.84
++15 mnt (00.22): 26379.59
++1 jam (01.07): 26382.24
++4 jam (04.07): 26396.64
++24 jam (00.07): 26364.66
 
 🕒 Jadwal
-23.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 53%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 44%
-05.07–23.07 NO TRADE: Pasar tutup
+05.07–00.07 NO TRADE: Pasar tutup
 
-🧱 Level: R 27036.00 · R 26949.50 · R 26707.00 · R 26558.33 · R 26500.00 · S 26350.75 · S 26126.25 · S 25998.00 · P 25792.92 · S 25235.08 · S 25027.50
-❌ Invalidasi: Candle H1 close di bawah 25890.14
+🧱 Level: R 27036.00 · R 26949.50 · R 26558.33 · R 26509.75 · R 26400.00 · S 26350.75 · S 26300.00 · S 26208.50 · S 26126.25 · S 25998.00 · P 25792.92 · S 25235.08 · S 25027.50
+❌ Invalidasi: Candle H1 close di bawah 26097.15
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · USA100 · Bukan nasihat keuangan, selalu pakai SL.
