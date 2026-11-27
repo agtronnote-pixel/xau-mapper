@@ -1,4 +1,4 @@
-📊 MAPPING SNP500 — Jum, 27 Nov 2026, 18.07 WIB
+📊 MAPPING SNP500 — Jum, 27 Nov 2026, 19.07 WIB
 Harga: 7216.75 | Bias: BULLISH (50%)
 
 ➡️ KEPUTUSAN: JANGAN TRADING
@@ -8,20 +8,20 @@ Data harga basi — tunggu sampai data kembali normal.
 ✓ dolar & yield riil melemah
 
 📈 Proyeksi
-+15 mnt (18.22): 7217.78
-+1 jam (19.07): 7216.88
-+4 jam (22.07): 7215.23
-+24 jam (18.07): 7203.26
++15 mnt (19.22): 7217.78
++1 jam (20.07): 7216.88
++4 jam (23.07): 7215.23
++24 jam (19.07): 7203.24
 
 🕒 Jadwal
-18.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
+19.07–20.07 ENTRY: Sesi London: entry saat zona tersentuh · backtest TP1 duluan 41%
 20.07–22.07 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh · backtest TP1 duluan 51%
 22.07–00.07 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai · backtest TP1 duluan 51%
 00.07–05.07 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 41%
-05.07–18.07 NO TRADE: Pasar tutup
+05.07–19.07 NO TRADE: Pasar tutup
 
 🧱 Level: R 7280.17 · R 7240.75 · R 7224.00 · S 7200.00 · S 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
 ❌ Invalidasi: Tidak ada skenario aktif
-⚠️ Data harga basi (1808 menit tanpa pembaruan) — tidak ada rencana entry · Agent tanpa data cukup: Clara
+⚠️ Data harga basi (1868 menit tanpa pembaruan) — tidak ada rencana entry · Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.

@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping LINKUSD 202611271807", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (LINKUSD) dari mapping 2026-11-27T11:07:26.733Z (harga 9.5400).
+indicator("KPX Mapping LINKUSD 202611271907", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (LINKUSD) dari mapping 2026-11-27T12:07:24.842Z (harga 9.5280).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -20,23 +20,23 @@ if barstate.islast and not drawn
         drawLine(9.5000, color.green, "S Angka bulat", false)
         drawLine(9.4633, color.green, "S R1 harian", false)
         drawLine(9.4260, color.green, "S High kemarin (PDH)", false)
-        drawLine(9.2880, color.green, "S Swing high H1", false)
+        drawLine(9.2750, color.green, "S Swing high H1", false)
         drawLine(9.2497, color.gray, "P Pivot harian", false)
         drawLine(9.1420, color.green, "S Swing low H1", false)
         drawLine(9.0733, color.green, "S S1 harian", false)
         drawLine(9.0360, color.green, "S Low kemarin (PDL)", false)
     if showPlans
-        box.new(bar_index - 20, 9.5205 + offset, bar_index + 40, 9.4795 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 71%", text_color=color.green, text_size=size.small)
-        drawLine(9.3872, color.red, "SL BUY", true)
+        box.new(bar_index - 20, 9.5199 + offset, bar_index + 40, 9.4801 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 70%", text_color=color.green, text_size=size.small)
+        drawLine(9.3907, color.red, "SL BUY", true)
         drawLine(9.7180, color.blue, "TP1 BUY", true)
-        drawLine(9.8384, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 9.6205 + offset, bar_index + 40, 9.5795 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 32%", text_color=color.red, text_size=size.small)
-        drawLine(9.7128, color.red, "SL SELL", true)
-        drawLine(9.4633, color.blue, "TP1 SELL", true)
-        drawLine(9.2880, color.blue, "TP2 SELL", true)
+        drawLine(9.8279, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 9.5749 + offset, bar_index + 40, 9.5351 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 33%", text_color=color.red, text_size=size.small)
+        drawLine(9.6643, color.red, "SL SELL", true)
+        drawLine(9.4260, color.blue, "TP1 SELL", true)
+        drawLine(9.2750, color.blue, "TP2 SELL", true)
 
-inZone0 = close >= 9.4795 + offset and close <= 9.5205 + offset
+inZone0 = close >= 9.4801 + offset and close <= 9.5199 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX BUY Utama: masuk zona", "LINKUSD masuk zona BUY {{close}} - EA entry")
-inZone1 = close >= 9.5795 + offset and close <= 9.6205 + offset
+inZone1 = close >= 9.5351 + offset and close <= 9.5749 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX SELL Alternatif: masuk zona", "LINKUSD masuk zona SELL {{close}} - EA entry")
 plot(na, "KPX")
