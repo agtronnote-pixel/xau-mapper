@@ -1,39 +1,38 @@
-📊 MAPPING XMRUSD — Min, 29 Nov 2026, 01.50 WIB
-Harga: 431.64 | Bias: SIDEWAYS (44%)
+📊 MAPPING XMRUSD — Min, 29 Nov 2026, 02.07 WIB
+Harga: 439.70 | Bias: SIDEWAYS (40%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (63%). Pantau zona BUY 424.75–429.21, jangan paksa entry.
-💪 Kekuatan 63% (Sedang) · Peluang TP1 duluan 49% (132 sampel backtest)
-✓ struktur higher high/higher low
-✓ momentum beli (RSI H1 51)
+Sinyal sedang (60%). Pantau zona BUY 432.62–437.58, jangan paksa entry.
+💪 Kekuatan 60% (Sedang) · Peluang TP1 duluan 49% (132 sampel backtest)
+✓ momentum beli (RSI H1 58)
 ✓ dolar & yield riil melemah
 ✕ Penghambat: trend H1 & harian turun
 ✕ Penghambat: berita cenderung negatif untuk emas
-❌ Batal bila candle H1 close di bawah 414.72.
+❌ Batal bila candle H1 close di bawah 421.45.
 
-🎯 Range: BUY 424.75–429.21
-💪 Kekuatan sinyal: 63% (Sedang) · peluang 49% | RR 1:1.61
-SL 414.72 | TP1 446.67 | TP2 457.88 | s/d 09.50 WIB
+🎯 Range: BUY 432.62–437.58
+💪 Kekuatan sinyal: 60% (Sedang) · peluang 49% | RR 1:1.67
+SL 421.45 | TP1 457.88 | TP2 475.81 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: SELL 432.87–437.33
-💪 Kekuatan sinyal: 38% (Lemah) · peluang 52% | RR 1:1.44
-SL 447.36 | TP1 417.42 | TP2 404.60 | s/d 09.50 WIB
+🎯 Range: SELL 444.19–449.15
+💪 Kekuatan sinyal: 42% (Lemah) · peluang 43% | RR 1:1.44
+SL 460.32 | TP1 426.98 | TP2 417.42 | s/d 10.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (02.05): 431.70
-+1 jam (02.50): 431.59
-+4 jam (05.50): 431.26
-+24 jam (01.50): 431.04
++15 mnt (02.22): 439.77
++1 jam (03.07): 439.65
++4 jam (06.07): 439.27
++24 jam (02.07): 439.02
 
 🕒 Jadwal
-01.50–01.50 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 43%
+02.07–02.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 43%
 
-🧱 Level: R 475.81 · R 457.88 · R 446.67 · R 435.10 · S 430.00 · P 426.98 · S 417.42 · S 412.70 · S 404.60 · S 396.07 · S 378.14
-❌ Invalidasi: Candle H1 close di bawah 414.72
+🧱 Level: R 475.81 · R 457.88 · R 446.67 · R 440.00 · S 435.10 · P 426.98 · S 417.42 · S 412.70 · S 404.60 · S 396.07 · S 378.14
+❌ Invalidasi: Candle H1 close di bawah 421.45
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · XMRUSD · Bukan nasihat keuangan, selalu pakai SL.
