@@ -26,11 +26,11 @@ if barstate.islast and not drawn
         drawLine(6982.50, color.green, "S Low kemarin (PDL)", false)
     if showPlans
         box.new(bar_index - 20, 7257.04 + offset, bar_index + 40, 7243.46 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 79%", text_color=color.green, text_size=size.small)
-        drawLine(7212.91, color.red, "SL BUY", true)
-        drawLine(7306.26, color.blue, "TP1 BUY", true)
-        drawLine(7362.27, color.blue, "TP2 BUY", true)
-        box.new(bar_index - 20, 7286.96 + offset, bar_index + 40, 7273.38 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 11%", text_color=color.red, text_size=size.small)
-        drawLine(7317.51, color.red, "SL SELL", true)
+        drawLine(7212.92, color.red, "SL BUY", true)
+        drawLine(7306.25, color.blue, "TP1 BUY", true)
+        drawLine(7362.24, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 7286.96 + offset, bar_index + 40, 7273.38 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Alternatif 12%", text_color=color.red, text_size=size.small)
+        drawLine(7317.50, color.red, "SL SELL", true)
         drawLine(7240.75, color.blue, "TP1 SELL", true)
         drawLine(7182.75, color.blue, "TP2 SELL", true)
 
