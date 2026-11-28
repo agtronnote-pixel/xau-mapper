@@ -7,13 +7,13 @@
 //+------------------------------------------------------------------+
 /* Bias: BULLISH - Keyakinan 55%
    Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 30 Nov, 06.00 WIB dari harga penutupan 7258. SNP500 cenderung naik (4/4 analis searah). Volatilitas normal. Rencana terkuat: BUY Utama di 7243.46-7257.04 
-   Rencana 0: BUY 7243.46-7257.04 SL 7212.92 TP1 7306.25 TP2 7362.24 - Kekuatan sinyal 79% (Kuat)
+   Rencana 0: BUY 7243.46-7257.04 SL 7212.91 TP1 7306.26 TP2 7362.27 - Kekuatan sinyal 79% (Kuat)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: SELL 7273.38-7286.96 SL 7317.50 TP1 7240.75 TP2 7182.75 - Kekuatan sinyal 12% (Lemah)
+   Rencana 1: SELL 7273.38-7286.96 SL 7317.51 TP1 7240.75 TP2 7182.75 - Kekuatan sinyal 12% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Invalidasi: Candle H1 close di bawah 7212.92
+   Invalidasi: Candle H1 close di bawah 7212.91
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
@@ -29,7 +29,7 @@ input bool   InpOnePosition   = true;  // Hanya 1 posisi terbuka sekaligus
 input group "Entry"
 input bool   InpConfirmCandle = false; // Tunggu candle konfirmasi di zona (false = entry saat harga menyentuh zona, sama dengan backtest)
 input ENUM_TIMEFRAMES InpConfirmTF = PERIOD_M15; // Timeframe candle konfirmasi
-input double InpZoneTolerance = 3.39;  // Toleransi di luar zona entry (harga)
+input double InpZoneTolerance = 3.40;  // Toleransi di luar zona entry (harga)
 input bool   InpAutoOffset    = true;  // Hitung selisih harga broker vs mapping otomatis
 input double InpPriceOffset   = 0.00;  // Selisih manual (dipakai bila otomatis mati/gagal)
 input bool   InpSemuaSinyal   = false; // true = jalankan SEMUA rencana: abaikan filter kekuatan, peluang, keunggulan aset & batas risiko lot (untuk akun demo)
@@ -50,9 +50,9 @@ input bool   InpDrawLevels    = true;  // Gambar zona & level di chart
 int      P_TYPE[] = {0, 1};   // 0=BUY 1=SELL
 double   P_ELO[]  = {7243.46, 7273.38};
 double   P_EHI[]  = {7257.04, 7286.96};
-double   P_SL[]   = {7212.92, 7317.50};
-double   P_TP1[]  = {7306.25, 7240.75};
-double   P_TP2[]  = {7362.24, 7182.75};
+double   P_SL[]   = {7212.91, 7317.51};
+double   P_TP1[]  = {7306.26, 7240.75};
+double   P_TP2[]  = {7362.27, 7182.75};
 datetime P_EXP[]  = {D'2026.11.30 07:00:00', D'2026.11.30 07:00:00'};
 string   P_NAME[] = {"BUY Utama", "SELL Alternatif"};
 int      P_STR[]  = {79, 12};   // kekuatan sinyal %

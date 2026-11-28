@@ -7,30 +7,30 @@ Pasar buka Senin, 30 Nov, 06.00 WIB. Sinyal kuat (79%). Pantau zona BUY 7243.46�
 ✓ struktur higher high/higher low
 ✓ momentum beli (RSI H1 68)
 ✓ trend H1 & harian naik
-❌ Batal bila candle H1 close di bawah 7212.92.
+❌ Batal bila candle H1 close di bawah 7212.91.
 
 🔔 Gap pembukaan (tutup 7258.00)
-• Gap naik — Harga buka di atas 7274.96: Jangan kejar. Bila harga kembali turun di bawah 7274.96 di sesi Asia → peluang SELL menutup gap ke 7258. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.
-• Tanpa gap / gap kecil — Harga buka di 7241.04–7274.96: Ikuti rencana utama setelah 60 menit pertama.
-• Gap turun — Harga buka di bawah 7241.04: Jangan kejar. Bila harga kembali naik di atas 7241.04 di sesi Asia → peluang BUY menutup gap ke 7258. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
+• Gap naik — Harga buka di atas 7274.97: Jangan kejar. Bila harga kembali turun di bawah 7274.97 di sesi Asia → peluang SELL menutup gap ke 7258. Bila bertahan di atas → tunggu pullback ke harga pembukaan untuk BUY.
+• Tanpa gap / gap kecil — Harga buka di 7241.03–7274.97: Ikuti rencana utama setelah 60 menit pertama.
+• Gap turun — Harga buka di bawah 7241.03: Jangan kejar. Bila harga kembali naik di atas 7241.03 di sesi Asia → peluang BUY menutup gap ke 7258. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
 
 🎯 Utama: BUY 7243.46–7257.04
 💪 Kekuatan sinyal: 79% (Kuat) · peluang 44% | RR 1:1.5
-SL 7212.92 | TP1 7306.25 | TP2 7362.24 | s/d 14.00 WIB
+SL 7212.91 | TP1 7306.26 | TP2 7362.27 | s/d 14.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Alternatif: SELL 7273.38–7286.96
 💪 Kekuatan sinyal: 12% (Lemah) · peluang 45% | RR 1:1.06
-SL 7317.50 | TP1 7240.75 | TP2 7182.75 | s/d 14.00 WIB
+SL 7317.51 | TP1 7240.75 | TP2 7182.75 | s/d 14.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (06.15): 7259.40
-+1 jam (07.00): 7258.43
-+4 jam (10.00): 7256.23
-+24 jam (06.00): 7236.60
++15 mnt (06.15): 7259.39
++1 jam (07.00): 7258.42
++4 jam (10.00): 7256.24
++24 jam (06.00): 7236.71
 
 🕒 Jadwal
 06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
@@ -42,7 +42,7 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 05.00–06.00 NO TRADE: Jeda harian bursa CME (17.00–18.00 New York)
 
 🧱 Level: R 7280.17 · S 7250.25 · S 7240.75 · S 7224.00 · S 7182.75 · S 7172.00 · S 7144.75 · P 7131.33 · S 7038.67 · S 6982.50
-❌ Invalidasi: Candle H1 close di bawah 7212.92
+❌ Invalidasi: Candle H1 close di bawah 7212.91
 ⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan · Agent tanpa data cukup: Clara
 
 — Kantor Pine · SNP500 · Bukan nasihat keuangan, selalu pakai SL.
