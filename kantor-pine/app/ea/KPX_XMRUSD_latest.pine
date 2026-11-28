@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping XMRUSD 202611280807", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (XMRUSD) dari mapping 2026-11-28T01:07:26.994Z (harga 408.95).
+indicator("KPX Mapping XMRUSD 202611280853", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (XMRUSD) dari mapping 2026-11-28T01:53:04.802Z (harga 409.39).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -30,13 +30,13 @@ if barstate.islast and not drawn
         drawLine(423.06, color.red, "SL SELL", true)
         drawLine(396.07, color.blue, "TP1 SELL", true)
         drawLine(378.04, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 397.95 + offset, bar_index + 40, 394.19 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 31%", text_color=color.green, text_size=size.small)
-        drawLine(385.71, color.red, "SL BUY", true)
-        drawLine(412.70, color.blue, "TP1 BUY", true)
-        drawLine(426.92, color.blue, "TP2 BUY", true)
+        box.new(bar_index - 20, 409.38 + offset, bar_index + 40, 405.62 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 32%", text_color=color.green, text_size=size.small)
+        drawLine(397.14, color.red, "SL BUY", true)
+        drawLine(426.92, color.blue, "TP1 BUY", true)
+        drawLine(437.22, color.blue, "TP2 BUY", true)
 
 inZone0 = close >= 410.82 + offset and close <= 414.58 + offset
 alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "XMRUSD masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 394.19 + offset and close <= 397.95 + offset
+inZone1 = close >= 405.62 + offset and close <= 409.38 + offset
 alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "XMRUSD masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")

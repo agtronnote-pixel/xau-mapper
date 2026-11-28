@@ -1,5 +1,5 @@
-📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 08.07 WIB
-Harga: 9.3900 | Bias: SIDEWAYS (39%)
+📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 08.53 WIB
+Harga: 9.3930 | Bias: SIDEWAYS (39%)
 
 ➡️ KEPUTUSAN: BUY
 BUY di 9.3293–9.3707 saat harga menyentuh zona.
@@ -9,24 +9,24 @@ BUY di 9.3293–9.3707 saat harga menyentuh zona.
 
 🎯 Range: BUY 9.3293–9.3707
 💪 Kekuatan sinyal: 57% (Sedang) | RR 1:1.8
-SL 9.2362 | TP1 9.5550 | TP2 9.6843 | s/d 16.07 WIB
+SL 9.2362 | TP1 9.5550 | TP2 9.6843 | s/d 16.53 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Range: SELL 9.4053–9.4467
 💪 Kekuatan sinyal: 45% (Lemah) | RR 1:1.21
-SL 9.5399 | TP1 9.2880 | TP2 9.0990 | s/d 16.07 WIB
+SL 9.5399 | TP1 9.2880 | TP2 9.0990 | s/d 16.53 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (08.22): 9.3901
-+1 jam (09.07): 9.3900
-+4 jam (12.07): 9.3899
-+24 jam (08.07): 9.3894
++15 mnt (09.08): 9.3931
++1 jam (09.53): 9.3930
++4 jam (12.53): 9.3929
++24 jam (08.53): 9.3924
 
 🕒 Jadwal
-08.07–08.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
+08.53–08.53 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
 
 🧱 Level: R 9.7180 · R 9.6843 · R 9.5550 · R 9.4260 · P 9.3917 · S 9.3500 · S 9.2880 · S 9.2460 · S 9.0990 · S 9.0653
 ❌ Invalidasi: Candle H1 close di bawah 9.2362

@@ -1,7 +1,7 @@
 //+------------------------------------------------------------------+
-//| KPX_LINKUSD_202611280807.mq5                                     |
+//| KPX_LINKUSD_202611280853.mq5                                     |
 //| Dibuat otomatis oleh Kantor Pine XAUUSD                          |
-//| Mapping: 28 Nov 2026, 08.07 WIB - LINKUSD 9.3900                 |
+//| Mapping: 28 Nov 2026, 08.53 WIB - LINKUSD 9.3930                 |
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
@@ -17,7 +17,7 @@
 */
 #property copyright "Kantor Pine XAUUSD"
 #property version   "1.00"
-#property description "Eksekusi otomatis mapping LINKUSD 202611280807"
+#property description "Eksekusi otomatis mapping LINKUSD 202611280853"
 #include <Trade/Trade.mqh>
 
 input group "Risiko"
@@ -53,17 +53,17 @@ double   P_EHI[]  = {9.3707, 9.4467};
 double   P_SL[]   = {9.2362, 9.5399};
 double   P_TP1[]  = {9.5550, 9.2880};
 double   P_TP2[]  = {9.6843, 9.0990};
-datetime P_EXP[]  = {D'2026.11.28 09:07:00', D'2026.11.28 09:07:00'};
+datetime P_EXP[]  = {D'2026.11.28 09:53:00', D'2026.11.28 09:53:00'};
 string   P_NAME[] = {"BUY Range", "SELL Range"};
 int      P_STR[]  = {57, 45};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, -1};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
-datetime REF_TIME   = D'2026.11.28 01:07:00';   // waktu harga acuan mapping (GMT)
-double   REF_PRICE  = 9.3920;
+datetime REF_TIME   = D'2026.11.28 01:53:00';   // waktu harga acuan mapping (GMT)
+double   REF_PRICE  = 9.3950;
 double   OFFSET_MAX = 0.0939;
 datetime NT_START[] = {D'1970.01.01 00:00:00'};
 datetime NT_END[]   = {D'1970.01.01 00:00:00'};
-datetime MAP_START  = D'2026.11.28 01:07:00';
-datetime MAP_END    = D'2026.11.29 01:07:00';
+datetime MAP_START  = D'2026.11.28 01:53:00';
+datetime MAP_END    = D'2026.11.29 01:53:00';
 
 CTrade   trade;
 string   GVP;

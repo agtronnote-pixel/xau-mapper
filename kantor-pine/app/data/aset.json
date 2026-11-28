@@ -1,5 +1,5 @@
 {
- "dibuat": "2026-11-28T01:07:22.464Z",
+ "dibuat": "2026-11-28T01:53:00.968Z",
  "diperingkat": "2026-11-27T15:07:26.175Z",
  "metode": "5 teratas menurut volatilitas terealisasi 30 hari (tahunan) dari 12 koin likuid yang umum tersedia di broker MT5, diperbarui sekali sehari (aset lama bertahan selama volatilitasnya ≥ 90% aset ke-5). Ditambah aset yang selalu dipantau: BTCUSD, XMRUSD, GBPUSD, USA100, SNP500.",
  "daftar": [
@@ -14,7 +14,7 @@
     "provider": "binance",
     "symbol": "AVAXUSDT"
    },
-   "harga": 6.621,
+   "harga": 6.656,
    "digit": 4
   },
   {
@@ -28,7 +28,7 @@
     "provider": "binance",
     "symbol": "DOTUSDT"
    },
-   "harga": 0.666,
+   "harga": 0.667,
    "digit": 5
   },
   {
@@ -42,7 +42,7 @@
     "provider": "binance",
     "symbol": "LINKUSDT"
    },
-   "harga": 9.39,
+   "harga": 9.393,
    "digit": 4
   },
   {
@@ -56,7 +56,7 @@
     "provider": "binance",
     "symbol": "ADAUSDT"
    },
-   "harga": 0.1482,
+   "harga": 0.149,
    "digit": 5
   },
   {
@@ -70,7 +70,7 @@
     "provider": "binance",
     "symbol": "BCHUSDT"
    },
-   "harga": 208.6,
+   "harga": 209.5,
    "digit": 2
   },
   {
@@ -84,7 +84,7 @@
     "provider": "htx",
     "symbol": "xmrusdt"
    },
-   "harga": 408.95,
+   "harga": 409.39,
    "digit": 2
   },
   {
@@ -98,7 +98,7 @@
     "provider": "binance",
     "symbol": "BTCUSDT"
    },
-   "harga": 59994.76,
+   "harga": 60216.64,
    "digit": 2
   },
   {
@@ -121,7 +121,7 @@
    "live": {
     "provider": "server"
    },
-   "harga": 26376.5,
+   "harga": 26377.25,
    "digit": 2
   },
   {

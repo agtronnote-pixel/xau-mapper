@@ -1,5 +1,5 @@
-📊 MAPPING XMRUSD — Sab, 28 Nov 2026, 08.07 WIB
-Harga: 408.95 | Bias: BEARISH (51%)
+📊 MAPPING XMRUSD — Sab, 28 Nov 2026, 08.53 WIB
+Harga: 409.39 | Bias: BEARISH (51%)
 
 ➡️ KEPUTUSAN: TUNGGU
 Sinyal kuat (71%). Pantau zona SELL 410.82–414.58, jangan paksa entry.
@@ -12,24 +12,24 @@ Sinyal kuat (71%). Pantau zona SELL 410.82–414.58, jangan paksa entry.
 
 🎯 Utama: SELL 410.82–414.58
 💪 Kekuatan sinyal: 71% (Kuat) · peluang 38% | RR 1:1.61
-SL 423.06 | TP1 396.07 | TP2 378.04 | s/d 16.07 WIB
+SL 423.06 | TP1 396.07 | TP2 378.04 | s/d 16.53 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 394.19–397.95
-💪 Kekuatan sinyal: 31% (Lemah) · peluang 52% | RR 1:1.61
-SL 385.71 | TP1 412.70 | TP2 426.92 | s/d 16.07 WIB
+🎯 Alternatif: BUY 405.62–409.38
+💪 Kekuatan sinyal: 32% (Lemah) · peluang 52% | RR 1:1.87
+SL 397.14 | TP1 426.92 | TP2 437.22 | s/d 16.53 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (08.22): 408.80
-+1 jam (09.07): 409.08
-+4 jam (12.07): 409.89
-+24 jam (08.07): 409.89
++15 mnt (09.08): 409.24
++1 jam (09.53): 409.52
++4 jam (12.53): 410.35
++24 jam (08.53): 410.34
 
 🕒 Jadwal
-08.07–08.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 43%
+08.53–08.53 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 43%
 
 🧱 Level: R 475.81 · R 466.76 · R 457.78 · R 437.22 · R 430.00 · P 426.92 · R 412.70 · R 410.00 · S 407.50 · S 396.07 · S 378.04
 ❌ Invalidasi: Candle H1 close di atas 423.06
