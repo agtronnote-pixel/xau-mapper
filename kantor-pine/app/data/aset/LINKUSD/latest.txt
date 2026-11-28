@@ -1,35 +1,35 @@
-📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 07.07 WIB
-Harga: 9.3690 | Bias: SIDEWAYS (35%)
+📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 08.07 WIB
+Harga: 9.3900 | Bias: SIDEWAYS (39%)
 
-➡️ KEPUTUSAN: TUNGGU
-Sinyal sedang (50%). Pantau zona BUY 9.2671–9.3089, jangan paksa entry.
-💪 Kekuatan 50% (Sedang)
+➡️ KEPUTUSAN: BUY
+BUY di 9.3293–9.3707 saat harga menyentuh zona.
+💪 Kekuatan 57% (Sedang)
 ✓ dolar & yield riil melemah
-❌ Batal bila candle H1 close di bawah 9.173.
+❌ Batal bila candle H1 close di bawah 9.2362.
 
-🎯 Range: BUY 9.2671–9.3089
-💪 Kekuatan sinyal: 50% (Sedang) | RR 1:1.2
-SL 9.1730 | TP1 9.4260 | TP2 9.5550 | s/d 15.07 WIB
+🎯 Range: BUY 9.3293–9.3707
+💪 Kekuatan sinyal: 57% (Sedang) | RR 1:1.8
+SL 9.2362 | TP1 9.5550 | TP2 9.6843 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: SELL 9.3708–9.4126
-💪 Kekuatan sinyal: 50% (Sedang) | RR 1:1.27
-SL 9.5067 | TP1 9.2460 | TP2 9.0990 | s/d 15.07 WIB
+🎯 Range: SELL 9.4053–9.4467
+💪 Kekuatan sinyal: 45% (Lemah) | RR 1:1.21
+SL 9.5399 | TP1 9.2880 | TP2 9.0990 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (07.22): 9.3691
-+1 jam (08.07): 9.3690
-+4 jam (11.07): 9.3689
-+24 jam (07.07): 9.3686
++15 mnt (08.22): 9.3901
++1 jam (09.07): 9.3900
++4 jam (12.07): 9.3899
++24 jam (08.07): 9.3894
 
 🕒 Jadwal
-07.07–07.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
+08.07–08.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
 
 🧱 Level: R 9.7180 · R 9.6843 · R 9.5550 · R 9.4260 · P 9.3917 · S 9.3500 · S 9.2880 · S 9.2460 · S 9.0990 · S 9.0653
-❌ Invalidasi: Candle H1 close di bawah 9.173
+❌ Invalidasi: Candle H1 close di bawah 9.2362
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · LINKUSD · Bukan nasihat keuangan, selalu pakai SL.

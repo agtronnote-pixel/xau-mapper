@@ -1,36 +1,38 @@
-📊 MAPPING DOTUSD — Sab, 28 Nov 2026, 07.07 WIB
-Harga: 0.66800 | Bias: SIDEWAYS (41%)
+📊 MAPPING DOTUSD — Sab, 28 Nov 2026, 08.07 WIB
+Harga: 0.66600 | Bias: BEARISH (52%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.03R per trade). Pakai sebagai peta level saja — zona SELL 0.67014–0.6732.
-💪 Kekuatan 55% (Sedang)
-✓ Tidak ada faktor dominan — pasar cenderung datar
+Sistem belum punya keunggulan teruji di DOTUSD (uji backtest -0.03R per trade). Pakai sebagai peta level saja — zona SELL 0.67011–0.67323.
+💪 Kekuatan 68% (Sedang)
+✓ trend H1 & harian turun
+✓ momentum jual (RSI H1 45)
+✓ berita cenderung negatif untuk emas
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 0.68008.
+❌ Batal bila candle H1 close di atas 0.68024.
 
-🎯 Range: SELL 0.67014–0.67320
-💪 Kekuatan sinyal: 55% (Sedang) | RR 1:1.15
-SL 0.68008 | TP1 0.66200 | TP2 0.65100 | s/d 15.07 WIB
+🎯 Utama: SELL 0.67011–0.67323
+💪 Kekuatan sinyal: 68% (Sedang) | RR 1:1.13
+SL 0.68024 | TP1 0.66200 | TP2 0.65100 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Range: BUY 0.66347–0.66653
-💪 Kekuatan sinyal: 44% (Lemah) | RR 1:1.19
-SL 0.65659 | TP1 0.67500 | TP2 0.68100 | s/d 15.07 WIB
+🎯 Alternatif: BUY 0.66044–0.66356
+💪 Kekuatan sinyal: 31% (Lemah) · peluang 39% | RR 1:1.13
+SL 0.65343 | TP1 0.67167 | TP2 0.68100 | s/d 16.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (07.22): 0.66798
-+1 jam (08.07): 0.66800
-+4 jam (11.07): 0.66799
-+24 jam (07.07): 0.66786
++15 mnt (08.22): 0.66587
++1 jam (09.07): 0.66596
++4 jam (12.07): 0.66590
++24 jam (08.07): 0.66487
 
 🕒 Jadwal
-07.07–07.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 49%
+08.07–08.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 49%
 
-🧱 Level: R 0.69500 · R 0.69233 · R 0.68700 · R 0.68100 · R 0.67500 · P 0.67167 · S 0.66500 · S 0.66200 · S 0.65100 · S 0.64833
-❌ Invalidasi: Candle H1 close di atas 0.68008
+🧱 Level: R 0.69500 · R 0.69233 · R 0.68700 · R 0.68100 · P 0.67167 · S 0.66500 · S 0.66200 · S 0.66000 · S 0.65100 · S 0.64833
+❌ Invalidasi: Candle H1 close di atas 0.68024
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · DOTUSD · Bukan nasihat keuangan, selalu pakai SL.
