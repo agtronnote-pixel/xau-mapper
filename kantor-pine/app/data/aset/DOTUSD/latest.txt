@@ -1,39 +1,39 @@
-📊 MAPPING DOTUSD — Min, 29 Nov 2026, 01.07 WIB
-Harga: 0.63500 | Bias: BEARISH (64%)
+📊 MAPPING DOTUSD — Min, 29 Nov 2026, 01.50 WIB
+Harga: 0.64000 | Bias: BEARISH (64%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 0.63894–0.64106 saat harga menyentuh zona.
+SELL di 0.64394–0.64606 saat harga menyentuh zona.
 💪 Kekuatan 84% (Kuat) · Peluang TP1 duluan 56% (22 sampel backtest)
 ✓ trend H1 & harian turun
 ✓ struktur lower high/lower low
-✓ momentum jual (RSI H1 23)
+✓ momentum jual (RSI H1 28)
 ✕ Penghambat: dolar & yield riil melemah
-✕ Penghambat: RSI H1 23 jenuh jual — rawan pantulan
-❌ Batal bila candle H1 close di atas 0.64582.
+✕ Penghambat: RSI H1 28 jenuh jual — rawan pantulan
+❌ Batal bila candle H1 close di atas 0.65082.
 
-🎯 Utama: SELL 0.63894–0.64106
+🎯 Utama: SELL 0.64394–0.64606
 💪 Kekuatan sinyal: 84% (Kuat) · peluang 56% | RR 1:1.72
-SL 0.64582 | TP1 0.63000 | TP2 0.62254 | s/d 09.07 WIB
+SL 0.65082 | TP1 0.63500 | TP2 0.62754 | s/d 09.50 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 0.62894–0.63106
+🎯 Alternatif: BUY 0.63394–0.63606
 💪 Kekuatan sinyal: 20% (Lemah) · peluang 38% | RR 1:1.72
-SL 0.62418 | TP1 0.64000 | TP2 0.64900 | s/d 09.07 WIB
+SL 0.62918 | TP1 0.64500 | TP2 0.64900 | s/d 09.50 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (01.22): 0.63485
-+1 jam (02.07): 0.63497
-+4 jam (05.07): 0.63496
-+24 jam (01.07): 0.63400
++15 mnt (02.05): 0.63985
++1 jam (02.50): 0.63997
++4 jam (05.50): 0.63996
++24 jam (01.50): 0.63901
 
 🕒 Jadwal
-01.07–01.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 49%
+01.50–01.50 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 49%
 
-🧱 Level: R 0.69500 · R 0.69300 · R 0.68700 · R 0.68100 · P 0.67200 · R 0.67000 · R 0.66200 · R 0.65100 · R 0.64900 · R 0.64000 · S 0.63500 · S 0.63000
-❌ Invalidasi: Candle H1 close di atas 0.64582
+🧱 Level: R 0.69500 · R 0.69300 · R 0.68700 · R 0.68100 · P 0.67200 · R 0.67000 · R 0.66200 · R 0.65100 · R 0.64900 · R 0.64500 · S 0.64000 · S 0.63500
+❌ Invalidasi: Candle H1 close di atas 0.65082
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · DOTUSD · Bukan nasihat keuangan, selalu pakai SL.

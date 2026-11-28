@@ -6,6 +6,7 @@ Pasar buka Senin, 30 Nov, 05.00 WIB. Sinyal sedang (50%). Pantau zona SELL 1.310
 💪 Kekuatan 50% (Sedang)
 ✓ momentum jual (RSI H1 40)
 ✕ Penghambat: dolar & yield riil melemah
+✕ Penghambat: berita cenderung positif untuk emas
 ❌ Batal bila candle H1 close di atas 1.31188.
 
 🔔 Gap pembukaan (tutup 1.31053)
@@ -20,7 +21,7 @@ Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Range: BUY 1.30981–1.31019
-💪 Kekuatan sinyal: 40% (Lemah) | RR 1:1.67
+💪 Kekuatan sinyal: 42% (Lemah) | RR 1:1.67
 SL 1.30897 | TP1 1.31172 | TP2 1.31250 | s/d 13.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
@@ -34,7 +35,7 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 🕒 Jadwal
 05.00–06.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
 06.00–07.00 WAIT: Likuiditas rendah
-07.00–15.00 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 51%
+07.00–15.00 WAIT: Sesi Asia: gerakan relatif kecil, pantau level · backtest TP1 duluan 52%
 15.00–20.00 ENTRY: Sesi London: entry saat zona tersentuh
 20.00–22.00 ENTRY: Pembukaan New York: gerakan terbesar hari ini — entry saat zona tersentuh
 22.00–00.00 HOLD: Overlap London–NY: kelola posisi, geser SL bila TP1 tercapai
@@ -42,6 +43,6 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 
 🧱 Level: R 1.31500 · R 1.31351 · R 1.31306 · R 1.31250 · R 1.31172 · P 1.31085 · S 1.31000 · S 1.30964 · S 1.30921 · S 1.30820 · S 1.30500
 ❌ Invalidasi: Candle H1 close di atas 1.31188
-⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan · Agent tanpa data cukup: Kabar, Clara
+⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan · Agent tanpa data cukup: Clara
 
 — Kantor Pine · GBPUSD · Bukan nasihat keuangan, selalu pakai SL.
