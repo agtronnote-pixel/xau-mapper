@@ -22,10 +22,11 @@ if barstate.islast and not drawn
         drawLine(3625.00, color.green, "S Angka bulat", false)
         drawLine(3613.10, color.green, "S Swing low H1", false)
         drawLine(3605.10, color.green, "S Swing high H1", false)
-        drawLine(3582.90, color.green, "S Swing high H1", false)
+        drawLine(3590.20, color.green, "S Swing high H1", false)
         drawLine(3577.47, color.green, "S S1 harian", false)
         drawLine(3564.00, color.green, "S Swing low H1", false)
         drawLine(3557.90, color.green, "S Low kemarin (PDL)", false)
+        drawLine(3549.20, color.green, "S Swing low H1", false)
     if showPlans
         box.new(bar_index - 20, 3633.24 + offset, bar_index + 40, 3627.62 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Utama 62%", text_color=color.green, text_size=size.small)
         drawLine(3614.96, color.red, "SL BUY", true)
