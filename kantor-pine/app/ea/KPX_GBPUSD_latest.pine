@@ -30,7 +30,7 @@ if barstate.islast and not drawn
         drawLine(1.31188, color.red, "SL SELL", true)
         drawLine(1.30964, color.blue, "TP1 SELL", true)
         drawLine(1.30820, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 1.31019 + offset, bar_index + 40, 1.30981 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 42%", text_color=color.green, text_size=size.small)
+        box.new(bar_index - 20, 1.31019 + offset, bar_index + 40, 1.30981 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 40%", text_color=color.green, text_size=size.small)
         drawLine(1.30897, color.red, "SL BUY", true)
         drawLine(1.31172, color.blue, "TP1 BUY", true)
         drawLine(1.31250, color.blue, "TP2 BUY", true)
