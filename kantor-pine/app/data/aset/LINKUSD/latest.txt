@@ -1,36 +1,37 @@
-📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 10.08 WIB
-Harga: 9.2570 | Bias: BEARISH (44%)
+📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 11.07 WIB
+Harga: 9.2460 | Bias: BEARISH (52%)
 
-➡️ KEPUTUSAN: SELL
-SELL di 9.2793–9.3207 saat harga menyentuh zona.
-💪 Kekuatan 62% (Sedang) · Peluang TP1 duluan 46% (16 sampel backtest)
-✓ momentum jual (RSI H1 44)
+➡️ KEPUTUSAN: TUNGGU
+Sinyal kuat (70%). Pantau zona SELL 9.2786–9.3214, jangan paksa entry.
+💪 Kekuatan 70% (Kuat) · Peluang TP1 duluan 46% (38 sampel backtest)
+✓ momentum jual (RSI H1 41)
+✓ struktur range
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 9.4139.
+❌ Batal bila candle H1 close di atas 9.4178.
 
-🎯 Utama: SELL 9.2793–9.3207
-💪 Kekuatan sinyal: 62% (Sedang) · peluang 46% | RR 1:1.76
-SL 9.4139 | TP1 9.0990 | TP2 8.9583 | s/d 18.08 WIB
+🎯 Utama: SELL 9.2786–9.3214
+💪 Kekuatan sinyal: 70% (Kuat) · peluang 46% | RR 1:1.71
+SL 9.4178 | TP1 9.0990 | TP2 8.9466 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 9.1793–9.2207
-💪 Kekuatan sinyal: 40% (Lemah) | RR 1:1.68
-SL 9.0861 | TP1 9.3917 | TP2 9.5550 | s/d 18.08 WIB
+🎯 Alternatif: BUY 9.1786–9.2214
+💪 Kekuatan sinyal: 33% (Lemah) · peluang 41% | RR 1:1.63
+SL 9.0822 | TP1 9.3917 | TP2 9.5550 | s/d 19.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (10.23): 9.2560
-+1 jam (11.08): 9.2567
-+4 jam (14.08): 9.2585
-+24 jam (10.08): 9.2635
++15 mnt (11.22): 9.2445
++1 jam (12.07): 9.2456
++4 jam (15.07): 9.2483
++24 jam (11.07): 9.2558
 
 🕒 Jadwal
-10.08–10.08 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
+11.07–11.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
 
 🧱 Level: R 9.7180 · R 9.6843 · R 9.5550 · R 9.4260 · P 9.3917 · R 9.3000 · S 9.2460 · S 9.2000 · S 9.0990 · S 9.0653
-❌ Invalidasi: Candle H1 close di atas 9.4139
-⚠️ Agent tanpa data cukup: Kabar, Clara
+❌ Invalidasi: Candle H1 close di atas 9.4178
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · LINKUSD · Bukan nasihat keuangan, selalu pakai SL.
