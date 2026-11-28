@@ -30,7 +30,7 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 +15 mnt (06.15): 3650.06
 +1 jam (07.00): 3650.31
 +4 jam (10.00): 3651.31
-+24 jam (06.00): 3655.02
++24 jam (06.00): 3655.03
 
 🕒 Jadwal
 06.00–07.00 NO TRADE: Pembukaan pasar: spread melebar & gap awal, tunggu stabil
@@ -41,7 +41,7 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 00.00–05.00 TAKE PROFIT: Akhir sesi NY: amankan profit, kurangi posisi · backtest TP1 duluan 48%
 05.00–06.00 WAIT: Likuiditas rendah
 
-🧱 Level: R 3702.97 · R 3683.40 · R 3675.00 · R 3652.70 · P 3630.43 · S 3625.00 · S 3613.10 · S 3598.45 · S 3582.90 · S 3577.47 · S 3564.00 · S 3557.90 · S 3552.40
+🧱 Level: R 3702.97 · R 3683.40 · R 3675.00 · R 3652.70 · P 3630.43 · S 3625.00 · S 3613.10 · S 3605.10 · S 3582.90 · S 3577.47 · S 3564.00 · S 3557.90
 ❌ Invalidasi: Candle H1 close di bawah 3614.96
 ⚠️ Pasar tutup: waspadai gap & spread lebar saat pembukaan · Agent tanpa data cukup: Clara
 
