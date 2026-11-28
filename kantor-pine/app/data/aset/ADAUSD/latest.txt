@@ -1,37 +1,37 @@
-📊 MAPPING ADAUSD — Sab, 28 Nov 2026, 17.07 WIB
-Harga: 0.14600 | Bias: BEARISH (61%)
+📊 MAPPING ADAUSD — Sab, 28 Nov 2026, 17.12 WIB
+Harga: 0.14590 | Bias: BEARISH (61%)
 
 ➡️ KEPUTUSAN: SELL
 SELL di 0.14679–0.14721 saat harga menyentuh zona.
-💪 Kekuatan 79% (Kuat) · Peluang TP1 duluan 45% (21 sampel backtest)
+💪 Kekuatan 81% (Kuat) · Peluang TP1 duluan 45% (21 sampel backtest)
 ✓ trend H1 & harian turun
-✓ momentum jual (RSI H1 36)
+✓ momentum jual (RSI H1 34)
 ✓ struktur lower high/lower low
 ✕ Penghambat: dolar & yield riil melemah
 ❌ Batal bila candle H1 close di atas 0.14816.
 
 🎯 Utama: SELL 0.14679–0.14721
-💪 Kekuatan sinyal: 79% (Kuat) · peluang 45% | RR 1:1.12
-SL 0.14816 | TP1 0.14570 | TP2 0.14500 | s/d 01.07 WIB
+💪 Kekuatan sinyal: 81% (Kuat) · peluang 45% | RR 1:1.47
+SL 0.14816 | TP1 0.14530 | TP2 0.14470 | s/d 01.12 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 0.14549–0.14591
-💪 Kekuatan sinyal: 20% (Lemah) · peluang 48% | RR 1:1.13
-SL 0.14455 | TP1 0.14700 | TP2 0.14790 | s/d 01.07 WIB
+🎯 Alternatif: BUY 0.14509–0.14551
+💪 Kekuatan sinyal: 21% (Lemah) · peluang 48% | RR 1:1.48
+SL 0.14415 | TP1 0.14700 | TP2 0.14790 | s/d 01.12 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (17.22): 0.14598
-+1 jam (18.07): 0.14598
-+4 jam (21.07): 0.14600
-+24 jam (17.07): 0.14640
++15 mnt (17.27): 0.14588
++1 jam (18.12): 0.14588
++4 jam (21.12): 0.14590
++24 jam (17.12): 0.14631
 
 🕒 Jadwal
-17.07–17.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 47%
+17.12–17.12 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 47%
 
-🧱 Level: R 0.15390 · R 0.15360 · R 0.15290 · R 0.15030 · P 0.14930 · R 0.14900 · R 0.14790 · R 0.14730 · R 0.14700 · S 0.14600 · S 0.14570 · S 0.14530 · S 0.14500 · S 0.14470
+🧱 Level: R 0.15390 · R 0.15360 · R 0.15290 · R 0.15030 · P 0.14930 · R 0.14900 · R 0.14790 · R 0.14730 · R 0.14700 · R 0.14600 · S 0.14570 · S 0.14530 · S 0.14500 · S 0.14470
 ❌ Invalidasi: Candle H1 close di atas 0.14816
 ⚠️ Agent tanpa data cukup: Clara
 
