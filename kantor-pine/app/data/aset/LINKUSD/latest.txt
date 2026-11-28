@@ -1,38 +1,39 @@
-📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 14.07 WIB
-Harga: 9.1250 | Bias: BEARISH (55%)
+📊 MAPPING LINKUSD — Sab, 28 Nov 2026, 15.07 WIB
+Harga: 9.1730 | Bias: BEARISH (50%)
 
-➡️ KEPUTUSAN: TUNGGU
-Sinyal kuat (71%). Pantau zona SELL 9.1359–9.1641, jangan paksa entry.
-💪 Kekuatan 71% (Kuat) · Peluang TP1 duluan 46% (38 sampel backtest)
-✓ momentum jual (RSI H1 35)
+➡️ KEPUTUSAN: SELL
+SELL di 9.1861–9.2139 saat harga menyentuh zona.
+💪 Kekuatan 67% (Sedang) · Peluang TP1 duluan 46% (16 sampel backtest)
+✓ momentum jual (RSI H1 38)
 ✓ struktur range
 ✓ trend H1 & harian turun
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 9.2274.
+✕ Penghambat: berita cenderung positif untuk emas
+❌ Batal bila candle H1 close di atas 9.2764.
 
-🎯 Utama: SELL 9.1359–9.1641
-💪 Kekuatan sinyal: 71% (Kuat) · peluang 46% | RR 1:1.09
-SL 9.2274 | TP1 9.0653 | TP2 8.9178 | s/d 22.07 WIB
+🎯 Utama: SELL 9.1861–9.2139
+💪 Kekuatan sinyal: 67% (Sedang) · peluang 46% | RR 1:1.32
+SL 9.2764 | TP1 9.0990 | TP2 8.9708 | s/d 23.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 9.0849–9.1131
-💪 Kekuatan sinyal: 29% (Lemah) · peluang 41% | RR 1:1.3
-SL 9.0216 | TP1 9.2000 | TP2 9.2460 | s/d 22.07 WIB
+🎯 Alternatif: BUY 9.1361–9.1639
+💪 Kekuatan sinyal: 34% (Lemah) · peluang 41% | RR 1:1.26
+SL 9.0736 | TP1 9.2460 | TP2 9.3917 | s/d 23.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (14.22): 9.1237
-+1 jam (15.07): 9.1246
-+4 jam (18.07): 9.1269
-+24 jam (14.07): 9.1331
++15 mnt (15.22): 9.1722
++1 jam (16.07): 9.1728
++4 jam (19.07): 9.1742
++24 jam (15.07): 9.1780
 
 🕒 Jadwal
-14.07–14.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
+15.07–15.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 30%
 
-🧱 Level: R 9.7180 · R 9.6843 · R 9.5550 · R 9.4260 · P 9.3917 · R 9.2460 · R 9.2000 · R 9.1500 · S 9.0990 · S 9.0653
-❌ Invalidasi: Candle H1 close di atas 9.2274
+🧱 Level: R 9.7180 · R 9.6843 · R 9.5550 · R 9.4260 · P 9.3917 · R 9.2460 · R 9.2000 · S 9.1500 · S 9.0990 · S 9.0653
+❌ Invalidasi: Candle H1 close di atas 9.2764
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · LINKUSD · Bukan nasihat keuangan, selalu pakai SL.

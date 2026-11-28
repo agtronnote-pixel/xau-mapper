@@ -1,37 +1,38 @@
-📊 MAPPING BTCUSD — Sab, 28 Nov 2026, 14.07 WIB
-Harga: 59599.01 | Bias: BEARISH (59%)
+📊 MAPPING BTCUSD — Sab, 28 Nov 2026, 15.07 WIB
+Harga: 59747.01 | Bias: BEARISH (56%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 59863.33–59966.67 saat harga menyentuh zona.
-💪 Kekuatan 74% (Kuat) · Peluang TP1 duluan 51% (173 sampel backtest)
+SELL di 59861.83–59968.17 saat harga menyentuh zona.
+💪 Kekuatan 70% (Kuat) · Peluang TP1 duluan 51% (173 sampel backtest)
 ✓ trend H1 & harian turun
-✓ momentum jual (RSI H1 38)
+✓ momentum jual (RSI H1 40)
+✓ berita cenderung negatif untuk emas
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 60199.19.
+❌ Batal bila candle H1 close di atas 60207.44.
 
-🎯 Utama: SELL 59863.33–59966.67
-💪 Kekuatan sinyal: 74% (Kuat) · peluang 51% | RR 1:1.46
-SL 60199.19 | TP1 59500.00 | TP2 59000.00 | s/d 22.07 WIB
+🎯 Utama: SELL 59861.83–59968.17
+💪 Kekuatan sinyal: 70% (Kuat) · peluang 51% | RR 1:1.15
+SL 60207.44 | TP1 59580.00 | TP2 59000.00 | s/d 23.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 59448.33–59551.67
-💪 Kekuatan sinyal: 28% (Lemah) · peluang 48% | RR 1:1.46
-SL 59215.82 | TP1 59915.00 | TP2 60313.77 | s/d 22.07 WIB
+🎯 Alternatif: BUY 59526.83–59633.17
+💪 Kekuatan sinyal: 30% (Lemah) · peluang 48% | RR 1:1.15
+SL 59287.56 | TP1 59915.00 | TP2 60313.77 | s/d 23.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (14.22): 59589.70
-+1 jam (15.07): 59594.22
-+4 jam (18.07): 59588.15
-+24 jam (14.07): 59510.32
++15 mnt (15.22): 59738.85
++1 jam (16.07): 59742.81
++4 jam (19.07): 59737.49
++24 jam (15.07): 59669.27
 
 🕒 Jadwal
-14.07–14.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 46%
+15.07–15.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 46%
 
 🧱 Level: R 62248.91 · R 61835.18 · R 61006.00 · R 60390.65 · P 60313.77 · R 60000.00 · R 59915.00 · S 59580.00 · S 59500.00 · S 59000.00 · S 58792.37 · S 58378.64
-❌ Invalidasi: Candle H1 close di atas 60199.19
+❌ Invalidasi: Candle H1 close di atas 60207.44
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · BTCUSD · Bukan nasihat keuangan, selalu pakai SL.
