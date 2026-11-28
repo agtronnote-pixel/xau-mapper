@@ -1,12 +1,12 @@
 📊 MAPPING GBPUSD — Sen, 30 Nov 2026, 05.00 WIB
-Harga: 1.31053 | Bias: SIDEWAYS (36%)
+Harga: 1.31053 | Bias: SIDEWAYS (37%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Pasar buka Senin, 30 Nov, 05.00 WIB. Sinyal lemah (49%). Pantau zona SELL 1.31066–1.31104, jangan paksa entry.
-💪 Kekuatan 49% (Lemah)
+Pasar buka Senin, 30 Nov, 05.00 WIB. Sinyal sedang (50%). Pantau zona SELL 1.31066–1.31104, jangan paksa entry.
+💪 Kekuatan 50% (Sedang)
 ✓ momentum jual (RSI H1 40)
-✕ Penghambat: dolar & yield riil melemah
 ✕ Penghambat: berita cenderung positif untuk emas
+✕ Penghambat: dolar & yield riil melemah
 ❌ Batal bila candle H1 close di atas 1.31188.
 
 🔔 Gap pembukaan (tutup 1.31053)
@@ -15,13 +15,13 @@ Pasar buka Senin, 30 Nov, 05.00 WIB. Sinyal lemah (49%). Pantau zona SELL 1.3106
 • Gap turun — Harga buka di bawah 1.31006: Jangan kejar. Bila harga kembali naik di atas 1.31006 di sesi Asia → peluang BUY menutup gap ke 1.31053. Bila bertahan di bawah → tunggu pullback ke harga pembukaan untuk SELL.
 
 🎯 Range: SELL 1.31066–1.31104
-💪 Kekuatan sinyal: 49% (Lemah) | RR 1:1.17
+💪 Kekuatan sinyal: 50% (Sedang) | RR 1:1.17
 SL 1.31188 | TP1 1.30964 | TP2 1.30820 | s/d 13.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 🎯 Range: BUY 1.30981–1.31019
-💪 Kekuatan sinyal: 43% (Lemah) | RR 1:1.67
+💪 Kekuatan sinyal: 42% (Lemah) | RR 1:1.67
 SL 1.30897 | TP1 1.31172 | TP2 1.31250 | s/d 13.00 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
@@ -29,7 +29,7 @@ Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal 
 📈 Proyeksi
 +15 mnt (05.15): 1.31053
 +1 jam (06.00): 1.31053
-+4 jam (09.00): 1.31053
++4 jam (09.00): 1.31052
 +24 jam (05.00): 1.31053
 
 🕒 Jadwal

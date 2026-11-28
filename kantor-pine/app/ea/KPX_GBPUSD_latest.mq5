@@ -5,12 +5,12 @@
 //| PERINGATAN: uji di akun DEMO dulu. Bukan nasihat keuangan.       |
 //| EA hanya aktif selama 24 jam masa berlaku mapping ini.           |
 //+------------------------------------------------------------------+
-/* Bias: SIDEWAYS - Keyakinan 36%
+/* Bias: SIDEWAYS - Keyakinan 37%
    Ringkasan: Pasar tutup - proyeksi untuk pembukaan Senin, 30 Nov, 05.00 WIB dari harga penutupan 1.31053. GBPUSD bergerak dalam range (2/4 analis searah). Volatilitas menyempit - siaga breakout. Rencana terkuat: 
-   Rencana 0: SELL 1.31066-1.31104 SL 1.31188 TP1 1.30964 TP2 1.30820 - Kekuatan sinyal 49% (Lemah)
+   Rencana 0: SELL 1.31066-1.31104 SL 1.31188 TP1 1.30964 TP2 1.30820 - Kekuatan sinyal 50% (Sedang)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
-   Rencana 1: BUY 1.30981-1.31019 SL 1.30897 TP1 1.31172 TP2 1.31250 - Kekuatan sinyal 43% (Lemah)
+   Rencana 1: BUY 1.30981-1.31019 SL 1.30897 TP1 1.31172 TP2 1.31250 - Kekuatan sinyal 42% (Lemah)
      Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
      Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
    Invalidasi: Candle H1 close di atas 1.31188
@@ -55,7 +55,7 @@ double   P_TP1[]  = {1.30964, 1.31172};
 double   P_TP2[]  = {1.30820, 1.31250};
 datetime P_EXP[]  = {D'2026.11.30 06:00:00', D'2026.11.30 06:00:00'};
 string   P_NAME[] = {"SELL Range", "BUY Range"};
-int      P_STR[]  = {49, 43};   // kekuatan sinyal %
+int      P_STR[]  = {50, 42};   // kekuatan sinyal %
 int      P_PEL[]  = {-1, -1};   // peluang TP1 duluan dari backtest % (-1 = sampel belum cukup)
 datetime REF_TIME   = D'2026.11.27 23:00:00';   // waktu harga acuan mapping (GMT)
 double   REF_PRICE  = 1.30989;

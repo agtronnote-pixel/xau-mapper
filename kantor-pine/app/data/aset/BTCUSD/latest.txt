@@ -1,37 +1,37 @@
-📊 MAPPING BTCUSD — Sab, 28 Nov 2026, 12.07 WIB
-Harga: 59846.78 | Bias: BEARISH (56%)
+📊 MAPPING BTCUSD — Sab, 28 Nov 2026, 13.07 WIB
+Harga: 59731.05 | Bias: BEARISH (59%)
 
 ➡️ KEPUTUSAN: SELL
-SELL di 60237.91–60389.63 saat harga menyentuh zona.
+SELL di 59854.49–59975.51 saat harga menyentuh zona.
 💪 Kekuatan 72% (Kuat) · Peluang TP1 duluan 51% (173 sampel backtest)
 ✓ trend H1 & harian turun
-✓ momentum jual (RSI H1 42)
+✓ momentum jual (RSI H1 38)
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 60730.99.
+❌ Batal bila candle H1 close di atas 60247.82.
 
-🎯 Utama: SELL 60237.91–60389.63
-💪 Kekuatan sinyal: 72% (Kuat) · peluang 51% | RR 1:1.76
-SL 60730.99 | TP1 59580.00 | TP2 58792.37 | s/d 20.07 WIB
+🎯 Utama: SELL 59854.49–59975.51
+💪 Kekuatan sinyal: 72% (Kuat) · peluang 51% | RR 1:1.01
+SL 60247.82 | TP1 59580.00 | TP2 59000.00 | s/d 21.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 59504.14–59655.86
-💪 Kekuatan sinyal: 32% (Lemah) · peluang 48% | RR 1:1.76
-SL 59162.78 | TP1 60313.77 | TP2 61006.00 | s/d 20.07 WIB
+🎯 Alternatif: BUY 59519.49–59640.51
+💪 Kekuatan sinyal: 26% (Lemah) · peluang 48% | RR 1:1.01
+SL 59247.18 | TP1 59915.00 | TP2 60313.77 | s/d 21.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (12.22): 59835.30
-+1 jam (13.07): 59840.87
-+4 jam (16.07): 59833.39
-+24 jam (12.07): 59737.40
++15 mnt (13.22): 59719.84
++1 jam (14.07): 59725.27
++4 jam (17.07): 59717.97
++24 jam (13.07): 59624.20
 
 🕒 Jadwal
-12.07–12.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 46%
+13.07–13.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 46%
 
-🧱 Level: R 62248.91 · R 61835.18 · R 61006.00 · R 60500.00 · P 60313.77 · R 59915.00 · S 59580.00 · S 58792.37 · S 58378.64
-❌ Invalidasi: Candle H1 close di atas 60730.99
+🧱 Level: R 62248.91 · R 61835.18 · R 61006.00 · R 60390.65 · P 60313.77 · R 60000.00 · R 59915.00 · S 59580.00 · S 59500.00 · S 59000.00 · S 58792.37 · S 58378.64
+❌ Invalidasi: Candle H1 close di atas 60247.82
 ⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · BTCUSD · Bukan nasihat keuangan, selalu pakai SL.
