@@ -1,38 +1,38 @@
-📊 MAPPING AVAXUSD — Sab, 28 Nov 2026, 19.08 WIB
-Harga: 6.5060 | Bias: BEARISH (52%)
+📊 MAPPING AVAXUSD — Sab, 28 Nov 2026, 20.07 WIB
+Harga: 6.4830 | Bias: BEARISH (54%)
 
 ➡️ KEPUTUSAN: TUNGGU
-Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.08R per trade). Pakai sebagai peta level saja — zona SELL 6.5406–6.5594.
-💪 Kekuatan 74% (Kuat) · Peluang TP1 duluan 51% (25 sampel backtest)
+Sistem belum punya keunggulan teruji di AVAXUSD (uji backtest -0.08R per trade). Pakai sebagai peta level saja — zona SELL 6.4908–6.5092.
+💪 Kekuatan 76% (Kuat) · Peluang TP1 duluan 51% (25 sampel backtest)
 ✓ trend H1 & harian turun
-✓ momentum jual (RSI H1 36)
+✓ momentum jual (RSI H1 35)
 ✓ struktur lower high/lower low
 ✕ Penghambat: dolar & yield riil melemah
-❌ Batal bila candle H1 close di atas 6.6016.
+❌ Batal bila candle H1 close di atas 6.5505.
 
-🎯 Utama: SELL 6.5406–6.5594
-💪 Kekuatan sinyal: 74% (Kuat) · peluang 51% | RR 1:1.34
-SL 6.6016 | TP1 6.4810 | TP2 6.4507 | s/d 03.08 WIB
+🎯 Utama: SELL 6.4908–6.5092
+💪 Kekuatan sinyal: 76% (Kuat) · peluang 51% | RR 1:1.5
+SL 6.5505 | TP1 6.4242 | TP2 6.3485 | s/d 04.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: BUY 6.4716–6.4904
-💪 Kekuatan sinyal: 25% (Lemah) · peluang 44% | RR 1:1.34
-SL 6.4294 | TP1 6.5500 | TP2 6.6363 | s/d 03.08 WIB
+🎯 Alternatif: BUY 6.4415–6.4599
+💪 Kekuatan sinyal: 27% (Lemah) · peluang 44% | RR 1:1.97
+SL 6.4002 | TP1 6.5500 | TP2 6.6363 | s/d 04.07 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (19.23): 6.5049
-+1 jam (20.08): 6.5067
-+4 jam (23.08): 6.5125
-+24 jam (19.08): 6.5462
++15 mnt (20.22): 6.4819
++1 jam (21.07): 6.4837
++4 jam (00.07): 6.4894
++24 jam (20.07): 6.5227
 
 🕒 Jadwal
-19.08–19.08 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 38%
+20.07–20.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 38%
 
-🧱 Level: R 6.8220 · R 6.7917 · R 6.6850 · R 6.6580 · P 6.6363 · R 6.5690 · R 6.5500 · S 6.5000 · S 6.4810 · S 6.4507
-❌ Invalidasi: Candle H1 close di atas 6.6016
-⚠️ Agent tanpa data cukup: Kabar, Clara
+🧱 Level: R 6.8220 · R 6.7917 · R 6.6850 · R 6.6580 · P 6.6363 · R 6.5690 · R 6.5500 · R 6.5000 · S 6.4810 · S 6.4507
+❌ Invalidasi: Candle H1 close di atas 6.5505
+⚠️ Agent tanpa data cukup: Clara
 
 — Kantor Pine · AVAXUSD · Bukan nasihat keuangan, selalu pakai SL.
