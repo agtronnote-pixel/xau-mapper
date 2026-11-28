@@ -1,6 +1,6 @@
 //@version=6
-indicator("KPX Mapping XMRUSD 202611280853", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
-// Dibuat otomatis oleh Kantor Pine (XMRUSD) dari mapping 2026-11-28T01:53:04.802Z (harga 409.39).
+indicator("KPX Mapping XMRUSD 202611280907", overlay=true, max_lines_count=100, max_boxes_count=20, max_labels_count=60)
+// Dibuat otomatis oleh Kantor Pine (XMRUSD) dari mapping 2026-11-28T02:07:25.909Z (harga 413.59).
 // Bukan nasihat keuangan. Konfirmasi di chart dan selalu gunakan stop loss.
 offset = input.float(0.0, "Selisih harga broker - mapping (USD)", group="Umum", tooltip="Isi bila harga broker berbeda dari harga mapping")
 showLevels = input.bool(true, "Tampilkan level kunci", group="Tampilan")
@@ -17,26 +17,25 @@ if barstate.islast and not drawn
         drawLine(475.81, color.red, "R High kemarin (PDH)", false)
         drawLine(466.76, color.red, "R Swing high H1", false)
         drawLine(457.78, color.red, "R R1 harian", false)
-        drawLine(437.22, color.red, "R Swing low H1", false)
         drawLine(430.00, color.red, "R Swing low H1", false)
         drawLine(426.92, color.gray, "P Pivot harian", false)
-        drawLine(412.70, color.red, "R Swing high H1", false)
-        drawLine(410.00, color.red, "R Angka bulat", false)
-        drawLine(407.50, color.green, "S Angka bulat", false)
+        drawLine(412.70, color.green, "S Swing high H1", false)
+        drawLine(410.00, color.green, "S Angka bulat", false)
+        drawLine(404.60, color.green, "S Swing low H1", false)
         drawLine(396.07, color.green, "S Low kemarin (PDL)", false)
         drawLine(378.04, color.green, "S S1 harian", false)
     if showPlans
-        box.new(bar_index - 20, 414.58 + offset, bar_index + 40, 410.82 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Utama 71%", text_color=color.red, text_size=size.small)
-        drawLine(423.06, color.red, "SL SELL", true)
-        drawLine(396.07, color.blue, "TP1 SELL", true)
-        drawLine(378.04, color.blue, "TP2 SELL", true)
-        box.new(bar_index - 20, 409.38 + offset, bar_index + 40, 405.62 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Alternatif 32%", text_color=color.green, text_size=size.small)
-        drawLine(397.14, color.red, "SL BUY", true)
+        box.new(bar_index - 20, 428.76 + offset, bar_index + 40, 425.08 + offset, border_color=color.red, bgcolor=color.new(color.red, 85), text="SELL Range 52%", text_color=color.red, text_size=size.small)
+        drawLine(437.05, color.red, "SL SELL", true)
+        drawLine(410.00, color.blue, "TP1 SELL", true)
+        drawLine(404.60, color.blue, "TP2 SELL", true)
+        box.new(bar_index - 20, 411.84 + offset, bar_index + 40, 408.16 + offset, border_color=color.green, bgcolor=color.new(color.green, 85), text="BUY Range 51%", text_color=color.green, text_size=size.small)
+        drawLine(399.87, color.red, "SL BUY", true)
         drawLine(426.92, color.blue, "TP1 BUY", true)
-        drawLine(437.22, color.blue, "TP2 BUY", true)
+        drawLine(457.78, color.blue, "TP2 BUY", true)
 
-inZone0 = close >= 410.82 + offset and close <= 414.58 + offset
-alertcondition(inZone0 and not inZone0[1], "KPX SELL Utama: masuk zona", "XMRUSD masuk zona SELL {{close}} - EA entry")
-inZone1 = close >= 405.62 + offset and close <= 409.38 + offset
-alertcondition(inZone1 and not inZone1[1], "KPX BUY Alternatif: masuk zona", "XMRUSD masuk zona BUY {{close}} - EA entry")
+inZone0 = close >= 425.08 + offset and close <= 428.76 + offset
+alertcondition(inZone0 and not inZone0[1], "KPX SELL Range: masuk zona", "XMRUSD masuk zona SELL {{close}} - EA entry")
+inZone1 = close >= 408.16 + offset and close <= 411.84 + offset
+alertcondition(inZone1 and not inZone1[1], "KPX BUY Range: masuk zona", "XMRUSD masuk zona BUY {{close}} - EA entry")
 plot(na, "KPX")
