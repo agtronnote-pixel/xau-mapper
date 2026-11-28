@@ -1,38 +1,37 @@
-📊 MAPPING BCHUSD — Sab, 28 Nov 2026, 09.07 WIB
-Harga: 208.80 | Bias: BULLISH (53%)
+📊 MAPPING BCHUSD — Sab, 28 Nov 2026, 10.09 WIB
+Harga: 209.40 | Bias: BULLISH (55%)
 
 ➡️ KEPUTUSAN: BUY
 BUY di 207.06–207.94 saat harga menyentuh zona.
-💪 Kekuatan 67% (Sedang) · Peluang TP1 duluan 52% (83 sampel backtest)
-✓ struktur range
-✓ momentum beli (RSI H1 51)
+💪 Kekuatan 70% (Kuat) · Peluang TP1 duluan 53% (189 sampel backtest)
+✓ struktur higher high/higher low
+✓ momentum beli (RSI H1 53)
 ✓ dolar & yield riil melemah
-✕ Penghambat: trend belum jelas
-❌ Batal bila candle H1 close di bawah 205.08.
+❌ Batal bila candle H1 close di bawah 205.07.
 
 🎯 Utama: BUY 207.06–207.94
-💪 Kekuatan sinyal: 67% (Sedang) · peluang 52% | RR 1:1.69
-SL 205.08 | TP1 211.60 | TP2 217.47 | s/d 17.07 WIB
+💪 Kekuatan sinyal: 70% (Kuat) · peluang 53% | RR 1:1.69
+SL 205.07 | TP1 211.60 | TP2 217.47 | s/d 18.09 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
-🎯 Alternatif: SELL 209.19–210.07
-💪 Kekuatan sinyal: 37% (Lemah) · peluang 42% | RR 1:1.5
-SL 212.05 | TP1 206.00 | TP2 204.20 | s/d 17.07 WIB
+🎯 Alternatif: SELL 211.16–212.04
+💪 Kekuatan sinyal: 33% (Lemah) · peluang 42% | RR 1:1.69
+SL 214.03 | TP1 207.50 | TP2 205.00 | s/d 18.09 WIB
 Trigger: Entry saat harga menyentuh zona (sama dengan backtest)
 Manajemen: Tutup 50% di TP1 lalu geser SL ke titik impas; sisanya ke TP2. Batal bila candle H1 close melewati SL.
 
 📈 Proyeksi
-+15 mnt (09.22): 208.81
-+1 jam (10.07): 208.80
-+4 jam (13.07): 208.82
-+24 jam (09.07): 208.86
++15 mnt (10.24): 209.42
++1 jam (11.09): 209.40
++4 jam (14.09): 209.44
++24 jam (10.09): 209.50
 
 🕒 Jadwal
-09.07–09.07 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 44%
+10.09–10.09 WAIT: Akhir pekan: likuiditas tipis, gerakan bisa liar — kecilkan lot · backtest TP1 duluan 44%
 
-🧱 Level: R 220.00 · R 217.47 · R 211.60 · P 209.63 · S 207.50 · S 206.00 · S 205.00 · S 204.20 · S 201.80 · S 199.27
-❌ Invalidasi: Candle H1 close di bawah 205.08
-⚠️ Agent tanpa data cukup: Clara
+🧱 Level: R 220.00 · R 217.47 · R 211.60 · P 209.63 · S 207.50 · S 205.00 · S 204.20 · S 201.80 · S 199.27
+❌ Invalidasi: Candle H1 close di bawah 205.07
+⚠️ Agent tanpa data cukup: Kabar, Clara
 
 — Kantor Pine · BCHUSD · Bukan nasihat keuangan, selalu pakai SL.
